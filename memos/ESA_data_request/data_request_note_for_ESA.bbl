@@ -1,0 +1,34 @@
+\ifx\undefined\BySame
+\newcommand{\BySame}{\leavevmode\rule[.5ex]{3em}{.5pt}\ }
+\fi
+\ifx\undefined\textsc
+\newcommand{\textsc}[1]{{\sc #1}}
+\newcommand{\emph}[1]{{\em #1\/}}
+\let\tmpsmall\small
+\renewcommand{\small}{\tmpsmall\sc}
+\fi
+\begin{thebibliography}{}
+
+\harvarditem[Bradley and Wein]{Bradley and Wein}{2009}{bradleywein2009}
+\textsc{Bradley, A.~M.,  {\small and} L.~M. Wein}  (2009): ``Space debris:
+  Assessing risk and responsibility,'' \emph{Advances in Space Research}, 43,
+  1372--1390.
+
+\harvarditem[Letizia, Colombo, Lewis, and Krag]{Letizia, Colombo, Lewis, and
+  Krag}{2017}{letiziaetal2017}
+\textsc{Letizia, F., C.~Colombo, H.~Lewis,  {\small and} H.~Krag}  (2017):
+  ``Extending the ECOB space debris index with fragmentation risk estimation,''
+  .
+
+\harvarditem[Rao and Rondina]{Rao and Rondina}{2018}{raorondinaWP}
+\textsc{Rao, A.,  {\small and} G.~Rondina}  (2018): ``Cost in Space: Debris and
+  Collision Risk in the Orbital Commons,'' Latest draft available at
+  \url{https://akhilrao.github.io/assets/working_papers/Cost_in_Space.pdf}.
+
+\harvarditem[{Union of Concerned Scientists}]{{Union of Concerned
+  Scientists}}{2017}{UCSdata}
+\textsc{{Union of Concerned Scientists}}  (2017): ``UCS Satellite Database,''
+  Available from UCS at
+  \url{https://www.ucsusa.org/nuclear-weapons/space-weapons/satellite-database}.
+
+\end{thebibliography}

@@ -1,0 +1,52 @@
+\begin{thebibliography}{8}
+\newcommand{\enquote}[1]{``#1''}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem[{Bradley and Wein(2009)}]{bradleywein2009}
+Bradley, Andrew~M. and Lawrence~M. Wein. 2009.
+\newblock \enquote{Space debris: Assessing risk and responsibility.}
+\newblock \emph{Advances in Space Research} 43:1372--1390.
+
+\bibitem[{{Combined Space Operations Center}(2018)}]{spacetrackData}
+{Combined Space Operations Center}. 2018.
+\newblock \enquote{Space-Track.org Satellite Catalog.}
+\newblock From Space-Track.org at \url{https://www.space-track.org/}.
+
+\bibitem[{{European Space Agency}(2018)}]{FRAGdata}
+{European Space Agency}. 2018.
+\newblock \enquote{DISCOS database.}
+\newblock From ESA at \url{https://discosweb.esoc.esa.int/web/guest/home}.
+
+\bibitem[{Letizia, Lemmens, and Krag(2018)}]{ECOBdata}
+Letizia, F., S.~Lemmens, and H.~Krag. 2018.
+\newblock \enquote{Application of a debris index for global evaluation of
+  mitigation strategies.}
+\newblock 69th International Astronautical Congress.
+
+\bibitem[{Rao(2018)}]{raoJMP}
+Rao, Akhil. 2018.
+\newblock \enquote{Economic Principles of Space Traffic Control.}
+\newblock Latest draft available at
+  \url{https://akhilrao.github.io/assets/working_papers/Econ_Space_Traffic_Control.pdf}.
+
+\bibitem[{Rao and Rondina(2018)}]{raorondinaWP}
+Rao, Akhil and Giacomo Rondina. 2018.
+\newblock \enquote{Cost in Space: Debris and Collision Risk in the Orbital
+  Commons.}
+\newblock Latest draft available at
+  \url{https://akhilrao.github.io/assets/working_papers/Cost_in_Space.pdf}.
+
+\bibitem[{{Union of Concerned Scientists}(2018)}]{UCSdata}
+{Union of Concerned Scientists}. 2018.
+\newblock \enquote{UCS Satellite Database.}
+\newblock From UCS at
+  \url{https://www.ucsusa.org/nuclear-weapons/space-weapons/satellite-database}.
+
+\bibitem[{Wienzierl(2018)}]{wienzierl2018}
+Wienzierl, Matthew. 2018.
+\newblock \enquote{Space, the Final Economic Frontier.}
+\newblock \emph{Journal of Economic Perspectives} 32:173--192.
+
+\end{thebibliography}

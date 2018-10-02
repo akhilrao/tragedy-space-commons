@@ -1,0 +1,11 @@
+Program,"Total cost for satellites, $M",Number of satellites,Cost per satelite,"Satellite mass, kg",$/kg
+A-PIMCO,38,8,4.8,13.6,352941
+Cubesat,0,1,0,1,30000
+Orbcomm 2,117,7,16.7,172,97176
+OneWeb,4243,900,4.7,150,31430
+Globalstar 1,1097,56,19.6,444,44120
+Globalstar 2,623,24,26,700,37083
+O3b,648,12,54,700,77143
+Iridium 1,2286,95,24.1,694,34673
+Iridium NEXT,2300,81,28.4,860,33018
+Global Express,800,4,200,6070,32949

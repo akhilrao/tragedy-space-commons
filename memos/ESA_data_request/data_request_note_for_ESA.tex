@@ -1,0 +1,95 @@
+%\documentclass[12pt]{scrartcl}
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage[hidelinks]{hyperref}
+\usepackage{color}
+\usepackage{graphicx}
+%\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{font=footnotesize}
+
+\usepackage{easy-todo}
+
+\DeclareMathOperator{\di}{d\!}
+\newcommand*\Eval[3]{\left.#1\right\rvert_{#2}^{#3}}
+
+%\usepackage[backend=biber,style=apa]{biblatex}
+%\DeclareLanguageMapping{british}{british-apa}
+%\usepackage{epigraph}
+%\usepackage{dsfont}
+\usepackage{harvard}
+%\usepackage{natbib}
+\usepackage[margin=0.7in]{geometry}
+%\setlength{\epigraphwidth}{5.5in}
+\usepackage{accents}
+\usepackage{lscape}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+\newcommand\addtag{\refstepcounter{equation}\tag{\theequation}}
+
+\newtheorem{prop}{Proposition}
+\newtheorem{lemm}{Lemma}
+\newtheorem{thm}{Theorem}
+\newtheorem{conj}{Conjecture}
+\newtheorem{assn}{Assumption}
+\newtheorem{defn}{Definition}
+\newtheorem{coro}{Corollary}
+
+
+\title{Details about our data request}
+
+\author{Akhil Rao, Matthew Burgess, Daniel Kaffine}
+
+\begin{document}
+	
+	\maketitle
+	
+\section{Our project}	
+
+We are a group of economists working to build a forecast of the aggregate orbital stocks - number of active satellites and effective number of fragments - over the next few decades. We want to show the consequences of different economic and legal institutions of orbit use on the launch rate and, ultimately, the evolution of orbital debris stocks and equilibrium probability of Kessler Syndrome\footnote{We use ``equilibrium'' here in the sense of an economic equilibrium, where a behavioral condition is satisfied, rather than in the physical sense of the word, where physical variables are unchanging.}. Our main innovation is that we are incorporating the profits from satellite ownership to build a behavioral model of satellite launching, rather than treating the launch rate as an exogenous parameter to conduct sensitivity analysis on. Our economic model states that profit-maximizing satellite launchers will account for the risk of collisions destroying their satellites in deciding whether to launch or not in a given time period. This requires a physical model of that risk as well as of the rate of debris growth due to collision and fragmentations. One of the implications of this behavior is that current  More details about the economic modeling approach and its connection to the physical model can be found in \cite{raorondinaWP}. We are focused on LEO use, as the institutions for LEO use are most similar to the open access institutions described in \cite{raorondinaWP}.
+	
+\section{The model we want to calibrate}
+
+Our model uses the accounting relationships in the aggregate stocks of satellites and debris for the laws of motion, and draws on \cite{bradleywein2009} for the functional form of the new fragment creation function. The scale of the time period is taken as one year, but can be shortened or lengthened by adjusting the discount rate and profits per satellite. As our goal is not a high-fidelity reproduction of the physical environment, we use simple models of the physical evolution of orbital stocks. Our goal is instead to show how the launch rate will respond to orbital stocks under different institutional arrangements. Theoretical analysis in \cite{raorondinaWP} suggests that the behavioral response is likely to be very different from the types of scenarios considered in typical sensitivity analyses, e.g. ``business-as-usual'', ``no further launches''. \\
+
+$S_t$ denotes the number of active satellites in an orbital shell in period $t$, $D_t$ the number of debris objects in the shell in $t$, $X_t$ the number of launches in $t$, $\ell_t$ the probability that an active satellite in the shell will be destroyed in a collision in $t$, $\mu_t$ is the fraction of satellites which will reach the end of their operational life in $t$, and $Z_t$ is the proportion of those satellites which will be deorbited in $t$. $\delta$ is the average proportion of debris objects which deorbit in $t$, and $G(S_t,D_t,\ell_t)$ is the number of new debris fragments generated due to all collisions between satellites and debris. \\
+
+The number of active satellites in orbit is modeled as the number of launches in the previous period plus the number of satellites which survived the previous period. The amount of debris in orbit is the amount from the previous period which did not decay, plus the number of new fragments created in collisions, plus the amount of debris in the shell created by new launches. Formally,
+\begin{align}
+\label{satelliteLoM}
+S_{t+1} &= S_t(1-\ell_t)(1-\mu_t) + X_t \\
+\label{debrisLoM}
+D_{t+1} &= D_t(1-\delta) + G(S_t,D_t,\ell_t) + \mu_t(1-Z_t)S_t + mX_t.
+\end{align}
+
+\cite{bradleywein2009} use an ideal gas model to parameterize $G(S_t,D_t,\ell_t)$ as a quadratic function of the number of objects in orbit. We therefore approximate it as
+\begin{equation}
+\label{growthFunction}
+G(S_t,D_t,\ell_t) = \beta_{SS} \left( \frac{S_t}{S_t+D_t} \right ) \ell_t S_t + \beta_{SD}\left( \frac{D_t}{S_t+D_t} \right ) \ell_t S_t +  \beta_{DD} \alpha_{DD} D_t^2,
+\end{equation}
+
+where the $\alpha_{jk}$ parameters are intrinsic collision probabilities between objects of type $j$ and $k$, and $\beta_{jk}$ parameters are effective numbers of fragments from such collisions.
+
+\section{The data we are requesting and our goals with it}	
+
+To build our forecast model, we need to calibrate the physical parameters of the laws of motion for aggregate active satellite and effective fragment stocks. To this end, we are requesting data on aggregate orbital stocks and ECOB over time from ESA. The extension to ECOB described in \cite{letiziaetal2017} appears to map closely to the notion of collision risk to active satellites we define as $\ell_t$. Specifically, we would like
+
+\begin{enumerate}
+	\item a time series of the number of effective number of fragments in LEO (if possible, with some segmentation by altitude shells), and
+	\item a time series of ECOB in LEO.
+\end{enumerate}
+
+We believe that the figures in section 2 and 7 of the Annual Space Environment Report use this data. Ideally, we would like this data for the 100-2000km altitude range and 1957-2017. If there are limitations on available years or altitude ranges, more recent data and data from more actively-used altitudes would be preferred. Whatever the altitude range it would be convenient for the ECOB and debris data to be for the same altitude ranges. \\
+
+We have data on the number of active satellites in orbit and the number of launches over time from the Union of Concerned Scientists' database \cite{UCSdata}. We are missing data on the effective number of fragments in LEO, and on the evolution of the collision risk to active satellites. We hope that ESA can supply these time series. With them, we aim to estimate equation \ref{debrisLoM}. Although the parameters of equation \ref{growthFunction} may not be identified from fitting a single-equation statistical model, our purpose is a forecast with correct qualitative properties - and approximately-correct quantitative magnitudes - of physical stock evolution and not precise point estimates of parameters.
+
+\bibliography{database}
+\bibliographystyle{econometrica}
+\end{document}
