@@ -7,6 +7,7 @@ library(ggplot2)
 library(glmnet)
 library(gridExtra)
 library(reshape2)
+library(gmm)
 
 dfrm <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]
@@ -43,34 +44,30 @@ D_next <- c(dfrm$debris[-1])
 S_next <- c(dfrm$payloads_in_orbit[-1])
 risk <- dfrm$risk[-(dim(dfrm)[1])]
 
-### test risk variable as a binomial
-#rbinom(n=length(risk),p=risk,size=dfrm$payloads_in_orbit)
-
 ##### Bind created variables into dataframe/matrix for regressions
 series <- cbind(dfrm[-(dim(dfrm)[1]),],D_next,S_next,risk)
-ellfit_mat <- as.matrix(subset(series,select=c(S2,SD)))
-ellfit_dfrm <- subset(series,select=c(S2,SD))
+ellfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,debris,S2,SD,D2)))
+ellfit_dfrm <- subset(series,select=c(payloads_in_orbit,debris,S2,SD,D2))
 sfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,payloads_decayed,launch_successes) ))
 sfit_dfrm <- subset(series,select=c(payloads_in_orbit,payloads_decayed,launch_successes) )
 dfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,payloads_decayed,debris,launch_successes,launch_failures,num_destr_asat,SSfrags,SDfrags,D2) ) )
 
 ##### Define training samples
-# train <- seq(from=1,to=58,by=4)
-set.seed(20)
-train <- sort(floor(runif(n=15,min=1,max=58)))
+train <- seq(from=1,to=58,by=1)
+#set.seed(20)
+#train <- sort(floor(runif(n=15,min=1,max=58)))
 
 ##### Run regressions to calibrate things
 
-### risk equation calibration. 
-#risk_elnet <- glmnet(x=ellfit_mat[train,],y=risk[train], alpha=1,lambda=cv.glmnet(x=ellfit_mat[train,],y=risk[train],alpha=1)$lambda.min,intercept=FALSE)
-risk_elnet <- glmnet(x=ellfit_mat,y=risk, alpha=1,lambda=cv.glmnet(x=ellfit_mat,y=risk,alpha=1)$lambda.min,intercept=FALSE)
+### risk equation calibration.
+risk_elnet <- glmnet(x=ellfit_mat,y=risk, alpha=0,lambda=cv.glmnet(x=ellfit_mat,y=risk,alpha=0)$lambda.min,intercept=FALSE)
 coef(risk_elnet)
 
 risk_xvars <- as.matrix(cbind(subset(series,select=colnames(ellfit_mat))))
 risk_coefs <- coef(risk_elnet)[-1]
 fitplot(risk_xvars,risk_coefs,series$year,risk,"Risk calibration")
 
-risk_ols <- lm(risk ~ -1 + S2 + SD, data=ellfit_dfrm)
+risk_ols <- lm(risk ~ -1 + payloads_in_orbit + debris + D2 + S2 + SD, data=ellfit_dfrm)
 summary(risk_ols)
 
 risk_coefs <- coef(risk_ols)
@@ -103,8 +100,16 @@ dfit_mat_elnet <- as.matrix(subset(dfit_mat,select=c(payloads_decayed,debris,lau
 m2 <- glmnet(x=dfit_mat_elnet,y=D_next[train], alpha=0,lambda=cv.glmnet(x=dfit_mat,y=D_next,alpha=0)$lambda.min,intercept=FALSE)
 coef(m2)
 
-# m2_profile <- cv.glmnet(x=dfit_mat,y=D_next,alpha=0)
-# plot(m2_profile)
+# GMM calibration
+dfit_mat_GMM <- as.data.frame(cbind(D_next,dfit_mat_elnet))
+#dfit_mat_GMM$adjusted_debris <- (dfit_mat_GMM[,3]-dfit_mat_GMM[,2])
+for(i in 1:6) {dfit_mat_GMM <- cbind(dfit_mat_GMM,dplyr::lag(dfit_mat_GMM$debris,i))}
+dfit_mat_GMM <- na.omit(dfit_mat_GMM)
+for(i in 9:ncol(dfit_mat_GMM)) colnames(dfit_mat_GMM)[i] <- paste0("debris_l",(i-8))
+#D_GMM <- dfit_mat_GMM[,1] ~ dfit_mat_GMM[,2] + dfit_mat_GMM[,3] + dfit_mat_GMM[,4] + dfit_mat_GMM[,5] + dfit_mat_GMM[,6] + dfit_mat_GMM[,7] + dfit_mat_GMM[,8]
+D_GMM <- dfit_mat_GMM[,1] ~ -1 + dfit_mat_GMM[,3] + dfit_mat_GMM[,4] + dfit_mat_GMM[,5] + dfit_mat_GMM[,6] + dfit_mat_GMM[,7] + dfit_mat_GMM[,8]
+res <- gmm(D_GMM,dfit_mat_GMM[,9:ncol(dfit_mat_GMM)])
+res
 
 # plot fit
 m2xvars <- as.matrix(cbind(subset(series,select=colnames(dfit_mat_elnet))))
@@ -131,7 +136,12 @@ fitline_iter <- matrix(0,nrow=58,ncol=ndraws)
 for(i in 1:ncol(train_iter)) {
 	train_set <- sort(train_iter[,i])
 	dfit_mat_elnet_iter <- as.matrix(subset(dfit_mat,select=c(payloads_decayed,debris,launch_successes,num_destr_asat,SSfrags,SDfrags,D2) ) )[train_set,]
-	m2_iter <- glmnet(x=dfit_mat_elnet,y=D_next[train_set], alpha=0,lambda=cv.glmnet(x=dfit_mat,y=D_next,alpha=0)$lambda.min,intercept=FALSE)
+	m2_iter <- glmnet(x=dfit_mat_elnet,y=D_next[train_set], alpha=1,lambda=cv.glmnet(x=dfit_mat,y=D_next,alpha=1)$lambda.min,intercept=FALSE)
+
+	# dfit_dfrm_elnet_iter <- as.data.frame(dfit_mat_elnet_iter)
+	# m2_iter <- lm()
+
+
 	coef_iter[,i] <- c(coef(m2_iter)[-1],m2_iter$lambda)
 	fitline_iter[,i] <- m2xvars%*%coef_iter[-nrow(coef_iter),i]
 }

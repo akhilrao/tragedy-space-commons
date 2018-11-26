@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840) (preloaded format=pdflatex 2018.9.30)  1 OCT 2018 19:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840) (preloaded format=pdflatex 2018.9.30)  8 OCT 2018 19:25
 entering extended mode
 **./calibration.tex
 (calibration.tex
@@ -558,72 +558,79 @@ Overfull \hbox (2.61107pt too wide) in paragraph at lines 118--123
 
 [3 <../../images/risk_fit_plot.png (PNG copy)> <../../images/debris_lom_fit_plo
 t.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 171--172
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--174
+Underfull \hbox (badness 10000) in paragraph at lines 175--176
 
  []
 
 [4]
+Underfull \hbox (badness 10000) in paragraph at lines 177--178
+
+ []
+
 <../../images/risk_return_plot.png, id=115, 401.5pt x 401.5pt>
 File: ../../images/risk_return_plot.png Graphic file (type png)
 <use ../../images/risk_return_plot.png>
 Package pdftex.def Info: ../../images/risk_return_plot.png  used on input line 
-186.
+190.
 (pdftex.def)             Requested size: 256.55872pt x 256.57315pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 208--209
-
- []
-
 [5 <../../images/risk_return_plot.png (PNG copy)>]
 Underfull \hbox (badness 10000) in paragraph at lines 212--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--219
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
-[6] (calibration.bbl) [7]
-<../../images/debris_lom_sensitivity_plot.png, id=166, 602.25pt x 602.25pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
+
+ []
+
+[6] [7] (calibration.bbl) [8]
+<../../images/debris_lom_sensitivity_plot.png, id=171, 602.25pt x 602.25pt>
 File: ../../images/debris_lom_sensitivity_plot.png Graphic file (type png)
 <use ../../images/debris_lom_sensitivity_plot.png>
 Package pdftex.def Info: ../../images/debris_lom_sensitivity_plot.png  used on 
-input line 247.
+input line 251.
 (pdftex.def)             Requested size: 359.18063pt x 359.19322pt.
 
-Overfull \hbox (6.62709pt too wide) in paragraph at lines 256--262
+Overfull \hbox (6.62709pt too wide) in paragraph at lines 260--266
 [][] 
  []
 
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 266.
-[8 <../../images/debris_lom_sensitivity_plot.png (PNG copy)>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 266.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
+[9 <../../images/debris_lom_sensitivity_plot.png (PNG copy)>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
  (calibration.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 266.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 266.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `calibration.out' has not changed.
 (rerunfilecheck)             Checksum: E133878B1B81CCBF7391A6EC152C817B;65.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 266.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
  ) 
 Here is how much of TeX's memory you used:
- 10563 strings out of 494889
- 169353 string characters out of 3178645
+ 10567 strings out of 494889
+ 169387 string characters out of 3178645
  260705 words of memory out of 3000000
- 14012 multiletter control sequences out of 15000+200000
+ 14013 multiletter control sequences out of 15000+200000
  14325 words of font info for 56 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
- 36i,10n,39p,1788b,401s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exi
+ 36i,17n,39p,1788b,401s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist
+, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
 , replaced by a fixed one
@@ -639,24 +646,22 @@ pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 ome/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></ho
 me/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></hom
 e/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb></home
-/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/a
-khil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/akh
-il/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/akhil
-/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/akhil/.
-miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/akhil/.mi
-ktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/akhil/.mikt
-ex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/akhil/.miktex/
-texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/akhil/.miktex/tex
-mfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/akhil/.miktex/texmfs
-/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/akhil/.miktex/texmfs/
-install/fonts/type1/public/amsfonts/cm/cmsy7.pfb></home/akhil/.miktex/texmfs/in
-stall/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/akhil/.miktex/texmfs/inst
-all/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/akhil/.miktex/texmfs/insta
-ll/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/akhil/.miktex/texmfs/instal
-l/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on calibration.pdf (8 pages, 429276 bytes).
+/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/a
+khil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/akh
+il/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/akhil
+/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/akhil/.
+miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/akhil/.mi
+ktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/akhil/.mikte
+x/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/akhil/.miktex/t
+exmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/akhil/.miktex/te
+xmfs/install/fonts/type1/public/amsfonts/cm/cmsy7.pfb></home/akhil/.miktex/texm
+fs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/akhil/.miktex/texmfs
+/install/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/akhil/.miktex/texmfs/
+install/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/akhil/.miktex/texmfs/i
+nstall/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on calibration.pdf (9 pages, 421859 bytes).
 PDF statistics:
  254 PDF objects out of 1000 (max. 8388607)
- 52 named destinations out of 1000 (max. 500000)
+ 55 named destinations out of 1000 (max. 500000)
  29 words of extra memory for PDF output out of 10000 (max. 10000000)
 
