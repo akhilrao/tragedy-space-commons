@@ -71,7 +71,7 @@ ptm <- proc.time()
 }
 
 ### Computes backwards induction from given terminal value with given policy to get value function
-oavalue <- function(igrid,launch_policy,removal_policy,value_fn,T) {
+policy_eval_BI <- function(igrid,launch_policy,value_fn,T) {
 	count <- 0
 	tot.time <- proc.time()[3]
 	## make progress bar
@@ -79,7 +79,7 @@ oavalue <- function(igrid,launch_policy,removal_policy,value_fn,T) {
 	BIpb$tick(0)
 	while(count<=T) {
 		value_fn <- foreach(i=1:length(launch_policy), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
-			result <- profit_rem(X=launch_policy[i],R=removal_policy[i],igrid=igrid,entry_no=i,value_fn=value_fn)
+			result <- fleet_preval(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats,t=T,p=p,F=F,igrid=igrid)
 			result
 		}
 		count <- count + 1
@@ -110,61 +110,37 @@ obtain_policy_fns <- function(gridmin,gridmax,T,...) {
 	return(policy_list)
 }
 
-### fleet planner VFI algorithm: given a contval, solve for a policy
-dynamic_vfi_solver <- function(vguess,launch_pguess,gridmin,gridmax,t,contval,...) {
-distlist <- list()
-dev.new()
-dev.new(width=20,height=15, unit="in")
-par(mfrow=c(4,3))
-	# build grid
-	gridlist <- build_grid(gridmin, gridmax, 25, 1)
-	base_piece <- gridlist[[1]]
-	igrid <- gridlist[[2]]
+### fleet planner VFI algorithm: solve for policy assuming steady state reached or assuming a perfect-foresight path to steady state
+dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
+	# initialize hyperparameter values
+	panrows <- nrow(panel)
+	gridmin <- min(igrid)
+	gridmax <- max(igrid)
+	n_grid_points <- length(unique(igrid[,1]))^2
+	policy.evaluation.steps <- 25
 
-	# initialize empty matrix for panel
-	pancols <- 4
-	panrows <- dim(igrid)[1]
-	panel <- data.frame(matrix(0,nrow=panrows,ncol=pancols))
-	colnames(panel)[1:4] <- c("V","S","D","X")
-
-	# satellite-debris grid parameters and assignments for panel
-	basegrid <- unique(igrid[,1])
-	n_grid_points <- length(basegrid)^2
-	gridspace <- abs(mean(diff(igrid$sats)))
-	panel$S <- igrid$sats
-	panel$D <- igrid$debs
-
-	panel$X <- as.vector(launch_pguess)
-	panel$V <- as.vector(contval)
-
+	# initialize output objects
 	newX <- rep(-1,length=panrows)
 	result <- cbind(newX,newX,newX)
 
-	# initialize distance-time matrix, epsilon-delta, and count
-	distmat <- data.frame(matrix(-1,nrow=1000,ncol=6))
-	colnames(distmat) <- c("iteration","distance","maximization.time","policyiter.time","write.time","total.time")
+	# initialize epsilon-delta and count
 	epsilon <- 1e-4
+	delta_old <- 0
 	delta <- epsilon + 10
-	delta2 <- delta
+	delta2 <- 25
 	count <- 0
 	cat(paste("\n Stopping criteria: distance < ", epsilon, "\n", sep=""))
 
-	# Plot initial guesses
-	plot_pfn_vfn(vguess,launch_pguess,basegrid,labels=c("Value fn guess","Launch policy guess"))
-
 	# solver loop
-	while(delta > epsilon && delta2 > epsilon) {
-
-		## plot current value and policy functions
-		plot_pfn_vfn(panel$V,panel$X,basegrid,labels=c("Initial value fn","Initial launch policy"))
+	while(delta > epsilon) {
 
 		t.tm <- proc.time()
 		## maximization step
-		cat(paste0("\n Starting maximization step, grid size = ", n_grid_points,": \n",". r_c: ",r_c,"\n "))
+		cat(paste0("\n Starting maximization step, grid size = ", n_grid_points,": \n","."))
 		m.tm <- proc.time()
 		result <- foreach(k=1:panrows, .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
 			ctm <- proc.time()[3]
-			solution <- optim(par=panel$X[k], fn=fleet_preval, igrid=igrid, entry_no=k, value_fn=panel$V, asats=asats[t], t=t, control=list(fnscale=-1), method="L-BFGS-B", lower=gridmin, upper=gridmax)
+			solution <- optim(par=panel$X[k], fn=fleet_preval, S=panel$S[k], D=panel$D[k], value_fn=panel$V, asats=asats, t=t, p=p, F=F, igrid=igrid, control=list(fnscale=-1), method="L-BFGS-B", lower=gridmin, upper=gridmax)
 			launch_rate <- solution$par[1]
 			vfn <- solution$value
 			clock <- proc.time()[3] - ctm
@@ -173,218 +149,43 @@ par(mfrow=c(4,3))
 		}
 
 		maxim.time <- (proc.time()-m.tm)[3]
-		newX <- result[,1]
 		avg_cell_time <- mean(result[,3])
-		cat(paste0("Finished. \n Average cell time: ",round(avg_cell_time,3)," seconds.\nTotal grid time: ",round((avg_cell_time*n_grid_points),3),"seconds \n"))
+		cat(paste0("Finished. \n Average cell time: ",round(avg_cell_time,3)," seconds.\nTotal grid time: ",round((avg_cell_time*n_grid_points),3)," seconds \n"))
 		rownames(newX) <- NULL
 
-		## update panel with new policy, save old policy
-		oldX <- panel$X
-		panel$X <- newX
+		## save new policy and new value
+		newX <- result[,1]
 		newV <- result[,2]
 
-		if(delta2<1) {policy.iteration.steps <- policy.iteration.steps+25}
-
-		#cat(paste0("\n Starting propagation step... "))
-		avg_period_time <- proc.time()[3]
-		## calculate new value function and distance - expectation/propagation step and |V-newV| (or |X-newX|) 
-		if(policy.iteration.steps==0 || delta>=1 ) {
-			policyiter.time <- 0
+		## calculate distance (|V-newV| or |X-newX|) and update policy or value  
+		if(t==T) {
 			delta <- max(abs((panel$V-newV)))
+			panel$V <- newV
 		}
-		if(policy.iteration.steps!=0 && delta<1) {
-			pit.tm <- proc.time()[3]
-			policy.iteration.steps <- policy.iteration.steps
-			newV <- oavalue(igrid,panel$X,panel$R,panel$V,T=policy.iteration.steps)
-			policyiter.time <- proc.time()[3] - pit.tm
-			delta <- max(abs((oldX-newX)))
+		# if(t==T && delta2<0.01) {
+		# 	newV <- policy_eval_BI(igrid,panel$X,panel$V,T=policy.evaluation.steps)
+		# 	delta <- max(abs((panel$X-newX)))
+		# 	panel$V <- newV
+		# 	policy.evaluation.steps <- policy.evaluation.steps+25
+		# }
+		if(t!=T) {
+			delta <- max(abs((panel$X-newX)))
+			panel$X <- newX
 		}
-
-		avg_period_time <- ifelse(policy.iteration.steps>0, (proc.time()[3] - avg_period_time)/policy.iteration.steps, 0)
+		
+		## update old delta and calculate percentage change in delta by midpoint method		
+		delta2 <- abs( (delta-delta_old)/(0.5*(delta+delta_old)) )
+		delta_old <- delta
 
 		## update count
 		iteration <- count
 		count <- count+1
-		## calculate |delta[i] - delta[i-1]|
-		if(count>1) {delta2 <- abs(distmat$distance[count]-distmat$distance[(count-1)])}
-		## update value function
-		panel$V <- newV
-
-		## plot new value function
-		plot_pfn_vfn(panel$V,panel$X,panel$R,basegrid,labels=c("New value fn","New launch policy","New removal policy"))
-		dev.set(dev.prev())
-
-		## write out to csv
-		wr.tm <- proc.time()
-		valuemat <- matrix(panel$V,nrow=sqrt(dim(igrid)[1]),ncol=sqrt(dim(igrid)[1]),byrow=TRUE)
-		launch_policymat <- matrix(panel$X,nrow=sqrt(dim(igrid)[1]),ncol=sqrt(dim(igrid)[1]),byrow=TRUE)
-
-		write.time <- (proc.time() - wr.tm)[3]
+	
 		## calculate total time
 		tot.time <- (proc.time() - t.tm)[3]
-		## fill distance-time matrix
-		distmat[count,] <- c(iteration,delta,maxim.time,policyiter.time,write.time,tot.time)
-		distmat_entered <- distmat[which(distmat$iteration!=-1),]
-		distmatplot <- ggplot(data=distmat_entered) + 
-						geom_line(aes(x=iteration,y=log(distance)),size=1) + 
-						geom_hline(yintercept=log(epsilon), linetype="dashed",size=0.9) + 
-						theme_minimal()
-		print(distmatplot)
-		dev.set(dev.next())
 		## out
 		cat(paste("\n Finished iteration ", count,", distance is ", delta, sep=""))
 	}
 
-	cat(paste(
-		"\n Total maximization time: ", sum(distmat$maximization.time[which(distmat$maximization.time>0)]),
-		"\n Total policy iteration time: ", sum(distmat$policyiter.time[which(distmat$policyiter.time>0)]),
-		",\n Total CSV write time: ", sum(distmat$write.time[which(distmat$write.time>0)]),
-		",\n Total algorithm time: ", sum(distmat$total.time[which(distmat$total.time>0)]), 
-		",\n Final distance: ", delta, 
-		",\n Total number of iterations: ", count, 
-		",\n Average time per iteration: ", (sum(distmat$total.time[which(distmat$total.time>0)]))/count,"\n\n", sep=""))
-
-	return(as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_fleet_vfn=panel$V,optimal_launch_pfn=panel$X,optimal_fleet_size=S_(panel$X,panel$S,panel$D))))
-	dev.off()
-	dev.off()
+	return(as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_fleet_vfn=panel$V,optimal_launch_pfn=panel$X,optimal_fleet_size=S_(panel$X,panel$S,panel$D),t=t,p=p[t],F=F[t])))
 }
-
-### fleet planner VFI algorithm: obtain steady state
-ss_vfi_solver <- function(vguess,launch_pguess,gridmin,gridmax,...) {
-distlist <- list()
-dev.new()
-dev.new(width=20,height=15, unit="in")
-par(mfrow=c(4,3))
-	# build grid
-	gridlist <- build_grid(gridmin, gridmax, 25, 1)
-	base_piece <- gridlist[[1]]
-	igrid <- gridlist[[2]]
-
-	# initialize empty matrix for panel
-	pancols <- 4
-	panrows <- dim(igrid)[1]
-	panel <- data.frame(matrix(0,nrow=panrows,ncol=pancols))
-	colnames(panel)[1:4] <- c("V","S","D","X")
-
-	# satellite-debris grid parameters and assignments for panel
-	basegrid <- unique(igrid[,1])
-	n_grid_points <- length(basegrid)^2
-	gridspace <- abs(mean(diff(igrid$sats)))
-	panel$S <- igrid$sats
-	panel$D <- igrid$debs
-
-	panel$X <- as.vector(launch_pguess)
-	panel$V <- as.vector(vguess)
-
-	newX <- rep(-1,length=panrows)
-	result <- cbind(newX,newX,newX)
-
-	# initialize distance-time matrix, epsilon-delta, and count
-	distmat <- data.frame(matrix(-1,nrow=1000,ncol=6))
-	colnames(distmat) <- c("iteration","distance","maximization.time","policyiter.time","write.time","total.time")
-	epsilon <- 1e-4
-	delta <- epsilon + 10
-	delta2 <- delta
-	count <- 0
-	cat(paste("\n Stopping criteria: distance < ", epsilon, "\n", sep=""))
-
-	# Plot initial guesses
-	plot_pfn_vfn(vguess,launch_pguess,basegrid,labels=c("Value fn guess","Launch policy guess"))
-
-	# solver loop
-	while(delta > epsilon && delta2 > epsilon) {
-
-		## plot current value and policy functions
-		plot_pfn_vfn(panel$V,panel$X,basegrid,labels=c("Initial value fn","Initial launch policy"))
-
-		t.tm <- proc.time()
-		## maximization step
-		cat(paste0("\n Starting maximization step, grid size = ", n_grid_points,": \n",". r_c: ",r_c,"\n "))
-		m.tm <- proc.time()
-		result <- foreach(k=1:panrows, .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
-			ctm <- proc.time()[3]
-			solution <- optim(par=panel$X[k], fn=fleet_preval, igrid=igrid, entry_no=k, value_fn=panel$V, asats=asats[length(asats)], t=length(asats), control=list(fnscale=-1), method="L-BFGS-B", lower=gridmin, upper=gridmax)
-			launch_rate <- solution$par[1]
-			vfn <- solution$value
-			clock <- proc.time()[3] - ctm
-			result <- c(launch_rate,vfn,clock)
-			return(result)
-		}
-
-		maxim.time <- (proc.time()-m.tm)[3]
-		newX <- result[,1]
-		avg_cell_time <- mean(result[,3])
-		cat(paste0("Finished. \n Average cell time: ",round(avg_cell_time,3)," seconds.\nTotal grid time: ",round((avg_cell_time*n_grid_points),3),"seconds \n"))
-		rownames(newX) <- NULL
-
-		## update panel with new policy, save old policy
-		oldX <- panel$X
-		panel$X <- newX
-		newV <- result[,2]
-
-		if(delta2<1) {policy.iteration.steps <- policy.iteration.steps+25}
-
-		#cat(paste0("\n Starting propagation step... "))
-		avg_period_time <- proc.time()[3]
-		## calculate new value function and distance - expectation/propagation step and |V-newV| (or |X-newX|) 
-		if(policy.iteration.steps==0 || delta>=1 ) {
-			policyiter.time <- 0
-			delta <- max(abs((panel$V-newV)))
-		}
-		if(policy.iteration.steps!=0 && delta<1) {
-			pit.tm <- proc.time()[3]
-			policy.iteration.steps <- policy.iteration.steps
-			newV <- oavalue(igrid,panel$X,panel$R,panel$V,T=policy.iteration.steps)
-			policyiter.time <- proc.time()[3] - pit.tm
-			delta <- max(abs((oldX-newX)))
-		}
-
-		avg_period_time <- ifelse(policy.iteration.steps>0, (proc.time()[3] - avg_period_time)/policy.iteration.steps, 0)
-
-		## update count
-		iteration <- count
-		count <- count+1
-		## calculate |delta[i] - delta[i-1]|
-		if(count>1) {delta2 <- abs(distmat$distance[count]-distmat$distance[(count-1)])}
-		## update value function
-		panel$V <- newV
-
-		## plot new value function
-		plot_pfn_vfn(panel$V,panel$X,panel$R,basegrid,labels=c("New value fn","New launch policy","New removal policy"))
-		dev.set(dev.prev())
-
-		## write out to csv
-		wr.tm <- proc.time()
-		valuemat <- matrix(panel$V,nrow=sqrt(dim(igrid)[1]),ncol=sqrt(dim(igrid)[1]),byrow=TRUE)
-		launch_policymat <- matrix(panel$X,nrow=sqrt(dim(igrid)[1]),ncol=sqrt(dim(igrid)[1]),byrow=TRUE)
-
-		write.time <- (proc.time() - wr.tm)[3]
-		## calculate total time
-		tot.time <- (proc.time() - t.tm)[3]
-		## fill distance-time matrix
-		distmat[count,] <- c(iteration,delta,maxim.time,policyiter.time,write.time,tot.time)
-		distmat_entered <- distmat[which(distmat$iteration!=-1),]
-		distmatplot <- ggplot(data=distmat_entered) + 
-						geom_line(aes(x=iteration,y=log(distance)),size=1) + 
-						geom_hline(yintercept=log(epsilon), linetype="dashed",size=0.9) + 
-						theme_minimal()
-		print(distmatplot)
-		dev.set(dev.next())
-		## out
-		cat(paste("\n Finished iteration ", count,", distance is ", delta, sep=""))
-	}
-
-	cat(paste(
-		"\n Total maximization time: ", sum(distmat$maximization.time[which(distmat$maximization.time>0)]),
-		"\n Total policy iteration time: ", sum(distmat$policyiter.time[which(distmat$policyiter.time>0)]),
-		",\n Total CSV write time: ", sum(distmat$write.time[which(distmat$write.time>0)]),
-		",\n Total algorithm time: ", sum(distmat$total.time[which(distmat$total.time>0)]), 
-		",\n Final distance: ", delta, 
-		",\n Total number of iterations: ", count, 
-		",\n Average time per iteration: ", (sum(distmat$total.time[which(distmat$total.time>0)]))/count,"\n\n", sep=""))
-
-	return(as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_fleet_vfn=panel$V,optimal_launch_pfn=panel$X,optimal_fleet_size=S_(panel$X,panel$S,panel$D))))
-	dev.off()
-	dev.off()
-}
-

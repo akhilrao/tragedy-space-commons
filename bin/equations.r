@@ -28,18 +28,19 @@ D_ <- function(X,S,D,asats,...) {
 }
 
 # One-period fleet returns
-one_p_return <- function(X,S,t,...) {
+one_p_return <- function(X,S,t,p,F) {
 	p[t]*S - F[t]*X
 }
 
 # Fleet pre-value function
-fleet_preval <- function(X,S,D,asats,t,value_fn,...) {
+fleet_preval <- function(X,S,D,asats,t,value_fn,p,F,igrid,...) {
 	S_next <- S_(X,S,D)
-	D_next <- D_(X,S,D,asats)
+	D_next <- D_(X,S,D,asats[t])
 	next_state <- c(S_next,D_next)
 	interpolation <- interpolate(next_state,igrid,value_fn)
-	prof <- one_p_return(X,S,t) + discount_fac*interpolation
-	if(is.infinite(prof)) {prof <- 0}
+	prof <- one_p_return(X,S,t,p,F) + discount_fac*interpolation
+	#if(is.infinite(prof)) {prof <- 0}
+	#if(is.na(prof)) {prof <- 0}
 	return(prof)
 }
 

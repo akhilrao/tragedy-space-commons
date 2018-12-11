@@ -69,6 +69,29 @@ build_grid <- function(gridmin, gridmax, gridlength, curvature) {
 	return(list(base_piece=base_piece,igrid=igrid))
 }
 
+# Convert a square grid to a panel
+grid_to_panel <- function(gridlist,launch_pguess,contval) {
+	base_piece <- gridlist[[1]]
+	igrid <- gridlist[[2]]
+
+	# initialize empty matrix for panel
+	pancols <- 4
+	panrows <- dim(igrid)[1]
+	panel <- data.frame(matrix(0,nrow=panrows,ncol=pancols))
+	colnames(panel)[1:4] <- c("V","S","D","X")
+
+	# satellite-debris grid parameters and assignments for panel
+	basegrid <- unique(igrid[,1])
+	n_grid_points <- length(basegrid)^2
+	gridspace <- abs(mean(diff(igrid$sats)))
+	panel$S <- igrid$sats
+	panel$D <- igrid$debs
+	panel$X <- as.vector(launch_pguess)
+	panel$V <- as.vector(contval)
+
+	return(panel)
+}
+
 # 2D interpolation function: interpolate the supplied values between the two grid points nearest the target in each dimension
 interpolate <- function(target,grid,values) {
 		# the following lines allow for rectangular grids - more points in one variable than another
