@@ -53,7 +53,7 @@ sfit_dfrm <- subset(series,select=c(payloads_in_orbit,payloads_decayed,launch_su
 dfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,payloads_decayed,debris,launch_successes,launch_failures,num_destr_asat,SSfrags,SDfrags,D2) ) )
 
 ##### Define training samples
-train <- seq(from=1,to=58,by=1)
+train <- seq(from=1,to=dim(dfit_mat)[2],by=1)
 #set.seed(20)
 #train <- sort(floor(runif(n=15,min=1,max=58)))
 
@@ -96,8 +96,8 @@ fitplot(sat_xvars,sat_coefs,series$year,S_next,"Satellite accounting model")
 # Elnet fit
 ### The ridge fit isn't really theoretically grounded, but the coefficients all satisfy the theoretical restrictions and are plausible orders of magnitude (with the exception of delta, which seems too high). Training on about 1/4 of the sample, evenly spaced, seems to deliver a decent fit. Going with this for now as a quick-and-dirty calibration, in lieu of something more theoretically grounded from BW2009.
 
-dfit_mat_elnet <- as.matrix(subset(dfit_mat,select=c(payloads_decayed,debris,launch_successes,num_destr_asat,SSfrags,SDfrags,D2) ) )[train,]
-m2 <- glmnet(x=dfit_mat_elnet,y=D_next[train], alpha=0,lambda=cv.glmnet(x=dfit_mat,y=D_next,alpha=0)$lambda.min,intercept=FALSE)
+dfit_mat_elnet <- as.matrix(subset(dfit_mat,select=c(payloads_decayed,debris,launch_successes,num_destr_asat,SSfrags,SDfrags,D2) ) )
+m2 <- glmnet(x=dfit_mat_elnet,y=D_next, alpha=0,lambda=cv.glmnet(x=dfit_mat,y=D_next,alpha=0)$lambda.min,intercept=FALSE)
 coef(m2)
 
 # GMM calibration

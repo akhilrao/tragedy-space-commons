@@ -6,7 +6,7 @@ rm(list=ls())
 
 ### load packages
 library(data.table) # Used for rbindlist()
-library(httr) # Used to pull from Space-Track API.
+#library(httr) # Used to pull from Space-Track API.
 library(jsonlite) # Used to work with JSON data.
 library(tidyr) # Used to reshape data from wide to long.
 library(plyr)
@@ -23,7 +23,7 @@ setwd("~/Documents/git-repos/dissertation/data/destructions\ data")
 asat_destr <- read.csv("asat_destr.csv")
 satsat_destr <- read.csv("satsat_destr.csv")
 debsat_destr <- read.csv("debsat_destr.csv")
-setwd("~/Documents/git-repos/gensci_paper/data/")
+setwd("~/Documents/git-repos/tragedy-space-commons/data/")
 fragrisk <- read.csv("fragrisk.csv")
 
 ############################################

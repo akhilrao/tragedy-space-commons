@@ -3,14 +3,14 @@
 library(rootSolve)
 
 # fleet planner time series generator
-fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,...) {
+fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 	ctm <- proc.time()[3]
 	parms <- c(rep(15,length=T),S,D)
-	launch_path <- optim(par=parms[1:T],fn=fhvf, S=parms[(T+1)], D=parms[(T+2)], asats_seq=asats_seq, launch_con=launch_con, T=T, control=list(fnscale=-1, pgtol=1e-2),method="L-BFGS-B",lower=0,upper=1000)$par
+	launch_path <- optim(par=parms[1:T],fn=fhvf, S=parms[(T+1)], D=parms[(T+2)], asats_seq=asats_seq, launch_con=launch_con, T=T,p=p,F=F, control=list(fnscale=-1, pgtol=1e-2),method="L-BFGS-B",lower=0,upper=1e+14)$par
 	launch_path_clock <- proc.time()[3] - ctm
 
 	ctm <- proc.time()[3]
-	time_series <- seriesgen_ts(launch_path,S,D,T,asats_seq)
+	time_series <- seriesgen_ts(launch_path,S,D,T,asats_seq,p,F)
 	propagation_clock <- proc.time()[3] - ctm
 
 	print("Fleet planner time series generated.") 
@@ -112,19 +112,22 @@ obtain_policy_fns <- function(gridmin,gridmax,T,...) {
 
 ### fleet planner VFI algorithm: solve for policy assuming steady state reached or assuming a perfect-foresight path to steady state
 dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
-	# initialize hyperparameter values
+	# initialize hyperparameters
 	panrows <- nrow(panel)
 	gridmin <- min(igrid)
 	gridmax <- max(igrid)
 	n_grid_points <- length(unique(igrid[,1]))^2
+	base_grid <- unique(igrid[,1])
 	policy.evaluation.steps <- 25
+	dev.new(width=12,height=5,unit="in")
+	par(mfrow=c(1,2))
 
 	# initialize output objects
 	newX <- rep(-1,length=panrows)
-	result <- cbind(newX,newX,newX)
-
+	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
-	epsilon <- 1e-4
+	ifelse(t==T, epsilon <- 1e-3, epsilon <- 1e-2) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
+	ifelse(t==T,panel$X <- panel$X, panel$X <- rnorm(length(panel$X),mean=10,sd=1))
 	delta_old <- 0
 	delta <- epsilon + 10
 	delta2 <- 25
@@ -133,6 +136,9 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 
 	# solver loop
 	while(delta > epsilon) {
+
+		## plot pfn and vfn
+		plot_pfn_vfn(panel$V,panel$X,base_grid,c("Value function","Policy function"))
 
 		t.tm <- proc.time()
 		## maximization step
@@ -161,6 +167,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		if(t==T) {
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV
+			panel$X <- newX
 		}
 		# if(t==T && delta2<0.01) {
 		# 	newV <- policy_eval_BI(igrid,panel$X,panel$V,T=policy.evaluation.steps)
@@ -172,7 +179,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 			delta <- max(abs((panel$X-newX)))
 			panel$X <- newX
 		}
-		
+
 		## update old delta and calculate percentage change in delta by midpoint method		
 		delta2 <- abs( (delta-delta_old)/(0.5*(delta+delta_old)) )
 		delta_old <- delta
@@ -187,5 +194,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		cat(paste("\n Finished iteration ", count,", distance is ", delta, sep=""))
 	}
 
-	return(as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_fleet_vfn=panel$V,optimal_launch_pfn=panel$X,optimal_fleet_size=S_(panel$X,panel$S,panel$D),t=t,p=p[t],F=F[t])))
+	if(t!=T) {panel$V <- newV}
+
+	return(as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_launch_pfn=panel$X,optimal_fleet_vfn=panel$V,optimal_fleet_size=S_(panel$X,panel$S,panel$D),t=t,p=p[t],F=F[t])))
 }

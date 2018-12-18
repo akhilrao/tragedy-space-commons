@@ -9,7 +9,6 @@ library(glmnet)
 library(plyr)
 library(gridExtra)
 
-
 fitplot <- function(xvars,coefs,year,truth,title) {
 	fitline <- xvars%*%coefs
 	colnames(fitline)=NULL
@@ -26,7 +25,6 @@ fitplot <- function(xvars,coefs,year,truth,title) {
 	grid.arrange(plot_fitplot,plot_error,nrow=2)
 
 }
-
 
 ##### read in data, aggregate, and reshape 
 aggrc <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/industry_revenues.csv")

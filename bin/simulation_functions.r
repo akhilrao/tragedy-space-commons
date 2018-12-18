@@ -1,7 +1,7 @@
 ##### functions to be used in deterministic satellite-debris model dynamic programming simulation script
 
 # Planner's finite horizon value given a launch path
-fhvf <- function(X,S,D,T,asats_seq,launch_con,...) {
+fhvf <- function(X,S,D,T,asats_seq,launch_con,p,F,...) {
 	times <- seq(from=1,to=T,by=1)	
 	sat_seq <- rep(0,length=T)
 	deb_seq <- rep(0,length=T)
@@ -13,22 +13,22 @@ fhvf <- function(X,S,D,T,asats_seq,launch_con,...) {
 
 	sat_seq[1] <- S
 	deb_seq[1] <- D
-	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1)
+	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 
 	for(j in 2:T) {
 		sat_seq[j] <- S_(X[(j-1)],sat_seq[(j-1)],deb_seq[(j-1)])
 		deb_seq[j] <- D_(X[(j-1)],sat_seq[(j-1)],deb_seq[(j-1)],asats_seq[(j-1)])
-		profit_seq[j] <- one_p_return(X[j],sat_seq[j],j)*(discount_fac^(times[(j-1)]))
-		print(profit_seq[j])
+		profit_seq[j] <- one_p_return(X[j],sat_seq[j],j,p,F)*(discount_fac^(times[(j-1)]))
+		#print(profit_seq[j])
 	}
 	deb_seq[is.na(deb_seq)] <- min(max(!is.na(deb_seq)),D)
-	profit_seq[T] <- fleet_ssval_T(sat_seq[T],deb_seq[T],T)
+	profit_seq[T] <- fleet_ssval_T(X[T],sat_seq[T],T,p,F)
 	fleet_npv <- sum(profit_seq)
 	return(fleet_npv)
 }
 
 # Generate a series from a given policy path and initial condition
-seriesgen_ts <- function(X,S,D,T,asats_seq,...) {
+seriesgen_ts <- function(X,S,D,T,asats_seq,p,F,...) {
 	times <- seq(from=1,to=T,by=1)	
 	sat_seq <- rep(0,length=T)
 	deb_seq <- rep(0,length=T)
@@ -36,15 +36,15 @@ seriesgen_ts <- function(X,S,D,T,asats_seq,...) {
 	
 	sat_seq[1] <- S
 	deb_seq[1] <- D
-	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1)
+	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 
 	for(k in 2:T) {
 		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
 		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(k-1)])
-		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k)*(discount_fac^(times[(k-1)]))
+		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)*(discount_fac^(times[(k-1)]))
 	}
 	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
-	profit_seq[T] <- fleet_ssval_T(sat_seq[T],deb_seq[T],T)
+	profit_seq[T] <- fleet_ssval_T(X[T],sat_seq[T],T,p,F)
 	losses <- L(sat_seq,deb_seq)
 	values <- as.data.frame(cbind(times,X,sat_seq,deb_seq,profit_seq,losses))
 	colnames(values) <- c("time","launches","satellites","debris","fleet_pv","collision_rate")
@@ -60,12 +60,13 @@ plot_pfn_vfn <- function(vfn,launch_pfn,basegrid,labels) {
 	image2D(z=l_po_mat,x=basegrid,y=basegrid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100), main=labels[2])
 }
 
-# Build a square grid with specified curvature
-build_grid <- function(gridmin, gridmax, gridlength, curvature) {
-	base_piece <- (seq(from=gridmin, to=gridmax^(1/curvature), length.out=gridlength))^curvature
-	sats <- rep(base_piece,times=gridlength)
-	debs <- sort(rep(base_piece,times=gridlength))
-	igrid <- as.data.frame(cbind(sats,debs))
+# Build a square grid at Chebyshev nodes - CURRENT: testing use of expand.grid, chebyshev not added yet
+build_grid <- function(gridmin, gridmax, gridlength,gridcurv) {
+	base_piece <- (seq(from=gridmin, to=gridmax^(1/gridcurv), length.out=gridlength))^gridcurv
+	sats <- base_piece
+	debs <- base_piece
+	igrid <- as.data.frame(expand.grid(sats,debs))
+	colnames(igrid) <- c("sats","debs")
 	return(list(base_piece=base_piece,igrid=igrid))
 }
 
