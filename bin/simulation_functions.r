@@ -60,9 +60,40 @@ plot_pfn_vfn <- function(vfn,launch_pfn,basegrid,labels) {
 	image2D(z=l_po_mat,x=basegrid,y=basegrid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100), main=labels[2])
 }
 
-# Build a square grid at Chebyshev nodes - CURRENT: testing use of expand.grid, chebyshev not added yet
-build_grid <- function(gridmin, gridmax, gridlength,gridcurv) {
-	base_piece <- (seq(from=gridmin, to=gridmax^(1/gridcurv), length.out=gridlength))^gridcurv
+# function to translate [a,b] to [-1,1]; a = output_range[1], b = output_range[2]
+translate <- function(input,output_range) {
+	a <- output_range[1]
+	b <- output_range[2]
+	translated <- 2*((input - a)/(b - a)) - 1
+	return(translated)
+}
+
+# function to untranslate [-1,1] to [a,b]; a = output_range[1], b = output_range[2]
+untranslate <- function(input,output_range) {
+	a <- output_range[1]
+	b <- output_range[2]
+	untranslated <- a + ((b - a)/2)*(input + 1)
+	return(untranslated)
+}
+
+# function to redo a grid to be Chebyshev nodes
+make_cheby <- function(input) {
+	a <- min(input)
+	b <- max(input)
+	n <- length(input)
+	cheby_nodes <- rep(-1,length=n)
+	for(k in 1:n) {
+		x <- k/n - 1/(2*n)
+		cheby_nodes[k] <- 0.5*(a+b) + 0.5*(b-a)*cospi(x)
+	}
+	cheby_nodes <- sort(cheby_nodes)
+	return(cheby_nodes)
+}
+
+# Build a square grid at Chebyshev nodes - CURRENT: chebyshev grid in place, but seems to break vfi solver. disable for now.
+build_grid <- function(gridmin, gridmax, gridlength, cheby) {
+	base_piece <- seq(from=gridmin, to=gridmax, length.out=gridlength)
+	ifelse(cheby==1,base_piece<-make_cheby(base_piece),base_piece<-base_piece)
 	sats <- base_piece
 	debs <- base_piece
 	igrid <- as.data.frame(expand.grid(sats,debs))
@@ -94,6 +125,9 @@ grid_to_panel <- function(gridlist,launch_pguess,contval) {
 }
 
 # 2D interpolation function: interpolate the supplied values between the two grid points nearest the target in each dimension
+# target: a 1x2 vector
+# grid: a nx2 vector
+# values: a nx1 vector
 interpolate <- function(target,grid,values) {
 		# the following lines allow for rectangular grids - more points in one variable than another
 		sat_grid_length <- length(unique(grid$sats))

@@ -1,4 +1,4 @@
-##### Unit tests for tihs project
+##### Unit tests for this project
 
 #####
 # Testing the optimal policy solver
@@ -37,17 +37,18 @@ fitplot <- function(betas,xvars,yvar,title) {
 }
 
 # build grid, generate guesses, initialize dynamic_vfi_solver output list
-gridsize <- 64
-gridlist <- build_grid(gridmin=0, gridmax=17500, gridsize,1)
+gridsize <- 12
+gridlist <- build_grid(gridmin=0, gridmax=10000, gridsize, cheby=0)
 vguess <- matrix(gridlist$igrid$sats,nrow=gridsize,ncol=gridsize)
 lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
 gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 dvs_output <- list()
 
 # define T, sequence of p, F, and asats
-T <- 10
+T <- 20
 p <- rep(1,length=T)
-F <- seq(from=15,to=13,length=T)
+#F <- c(rep(13,length=T/2),rep(10,length=T/2))
+F <- seq(from=15,to=12,length.out=T)
 asats <- rep(0,length=T)
 
 # define physical parameters and discount rate+factor
@@ -83,14 +84,15 @@ k=50
 fleet_preval(X=0,S=gridpanel$S[k],D=gridpanel$D[k],value_fn=gridpanel$V,asats=asats,t=T,p=p,F=F,igrid=gridlist$igrid)
 
 # Check that path solver works in all periods
-registerDoParallel(cores=4)
+#registerDoParallel(cores=4)
 for(i in T:1){
 	dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
 	vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=gridsize,ncol=gridsize)
 	lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=gridsize,ncol=gridsize)
 	gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
+	dev.off()
 }
-stopImplicitCluster()
+#stopImplicitCluster()
 
 # bind the list of solved policies into a long dataframe
 policy_path <- rbindlist(dvs_output)
@@ -143,7 +145,40 @@ tps_opt_path <- function(S0,D0,p,F,tps_model,asats_seq) {
 	return(values)
 }
 
-opt_path <- simulate_optimal_path(p,F,discount_rate,T)
+linint_opt_path <- function(S0,D0,p,F,policy_lookup,asats_seq,igrid) {
+	times <- seq(from=1,to=T,by=1)	
+	sat_seq <- rep(0,length=T)
+	deb_seq <- rep(0,length=T)
+	profit_seq <- rep(0,length=T)
+	X <- rep(-1,length=T)
+
+	sat_seq[1] <- S0
+	deb_seq[1] <- D0
+	next_state <- c(sat_seq[1],deb_seq[1])
+	current_cost <- which(igrid$F==F[1])
+	X[1] <- interpolate(next_state,igrid[current_cost,],policy_lookup[current_cost])
+	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
+
+	for(k in 2:T) {
+		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
+		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(k-1)])	
+		next_state <- c(sat_seq[k],deb_seq[k])
+		current_cost <- which(igrid$F==F[k])
+		X[k] <- interpolate(next_state,igrid[current_cost,],policy_lookup[current_cost])
+		X[k] <- ifelse(X[k]<0,0,X[k])
+		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)*(discount_fac^(times[(k-1)]))
+	}
+	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
+	profit_seq[T] <- fleet_ssval_T(X[T],sat_seq[T],T,p,F)
+	losses <- L(sat_seq,deb_seq)
+	values <- as.data.frame(cbind(times,X,sat_seq,deb_seq,profit_seq,losses))
+	colnames(values) <- c("time","launches","satellites","debris","fleet_pv","collision_rate")
+	return(values)
+}
+
+grid_lookup <- data.frame(sats=policy_path$satellites,debs=policy_path$debris,F=policy_path$F)
+
 tps_path <- tps_opt_path(0,0,p,F,tps_model,asats)
-View(opt_path)
 View(tps_path)
+li_path <- linint_opt_path(0,0,p,F,optimal_launch_pfn,asats,grid_lookup)
+View(li_path)

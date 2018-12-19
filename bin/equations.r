@@ -50,7 +50,6 @@ fleet_preval <- function(X,S,D,asats,t,value_fn,p,F,igrid,...) {
 	gridmax <- max(igrid)
 	interpolation <- interpolate(next_state,igrid,value_fn)
 	ifelse(next_state[2]>gridmax||L(next_state[1],next_state[2])==1,interpolation<-0,interpolation<-interpolation)
-	#ifelse(L(next_state[1],next_state[2])==1, interpolation<-0, interpolation<-interpolation)
 	prof <- one_p_return(X,S,t,p,F) + discount_fac*interpolation
 	#if(is.infinite(prof)) {prof <- 0}
 	#if(is.na(prof)) {prof <- 0}
