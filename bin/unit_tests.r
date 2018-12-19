@@ -39,7 +39,7 @@ fitplot <- function(betas,xvars,yvar,title) {
 
 # build grid, generate guesses, initialize dynamic_vfi_solver output list
 gridsize <- 64
-gridlist <- build_grid(gridmin=0, gridmax=40000, gridsize, cheby=1)
+gridlist <- build_grid(gridmin=0, gridmax=35000, gridsize, cheby=1)
 ### shift grid down to zero if chebysheving it moved it up
 if(min(gridlist$base_piece)>0) {
 	gridlist$base_piece <- gridlist$base_piece - min(gridlist$base_piece)
@@ -54,7 +54,8 @@ dvs_output <- list()
 T <- 10
 p <- rep(1,length=T)
 #F <- c(rep(13,length=T/2),rep(10,length=T/2))
-F <- seq(from=15,to=10,length.out=T)
+#F <- seq(from=15,to=15,length.out=T)
+F <- rep(13,length=T)
 asats <- rep(0,length=T)
 
 # define physical parameters and discount rate+factor
