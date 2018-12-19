@@ -56,6 +56,20 @@ fleet_preval <- function(X,S,D,asats,t,value_fn,p,F,igrid,...) {
 	return(prof)
 }
 
+# Fleet pre-value function with spline interpolation
+fleet_preval_spline <- function(X,S,D,asats,t,value_fn,p,F,igrid,tps_model,...) {
+	S_next <- S_(X,S,D)
+	D_next <- D_(X,S,D,asats[t])
+	next_state <- c(S_next,D_next)
+	gridmax <- max(igrid)
+	ifelse(next_state[2]>gridmax||L(next_state[1],next_state[2])==1,interpolation<-0,interpolation<-predict(tps_model,x=cbind(S_next,D_next)))
+	prof <- one_p_return(X,S,t,p,F) + discount_fac*interpolation
+	#if(is.infinite(prof)) {prof <- 0}
+	#if(is.na(prof)) {prof <- 0}
+	return(prof)
+}
+
+
 # open access equilibrium condition
 eqmcond <- function(X,S,D,fe_eqm,asats,...) {
 	L(S_(X,S,D),D_(X,S,D,asats)) - fe_eqm

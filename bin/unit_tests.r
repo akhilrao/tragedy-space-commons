@@ -37,15 +37,20 @@ fitplot <- function(betas,xvars,yvar,title) {
 }
 
 # build grid, generate guesses, initialize dynamic_vfi_solver output list
-gridsize <- 12
-gridlist <- build_grid(gridmin=0, gridmax=10000, gridsize, cheby=0)
+gridsize <- 24
+gridlist <- build_grid(gridmin=0, gridmax=16000, gridsize, cheby=1)
+### shift grid down to zero if chebysheving it moved it up
+if(min(gridlist$base_piece)>0) {
+	gridlist$base_piece <- gridlist$base_piece - min(gridlist$base_piece)
+	gridlist$igrid <- gridlist$igrid - min(gridlist$igrid)
+}
 vguess <- matrix(gridlist$igrid$sats,nrow=gridsize,ncol=gridsize)
 lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
 gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 dvs_output <- list()
 
 # define T, sequence of p, F, and asats
-T <- 20
+T <- 10
 p <- rep(1,length=T)
 #F <- c(rep(13,length=T/2),rep(10,length=T/2))
 F <- seq(from=15,to=12,length.out=T)
@@ -79,12 +84,8 @@ asat_coef <- deblom_cal[4,2]
 discount_rate <- 0.05#0.6660755
 discount_fac <- 1/(1+discount_rate)
 
-# Check that objective function makes sense
-k=50
-fleet_preval(X=0,S=gridpanel$S[k],D=gridpanel$D[k],value_fn=gridpanel$V,asats=asats,t=T,p=p,F=F,igrid=gridlist$igrid)
-
 # Check that path solver works in all periods
-#registerDoParallel(cores=4)
+registerDoParallel(cores=4)
 for(i in T:1){
 	dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
 	vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=gridsize,ncol=gridsize)
@@ -92,7 +93,7 @@ for(i in T:1){
 	gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 	dev.off()
 }
-#stopImplicitCluster()
+stopImplicitCluster()
 
 # bind the list of solved policies into a long dataframe
 policy_path <- rbindlist(dvs_output)
