@@ -71,15 +71,17 @@ ptm <- proc.time()
 }
 
 ### Computes backwards induction from given terminal value with given policy to get value function
-policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model) {
+policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t) {
 	count <- 0
+	p_vec <- rep(p_t,length=T)
+	F_vec <- rep(F_t,length=T)
 	tot.time <- proc.time()[3]
 	## make progress bar
 	BIpb <- progress_bar$new(format="Doing backwards induction [:bar] :percent",total=(T+1))
 	BIpb$tick(0)
 	while(count<=T) {
 		value_fn <- foreach(i=1:length(launch_policy), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
-			result <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats,t=T,p=p,F=F,igrid=igrid,tps_model=tps_model)
+			result <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
 			result
 		}
 		count <- count + 1
@@ -89,13 +91,6 @@ policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model) {
 	tot.time <- round(proc.time()[3] - tot.time,3)/60
 	cat(paste0("\nTotal time taken for backwards induction: ", tot.time, " minutes.\n Average time per period: ", tot.time/length(launch_policy), " minutes.\n"))
 	return(value_fn)
-}
-
-### function to simulate fleet planner paths from different time points
-opt_path_from_t <- function(pi_t,F_t,St,Dt,t,gridmin,gridmax,...) {
-	T <- length(pi_t)
-	policy_list <- obtain_policy_fns(gridmin,gridmax,T)
-	optimal_path <- path_from_policies(pi_t,F_t,St,Dt,t)
 }
 
 ### function to compute policy functions along a given returns and cost path
@@ -118,7 +113,6 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	gridmax <- max(igrid)
 	n_grid_points <- length(unique(igrid[,1]))^2
 	base_grid <- unique(igrid[,1])
-	policy.evaluation.steps <- 25
 	dev.new(width=12,height=5,unit="in")
 	par(mfrow=c(1,2))
 
@@ -126,7 +120,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	newX <- rep(-1,length=panrows)
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
-	ifelse(t==T, epsilon <- 1e-3, epsilon <- 2e-1) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
+	ifelse(t==T, epsilon <- 1e-3, epsilon <- 1e-2) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
 	ifelse(t==T,panel$X <- panel$X, panel$X <- rnorm(length(panel$X),mean=10,sd=1))
 	delta_old <- 0
 	delta <- epsilon + 10
@@ -171,17 +165,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 
 		## calculate distance (|V-newV| or |X-newX|) and update policy or value  
 		if(t==T) {
-			ifelse(count<30, newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model), newV <- newV)
-			# if(count>30&&count<50) {
-			# 	cat(paste0("\nEstimating spline interpolant of policy function..."))
-			# 	pfn_tps_x <- as.matrix(cbind(panel$S,panel$D))
-			# 	pfn_tps_model <- suppressWarnings(Tps(x=tps_x,Y=panel$V))
-			# 	cat(paste0("\n Done.\n"))
-			# 	cat(paste0("\nGenerating smoothed policy function..."))
-			# 	newX <- predict(pfn_tps_model,x=pfn_tps_x)
-			# 	cat(paste0("\n Done.\n"))
-			# 	newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model)
-			# }
+			#ifelse(count<20||(count>60&&count<70), newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model,p[T],F[T]), newV <- newV)
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV
 			panel$X <- newX

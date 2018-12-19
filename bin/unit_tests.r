@@ -17,6 +17,7 @@ library(fields)
 source("simulation_functions.r")
 source("equations.r")
 source("simulation_algorithms.r")
+system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
 
 # helper function to calculate residuals and plot errors
 fitplot <- function(betas,xvars,yvar,title) {
@@ -37,8 +38,8 @@ fitplot <- function(betas,xvars,yvar,title) {
 }
 
 # build grid, generate guesses, initialize dynamic_vfi_solver output list
-gridsize <- 24
-gridlist <- build_grid(gridmin=0, gridmax=16000, gridsize, cheby=1)
+gridsize <- 64
+gridlist <- build_grid(gridmin=0, gridmax=40000, gridsize, cheby=1)
 ### shift grid down to zero if chebysheving it moved it up
 if(min(gridlist$base_piece)>0) {
 	gridlist$base_piece <- gridlist$base_piece - min(gridlist$base_piece)
@@ -53,7 +54,7 @@ dvs_output <- list()
 T <- 10
 p <- rep(1,length=T)
 #F <- c(rep(13,length=T/2),rep(10,length=T/2))
-F <- seq(from=15,to=12,length.out=T)
+F <- seq(from=15,to=10,length.out=T)
 asats <- rep(0,length=T)
 
 # define physical parameters and discount rate+factor
@@ -85,7 +86,7 @@ discount_rate <- 0.05#0.6660755
 discount_fac <- 1/(1+discount_rate)
 
 # Check that path solver works in all periods
-registerDoParallel(cores=4)
+registerDoParallel(cores=32)
 for(i in T:1){
 	dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
 	vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=gridsize,ncol=gridsize)
@@ -97,18 +98,8 @@ stopImplicitCluster()
 
 # bind the list of solved policies into a long dataframe
 policy_path <- rbindlist(dvs_output)
-optimal_launch_pfn <- as.vector(policy_path$optimal_launch_pfn)
-
-# Thin plate spline to fit the policy function
-tps_x <- as.matrix(cbind(policy_path$satellites,policy_path$debris,policy_path$F))
-tps_y <- as.matrix(optimal_launch_pfn)
-tps_model <- Tps(x=tps_x,Y=tps_y)
-surface(tps_model)
-
-predict(tps_model,x=cbind(5.1e+3,3.9e+7,F[5]))
 
 # compare tps time series to solved time series
-
 ### function to begin an optimal launch sequence at a given time
 simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 	fe_eqm <- p/F - discount_rate
@@ -119,7 +110,7 @@ simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 	return(opt_path)
 }
 
-tps_opt_path <- function(S0,D0,p,F,tps_model,asats_seq) {
+tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,igrid) {
 	times <- seq(from=1,to=T,by=1)	
 	sat_seq <- rep(0,length=T)
 	deb_seq <- rep(0,length=T)
@@ -128,13 +119,27 @@ tps_opt_path <- function(S0,D0,p,F,tps_model,asats_seq) {
 
 	sat_seq[1] <- S0
 	deb_seq[1] <- D0
-	X[1] <- predict(tps_model,x=cbind(sat_seq[1],deb_seq[1],F[1]))
+	optimal_launch_pfn <- as.vector(policy_path$optimal_launch_pfn)
+
+	# Thin plate spline to fit the policy function
+	current_cost <- which(igrid$F==F[1])
+	tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
+	tps_y <- as.matrix(optimal_launch_pfn[current_cost])
+	tps_model <- Tps(x=tps_x,Y=tps_y)
+
+	X[1] <- predict(tps_model,x=cbind(sat_seq[1],deb_seq[1]))
 	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 
 	for(k in 2:T) {
+		# re-estimate spline for current period
+		current_cost <- which(igrid$F==F[k])
+		tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
+		tps_y <- as.matrix(optimal_launch_pfn[current_cost])
+		tps_model <- Tps(x=tps_x,Y=tps_y)
+		# compute next state and interpolated policy
 		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
 		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(k-1)])
-		X[k] <- predict(tps_model,x=cbind(sat_seq[k],deb_seq[k],F[k]))
+		X[k] <- predict(tps_model,x=cbind(sat_seq[k],deb_seq[k]))
 		X[k] <- ifelse(X[k]<0,0,X[k])
 		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)*(discount_fac^(times[(k-1)]))
 	}
@@ -179,7 +184,7 @@ linint_opt_path <- function(S0,D0,p,F,policy_lookup,asats_seq,igrid) {
 
 grid_lookup <- data.frame(sats=policy_path$satellites,debs=policy_path$debris,F=policy_path$F)
 
-tps_path <- tps_opt_path(0,0,p,F,tps_model,asats)
+tps_path <- tps_opt_path(0,0,p,F,policy_path,asats,grid_lookup)
 View(tps_path)
 li_path <- linint_opt_path(0,0,p,F,optimal_launch_pfn,asats,grid_lookup)
 View(li_path)
