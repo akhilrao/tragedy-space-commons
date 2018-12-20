@@ -190,6 +190,9 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	}
 
 	if(t!=T) {panel$V <- newV}
-
+	png(file=paste0("Value_policy_t_",t,".png"))
+	plot_pfn_vfn(panel$V,panel$X,base_grid,c("Value function","Policy function"))
+	dev.off()
+	
 	return(as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_launch_pfn=panel$X,optimal_fleet_vfn=panel$V,optimal_fleet_size=S_(panel$X,panel$S,panel$D),t=t,p=p[t],F=F[t])))
 }

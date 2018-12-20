@@ -84,7 +84,8 @@ make_cheby <- function(input) {
 	cheby_nodes <- rep(-1,length=n)
 	for(k in 1:n) {
 		x <- k/n - 1/(2*n)
-		cheby_nodes[k] <- 0.5*(a+b) + 0.5*(b-a)*cospi(x)
+		y <- pi/(2*n)
+		cheby_nodes[k] <- 0.5*(a+b) + 0.5*(b-a)*sec(y)*cospi(x)
 	}
 	cheby_nodes <- sort(cheby_nodes)
 	return(cheby_nodes)

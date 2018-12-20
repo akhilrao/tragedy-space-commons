@@ -4,6 +4,7 @@
 # Testing the optimal policy solver
 #####
 rm(list=ls())
+library(pracma)
 library(data.table)
 library(rootSolve)
 library(gridExtra)
@@ -38,9 +39,9 @@ fitplot <- function(betas,xvars,yvar,title) {
 }
 
 # build grid, generate guesses, initialize dynamic_vfi_solver output list
-gridsize <- 64
+gridsize <- 32
 gridlist <- build_grid(gridmin=0, gridmax=35000, gridsize, cheby=1)
-### shift grid down to zero if chebysheving it moved it up
+### shift grid down to zero if chebysheving it moved it up - should be unnecessary with expanded chebysehv array (secant factor)
 if(min(gridlist$base_piece)>0) {
 	gridlist$base_piece <- gridlist$base_piece - min(gridlist$base_piece)
 	gridlist$igrid <- gridlist$igrid - min(gridlist$igrid)
@@ -51,7 +52,7 @@ gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 dvs_output <- list()
 
 # define T, sequence of p, F, and asats
-T <- 10
+T <- 100
 p <- rep(1,length=T)
 #F <- c(rep(13,length=T/2),rep(10,length=T/2))
 #F <- seq(from=15,to=15,length.out=T)
@@ -111,7 +112,7 @@ simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 	return(opt_path)
 }
 
-tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,igrid) {
+tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,igrid,ncores) {
 	times <- seq(from=1,to=T,by=1)	
 	sat_seq <- rep(0,length=T)
 	deb_seq <- rep(0,length=T)
@@ -122,33 +123,62 @@ tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,igrid) {
 	deb_seq[1] <- D0
 	optimal_launch_pfn <- as.vector(policy_path$optimal_launch_pfn)
 
-	# Thin plate spline to fit the policy function
-	current_cost <- which(igrid$F==F[1])
-	tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
-	tps_y <- as.matrix(optimal_launch_pfn[current_cost])
-	tps_model <- Tps(x=tps_x,Y=tps_y)
+	## Thin plate splines to fit the policy functions
+	# current_cost <- which(igrid$F==F[1])
+	# tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
+	# tps_y <- as.matrix(optimal_launch_pfn[current_cost])
+	# cat(paste0("\nEstimating spline interpolant of period 1 policy function..."))
+	# tps_model <- Tps(x=tps_x,Y=tps_y)
+	# cat(paste0("\n Done."))
 
-	X[1] <- predict(tps_model,x=cbind(sat_seq[1],deb_seq[1]))
+	spline_list <- list()
+
+	s.tm <- proc.time()[3]
+	cat(paste0("\nEstimating spline interpolants of policy functions..."))
+	spline_list <- foreach(k=1:T, .export=ls(), .inorder=TRUE) %dopar% {
+			# cat(paste0("\nEstimating spline interpolant of period ", k, " policy function..."))
+			current_cost <- which(igrid$F==F[k])
+			tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
+			tps_y <- as.matrix(optimal_launch_pfn[current_cost])
+			tps_model <- Tps(x=tps_x,Y=tps_y)
+			return(tps_model)
+		}
+	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
+
+	s.tm <- proc.time()[3]
+	cat(paste0("\nGenerating policy time path..."))
+	# s.tm <- proc.time()[3]
+	# cat(paste0("\nGenerating period 1 policy..."))
+	X[1] <- predict(spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]))
+	X[1] <- ifelse(X[1]<0,0,X[1])
+	# cat(paste0("\n Done. Time taken: ",round(proc.time()[3] - s.tm,3)))
 	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 
 	for(k in 2:T) {
-		# re-estimate spline for current period
-		current_cost <- which(igrid$F==F[k])
-		tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
-		tps_y <- as.matrix(optimal_launch_pfn[current_cost])
-		tps_model <- Tps(x=tps_x,Y=tps_y)
+		# # re-estimate spline for current period
+		# current_cost <- which(igrid$F==F[k])
+		# tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
+		# tps_y <- as.matrix(optimal_launch_pfn[current_cost])
+		# s.tm <- proc.time()[3]
+		# cat(paste0("\nEstimating spline interpolant of period ", k, " policy function..."))
+		# tps_model <- Tps(x=tps_x,Y=tps_y)
+		# cat(paste0("\n Done. Time taken: ",round(proc.time()[3] - s.tm,3)))
 		# compute next state and interpolated policy
 		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
 		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(k-1)])
-		X[k] <- predict(tps_model,x=cbind(sat_seq[k],deb_seq[k]))
+		# s.tm <- proc.time()[3]
+		# cat(paste0("\nGenerating period ", k," policy..."))
+		X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
 		X[k] <- ifelse(X[k]<0,0,X[k])
+		# cat(paste0("\n Done. Time taken: ",round(proc.time()[3] - s.tm,3)))
 		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)*(discount_fac^(times[(k-1)]))
 	}
+	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
 	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
 	profit_seq[T] <- fleet_ssval_T(X[T],sat_seq[T],T,p,F)
 	losses <- L(sat_seq,deb_seq)
-	values <- as.data.frame(cbind(times,X,sat_seq,deb_seq,profit_seq,losses))
-	colnames(values) <- c("time","launches","satellites","debris","fleet_pv","collision_rate")
+	values <- as.data.frame(cbind(times,X,sat_seq,deb_seq,profit_seq,losses,p,F))
+	colnames(values) <- c("time","launches","satellites","debris","fleet_pv","collision_rate","returns","costs")
 	return(values)
 }
 
@@ -185,7 +215,21 @@ linint_opt_path <- function(S0,D0,p,F,policy_lookup,asats_seq,igrid) {
 
 grid_lookup <- data.frame(sats=policy_path$satellites,debs=policy_path$debris,F=policy_path$F)
 
-tps_path <- tps_opt_path(0,0,p,F,policy_path,asats,grid_lookup)
+tps_path <- tps_opt_path(0,0,p,F,policy_path,asats,grid_lookup,4)
 View(tps_path)
-li_path <- linint_opt_path(0,0,p,F,optimal_launch_pfn,asats,grid_lookup)
+li_path <- linint_opt_path(0,0,p,F,policy_path$optimal_launch_pfn,asats,grid_lookup)
 View(li_path)
+
+tps_path_base <- ggplot(tps_path, aes(x=time)) + xlab("Time") + theme_minimal()
+tps_launches <- tps_path_base + geom_line(aes(y=launches), size=1) + ylab("Launches")
+tps_sats <- tps_path_base + geom_line(aes(y=satellites), size=1) + ylab("Satellites")
+tps_debs <- tps_path_base + geom_line(aes(y=debris), size=1) + ylab("Debris")
+tps_risk <- tps_path_base + geom_line(aes(y=collision_rate), size=1) + ylab("Collision risk")
+tps_returns <- tps_path_base + geom_line(aes(y=returns), size=1) + ylab("Returns")
+tps_costs <- tps_path_base + geom_line(aes(y=costs), size=1) + ylab("Costs")
+
+grid.arrange(tps_launches,tps_sats,tps_debs,tps_risk,tps_returns,tps_costs,nrow=3,ncol=2)
+
+png(file=paste0("timepath_",gridsize,"_pt_basegrid.png"))
+grid.arrange(tps_launches,tps_sats,tps_debs,tps_risk,tps_returns,tps_costs,nrow=3,ncol=2)
+dev.off()
