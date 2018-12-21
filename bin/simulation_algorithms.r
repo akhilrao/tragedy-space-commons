@@ -93,18 +93,6 @@ policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t) {
 	return(value_fn)
 }
 
-### function to compute policy functions along a given returns and cost path
-obtain_policy_fns <- function(gridmin,gridmax,T,...) {
-	final_policy <- ss_vfi_solver(vguess,launch_pguess,gridmin,gridmax,T)
-	policy_list <- list()
-	policy_list[[1]] <- dynamic_vfi_solver(vguess,launch_pguess,gridmin,gridmax,1,final_policy)
-	policy_list[[T]] <- final_policy
-	for(i in 2:(T-1)) {
-		policy_list[[i]] <- dynamic_vfi_solver(vguess,launch_pguess,gridmin,gridmax,i,policy_list[[i-1]])
-	}
-	return(policy_list)
-}
-
 ### fleet planner VFI algorithm: solve for policy assuming steady state reached or assuming a perfect-foresight path to steady state
 dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	# initialize hyperparameters
@@ -190,9 +178,120 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	}
 
 	if(t!=T) {panel$V <- newV}
-	png(file=paste0("Value_policy_t_",t,".png"))
-	plot_pfn_vfn(panel$V,panel$X,base_grid,c("Value function","Policy function"))
-	dev.off()
-	
+	# png(file=paste0("Value_policy_t_",t,".png"))
+	# plot_pfn_vfn(panel$V,panel$X,base_grid,c("Value function","Policy function"))
+	# dev.off()
+
 	return(as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_launch_pfn=panel$X,optimal_fleet_vfn=panel$V,optimal_fleet_size=S_(panel$X,panel$S,panel$D),t=t,p=p[t],F=F[t])))
+}
+
+### algorithm to compute policy functions along a given returns and cost path
+policy_function_path_solver <- function(gridpanel,gridlist,asats,T,p,F,...) {
+	total.grid.time <- proc.time()[3]
+	registerDoParallel(cores=32)
+	for(i in T:1){
+		dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
+		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=gridsize,ncol=gridsize)
+		lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=gridsize,ncol=gridsize)
+		gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
+		dev.off()
+	}
+	stopImplicitCluster()
+	cat(paste0("\n Done. Total grid compute time taken: ",round(proc.time()[3] - total.grid.time,3)," seconds"))
+	return(dvs_output)
+}
+
+
+### function to begin an optimal finite-horizong launch sequence at a given time
+simulate_optimal_path <- function(p,F,discount_rate,T,...) {
+	fe_eqm <- p/F - discount_rate
+	asats_inf <- rep(0,length=T)
+	launch_constraint_inf <- rep(1e+10,length=T)
+	opt_path <- fp_tsgen(0,0,T,fe_eqm,launch_constraint_inf,asats_inf,p,F)
+
+	return(opt_path)
+}
+
+### algorithm to compute optimal time path using thin plate spline interpolation of solved policy functions
+tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,igrid,ncores) {
+	times <- seq(from=1,to=T,by=1)	
+	sat_seq <- rep(0,length=T)
+	deb_seq <- rep(0,length=T)
+	profit_seq <- rep(0,length=T)
+	X <- rep(-1,length=T)
+
+	sat_seq[1] <- S0
+	deb_seq[1] <- D0
+	optimal_launch_pfn <- as.vector(policy_path$optimal_launch_pfn)
+
+	# Thin plate splines to fit the policy functions
+	spline_list <- list()
+
+	s.tm <- proc.time()[3]
+	cat(paste0("\nEstimating spline interpolants of policy functions..."))
+	spline_list <- foreach(k=1:T, .export=ls(), .inorder=TRUE) %dopar% {
+			# cat(paste0("\nEstimating spline interpolant of period ", k, " policy function..."))
+			current_cost <- which(igrid$F==F[k])
+			tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
+			tps_y <- as.matrix(optimal_launch_pfn[current_cost])
+			tps_model <- Tps(x=tps_x,Y=tps_y)
+			return(tps_model)
+		}
+	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
+
+	s.tm <- proc.time()[3]
+	cat(paste0("\nGenerating policy time path..."))
+	# s.tm <- proc.time()[3]
+	# cat(paste0("\nGenerating period 1 policy..."))
+	X[1] <- predict(spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]))
+	X[1] <- ifelse(X[1]<0,0,X[1])
+	# cat(paste0("\n Done. Time taken: ",round(proc.time()[3] - s.tm,3)))
+	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
+
+	for(k in 2:T) {
+		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
+		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(k-1)])
+		X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
+		X[k] <- ifelse(X[k]<0,0,X[k])
+		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)*(discount_fac^(times[(k-1)]))
+	}
+	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
+	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
+	profit_seq[T] <- fleet_ssval_T(X[T],sat_seq[T],T,p,F)
+	losses <- L(sat_seq,deb_seq)
+	values <- as.data.frame(cbind(times,X,sat_seq,deb_seq,profit_seq,losses,p,F))
+	colnames(values) <- c("time","launches","satellites","debris","fleet_pv","collision_rate","returns","costs")
+	return(values)
+}
+
+### algorithm to linearly interpolate policy time path from solved policy functions
+linint_opt_path <- function(S0,D0,p,F,policy_lookup,asats_seq,igrid) {
+	times <- seq(from=1,to=T,by=1)	
+	sat_seq <- rep(0,length=T)
+	deb_seq <- rep(0,length=T)
+	profit_seq <- rep(0,length=T)
+	X <- rep(-1,length=T)
+
+	sat_seq[1] <- S0
+	deb_seq[1] <- D0
+	next_state <- c(sat_seq[1],deb_seq[1])
+	current_cost <- which(igrid$F==F[1])
+	X[1] <- interpolate(next_state,igrid[current_cost,],policy_lookup[current_cost])
+	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
+
+	for(k in 2:T) {
+		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
+		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(k-1)])	
+		next_state <- c(sat_seq[k],deb_seq[k])
+		current_cost <- which(igrid$F==F[k])
+		X[k] <- interpolate(next_state,igrid[current_cost,],policy_lookup[current_cost])
+		X[k] <- ifelse(X[k]<0,0,X[k])
+		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)*(discount_fac^(times[(k-1)]))
+	}
+	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
+	profit_seq[T] <- fleet_ssval_T(X[T],sat_seq[T],T,p,F)
+	losses <- L(sat_seq,deb_seq)
+	values <- as.data.frame(cbind(times,X,sat_seq,deb_seq,profit_seq,losses))
+	colnames(values) <- c("time","launches","satellites","debris","fleet_pv","collision_rate")
+	return(values)
 }
