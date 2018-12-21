@@ -54,9 +54,9 @@ dvs_output <- list()
 # define T, sequence of p, F, and asats
 T <- 100
 p <- rep(1,length=T)
-#F <- c(rep(13,length=T/2),rep(10,length=T/2))
+F <- c(rep(13,length=T/2),rep(10,length=T/2))
 #F <- seq(from=15,to=15,length.out=T)
-F <- rep(13,length=T)
+#F <- rep(13,length=T)
 asats <- rep(0,length=T)
 
 # define physical parameters and discount rate+factor
@@ -88,6 +88,7 @@ discount_rate <- 0.05#0.6660755
 discount_fac <- 1/(1+discount_rate)
 
 # Check that path solver works in all periods
+total.grid.time <- proc.time()[3]
 registerDoParallel(cores=32)
 for(i in T:1){
 	dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
@@ -97,6 +98,7 @@ for(i in T:1){
 	dev.off()
 }
 stopImplicitCluster()
+cat(paste0("\n Done. Total grid compute time taken: ",round(proc.time()[3] - total.grid.time,3)," seconds"))
 
 # bind the list of solved policies into a long dataframe
 policy_path <- rbindlist(dvs_output)
