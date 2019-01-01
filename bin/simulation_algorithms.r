@@ -1,7 +1,5 @@
 ##### algorithms to be used in deterministic satellite-debris model dynamic programming simulation script
 
-library(rootSolve)
-
 # fleet planner time series generator
 fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 	ctm <- proc.time()[3]
@@ -71,17 +69,25 @@ ptm <- proc.time()
 }
 
 ### Computes backwards induction from given terminal value with given policy to get value function
-policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t) {
+policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t,asats) {
 	count <- 0
 	p_vec <- rep(p_t,length=T)
 	F_vec <- rep(F_t,length=T)
+	asats_vec <- rep(asats[T],length=T) 
 	tot.time <- proc.time()[3]
 	## make progress bar
 	BIpb <- progress_bar$new(format="Doing backwards induction [:bar] :percent",total=(T+1))
 	BIpb$tick(0)
 	while(count<=T) {
+		# value_fn <- foreach(i=1:length(launch_policy), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
+		# 	result <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
+		# 	result
+		# }
+		# for(i in 1:length(launch_policy)) {
+		# 	value_fn[i] <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
+		# }
 		value_fn <- foreach(i=1:length(launch_policy), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
-			result <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
+			result <- fleet_preval(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid)
 			result
 		}
 		count <- count + 1
@@ -101,14 +107,15 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	gridmax <- max(igrid)
 	n_grid_points <- length(unique(igrid[,1]))^2
 	base_grid <- unique(igrid[,1])
-	dev.new(width=12,height=5,unit="in")
-	par(mfrow=c(1,2))
+	#dev.new(width=12,height=5,unit="in")
+	dev.new(width=8,height=7,unit="in")
+	par(mfrow=c(2,2))
 
 	# initialize output objects
 	newX <- rep(-1,length=panrows)
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
-	ifelse(t==T, epsilon <- 1e-3, epsilon <- 1e-2) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
+	ifelse(t==T, epsilon <- 1e-3, epsilon <- 1e-5) # looser epsilon for value function convergence in final period, tighter epsilon for policy function convergence in prior periods.
 	ifelse(t==T,panel$X <- panel$X, panel$X <- rnorm(length(panel$X),mean=10,sd=1))
 	delta_old <- 0
 	delta <- epsilon + 10
@@ -125,8 +132,14 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		## create spline interpolation model
 		cat(paste0("\nEstimating spline interpolant of value function..."))
 		tps_x <- as.matrix(cbind(panel$S,panel$D))
-		tps_model <- suppressWarnings(Tps(x=tps_x,Y=panel$V))
+		tps_y <- as.matrix(panel$V)
+		tps_model <- Tps(x=tps_x,Y=tps_y)
 		cat(paste0("\n Done."))
+
+		spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
+		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+		image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+		image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
 
 		t.tm <- proc.time()
 		## maximization step
@@ -134,7 +147,8 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		m.tm <- proc.time()
 		result <- foreach(k=1:panrows, .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
 			ctm <- proc.time()[3]
-			solution <- optim(par=panel$X[k], fn=fleet_preval_spline, S=panel$S[k], D=panel$D[k], value_fn=panel$V, asats=asats, t=t, p=p, F=F, igrid=igrid, tps_model=tps_model, control=list(fnscale=-1), method="L-BFGS-B", lower=0, upper=gridmax)
+			ulim <- gridmax
+			solution <- optim(par=panel$X[k], fn=fleet_preval_spline, S=panel$S[k], D=panel$D[k], value_fn=panel$V, asats=asats, t=t, p=p, F=F, igrid=igrid, tps_model=tps_model, control=list(fnscale=-1), method="L-BFGS-B", lower=0, upper=ulim)
 			launch_rate <- solution$par[1]
 			vfn <- solution$value
 			clock <- proc.time()[3] - ctm
@@ -153,7 +167,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 
 		## calculate distance (|V-newV| or |X-newX|) and update policy or value  
 		if(t==T) {
-			#ifelse(count<20||(count>60&&count<70), newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model,p[T],F[T]), newV <- newV)
+			#ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=2,tps_model,p[T],F[T],asats[T]), newV <- newV)
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV
 			panel$X <- newX
@@ -168,7 +182,6 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		delta_old <- delta
 
 		## update count
-		iteration <- count
 		count <- count+1
 	
 		## calculate total time
@@ -186,9 +199,9 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 }
 
 ### algorithm to compute policy functions along a given returns and cost path
-policy_function_path_solver <- function(gridpanel,gridlist,asats,T,p,F,...) {
+policy_function_path_solver <- function(gridpanel,gridlist,asats,T,p,F,ncores,...) {
 	total.grid.time <- proc.time()[3]
-	registerDoParallel(cores=32)
+	registerDoParallel(cores=ncores)
 	for(i in T:1){
 		dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
 		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=gridsize,ncol=gridsize)
@@ -213,12 +226,14 @@ simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 }
 
 ### algorithm to compute optimal time path using thin plate spline interpolation of solved policy functions
-tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,igrid,ncores) {
+tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,launchcon_seq,igrid,ncores) {
 	times <- seq(from=1,to=T,by=1)	
 	sat_seq <- rep(0,length=T)
 	deb_seq <- rep(0,length=T)
 	profit_seq <- rep(0,length=T)
 	X <- rep(-1,length=T)
+
+	if(length(launchcon_seq)==0) {launchcon_seq <- rep(1e5,length=T)}
 
 	sat_seq[1] <- S0
 	deb_seq[1] <- D0
@@ -245,6 +260,7 @@ tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,igrid,ncores) {
 	# cat(paste0("\nGenerating period 1 policy..."))
 	X[1] <- predict(spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]))
 	X[1] <- ifelse(X[1]<0,0,X[1])
+	X[1] <- ifelse(X[1]>launchcon_seq[1],X[1]<-launchcon_seq[1],X[1]<-X[1])
 	# cat(paste0("\n Done. Time taken: ",round(proc.time()[3] - s.tm,3)))
 	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 
@@ -253,6 +269,7 @@ tps_opt_path <- function(S0,D0,p,F,policy_path,asats_seq,igrid,ncores) {
 		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(k-1)])
 		X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
 		X[k] <- ifelse(X[k]<0,0,X[k])
+		X[k] <- ifelse(X[k]>launchcon_seq[k],X[k]<-launchcon_seq[k],X[k]<-X[k])
 		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)*(discount_fac^(times[(k-1)]))
 	}
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))

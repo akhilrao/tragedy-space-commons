@@ -1,18 +1,19 @@
 rm(list=ls())
-
+library(pracma)
+library(data.table)
 library(rootSolve)
 library(gridExtra)
 library(ggplot2)
 library(viridis)
-source("equations.r")
+library(doParallel)
+library(progress)
+library(plot3D)
+library(reshape2)
+library(fields)
 source("simulation_functions.r")
+source("equations.r")
 source("simulation_algorithms.r")
-
-#############################################################################
-# Function definitions
-#############################################################################
-
-
+system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
 
 #############################################################################
 # Calibration
@@ -24,24 +25,11 @@ econ_series <- read.csv("../data/econ_series.csv")
 econ_coefs <- read.csv("../data/econ_series_coefs.csv")
 observed_time_series <- read.csv("../data/ST_ESA_series.csv")
 
-# append fake steady state
-# nfakes <- 100
-# fakedata <- matrix(0,nrow=nfakes,ncol=dim(observed_time_series)[2])
-# lastrow <- as.numeric(observed_time_series[dim(observed_time_series)[1],])
-# for(i in 1:nfakes) {
-# 	fakedata[i,] <- lastrow
-# 	fakedata[i,2] <- 2015+i
-# 	fakedata[i,ncol(fakedata)] <- ifelse(i<nfakes/4,lastrow[ncol(fakedata)] + 0.0025*i,max(fakedata[,ncol(fakedata)]))
-# }
-# colnames(fakedata) <- colnames(observed_time_series)
-# observed_time_series <- rbind(observed_time_series,fakedata)
-# T <- nfakes+11
-
 T <- nrow(econ_series)
 upper <- 1e15
-upper_seq <- seq(from=1,by=1,length=T)
+#upper_seq <- seq(from=1,by=1,length=T)
 
-start_year <- 2005
+start_year <- 2006
 S0 <- observed_time_series$payloads_in_orbit[which(observed_time_series$year==start_year)]
 D0 <- observed_time_series$debris[which(observed_time_series$year==start_year)]
 avg_sat_decay <- mean(observed_time_series$payloads_decayed[which(observed_time_series$year>=start_year)]/observed_time_series$payloads_in_orbit[which(observed_time_series$year>=start_year)])
@@ -85,7 +73,7 @@ F_per_S <- physecon$tot_cost/physecon$payloads_in_orbit
 # fe_eqm <- p/F - discount_rate*c(F[1],F[-length(F)])/F
 
 observed_launches <- observed_time_series$launch_successes[which(observed_time_series$year>=start_year)]+observed_time_series$launch_failures[which(observed_time_series$year>=start_year)]
-launch_constraint <- cummax(observed_launches)
+launch_constraint <- 1000*cummax(observed_launches)
 #launch_constraint[25:length(launch_constraint)] <- 0.05*max(observed_launches)
 
 #############################################################################
@@ -100,96 +88,90 @@ colnames(oa_path)[which(colnames(oa_path)=="time")] <- "year"
 ##### compare fit of generated series against actual
 oa_merged <- merge(oa_path,observed_time_series,by=c("year"),suffixes=c(".sim",".obs"))
 
-oa_merged <- cbind(oa_merged,fe_eqm=c(fe_eqm[1],fe_eqm))
+oa_merged <- cbind(oa_merged,fe_eqm=fe_eqm)
 
-fitcomp_base <- ggplot(data=oa_merged,aes(x=year))
-launch_fit <- fitcomp_base + geom_line(aes(y=launches),linetype="dashed",color="blue",size=0.85) +
+oa_fitcomp_base <- ggplot(data=oa_merged,aes(x=year))
+oa_launch_fit <- oa_fitcomp_base + geom_line(aes(y=launches),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=launch_successes),size=1) +
 							ylab("Satellites launched") + theme_minimal() +
 							ggtitle("Simulated series (blue) vs. observed (black)")
-sat_fit <- fitcomp_base + geom_line(aes(y=satellites),linetype="dashed",color="blue",size=0.85) +
+oa_sat_fit <- oa_fitcomp_base + geom_line(aes(y=satellites),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=payloads_in_orbit),size=1) +
 							ylab("Satellites in LEO") + theme_minimal() +
 							ggtitle("")
-deb_fit <- fitcomp_base + geom_line(aes(y=debris.sim),linetype="dashed",color="blue",size=0.85) +
+oa_deb_fit <- oa_fitcomp_base + geom_line(aes(y=debris.sim),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=debris.obs),size=1) +
 							ylab("Debris in LEO") + xlab("year") + theme_minimal()
-risk_fit <- fitcomp_base + geom_line(aes(y=collision_rate),linetype="dashed",color="blue",size=0.85) +
+oa_risk_fit <- oa_fitcomp_base + geom_line(aes(y=collision_rate),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=risk),size=1) +
 							geom_line(aes(y=fe_eqm),size=1,linetype="dotted") +
 							ylab("Collision risk in LEO") + xlab("year") + theme_minimal()
 
+dev.new()
 #png(width=700,height=700,filename="../images/open_access_historical_fit.png")
-grid.arrange(launch_fit,sat_fit,risk_fit,deb_fit,ncol=2)
+grid.arrange(oa_launch_fit,oa_sat_fit,oa_risk_fit,oa_deb_fit,ncol=2)
 #dev.off()
-
+View(oa_merged)
 #############################################################################
 # Optimal time path
 #############################################################################
 
-### function to begin an optimal launch sequence at a given time
-simulate_optimal_path <- function(start_year,S0,D0,pi_t,F_t,discount_rate,launch_con,asats,...) {
-	T <- 500
-	fe_eqm <- pi_t/F_t - discount_rate
-	fe_eqm_inf <- c(fe_eqm,rep(fe_eqm[length(fe_eqm)],length=(T-length(fe_eqm))))
-	asats_inf <- c(asats,rep(0,length=(T-length(fe_eqm)-1)))
-	launch_constraint_inf <- c(launch_constraint,rep(launch_constraint[length(launch_constraint)],length=(T-length(fe_eqm)-1)))
-
-	opt_path <- fp_tsgen(S0,D0,T,fe_eqm_inf,launch_constraint_inf,asats_inf)
-
-	check <- seriesgen_ts(rep(1,length=T),S0,D0,T,asats_inf)
-
-	opt_path$time <- start_year+opt_path$time
-	colnames(opt_path)[which(colnames(opt_path)=="time")] <- "year"
-	return(opt_path)
+# build grid, generate guesses, initialize dynamic_vfi_solver output list
+gridsize <- 32
+gridlist <- build_grid(gridmin=0, gridmax=35000, gridsize, cheby=1)
+### shift grid down to zero if chebysheving it moved it up - should be unnecessary with expanded chebysehv array (secant factor)
+if(min(gridlist$base_piece)>0) {
+	gridlist$base_piece <- gridlist$base_piece - min(gridlist$base_piece)
+	gridlist$igrid <- gridlist$igrid - min(gridlist$igrid)
 }
+vguess <- matrix(gridlist$igrid$sats,nrow=gridsize,ncol=gridsize)
+lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
+gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
+dvs_output <- list()
 
 p <- p_per_S
 F <- F_per_S
-opt_path <- simulate_optimal_path(start_year,S0,D0,econ_series$tot_rev,econ_series$tot_cost,discount_rate,launch_constraint,asats)
+# Check that path solver works in all periods
+dvs_output <- policy_function_path_solver(gridpanel,gridlist,asats,T,p,F,ncores=4)
 
+# bind the list of solved policies into a long dataframe
+policy_path <- rbindlist(dvs_output)
+
+# compare tps time series to solved time series
+grid_lookup <- data.frame(sats=policy_path$satellites,debs=policy_path$debris,F=policy_path$F)
+
+tps_path <- tps_opt_path(S0,D0,p,F,policy_path,asats,launch_constraint,grid_lookup,launchcon_seq=launch_constraint,ncores=4)
+
+opt_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(tps_path)),tps_path)
 
 
 ##### compare fit of generated series against actual
 opt_merged <- merge(opt_path,observed_time_series,by=c("year"),suffixes=c(".sim",".obs"))
 
-opt_merged <- cbind(opt_merged,fe_eqm=c(fe_eqm[1],fe_eqm))
+opt_merged <- cbind(opt_merged,fe_eqm=fe_eqm)
 
-fitcomp_base <- ggplot(data=opt_merged,aes(x=year))
-launch_fit <- fitcomp_base + geom_line(aes(y=launches),linetype="dashed",color="blue",size=0.85) +
+opt_fitcomp_base <- ggplot(data=opt_merged,aes(x=year))
+opt_launch_fit <- opt_fitcomp_base + geom_line(aes(y=launches),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=launch_successes),size=1) +
 							ylab("Satellites launched") + theme_minimal() +
 							ggtitle("Simulated series (blue) vs. observed (black)")
-sat_fit <- fitcomp_base + geom_line(aes(y=satellites),linetype="dashed",color="blue",size=0.85) +
+opt_sat_fit <- opt_fitcomp_base + geom_line(aes(y=satellites),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=payloads_in_orbit),size=1) +
 							ylab("Satellites in LEO") + theme_minimal() +
 							ggtitle("")
-deb_fit <- fitcomp_base + geom_line(aes(y=debris.sim),linetype="dashed",color="blue",size=0.85) +
+opt_deb_fit <- opt_fitcomp_base + geom_line(aes(y=debris.sim),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=debris.obs),size=1) +
 							ylab("Debris in LEO") + xlab("year") + theme_minimal()
-risk_fit <- fitcomp_base + geom_line(aes(y=collision_rate),linetype="dashed",color="blue",size=0.85) +
+opt_risk_fit <- opt_fitcomp_base + geom_line(aes(y=collision_rate),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=risk),size=1) +
 							geom_line(aes(y=fe_eqm),size=1,linetype="dotted") +
 							ylab("Collision risk in LEO") + xlab("year") + theme_minimal()
 
+dev.new()
 #png(width=700,height=700,filename="../images/open_access_historical_fit.png")
-grid.arrange(launch_fit,sat_fit,risk_fit,deb_fit,ncol=2)
+grid.arrange(opt_launch_fit,opt_sat_fit,opt_risk_fit,opt_deb_fit,ncol=2)
 #dev.off()
-
-#############################################################################
-# Generate optimal policy functions along time path
-#############################################################################
-
-
-gridmin <- 0
-gridmax <- 10000
-ss_vguess <- matrix(0,nrow=25,ncol=25)
-ss_lpguess <- matrix(0,nrow=25,ncol=25)
-
-ss_vfi_solver(vguess,launch_pguess,gridmin,gridmax)
-
-
-
+View(opt_merged)
 #############################################################################
 # Compare OA and OPT outcomes
 #############################################################################
@@ -197,7 +179,7 @@ ss_vfi_solver(vguess,launch_pguess,gridmin,gridmax)
 OA_OPT <- merge(oa_path,opt_path,by=c("year"),suffixes=c(".oa",".opt"))
 OA_OPT <- merge(OA_OPT,econ_series,by=c("year"))
 OA_OPT$oa_value <- p_per_S*OA_OPT$satellites.oa + (1-OA_OPT$collision_rate.oa)*F_per_S*OA_OPT$satellites.oa - F_per_S*OA_OPT$launches.oa
-OA_OPT$fp_value <- p_per_S*(OA_OPT$satellites.oa+1) + (1-OA_OPT$collision_rate.oa)*F_per_S*(OA_OPT$satellites.oa+1) - F_per_S*(OA_OPT$launches.oa+1)
+OA_OPT$fp_value <- p_per_S*(OA_OPT$satellites.oa) + (1-OA_OPT$collision_rate.oa)*F_per_S*(OA_OPT$satellites.oa) - F_per_S*(OA_OPT$launches.oa)
 #OA_OPT$fp_value <- p_per_S*OA_OPT$satellites.opt + (1-OA_OPT$collision_rate.opt)*F_per_S*OA_OPT$satellites.opt
 
 
@@ -213,4 +195,5 @@ risk_comps <- oaoptcomp_base + geom_line(aes(y=riskPoA),size=0.85) +
 
 welf_loss <- oaoptcomp_base + geom_line(aes(y=welfare_loss),size=0.85) +
 							ylab("Welfare loss from open access ($100m/year)") + xlab("year") + theme_minimal()
+dev.new()
 grid.arrange(welf_loss,risk_comps,ncol=2)
