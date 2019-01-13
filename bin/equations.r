@@ -34,6 +34,7 @@ S_ <- function(X,S,D,...) {
 D_ <- function(X,S,D,asats,...) {
 	stock <- D*(1-d) + G(S,D) + m*X + Z_coef*avg_sat_decay*S + asat_coef*asats
 	stock[which(stock=="NaN")] <- D
+	stock[which(stock=="NA")] <- D
 	stock
 }
 
@@ -64,7 +65,6 @@ fleet_preval_spline <- function(X,S,D,asats,t,value_fn,p,F,igrid,tps_model,...) 
 	gridmax <- max(igrid)
 	interpolation <- predict(tps_model,x=cbind(S_next,D_next))
 	ifelse(next_state[2]>gridmax||L(next_state[1],next_state[2])==1,interpolation<-0,interpolation<-interpolation)
-	#ifelse(next_state[2]>gridmax||L(next_state[1],next_state[2])==1,interpolation<-p[t]*S_next,interpolation<-interpolation)
 	prof <- one_p_return(X,S,t,p,F) + discount_fac*interpolation
 	#if(is.infinite(prof)) {prof <- 0}
 	#if(is.na(prof)) {prof <- 0}

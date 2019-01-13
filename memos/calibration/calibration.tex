@@ -90,9 +90,9 @@ X_t = S_{t+1} - S_t - Z_tS_t,
 
 where $S_t$ is the number of active payloads in year $t$ and $Z_tS_t$ is the number of payloads listed as decayed in year $t$. \\
 
-The debris and collision risk series' we use were provided by the European Space Agency. We use debris data from the DISCOS database \citep{FRAGdata} and collision risk index data provided by Dr. Francesca Letizia \citep{ECOBdata}. We use only objects with a semi-major axis of 2000km or less in all our data series. We prefer to use the DISCOS fragment data rather than the Space-Track fragment data as it tracks fragments from the time they were created or detected, whereas the Space-Track data tracks fragments from the time their parent body was launched. The DISCOS attribution method is closer to how economic agents in our model receive information and make decisions. We record the number of anti-satellite missile tests in a year using data from Wikipedia \citep{ASATdata}.
+The debris and collision risk series' we use were provided by the European Space Agency. We use debris data from the DISCOS database \citep{FRAGdata} and collision risk data provided by Dr. Francesca Letizia \citep{ECOBdata} (the variable $p_c$ in the paper). We use only objects with a semi-major axis of 2000km or less in all our data series. We prefer to use the DISCOS fragment data rather than the Space-Track fragment data as it tracks fragments from the time they were created or detected, whereas the Space-Track data tracks fragments from the time their parent body was launched. The DISCOS attribution method is closer to how economic agents in our model receive information and make decisions. We record the number of anti-satellite missile tests in a year using data from Wikipedia \citep{ASATdata}.
 
-\todoi{Distinguish between expected collision rate and realized destructions}
+%\todoi{Distinguish between expected collision rate and realized destructions}
 
 \subsection*{Calibration procedure}
 We calibrate equations \ref{collFunction} and \ref{debrisLoM} by estimating the following equations:
@@ -167,7 +167,7 @@ E_t[\ell_{t+1}|S_{t+1},D_{t+1}] &= 1+ r_{s,t+1} - (1+r_t) \frac{F_t}{F_{t+1}} \\
 \implies E_t[\ell_{t+1}|S_{t+1},D_{t+1}] &= \underbrace{\left( r_{s,t+1} - r_t \frac{F_t}{F_{t+1}} \right)}_{\text{\shortstack{excess return\\on a satellite}}} + \underbrace{\left(1 - \frac{F_t}{F_{t+1}} \right)}_{\text{\shortstack{capital gains\\from open access\\and satellite launch\\cost variation}}} 
 \end{align}
 
-where $r_{s,t+1} = \pi_{t+1}/F_{t+1}$. With time-varying economic parameters, two sources of returns drive the collision risk. One is the excess return realized in $t+1$ from launching a satellite in $t$. The other is the capital gain (or loss) due to open access and the change in satellite costs. Since open access drives the value of a satellite down to the total cost of launching it, $F_t$ becomes the cost of receiving $F_{t+1}$ in present value the following period, and the returns are given as percentages of $F_{t+1}$. 
+where $r_{s,t+1} = \pi_{t+1}/F_{t+1}$. With time-varying economic parameters, two sources of returns drive the collision risk. One is the excess return realized in $t+1$ from launching a satellite in $t$. The other is the capital gain (or loss) due to open access and the change in satellite costs. Since open access drives the value of a satellite down to the total cost of launching and operating it, $F_t$ becomes the cost of receiving $F_{t+1}$ in present value the following period, and the returns are given as percentages of $F_{t+1}$. 
 
 
 \subsection*{Data}
@@ -180,6 +180,7 @@ We calculate the per-period returns on owning a satellite ($\pi_t$) as the reven
 
 Since $r$ is unobserved, we calibrate equation \ref{OAeqm2} by estimating
 \begin{equation}
+\label{empiricalEqn}
 \ell_{t} = a_{\ell 1} + a_{\ell 2} r_{st} + a_{\ell 3} \frac{F_{t-1}}{F_t} + \epsilon_{r t},
 \end{equation}
 
@@ -209,26 +210,34 @@ Tables \ref{econParms} shows the calibrated parameters:
 	\label{econParms}
 \end{table}
 
-If our data perfectly measured the costs and returns of satellite ownership, and our theoretical model held exactly, we would expect $a_{\ell 1}=1$, $a_{\ell 2} = 1$, and $a_{\ell 3} < -1$. Instead, we estimate $a_{\ell 1}=0.004$, $a_{\ell 2} = 0.009$, and $a_{\ell 3} = -0.0004$. This suggests that our returns and cost series are measured with error or that our theoretical model is missing some important factors, such as constraints on the number of launches possible each period. \\
+If our data perfectly measured the costs and returns of satellite ownership, and our theoretical model held exactly, we would expect $a_{\ell 1}=1$, $a_{\ell 2} = 1$, and $a_{\ell 3} < -1$. Instead, we estimate $a_{\ell 1}=0.004$, $a_{\ell 2} = 0.009$, and $a_{\ell 3} = -0.0004$. This suggests that our returns and cost series are measured with error or that our theoretical model is missing some important factors, such as constraints on the number of launches possible each period. These are discussed in \ref{attenuationFactors} in the Appendix.\\
 
-\subsubsection*{Measurement error}
+Regardless of the factors missing from the theoretical model, we use equation \ref{empiricalEqn} to recursively calculate the sequence of launch costs implied by the combination of open access, observed launch rates, and observed satellite returns as
+\begin{align}
+\ell_{t} &= a_{\ell 1} + a_{\ell 2} r_{st} + a_{\ell 3} \frac{F_{t-1}}{F_t} + \epsilon_{r t} \nonumber \\
+\implies \hat{F}_t &=	\frac{a_2 \pi_t + a_3 F_{t-1}}{\ell_t - a_1}.
+\end{align}
 
-Random measurement error would attenuate coefficient estimates, which may partially explain why our estimated coefficients are close to zero. Non-random measurement error is another possibility. \\
+Table \ref{launchCosts} shows the observed satellite returns ($\pi_t$), observed launch costs ($F_t$), and implied launch costs ($\hat{F}_t$).
 
-We construct the returns and costs of satellite ownership from the data described in \citet{wienzierl2018}, which aggregate revenues from all commercial satellites in orbit. Our physical model is based on data for low Earth orbit. To adjust the returns and costs to reflect only satellites in LEO, we multiply the per-period returns and cost series' by the share of satellites launched each year to LEO. If the returns to LEO satellites are lower than the returns to GEO satellites, then our attribution procedure would overstate the returns to LEO. The near-zero coefficients may therefore partially reflect systematically overstated returns to LEO in our constructed series'.
-
-\subsubsection*{Launch constraints}
-
-Our theoretical model assumes that any firm which wants to launch a satellite can do so. If launches are limited, they will be unable to do so. This will prevent open access launching from equating the excess return on a satellite with the risk of its destruction. Firms which are able to launch will then earn rents from having a satellite while the collision risk is below the excess return. The wedge between the collision risk and excess return will reflect the value of those rents. \\
-
-Launch limitations which allow only $\bar{X}_t$ firms to launch in $t$ are a type of ``flow control'', studied in more depth in \citet{raoJMP}. In particular, \citet{raoJMP} establishes that flow controls which restrict the quantity of launches in each period are equivalent to flow controls which impose an additional positive price $p_t$ on launching in $t$. Generalizing the flow-controlled equilibrium condition from that paper, we obtain the open access equilibrium condition for launches when costs, returns, and discount rates are all time-varying:
-
-\begin{equation}
-\label{OAfloweqmcond}
-\ell_{t+1} = (1 - \frac{p_t}{F_{t+1} + p_{t+1}}) + \frac{\pi_{t+1}}{F_{t+1} + p_{t+1}} - (1+r_t)\frac{F_t}{F_{t+1} + p_{t+1}},
-\end{equation}
-
-$p_t$ can be interpreted in two ways. It may be viewed as the implied rent received by a firm which already owns a satellite in $t$ due to launches in $t$ being restricted. It may also be viewed as the implied launch tax paid by a firm which is allotted a launch slot in $t$. In either view, a binding launch constraint results in positive values of $p_t$ and $p_{t+1}$, biasing the coefficients from regression \ref{OAeqm2} downwards. %toward negative infinity ($a_{\ell 1}$) or zero ($a_{\ell 2}$ and $a_{\ell 3}$).
+\begin{table}[]
+	\centering
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		Year & \multicolumn{1}{l|}{Observed return} & \multicolumn{1}{l|}{Observed cost} & \multicolumn{1}{l|}{Implied cost} \\ \hline
+		\textit{2006} & 70.44                                & 161.02                             & 194.26                            \\ \hline
+		\textit{2007} & 73.87                                & 185.5                              & 305.31                            \\ \hline
+		\textit{2008} & 85.5                                 & 170                                & 267.32                            \\ \hline
+		\textit{2009} & 93.06                                & 137.81                             & 225.56                            \\ \hline
+		\textit{2010} & 101.51                               & 136.16                             & 249                               \\ \hline
+		\textit{2011} & 108.84                               & 166.99                             & 264.08                            \\ \hline
+		\textit{2012} & 114.55                               & 186.88                             & 295.66                            \\ \hline
+		\textit{2013} & 120.25                               & 215.9                              & 301.63                            \\ \hline
+		\textit{2014} & 123.18                               & 254.39                             & 299.59                            \\ \hline
+	\end{tabular}
+	\caption{Launch costs implied by open access and observed values. All values are given in billions of nominal US dollars per year.}
+	\label{launchCosts}
+\end{table}
 
 \newpage
 
@@ -240,9 +249,9 @@ $p_t$ can be interpreted in two ways. It may be viewed as the implied rent recei
 }
 
 \newpage
-\section*{Appendix}
+\section{Appendix}
 
-\subsection*{Sensitivity analysis of sampling procedure for estimating equation \ref{debLoMEstimation}}
+\subsection{Sensitivity analysis of sampling procedure for estimating equation \ref{debLoMEstimation}}
 
 We estimate equation \ref{debLoMEstimation} using only a quarter of the sample to avoid overfitting. To evaluate how sensitive the predictions and coefficient estimates are to our sampling procedure, we conduct a sensitivity analysis. Our procedure is straightforward. We randomly draw a quarter of the sample (15 observations) 1000 times, estimate equation \ref{debLoMEstimation} on each random sample, and plot the predictions against the observed $D_{t+1}$ in figure \ref{debSensitivityFig}. We also take the mean of the estimated coefficients and compare them against the model we selected in table \ref{debParms}. Table \ref{debSensitivityCoefs} shows the comparison.
 
@@ -266,5 +275,28 @@ We estimate equation \ref{debLoMEstimation} using only a quarter of the sample t
 	\caption{Parameter values from estimating equation \ref{debLoMEstimation}. All values except $\beta_{DD}\alpha_{DD}$ are rounded to two decimal places. $\lambda$ is the ridge penalty parameter, with larger values corresponding to greater shrinkage (and coefficient bias). We selected $\lambda$ by cross-validation on the training sample in all cases.}
 	\label{debSensitivityCoefs}
 \end{table}
+
+
+\subsection{Factors which may cause coefficient attenuation}
+\label{attenuationFactors}
+\subsubsection*{Measurement error}
+
+Random measurement error would attenuate coefficient estimates, which may partially explain why our estimated coefficients are close to zero. Non-random measurement error is another possibility. \\
+
+We construct the returns and costs of satellite ownership from the data described in \citet{wienzierl2018}, which aggregate revenues from all commercial satellites in orbit. Our physical model is based on data for low Earth orbit. To adjust the returns and costs to reflect only satellites in LEO, we multiply the per-period returns and cost series' by the share of satellites launched each year to LEO. If the returns to LEO satellites are lower than the returns to GEO satellites, then our attribution procedure would overstate the returns to LEO. The near-zero coefficients may therefore partially reflect systematically overstated returns to LEO in our constructed series'.
+
+\subsubsection*{Launch constraints}
+
+Our theoretical model assumes that any firm which wants to launch a satellite can do so. If launches are limited, firms will be unable to do so. This will prevent open access launching from equating the excess return on a satellite with the risk of its destruction. Firms which are able to launch will then earn rents from having a satellite while the collision risk is below the excess return. The wedge between the collision risk and excess return will reflect the value of those rents. \\
+
+Launch limitations which allow only $\bar{X}_t$ firms to launch in $t$ are a type of ``flow control'', studied in more depth in \citet{raoJMP}. In particular, \citet{raoJMP} establishes that flow controls which restrict the quantity of launches in each period are equivalent to flow controls which impose an additional positive price $p_t$ on launching in $t$. Generalizing the flow-controlled equilibrium condition from that paper, we obtain the open access equilibrium condition for launches when costs, returns, and discount rates are all time-varying:
+
+\begin{equation}
+\label{OAfloweqmcond}
+\ell_{t+1} = (1 - \frac{p_t}{F_{t+1} + p_{t+1}}) + \frac{\pi_{t+1}}{F_{t+1} + p_{t+1}} - (1+r_t)\frac{F_t}{F_{t+1} + p_{t+1}},
+\end{equation}
+
+$p_t$ can be interpreted in two ways. It may be viewed as the implied rent received by a firm which already owns a satellite in $t$ due to launches in $t$ being restricted. It may also be viewed as the implied launch tax paid by a firm which is allotted a launch slot in $t$. In either view, a binding launch constraint results in positive values of $p_t$ and $p_{t+1}$, biasing the coefficients from regression \ref{OAeqm2} downwards. %toward negative infinity ($a_{\ell 1}$) or zero ($a_{\ell 2}$ and $a_{\ell 3}$).
+
 
 \end{document}

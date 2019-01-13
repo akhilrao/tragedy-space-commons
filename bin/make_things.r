@@ -23,6 +23,7 @@ risk_cal <- read.csv("../data/calibrated_risk_eqn_coefs.csv")
 deblom_cal <- read.csv("../data/calibrated_debris_lom_coefs.csv")
 econ_series <- read.csv("../data/econ_series.csv")
 econ_coefs <- read.csv("../data/econ_series_coefs.csv")
+implied_econ_series <- read.csv("../data/implied_costs.csv")
 observed_time_series <- read.csv("../data/ST_ESA_series.csv")
 
 T <- nrow(econ_series)
@@ -55,35 +56,59 @@ discount_fac <- 1/(1+discount_rate)
 fe_eqm <- econ_coefs[1,2] + econ_coefs[2,2]*econ_series$r_s + econ_coefs[3,2]*econ_series$Ft_Ft
 fe_eqm <- observed_time_series$risk[which(observed_time_series$year>2005)]
 #p <- rep(1,length=length(fe_eqm))
-# function to calculate sequence of economic launch costs recursively
-F_calc <- function(a_1,a_2,a_3,F_1,pi_t,risk,...) {
-	F <- rep(0,length=length(risk))
-	F[1] <- F_1
-	for(i in 1:(length(risk)-1)) {
-		F[i+1] <- (a_2*pi_t[i] + a_3*F[i])/(risk[i+1] - a_1)
-	}
-	return(F)
-}
 
-#F <- F_calc(a_1=econ_coefs[1,2],a_2=econ_coefs[2,2],a_3=econ_coefs[3,2],F_1=(econ_series$Ft_Ft[1]*econ_series$tot_cost[1]),pi_t=econ_series$tot_rev,risk=fe_eqm)
+comb_econ_series <- merge(econ_series,implied_econ_series,by=c("year"))
 
-physecon <- merge(observed_time_series,econ_series,by=c("year","risk"))
-p_per_S <- physecon$tot_rev/physecon$payloads_in_orbit
-F_per_S <- physecon$tot_cost/physecon$payloads_in_orbit
-# fe_eqm <- p/F - discount_rate*c(F[1],F[-length(F)])/F
+# take the raw observed cost and revenue values
+# physecon <- merge(observed_time_series,econ_series,by=c("year","risk"))
+# p <- physecon$tot_rev/physecon$payloads_in_orbit
+# F <- physecon$tot_cost/physecon$payloads_in_orbit
+
+# take the theory-adjusted cost and revenue values. The final period gets truncated because the theory-adjustment formula uses up one year, so pad the final observation with the last value in the series. For p, this value is observed. For F, this value is just a copy of the newly-penultimate value.
+physecon <- merge(observed_time_series,comb_econ_series,by=c("year","risk"))
+p <- physecon$pi_t/physecon$payloads_in_orbit
+p <- c(p,econ_series$tot_rev[length(econ_series$tot_rev)]/observed_time_series$payloads_in_orbit[length(observed_time_series$payloads_in_orbit)])
+F <- physecon$F_hat/physecon$payloads_in_orbit
+F <- c(F,F[length(F)])
 
 observed_launches <- observed_time_series$launch_successes[which(observed_time_series$year>=start_year)]+observed_time_series$launch_failures[which(observed_time_series$year>=start_year)]
-launch_constraint <- 1000*cummax(observed_launches)
-#launch_constraint[25:length(launch_constraint)] <- 0.05*max(observed_launches)
+launch_constraint <- cummax(observed_launches)
 
 #############################################################################
 # Open access time path
 #############################################################################
 
-oa_path <- oa_tsgen(S0,D0,T,fe_eqm,launch_constraint,asats)
 
-oa_path$time <- start_year+oa_path$time
-colnames(oa_path)[which(colnames(oa_path)=="time")] <- "year"
+# build grid, generate guesses, initialize dynamic_vfi_solver output list
+gridsize <- 8
+gridlist <- build_grid(gridmin=0, gridmax=25000, gridsize, cheby=1)
+### shift grid down to zero if chebysheving it moved it up - should be unnecessary with expanded chebyshev array (secant factor)
+if(min(gridlist$base_piece)>0) {
+	gridlist$base_piece <- gridlist$base_piece - min(gridlist$base_piece)
+	gridlist$igrid <- gridlist$igrid - min(gridlist$igrid)
+}
+
+S_T_1 <- gridlist$igrid$sats
+D_T_1 <- gridlist$igrid$debs
+S_T <- S_T_1*(1-L(S_T_1,D_T_1))
+V_T <- p[T]*S_T
+vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
+lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
+gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
+oa_dvs_output <- list()
+
+# Run path solver
+oa_dvs_output <- oa_pvfn_path_solver(oa_dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores=4)
+
+# bind the list of solved policies into a long dataframe
+pvfn_path <- rbindlist(oa_dvs_output)
+
+# compare tps time series to solved time series
+grid_lookup <- data.frame(sats=pvfn_path$satellites,debs=pvfn_path$debris,F=pvfn_path$F)
+
+tps_path <- tps_path_gen(S0,D0,p,F,pvfn_path,asats,launch_constraint,grid_lookup,ncores=4,OPT=0)
+
+oa_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(tps_path)),tps_path)
 
 ##### compare fit of generated series against actual
 oa_merged <- merge(oa_path,observed_time_series,by=c("year"),suffixes=c(".sim",".obs"))
@@ -110,37 +135,40 @@ oa_risk_fit <- oa_fitcomp_base + geom_line(aes(y=collision_rate),linetype="dashe
 dev.new()
 #png(width=700,height=700,filename="../images/open_access_historical_fit.png")
 grid.arrange(oa_launch_fit,oa_sat_fit,oa_risk_fit,oa_deb_fit,ncol=2)
-#dev.off()
-View(oa_merged)
+dev.off()
+#View(oa_merged)
 #############################################################################
 # Optimal time path
 #############################################################################
 
 # build grid, generate guesses, initialize dynamic_vfi_solver output list
-gridsize <- 32
-gridlist <- build_grid(gridmin=0, gridmax=35000, gridsize, cheby=1)
-### shift grid down to zero if chebysheving it moved it up - should be unnecessary with expanded chebysehv array (secant factor)
+gridsize <- 8
+gridlist <- build_grid(gridmin=0, gridmax=25000, gridsize, cheby=1)
+### shift grid down to zero if chebysheving it moved it up - should be unnecessary with expanded chebyshev array (secant factor)
 if(min(gridlist$base_piece)>0) {
 	gridlist$base_piece <- gridlist$base_piece - min(gridlist$base_piece)
 	gridlist$igrid <- gridlist$igrid - min(gridlist$igrid)
 }
-vguess <- matrix(gridlist$igrid$sats,nrow=gridsize,ncol=gridsize)
+
+S_T_1 <- gridlist$igrid$sats
+D_T_1 <- gridlist$igrid$debs
+S_T <- S_T_1*(1-L(S_T_1,D_T_1))
+V_T <- p[T]*S_T
+vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
 lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
 gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
-dvs_output <- list()
+opt_dvs_output <- list()
 
-p <- p_per_S
-F <- F_per_S
-# Check that path solver works in all periods
-dvs_output <- policy_function_path_solver(gridpanel,gridlist,asats,T,p,F,ncores=4)
+# Run path solver
+opt_dvs_output <- opt_pvfn_path_solver(opt_dvs_output,gridpanel,gridlist,asats,T,p,F,ncores=4)
 
 # bind the list of solved policies into a long dataframe
-policy_path <- rbindlist(dvs_output)
+pvfn_path <- rbindlist(opt_dvs_output)
 
 # compare tps time series to solved time series
-grid_lookup <- data.frame(sats=policy_path$satellites,debs=policy_path$debris,F=policy_path$F)
+grid_lookup <- data.frame(sats=pvfn_path$satellites,debs=pvfn_path$debris,F=pvfn_path$F)
 
-tps_path <- tps_opt_path(S0,D0,p,F,policy_path,asats,launch_constraint,grid_lookup,launchcon_seq=launch_constraint,ncores=4)
+tps_path <- tps_path_gen(S0,D0,p,F,pvfn_path,asats,launch_constraint,grid_lookup,ncores=4,OPT=1)
 
 opt_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(tps_path)),tps_path)
 
@@ -170,30 +198,67 @@ opt_risk_fit <- opt_fitcomp_base + geom_line(aes(y=collision_rate),linetype="das
 dev.new()
 #png(width=700,height=700,filename="../images/open_access_historical_fit.png")
 grid.arrange(opt_launch_fit,opt_sat_fit,opt_risk_fit,opt_deb_fit,ncol=2)
-#dev.off()
-View(opt_merged)
+dev.off()
+#View(opt_merged)
 #############################################################################
 # Compare OA and OPT outcomes
 #############################################################################
 
-OA_OPT <- merge(oa_path,opt_path,by=c("year"),suffixes=c(".oa",".opt"))
+OA_OPT <- merge(oa_merged,opt_merged,by=c("year"),suffixes=c(".oa",".opt"))
 OA_OPT <- merge(OA_OPT,econ_series,by=c("year"))
-OA_OPT$oa_value <- p_per_S*OA_OPT$satellites.oa + (1-OA_OPT$collision_rate.oa)*F_per_S*OA_OPT$satellites.oa - F_per_S*OA_OPT$launches.oa
-OA_OPT$fp_value <- p_per_S*(OA_OPT$satellites.oa) + (1-OA_OPT$collision_rate.oa)*F_per_S*(OA_OPT$satellites.oa) - F_per_S*(OA_OPT$launches.oa)
-#OA_OPT$fp_value <- p_per_S*OA_OPT$satellites.opt + (1-OA_OPT$collision_rate.opt)*F_per_S*OA_OPT$satellites.opt
 
+dev.new()
+OA_OPT_base <- ggplot(data=OA_OPT,aes(x=year))
+OA_OPT_launch <- OA_OPT_base + geom_line(aes(y=launches.opt),linetype="dashed",color="blue",size=0.85) +
+							geom_line(aes(y=launches.oa),linetype="dashed",color="red",size=0.8) +
+							geom_line(aes(y=launch_successes.oa),size=1) +
+							ylab("Satellites launched") + theme_minimal() +
+							ggtitle("Simulated series (OPT:blue, OA:red) vs. observed (black)")
+OA_OPT_sat <- OA_OPT_base + geom_line(aes(y=satellites.opt),linetype="dashed",color="blue",size=0.85) +
+							geom_line(aes(y=satellites.oa),linetype="dashed",color="red",size=0.8) +
+							geom_line(aes(y=payloads_in_orbit.oa),size=1) +
+							ylab("Satellites in LEO") + theme_minimal() +
+							ggtitle("")
+OA_OPT_deb <- OA_OPT_base + geom_line(aes(y=debris.sim.opt),linetype="dashed",color="blue",size=0.85) +
+							geom_line(aes(y=debris.sim.oa),linetype="dashed",color="red",size=0.8) +
+							geom_line(aes(y=debris.obs.oa),size=1) +
+							ylab("Debris in LEO") + xlab("year") + theme_minimal()
+OA_OPT_risk <- OA_OPT_base + geom_line(aes(y=collision_rate.opt),linetype="dashed",color="blue",size=0.85) +
+							geom_line(aes(y=collision_rate.oa),linetype="dashed",color="red",size=0.8) +
+							geom_line(aes(y=risk.oa),size=1) +
+							ylab("Collision risk in LEO") + xlab("year") + theme_minimal()
+grid.arrange(OA_OPT_launch,OA_OPT_sat,OA_OPT_risk,OA_OPT_deb,ncol=2)
 
-OA_OPT$riskPoA <- OA_OPT$collision_rate.opt/OA_OPT$collision_rate.oa
-OA_OPT$PoA <- OA_OPT$fp_value/OA_OPT$oa_value
-OA_OPT$welfare_loss <- OA_OPT$fp_value - OA_OPT$oa_value
+png(width=700,height=700,filename="../images/simulated_historical_series.png")
+grid.arrange(OA_OPT_launch,OA_OPT_sat,OA_OPT_risk,OA_OPT_deb,ncol=2)
+dev.off()
+
+OA_OPT$riskPoA <- OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt # 1 represents open access reaching optimal efficiency, larger numbers show deviations (inefficiency)
+OA_OPT$PoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa # 1 represents open access reaching optimal welfare, larger numbers show deviations (suboptimal oa welfare)
+OA_OPT$flow_welfare_loss <- OA_OPT$fleet_flowv.oa - OA_OPT$fleet_flowv.opt
+OA_OPT$npv_welfare_loss <- OA_OPT$fleet_vfn_path.oa - OA_OPT$fleet_vfn_path.opt
+OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa - OA_OPT$collision_rate.opt)*F*1e+9
 
 oaoptcomp_base <- ggplot(data=OA_OPT,aes(x=year))
 
 risk_comps <- oaoptcomp_base + geom_line(aes(y=riskPoA),size=0.85) +
 							geom_hline(yintercept=1,linetype="dashed",color="blue") +
-							ylab("Price of Anarchy for launch decisions") + xlab("year") + theme_minimal()
+							ylab("Price of Anarchy for launch decisions\n(1 is optimal, larger numbers = worse)") + xlab("year") + theme_minimal()
 
-welf_loss <- oaoptcomp_base + geom_line(aes(y=welfare_loss),size=0.85) +
-							ylab("Welfare loss from open access ($100m/year)") + xlab("year") + theme_minimal()
+flow_welf_loss <- oaoptcomp_base + geom_line(aes(y=flow_welfare_loss),size=0.85) +
+							ylab("Flow welfare loss from open access\n(undiscounted $1b)") + xlab("year") + theme_minimal() +
+							ggtitle("Historical cost of open access and optimal tax path")
+
+npv_welf_loss <- oaoptcomp_base + geom_line(aes(y=npv_welfare_loss),size=0.85) +
+							ylab("NPV welfare loss from open access ($1b)") + xlab("year") + theme_minimal() +
+							ggtitle("")
+
+opt_tax_path <- oaoptcomp_base + geom_line(aes(y=opt_tax_path),size=0.85) +
+							ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_minimal()
+
 dev.new()
-grid.arrange(welf_loss,risk_comps,ncol=2)
+grid.arrange(flow_welf_loss,npv_welf_loss,risk_comps,opt_tax_path,ncol=2)
+
+png(width=700,height=700,filename="../images/simulated_historical_cost_tax.png")
+grid.arrange(flow_welf_loss,npv_welf_loss,risk_comps,opt_tax_path,ncol=2)
+dev.off()
