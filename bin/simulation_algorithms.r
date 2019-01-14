@@ -84,22 +84,28 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
 			spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
 			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
 			dev.new(width=8,height=7,unit="in")
 			par(mfrow=c(2,2))
 			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
 			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=250,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
 			dvs_output[[i]]$oa_fleet_vfn <- value_fn
 		}
 		if(i!=T) {
 			tps_x <- as.matrix(cbind(gridlist$igrid$sats,gridlist$igrid$debs))
-			tps_y <- as.matrix(value_fn)
+			tps_y <- as.matrix(dvs_output[[i+1]]$oa_fleet_vfn)
 			spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
-			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)			
+			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
 			dev.new(width=8,height=7,unit="in")
 			par(mfrow=c(2,2))
 			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
 			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 			value_fn <- foreach(j=1:length(gridlist$igrid$sats), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
 				result <- suppressWarnings(fleet_preval_spline(X=dvs_output[[i]]$oa_launch_pfn[j],S=gridlist$igrid$sats[j],D=gridlist$igrid$debs[j],value_fn=value_fn,asats=asats,t=i,p=p,F=F,igrid=gridlist$igrid,tps_model=tps_model))
 				result
@@ -153,8 +159,8 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	newX <- rep(-1,length=panrows)
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
-	#ifelse(t==T, epsilon <- n_grid_points*1e-6, epsilon <- n_grid_points*2e-6) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
-	ifelse(t==T, epsilon <- 10, epsilon <- 1) # for testing
+	ifelse(t==T, epsilon <- n_grid_points*1e-6, epsilon <- n_grid_points*2e-6) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
+	#ifelse(t==T, epsilon <- 10, epsilon <- 1) # for testing
 	ifelse(t==T,panel$X <- panel$X, panel$X <- panel$X) #rnorm(length(panel$X),mean=10,sd=1))
 	delta_old <- 0
 	delta <- epsilon + 10
@@ -177,8 +183,10 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 
 		spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
 		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+		policy_mat <- matrix(panel$X,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+		# TODO: replace this with call to plot_pfn_vfn
 		image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-		image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+		image2D(z=policy_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 
 		t.tm <- proc.time()
 		## maximization step
@@ -207,6 +215,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		## calculate distance (|V-newV| or |X-newX|) and update policy or value  
 		if(t==T) {
 			policy_delta <- max(abs((panel$X-newX)))
+			ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model,p[T],F[T],asats[T]), newV <- newV)
 			ifelse(policy_delta<10, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
 			cat(paste("\n Policy delta is ", policy_delta, sep=""))
 			delta <- max(abs((panel$V-newV)))
@@ -241,7 +250,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 }
 
 ### algorithm to compute optimal policy and value functions along a given returns and cost path
-opt_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,ncores,...) {
+opt_pvfn_path_solver <- function(dvs_output,gridpanel,gridsize,gridlist,asats,T,p,F,ncores,...) {
 	total.grid.time <- proc.time()[3]
 	registerDoParallel(cores=ncores)
 	for(i in T:1){
@@ -292,7 +301,7 @@ tps_path_gen <- function(S0,D0,p,F,policy_path,asats_seq,launchcon_seq,igrid,nco
 			current_cost <- which(igrid$F==F[k])
 			tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
 			tps_y <- as.matrix(launch_pfn[current_cost])
-			tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y))
+			tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y,lambda=0))
 			return(tps_model)
 		}
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
