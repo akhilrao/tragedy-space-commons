@@ -159,7 +159,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	newX <- rep(-1,length=panrows)
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
-	ifelse(t==T, epsilon <- n_grid_points*1e-6, epsilon <- n_grid_points*2e-6) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
+	ifelse(t==T, epsilon <- max(n_grid_points*1e-6,1e-3), epsilon <- max(n_grid_points*2e-6,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
 	#ifelse(t==T, epsilon <- 10, epsilon <- 1) # for testing
 	ifelse(t==T,panel$X <- panel$X, panel$X <- panel$X) #rnorm(length(panel$X),mean=10,sd=1))
 	delta_old <- 0
@@ -237,7 +237,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		## calculate total time
 		tot.time <- (proc.time() - t.tm)[3]
 		## out
-		cat(paste("\n Finished period ", t," iteration ", count,", distance is ", delta, sep=""))
+		cat(paste("\n Finished period ", t," iteration ", count,", distance is ", delta, "\n Stopping criteria: distance < ", epsilon, "\n", sep=""))
 	}
 
 	if(t!=T) {panel$V <- newV}
@@ -276,16 +276,18 @@ simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 }
 
 ### algorithm to compute a time path using thin plate spline interpolation of solved policy functions
-tps_path_gen <- function(S0,D0,p,F,policy_path,asats_seq,launchcon_seq,igrid,ncores,OPT) {
-	times <- seq(from=1,to=T,by=1)	
-	sat_seq <- rep(0,length=T)
-	deb_seq <- rep(0,length=T)
-	profit_seq <- rep(0,length=T)
-	discounted_profit_seq <- rep(0,length=T)
-	fleet_npv_path <- rep(0,length=T)
-	X <- rep(-1,length=T)
+# S0, D0 are the initial conditions. t0 is the initial time, which is used to generate paths starting at different times.
+# NEEDS TESTING
+tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,ncores,OPT) {
+	times <- seq(from=1,to=(T-t0),by=1)	
+	sat_seq <- rep(0,length=(T-t0))
+	deb_seq <- rep(0,length=(T-t0))
+	profit_seq <- rep(0,length=(T-t0))
+	discounted_profit_seq <- rep(0,length=(T-t0))
+	fleet_npv_path <- rep(0,length=(T-t0))
+	X <- rep(-1,length=(T-t0))
 
-	if(length(launchcon_seq)==0) {launchcon_seq <- rep(1e5,length=T)}
+	if(length(launchcon_seq)==-1) {launchcon_seq <- rep(upper,length=(T-t0))} # -1 is a flag to set the constraint large enough that it never binds
 
 	sat_seq[1] <- S0
 	deb_seq[1] <- D0
@@ -297,7 +299,7 @@ tps_path_gen <- function(S0,D0,p,F,policy_path,asats_seq,launchcon_seq,igrid,nco
 
 	s.tm <- proc.time()[3]
 	cat(paste0("\nEstimating spline interpolants of policy functions..."))
-	spline_list <- foreach(k=1:T, .export=ls(), .inorder=TRUE) %dopar% {
+	spline_list <- foreach(k=1:(T-t0), .export=ls(), .inorder=TRUE) %dopar% {
 			current_cost <- which(igrid$F==F[k])
 			tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
 			tps_y <- as.matrix(launch_pfn[current_cost])
@@ -307,7 +309,7 @@ tps_path_gen <- function(S0,D0,p,F,policy_path,asats_seq,launchcon_seq,igrid,nco
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
 
 	cat(paste0("\nEstimating spline interpolants of value functions..."))
-	vfn_spline_list <- foreach(k=1:T, .export=ls(), .inorder=TRUE) %dopar% {
+	vfn_spline_list <- foreach(k=1:(T-t0), .export=ls(), .inorder=TRUE) %dopar% {
 			current_cost <- which(igrid$F==F[k])
 			tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
 			tps_y <- as.matrix(fleet_vfn[current_cost])
@@ -325,19 +327,20 @@ tps_path_gen <- function(S0,D0,p,F,policy_path,asats_seq,launchcon_seq,igrid,nco
 	discounted_profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 	fleet_npv_path[1] <- predict(vfn_spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]))
 
-	for(k in 2:T) {
+	for(k in 2:(T-t0)) {
+		current_clock_time <- t0 + k # need to calculate what the time is in the outside world for asats and launch constraint
 		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
-		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(k-1)])
+		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)])
 		X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
 		X[k] <- ifelse(X[k]<0,0,X[k])
-		X[k] <- ifelse(X[k]>launchcon_seq[k],X[k]<-launchcon_seq[k],X[k]<-X[k])
+		X[k] <- ifelse(X[k]>launchcon_seq[current_clock_time],X[k]<-launchcon_seq[current_clock_time],X[k]<-X[k])
 		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
 		discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
 		fleet_npv_path[k] <- predict(vfn_spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
 	}
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
 	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
-	profit_seq[T] <- fleet_ssval_T(X[T],sat_seq[T],T,p,F)
+	profit_seq[(T-t0)] <- fleet_ssval_T(X[(T-t0)],sat_seq[(T-t0)],T,p,F)
 	losses <- L(sat_seq,deb_seq)
 	values <- as.data.frame(cbind(times,X,sat_seq,deb_seq,profit_seq,discounted_profit_seq,fleet_npv_path,losses,p,F))
 	colnames(values) <- c("time","launches","satellites","debris","fleet_flowv","fleet_pv","fleet_vfn_path","collision_rate","returns","costs")

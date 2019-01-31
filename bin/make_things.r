@@ -77,7 +77,8 @@ F <- c(F,F[length(F)])
 observed_launches <- observed_time_series$launch_successes[which(observed_time_series$year>=start_year)]+observed_time_series$launch_failures[which(observed_time_series$year>=start_year)]
 launch_constraint <- cummax(observed_launches)
 
-make_things <- function(opt_gridsize,...) {
+#make_things <- function(opt_gridsize,...) {
+opt_gridsize <- 16
 
 #############################################################################
 # Open access time path
@@ -284,11 +285,11 @@ png(width=700,height=700,filename=paste0("../images/",gridsize,"_pt_opt_simulate
 grid.arrange(flow_welf_loss,npv_welf_loss,risk_comps,opt_tax_path,ncol=2)
 dev.off()
 
-}
+#}
 
-make_things(opt_gridsize=8)
-make_things(opt_gridsize=16)
-make_things(opt_gridsize=32)
-make_things(opt_gridsize=64)
-make_things(opt_gridsize=128)
-make_things(opt_gridsize=256)
+# make_things(opt_gridsize=8)
+# make_things(opt_gridsize=16)
+# make_things(opt_gridsize=32)
+# make_things(opt_gridsize=64)
+# make_things(opt_gridsize=128)
+# make_things(opt_gridsize=256)

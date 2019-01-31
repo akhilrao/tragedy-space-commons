@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840) (preloaded format=pdflatex 2018.9.30)  7 JAN 2019 23:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930) (preloaded format=pdflatex 2019.1.11)  31 JAN 2019 10:07
 entering extended mode
 **./calibration.tex
 (calibration.tex
@@ -126,10 +126,6 @@ Package ifvtex Info: VTeX not detected.
 Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
 Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
 Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
@@ -525,6 +521,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--59
 [1
 
 {/home/akhil/.miktex/texmfs/data/pdftex/config/pdftex.map}]
+Overfull \hbox (5.23991pt too wide) in paragraph at lines 81--82
+[]\OT1/cmr/m/n/12 where the $\OML/cmm/m/it/12 []$ \OT1/cmr/m/n/12 and $\OML/cm
+m/m/it/12 []$ \OT1/cmr/m/n/12 parameters measure intrinsic probabilities of sa
+tellite-satellite and satellites-
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 91--92
 
  []
@@ -572,13 +575,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 177--178
 
  []
 
-<../../images/risk_return_plot.png, id=125, 401.5pt x 401.5pt>
+<../../images/risk_return_plot.png, id=127, 401.5pt x 401.5pt>
 File: ../../images/risk_return_plot.png Graphic file (type png)
 <use ../../images/risk_return_plot.png>
 Package pdftex.def Info: ../../images/risk_return_plot.png  used on input line 
 191.
 (pdftex.def)             Requested size: 256.55872pt x 256.57315pt.
-[5 <../../images/risk_return_plot.png (PNG copy)>]
+[5]
 Underfull \hbox (badness 10000) in paragraph at lines 213--214
 
  []
@@ -587,8 +590,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 213--214
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 223.
 
-[6] (calibration.bbl) [7]
-<../../images/debris_lom_sensitivity_plot.png, id=172, 602.25pt x 602.25pt>
+[6 <../../images/risk_return_plot.png (PNG copy)>] (calibration.bbl) [7]
+<../../images/debris_lom_sensitivity_plot.png, id=175, 602.25pt x 602.25pt>
 File: ../../images/debris_lom_sensitivity_plot.png Graphic file (type png)
 <use ../../images/debris_lom_sensitivity_plot.png>
 Package pdftex.def Info: ../../images/debris_lom_sensitivity_plot.png  used on 
@@ -623,15 +626,18 @@ Package rerunfilecheck Info: File `calibration.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 302.
  ) 
 Here is how much of TeX's memory you used:
- 10575 strings out of 494889
- 169550 string characters out of 3178645
- 260705 words of memory out of 3000000
- 14020 multiletter control sequences out of 15000+200000
+ 10573 strings out of 494888
+ 169529 string characters out of 3178637
+ 261705 words of memory out of 3000000
+ 14018 multiletter control sequences out of 15000+200000
  14016 words of font info for 55 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
- 36i,17n,39p,1788b,399s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exi
+ 36i,17n,39p,1807b,399s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exist
+, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist
 , replaced by a fixed one
@@ -662,9 +668,9 @@ xmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/akhil/.miktex/texm
 fs/install/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/akhil/.miktex/texmf
 s/install/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/akhil/.miktex/texmfs
 /install/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on calibration.pdf (9 pages, 419458 bytes).
+Output written on calibration.pdf (9 pages, 420693 bytes).
 PDF statistics:
- 264 PDF objects out of 1000 (max. 8388607)
- 57 named destinations out of 1000 (max. 500000)
+ 267 PDF objects out of 1000 (max. 8388607)
+ 58 named destinations out of 1000 (max. 500000)
  53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

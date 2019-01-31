@@ -46,8 +46,8 @@ risk <- dfrm$risk[-(dim(dfrm)[1])]
 
 ##### Bind created variables into dataframe/matrix for regressions
 series <- cbind(dfrm[-(dim(dfrm)[1]),],D_next,S_next,risk)
-ellfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,debris,S2,SD,D2)))
-ellfit_dfrm <- subset(series,select=c(payloads_in_orbit,debris,S2,SD,D2))
+ellfit_mat <- as.matrix(subset(series,select=c(S2,SD)))
+ellfit_dfrm <- subset(series,select=c(S2,SD))
 sfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,payloads_decayed,launch_successes) ))
 sfit_dfrm <- subset(series,select=c(payloads_in_orbit,payloads_decayed,launch_successes) )
 dfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,payloads_decayed,debris,launch_successes,launch_failures,num_destr_asat,SSfrags,SDfrags,D2) ) )
@@ -67,7 +67,7 @@ risk_xvars <- as.matrix(cbind(subset(series,select=colnames(ellfit_mat))))
 risk_coefs <- coef(risk_elnet)[-1]
 fitplot(risk_xvars,risk_coefs,series$year,risk,"Risk calibration")
 
-risk_ols <- lm(risk ~ -1 + payloads_in_orbit + debris + D2 + S2 + SD, data=ellfit_dfrm)
+risk_ols <- lm(risk ~ -1 + S2 + SD, data=ellfit_dfrm)
 summary(risk_ols)
 
 risk_coefs <- coef(risk_ols)
