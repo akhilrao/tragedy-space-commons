@@ -159,7 +159,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	newX <- rep(-1,length=panrows)
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
-	ifelse(t==T, epsilon <- max(n_grid_points*1e-5,1e-3), epsilon <- max(n_grid_points*2e-6,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
+	ifelse(t==T, epsilon <- max(n_grid_points*1e-5,1e-3), epsilon <- max(n_grid_points*2e-4,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
 	#ifelse(t==T, epsilon <- 10, epsilon <- 1) # for testing
 	ifelse(t==T,panel$X <- panel$X, panel$X <- panel$X) #rnorm(length(panel$X),mean=10,sd=1))
 	delta_old <- 0

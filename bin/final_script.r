@@ -22,9 +22,9 @@ system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R sessio
 #############################################################################
 
 upper <- 1e15 # upper limit for some rootfinders - basically should never bind
-ncores <- 24 # number of cores to use for parallel computations
-oa_gridsize <- 24
-opt_gridsize <- 48
+ncores <- 16 # number of cores to use for parallel computations
+oa_gridsize <- 32
+opt_gridsize <- 32
 
 #############################################################################
 # Calibration
@@ -162,9 +162,9 @@ dev.off()
 
 OA_OPT$riskPoA <- OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt # 1 represents open access reaching optimal efficiency, larger numbers show deviations (inefficiency)
 OA_OPT$PoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa # 1 represents open access reaching optimal welfare, larger numbers show deviations (suboptimal oa welfare)
-OA_OPT$flow_welfare_loss <- OA_OPT$fleet_flowv.oa - OA_OPT$fleet_flowv.opt
-OA_OPT$npv_welfare_loss <- OA_OPT$fleet_vfn_path.oa - OA_OPT$fleet_vfn_path.opt
-OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa - OA_OPT$collision_rate.opt)*F*1e+9
+OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa - OA_OPT$fleet_flowv.opt)*norm_const/OA_OPT$satellites.oa
+OA_OPT$npv_welfare_loss <- (OA_OPT$fleet_vfn_path.oa - OA_OPT$fleet_vfn_path.opt)*norm_const/OA_OPT$satellites.oa
+OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa - OA_OPT$collision_rate.opt)*F*1e+9*norm_const/OA_OPT$satellites.oa
 
 oaoptcomp_base <- ggplot(data=OA_OPT,aes(x=year))
 

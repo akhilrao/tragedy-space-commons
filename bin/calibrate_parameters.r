@@ -44,5 +44,16 @@ p <- c(p,econ_series$tot_rev[length(econ_series$tot_rev)]/observed_time_series$p
 F <- physecon$F_hat/physecon$payloads_in_orbit
 F <- c(F,F[length(F)])
 
+# try without normalizing by fleet size -- CONCLUSION: normalizing these numbers somehow definitely helps value function convergence, since it gives smaller numbers. Maybe normalize so that first-period profits are 1? That normalization should drop out of everything anyway
+physecon <- merge(observed_time_series,comb_econ_series,by=c("year","risk"))
+p <- physecon$pi_t
+p <- c(p,econ_series$tot_rev[length(econ_series$tot_rev)])
+F <- physecon$F_hat
+F <- c(F,F[length(F)])
+# normalization -- pi_1 := 1
+norm_const <- p[1]
+p <- p/norm_const
+F <- F/norm_const
+
 observed_launches <- observed_time_series$launch_successes[which(observed_time_series$year>=start_year)]+observed_time_series$launch_failures[which(observed_time_series$year>=start_year)]
 launch_constraint <- cummax(observed_launches)
