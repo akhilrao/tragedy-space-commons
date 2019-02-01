@@ -159,7 +159,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	newX <- rep(-1,length=panrows)
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
-	ifelse(t==T, epsilon <- max(n_grid_points*1e-6,1e-3), epsilon <- max(n_grid_points*2e-6,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
+	ifelse(t==T, epsilon <- max(n_grid_points*1e-5,1e-3), epsilon <- max(n_grid_points*2e-6,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
 	#ifelse(t==T, epsilon <- 10, epsilon <- 1) # for testing
 	ifelse(t==T,panel$X <- panel$X, panel$X <- panel$X) #rnorm(length(panel$X),mean=10,sd=1))
 	delta_old <- 0
@@ -216,7 +216,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		if(t==T) {
 			policy_delta <- max(abs((panel$X-newX)))
 			ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model,p[T],F[T],asats[T]), newV <- newV)
-			ifelse(policy_delta<10, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
+			ifelse(policy_delta<1, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
 			cat(paste("\n Policy delta is ", policy_delta, sep=""))
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV
@@ -277,8 +277,7 @@ simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 
 ### algorithm to compute a time path using thin plate spline interpolation of solved policy functions
 # S0, D0 are the initial conditions. t0 is the initial time, which is used to generate paths starting at different times.
-# NEEDS TESTING
-tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,ncores,OPT) {
+tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,ncores,OPT,linear_policy_interp) {
 	times <- seq(from=1,to=(T-t0),by=1)	
 	sat_seq <- rep(0,length=(T-t0))
 	deb_seq <- rep(0,length=(T-t0))
@@ -303,7 +302,7 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 			current_cost <- which(igrid$F==F[k])
 			tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
 			tps_y <- as.matrix(launch_pfn[current_cost])
-			tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y,lambda=0))
+			ifelse(linear_policy_interp==1,tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y,lambda=0)),tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y)))
 			return(tps_model)
 		}
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))

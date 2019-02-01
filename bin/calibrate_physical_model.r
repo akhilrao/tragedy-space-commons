@@ -9,7 +9,8 @@ library(gridExtra)
 library(reshape2)
 library(gmm)
 
-dfrm <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
+#dfrm <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
+dfrm <- read.csv("/platter/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]
 
 ##### define functions
@@ -131,16 +132,12 @@ train_iter <- floor(runif(n= (15*ndraws),min=1,max=58))
 train_iter <- matrix(train_iter,nrow=15,byrow=TRUE)
 coef_iter <- matrix(0,nrow=(length(m2coefs)+1),ncol=ndraws)
 rownames(coef_iter) <- c(colnames(dfit_mat_elnet),"lambda")
-fitline_iter <- matrix(0,nrow=58,ncol=ndraws)
+fitline_iter <- matrix(0,nrow=57,ncol=ndraws)
 
 for(i in 1:ncol(train_iter)) {
 	train_set <- sort(train_iter[,i])
 	dfit_mat_elnet_iter <- as.matrix(subset(dfit_mat,select=c(payloads_decayed,debris,launch_successes,num_destr_asat,SSfrags,SDfrags,D2) ) )[train_set,]
-	m2_iter <- glmnet(x=dfit_mat_elnet,y=D_next[train_set], alpha=1,lambda=cv.glmnet(x=dfit_mat,y=D_next,alpha=1)$lambda.min,intercept=FALSE)
-
-	# dfit_dfrm_elnet_iter <- as.data.frame(dfit_mat_elnet_iter)
-	# m2_iter <- lm()
-
+	m2_iter <- glmnet(x=dfit_mat_elnet_iter,y=D_next[train_set], alpha=1,lambda=cv.glmnet(x=dfit_mat,y=D_next,alpha=1)$lambda.min,intercept=FALSE)
 
 	coef_iter[,i] <- c(coef(m2_iter)[-1],m2_iter$lambda)
 	fitline_iter[,i] <- m2xvars%*%coef_iter[-nrow(coef_iter),i]
@@ -166,20 +163,3 @@ debris_sensitivity <- ggplot(data=fitline_long,aes(x=year)) +
 png(width=600,height=600,filename="../images/debris_lom_sensitivity_plot.png")
 debris_sensitivity
 dev.off()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

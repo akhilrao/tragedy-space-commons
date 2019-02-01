@@ -22,9 +22,9 @@ system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R sessio
 #############################################################################
 
 upper <- 1e15 # upper limit for some rootfinders - basically should never bind
-ncores <- 4 # number of cores to use for parallel computations
-oa_gridsize <- 16
-opt_gridsize <- 16
+ncores <- 24 # number of cores to use for parallel computations
+oa_gridsize <- 24
+opt_gridsize <- 48
 
 #############################################################################
 # Calibration
@@ -61,7 +61,7 @@ source("calibrate_parameters.r")
 # gridlist <- list(base_piece=c(gridlist_1$base_piece,gridlist_2$base_piece), igrid=cbind(gridlist_1$igrid,gridlist_2$igrid))
 
 gridsize <- oa_gridsize
-gridlist <- build_grid(gridmin=0, gridmax=25000, gridsize, cheby=1)
+gridlist <- build_grid(gridmin=0, gridmax=20000, gridsize, cheby=1)
 
 # generate value and policy guesses - use final period
 S_T_1 <- gridlist$igrid$sats
@@ -78,7 +78,7 @@ print(round(gridlist$base_piece,digits=5))
 oa_dvs_output <- list()
 
 # run path solver
-oa_dvs_output <- oa_pvfn_path_solver(oa_dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores=ncores)
+oa_dvs_output <- suppressWarnings(oa_pvfn_path_solver(oa_dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores=ncores))
 
 # bind the list of solved policies into a long dataframe
 oa_pvfn_path <- rbindlist(oa_dvs_output)
@@ -90,7 +90,7 @@ oa_pvfn_path <- rbindlist(oa_dvs_output)
 # build grid
 gridsize <- opt_gridsize # not clear what the right choice is here - as high as possible? larger values require a desktop with multiple cores and lots of RAM.
 # another issue: larger values make the (0,0) launch decision much larger than the OA decision. is this a numerical artefact in the solve? or a result of parameter values which limit Kessler possibilities? HOW TO TEST THIS? i can maybe rule out Kessler with fake parms?
-gridlist <- build_grid(gridmin=0, gridmax=25000, gridsize, cheby=1) # gridmax=25000 seems to work well for the data
+gridlist <- build_grid(gridmin=0, gridmax=20000, gridsize, cheby=1) # gridmax=25000 seems to work well for the data
 
 # generate value and policy guesses - use terminal period. keep this separate from the open access guesses to allow for different gridsizes.
 S_T_1 <- gridlist$igrid$sats
@@ -107,7 +107,7 @@ print(round(gridlist$base_piece,digits=5))
 opt_dvs_output <- list()
 
 # run path solver
-opt_dvs_output <- opt_pvfn_path_solver(opt_dvs_output,gridpanel,gridsize,gridlist,asats,T,p,F,ncores=ncores)
+opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel,gridsize,gridlist,asats,T,p,F,ncores=ncores))
 
 # bind the list of solved policies into a long dataframe
 opt_pvfn_path <- rbindlist(opt_dvs_output)
@@ -118,12 +118,12 @@ opt_pvfn_path <- rbindlist(opt_dvs_output)
 
 ### open access paths
 oa_grid_lookup <- data.frame(sats=oa_pvfn_path$satellites,debs=oa_pvfn_path$debris,F=oa_pvfn_path$F)
-oa_tps_path <- tps_path_gen(S0,D0,0,p,F,oa_pvfn_path,asats,launch_constraint,oa_grid_lookup,ncores=ncores,OPT=0)
+oa_tps_path <- tps_path_gen(S0,D0,0,p,F,oa_pvfn_path,asats,launch_constraint,oa_grid_lookup,ncores=ncores,OPT=0,linear_policy_interp=0)
 oa_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(oa_tps_path)),oa_tps_path)
 
 ### optimal paths
 opt_grid_lookup <- data.frame(sats=opt_pvfn_path$satellites,debs=opt_pvfn_path$debris,F=opt_pvfn_path$F)
-opt_tps_path <- tps_path_gen(S0,D0,0,p,F,opt_pvfn_path,asats,launch_constraint,opt_grid_lookup,ncores=ncores,OPT=1)
+opt_tps_path <- tps_path_gen(S0,D0,0,p,F,opt_pvfn_path,asats,launch_constraint,opt_grid_lookup,ncores=ncores,OPT=1,linear_policy_interp=0)
 opt_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(opt_tps_path)),opt_tps_path)
 
 #############################################################################
@@ -138,21 +138,21 @@ dev.new()
 OA_OPT_base <- ggplot(data=OA_OPT,aes(x=year))
 OA_OPT_launch <- OA_OPT_base + geom_line(aes(y=launches.opt),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=launches.oa),linetype="dashed",color="red",size=0.8) +
-							geom_line(aes(y=launch_successes.oa),size=1) +
+							geom_line(aes(y=launch_successes),size=1) +
 							ylab("Satellites launched") + theme_minimal() +
 							ggtitle("Simulated series (OPT:blue, OA:red) vs. observed (black)")
 OA_OPT_sat <- OA_OPT_base + geom_line(aes(y=satellites.opt),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=satellites.oa),linetype="dashed",color="red",size=0.8) +
-							geom_line(aes(y=payloads_in_orbit.oa),size=1) +
+							geom_line(aes(y=payloads_in_orbit),size=1) +
 							ylab("Satellites in LEO") + theme_minimal() +
 							ggtitle("")
-OA_OPT_deb <- OA_OPT_base + geom_line(aes(y=debris.sim.opt),linetype="dashed",color="blue",size=0.85) +
-							geom_line(aes(y=debris.sim.oa),linetype="dashed",color="red",size=0.8) +
-							geom_line(aes(y=debris.obs.oa),size=1) +
+OA_OPT_deb <- OA_OPT_base + geom_line(aes(y=debris.opt),linetype="dashed",color="blue",size=0.85) +
+							geom_line(aes(y=debris.oa),linetype="dashed",color="red",size=0.8) +
+							geom_line(aes(y=debris),size=1) +
 							ylab("Debris in LEO") + xlab("year") + theme_minimal()
 OA_OPT_risk <- OA_OPT_base + geom_line(aes(y=collision_rate.opt),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=collision_rate.oa),linetype="dashed",color="red",size=0.8) +
-							geom_line(aes(y=risk.oa),size=1) +
+							geom_line(aes(y=risk.y),size=1) +
 							ylab("Collision risk in LEO") + xlab("year") + theme_minimal()
 grid.arrange(OA_OPT_launch,OA_OPT_sat,OA_OPT_risk,OA_OPT_deb,ncol=2)
 
