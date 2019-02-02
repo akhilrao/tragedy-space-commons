@@ -1,8 +1,8 @@
-"","x"
-"payloads_decayed",5.83375107000984
-"debris",0.480300760246723
-"launch_successes",2.1965422196428
-"num_destr_asat",604.035973286781
-"SSfrags",336.420676336866
-"SDfrags",127.959464089972
-"D2",2.09523707847649e-05
+,x
+payloads_decayed,5.83375107
+debris,0.4803007602
+launch_successes,2.1965422196
+num_destr_asat,1500
+SSfrags,336.4206763369
+SDfrags,127.95946409
+D2,2.09523707847649E-05
