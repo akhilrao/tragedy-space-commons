@@ -169,7 +169,7 @@ OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa - OA_OPT$fleet_flowv.opt)*nor
 OA_OPT$npv_welfare_loss <- (OA_OPT$fleet_vfn_path.oa - OA_OPT$fleet_vfn_path.opt)*norm_const/OA_OPT$satellites.oa
 OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa - OA_OPT$collision_rate.opt)*F*1e+9*norm_const/OA_OPT$satellites.oa
 
-write.csv(OA_OPT,file=paste0("../data/",gridsize,"_pt_computed_paths.png"))
+write.csv(OA_OPT,file=paste0("../data/",gridsize,"_pt_computed_paths.csv"))
 
 oaoptcomp_base <- ggplot(data=OA_OPT,aes(x=year))
 
