@@ -161,10 +161,15 @@ grid.arrange(OA_OPT_launch,OA_OPT_sat,OA_OPT_risk,OA_OPT_deb,ncol=2)
 dev.off()
 
 OA_OPT$riskPoA <- OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt # 1 represents open access reaching optimal efficiency, larger numbers show deviations (inefficiency)
-OA_OPT$PoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa # 1 represents open access reaching optimal welfare, larger numbers show deviations (suboptimal oa welfare)
+OA_OPT$flowWelfPoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa # 1 represents open access reaching optimal welfare, larger numbers show deviations (suboptimal oa welfare)
+OA_OPT$NPVPoA <- OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa # 1 represents open access reaching optimal welfare, larger numbers show deviations (suboptimal oa welfare)
+
+# not clear what the right number of satellites to divide by is. using aggregate data, so need to divide by something to get things in units of per-satellite measures
 OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa - OA_OPT$fleet_flowv.opt)*norm_const/OA_OPT$satellites.oa
 OA_OPT$npv_welfare_loss <- (OA_OPT$fleet_vfn_path.oa - OA_OPT$fleet_vfn_path.opt)*norm_const/OA_OPT$satellites.oa
 OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa - OA_OPT$collision_rate.opt)*F*1e+9*norm_const/OA_OPT$satellites.oa
+
+write.csv(OA_OPT,file=paste0("../data/",gridsize,"_pt_computed_paths.png"))
 
 oaoptcomp_base <- ggplot(data=OA_OPT,aes(x=year))
 
@@ -174,7 +179,7 @@ risk_comps <- oaoptcomp_base + geom_line(aes(y=riskPoA),size=0.85) +
 
 flow_welf_loss <- oaoptcomp_base + geom_line(aes(y=flow_welfare_loss),size=0.85) +
 							geom_hline(yintercept=0,linetype="dashed",color="blue") +
-							ylab("Flow welfare loss from open access\n(undiscounted $1b)") + xlab("year") + theme_minimal() +
+							ylab("Flow welfare gap (open access-optimal) \n(undiscounted $1b)") + xlab("year") + theme_minimal() +
 							ggtitle("Historical cost of open access and optimal tax path")
 
 npv_welf_loss <- oaoptcomp_base + geom_line(aes(y=npv_welfare_loss),size=0.85) +
@@ -184,6 +189,10 @@ npv_welf_loss <- oaoptcomp_base + geom_line(aes(y=npv_welfare_loss),size=0.85) +
 opt_tax_path <- oaoptcomp_base + geom_line(aes(y=opt_tax_path),size=0.85) +
 							ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_minimal()
 
+npv_poa_path <- oaoptcomp_base + geom_line(aes(y=NPVPoA),size=0.85) +
+							geom_hline(yintercept=1,linetype="dashed",color="blue") +
+							ylab("Price of Anarchy\n(1 is no gain, larger numbers = larger gain)") + xlab("year") + theme_minimal() +
+							ggtitle("Improvement in global satellite fleet NPV\nfrom optimal management")
 dev.new()
 grid.arrange(flow_welf_loss,npv_welf_loss,risk_comps,opt_tax_path,ncol=2)
 
@@ -191,4 +200,9 @@ png(width=700,height=700,filename=paste0("../images/",gridsize,"_pt_opt_simulate
 grid.arrange(flow_welf_loss,npv_welf_loss,risk_comps,opt_tax_path,ncol=2)
 dev.off()
 
+dev.new()
+npv_poa_path
 
+png(width=400,height=400,filename=paste0("../images/",gridsize,"_pt_NPV_PoA_path.png"))
+npv_poa_path
+dev.off()
