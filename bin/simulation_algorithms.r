@@ -75,7 +75,7 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 	total.grid.time <- proc.time()[3]
 	registerDoParallel(cores=ncores)
 	base_grid <- unique(gridlist$igrid[,1])
-	fe_eqm_padded <- c(fe_eqm,fe_eqm[T])
+	fe_eqm_padded <- c(fe_eqm,fe_eqm[T]) # pad final period as having no change in equilibrium risk. this has implications for the correct imputed value of F[T].
 	for(i in T:1){
 		dvs_output[[i]] <- oapolicy(igrid=gridlist$igrid,fe_eqm_padded,t=i,asats=asats,p=p[i],F=F[i])
 		if(i==T) {
@@ -85,13 +85,17 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
 			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
 			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+
+			# make pictures
 			dev.new(width=8,height=7,unit="in")
 			par(mfrow=c(2,2))
 			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
 			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
 			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
-			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=250,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
+			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=500,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
+
+			# assign output
 			dvs_output[[i]]$oa_fleet_vfn <- value_fn
 		}
 		if(i!=T) {
@@ -100,16 +104,22 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
 			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)			
 			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+
+			# make pictures
 			dev.new(width=8,height=7,unit="in")
 			par(mfrow=c(2,2))
 			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
 			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
 			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+
+			# interpolate fleet prevalue function at next period state
 			value_fn <- foreach(j=1:length(gridlist$igrid$sats), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
 				result <- suppressWarnings(fleet_preval_spline(X=dvs_output[[i]]$oa_launch_pfn[j],S=gridlist$igrid$sats[j],D=gridlist$igrid$debs[j],value_fn=value_fn,asats=asats,t=i,p=p,F=F,igrid=gridlist$igrid,tps_model=tps_model))
 				result
 			}
+
+			# assign output
 			dvs_output[[i]]$oa_fleet_vfn <- value_fn
 		}
 		dev.off()

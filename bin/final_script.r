@@ -1,3 +1,15 @@
+##### Script to generate results for "Tragedy of the Space Commons" paper.
+###
+# Script flow:
+# 1. Read in hyperparameters, load calibrated parameters
+# 2. Compute sequences of open access and optimal policies
+# 3. Generate time paths from policy sequences
+# 4. Draw figures, write output
+
+#############################################################################
+# 0. Prepare workspace
+#############################################################################
+
 rm(list=ls())
 library(pracma)
 library(data.table)
@@ -10,34 +22,43 @@ library(progress)
 library(plot3D)
 library(reshape2)
 library(fields)
-#library(compiler)
+library(compiler)
+enableJIT(3) # turn on JIT compilation for all functions
 source("simulation_functions.r")
 source("equations.r")
 source("simulation_algorithms.r")
 system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
-#enableJIT(3) # turn on JIT compilation for all functions
 
 #############################################################################
-# Set computation hyperparameters
+# 1a. Read in command args
 #############################################################################
 
-upper <- 1e15 # upper limit for some rootfinders - basically should never bind
-ncores <- 16 # number of cores to use for parallel computations
-oa_gridsize <- 32
-opt_gridsize <- 32
+args <- commandArgs(trailingOnly=TRUE)
 
 #############################################################################
-# Calibration
+# 1b. Set computation hyperparameters
+#############################################################################
+
+upper <- 1e15 # upper limit for some rootfinders - should never bind
+ncores <- as.numeric(args[1]) # number of cores to use for parallel computations
+oa_gridsize <- 16
+opt_gridsize <- as.numeric(args[2])
+
+total_time <- proc.time()[3]
+
+#############################################################################
+# 1c. Calibration
 #############################################################################
 
 source("calibrate_parameters.r")
 
 #############################################################################
-# Open access policies and values
+# 2a. Open access policies and values
 #############################################################################
 
 # build grid
 
+#### Maybe try stitching small grids together?
 # make_gridpanel <- function(gridmin,gridmax,gridsize,cheby) {
 # 	gridsize <- oa_gridsize
 # 	gridlist <- build_grid(gridmin=gridmin, gridmax=gridmax, gridsize, cheby=1)
@@ -84,7 +105,7 @@ oa_dvs_output <- suppressWarnings(oa_pvfn_path_solver(oa_dvs_output,gridpanel,gr
 oa_pvfn_path <- rbindlist(oa_dvs_output)
 
 #############################################################################
-# Optimal policies and values
+# 2b. Optimal policies and values
 #############################################################################
 
 # build grid
@@ -113,7 +134,7 @@ opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel
 opt_pvfn_path <- rbindlist(opt_dvs_output)
 
 #############################################################################
-# Generate open access and optimal paths
+# 3. Generate open access and optimal time paths
 #############################################################################
 
 ### open access paths
@@ -127,7 +148,7 @@ opt_tps_path <- tps_path_gen(S0,D0,0,p,F,opt_pvfn_path,asats,launch_constraint,o
 opt_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(opt_tps_path)),opt_tps_path)
 
 #############################################################################
-# Compare OA and OPT paths
+# 4. Draw plots, write output
 #############################################################################
 
 OA_OPT <- merge(oa_path,opt_path,by=c("year"),suffixes=c(".oa",".opt"))
@@ -160,14 +181,17 @@ png(width=700,height=700,filename=paste0("../images/",gridsize,"_pt_opt_simulate
 grid.arrange(OA_OPT_launch,OA_OPT_sat,OA_OPT_risk,OA_OPT_deb,ncol=2)
 dev.off()
 
-OA_OPT$riskPoA <- OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt # 1 represents open access reaching optimal efficiency, larger numbers show deviations (inefficiency)
-OA_OPT$flowWelfPoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa # 1 represents open access reaching optimal welfare, larger numbers show deviations (suboptimal oa welfare)
-OA_OPT$NPVPoA <- OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa # 1 represents open access reaching optimal welfare, larger numbers show deviations (suboptimal oa welfare)
+# Price of Anarchy in terms of collision risk. 1 represents no loss to anarchy, larger numbers show larger losses from anarchy.
+OA_OPT$riskPoA <- OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt
+# Price of Anarchy in terms of flow welfare. 1 : no present gains or losses to anarchy, >1 : present losses to anarchy, <1 : present gains to anarchy.
+OA_OPT$flowWelfPoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa 
+# Price of Anarchy in terms of NPV of welfare. 1 : no permanent gains or losses to anarchy, >1 : permanent losses to anarchy, <1 : permanent gains to anarchy.
+OA_OPT$NPVPoA <- OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa 
 
-# not clear what the right number of satellites to divide by is. using aggregate data, so need to divide by something to get things in units of per-satellite measures
+# Not clear what is the right number of satellites to divide by, but since we're using aggregate data we need to divide by something to get things into per-satellite units. Dividing by open access # of satellites puts everything relative to the "initial condition of open access".
 OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa - OA_OPT$fleet_flowv.opt)*norm_const/OA_OPT$satellites.oa
 OA_OPT$npv_welfare_loss <- (OA_OPT$fleet_vfn_path.oa - OA_OPT$fleet_vfn_path.opt)*norm_const/OA_OPT$satellites.oa
-OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa - OA_OPT$collision_rate.opt)*F*1e+9*norm_const/OA_OPT$satellites.oa
+OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa - OA_OPT$collision_rate.opt)*F*1e+9*norm_const/OA_OPT$satellites.oa # 1e+9 scales to units of billion (nominal) dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience.
 
 write.csv(OA_OPT,file=paste0("../data/",gridsize,"_pt_computed_paths.csv"))
 
@@ -206,3 +230,5 @@ npv_poa_path
 png(width=400,height=400,filename=paste0("../images/",gridsize,"_pt_NPV_PoA_path.png"))
 npv_poa_path
 dev.off()
+
+cat(paste0("\n Done. Total script wall time: ",round(proc.time()[3] - total_time,3)/60," minutes"))
