@@ -40,9 +40,9 @@ args <- commandArgs(trailingOnly=TRUE)
 #############################################################################
 
 upper <- 1e15 # upper limit for some rootfinders - should never bind
-ncores <- 4#as.numeric(args[1]) # number of cores to use for parallel computations
+ncores <- as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 16
-opt_gridsize <- 32#as.numeric(args[2])
+opt_gridsize <- as.numeric(args[2])
 
 total_time <- proc.time()[3]
 
@@ -159,21 +159,25 @@ dev.new()
 OA_OPT_base <- ggplot(data=OA_OPT,aes(x=year))
 OA_OPT_launch <- OA_OPT_base + geom_line(aes(y=launches.opt),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=launches.oa),linetype="dashed",color="red",size=0.8) +
-							geom_line(aes(y=launch_successes),size=1) +
+							geom_line(aes(y=launch_successes),size=1) +					
+							geom_vline(xintercept=2015,size=1,linetype="dashed") +
 							ylab("Satellites launched") + theme_minimal() +
 							ggtitle("Simulated series (OPT:blue, OA:red) vs. observed (black)")
 OA_OPT_sat <- OA_OPT_base + geom_line(aes(y=satellites.opt),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=satellites.oa),linetype="dashed",color="red",size=0.8) +
 							geom_line(aes(y=payloads_in_orbit),size=1) +
+							geom_vline(xintercept=2015,size=1,linetype="dashed") +
 							ylab("Satellites in LEO") + theme_minimal() +
 							ggtitle("")
 OA_OPT_deb <- OA_OPT_base + geom_line(aes(y=debris.opt),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=debris.oa),linetype="dashed",color="red",size=0.8) +
 							geom_line(aes(y=debris),size=1) +
+							geom_vline(xintercept=2015,size=1,linetype="dashed") +
 							ylab("Debris in LEO") + xlab("year") + theme_minimal()
 OA_OPT_risk <- OA_OPT_base + geom_line(aes(y=collision_rate.opt),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=collision_rate.oa),linetype="dashed",color="red",size=0.8) +
 							geom_line(aes(y=risk.y),size=1) +
+							geom_vline(xintercept=2015,size=1,linetype="dashed") +
 							ylab("Collision risk in LEO") + xlab("year") + theme_minimal()
 grid.arrange(OA_OPT_launch,OA_OPT_sat,OA_OPT_risk,OA_OPT_deb,ncol=2)
 
