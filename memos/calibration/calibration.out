@@ -1,4 +1,15 @@
 \BOOKMARK [1][-]{section.1}{Calibrating the physical model}{}% 1
-\BOOKMARK [1][-]{section.2}{Appendix}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Sensitivity analysis of sampling procedure for estimating equation 7}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Factors which may cause coefficient attenuation}{section.2}% 4
+\BOOKMARK [2][-]{subsection.1.1}{Data}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Calibration procedure}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Calibrating the economic model}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Data}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Calibration procedure}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Computing satellite tax projections}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Open access and optimal policy functions}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Generating time paths}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{Appendix}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Sensitivity analysis of sampling procedure for estimating equation 7}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Factors which may cause coefficient attenuation}{section.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Measurement error}{subsection.4.2}% 13
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Launch constraints}{subsection.4.2}% 14
+\BOOKMARK [2][-]{subsection.4.3}{Estimating the launch constraint}{section.4}% 15

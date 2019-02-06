@@ -91,10 +91,10 @@ make_cheby <- function(input) {
 	return(cheby_nodes)
 }
 
-# Build a square grid at Chebyshev nodes - CURRENT: chebyshev grid in place, but seems to break vfi solver. disable for now.
+# Build a square grid at Chebyshev nodes
 build_grid <- function(gridmin, gridmax, gridlength, cheby) {
 	base_piece <- seq(from=gridmin, to=gridmax, length.out=gridlength)
-	ifelse(cheby==1,base_piece<-make_cheby(base_piece),base_piece<-base_piece)
+	ifelse(cheby==1, base_piece<-make_cheby(base_piece), base_piece<-base_piece)
 	sats <- base_piece
 	debs <- base_piece
 	igrid <- as.data.frame(expand.grid(sats,debs))

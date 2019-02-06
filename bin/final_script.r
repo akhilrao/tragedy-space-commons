@@ -40,9 +40,9 @@ args <- commandArgs(trailingOnly=TRUE)
 #############################################################################
 
 upper <- 1e15 # upper limit for some rootfinders - should never bind
-ncores <- as.numeric(args[1]) # number of cores to use for parallel computations
+ncores <- 4#as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 16
-opt_gridsize <- as.numeric(args[2])
+opt_gridsize <- 32#as.numeric(args[2])
 
 total_time <- proc.time()[3]
 
@@ -152,8 +152,8 @@ opt_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(opt_tps_path)),o
 #############################################################################
 
 OA_OPT <- merge(oa_path,opt_path,by=c("year"),suffixes=c(".oa",".opt"))
-OA_OPT <- merge(OA_OPT,observed_time_series,by=c("year"),suffixes=c(".sim",".obs"))
-OA_OPT <- merge(OA_OPT,econ_series,by=c("year"))
+OA_OPT <- merge(OA_OPT,observed_time_series,by=c("year"),suffixes=c(".sim",".obs"),all=TRUE)
+OA_OPT <- merge(OA_OPT,econ_series,by=c("year"),all=TRUE)
 
 dev.new()
 OA_OPT_base <- ggplot(data=OA_OPT,aes(x=year))

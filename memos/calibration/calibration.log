@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930) (preloaded format=pdflatex 2019.1.11)  31 JAN 2019 10:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930) (preloaded format=pdflatex 2019.1.11)  5 FEB 2019 14:38
 entering extended mode
 **./calibration.tex
 (calibration.tex
@@ -20,9 +20,54 @@ File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
+(/home/akhil/.miktex/texmfs/install/tex/latex/psnfss/mathptmx.sty
+Package: mathptmx 2005/04/12 PSNFSS-v9.2a Times w/ Math, improved (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+LaTeX Info: Redefining \hbar on input line 50.
+)
+(/home/akhil/.miktex/texmfs/install/tex/latex/units/nicefrac.sty
+Package: nicefrac 1998/08/04 v0.9b Nice fractions
+\L@UnitsRaiseDisplaystyle=\skip43
+\L@UnitsRaiseTextstyle=\skip44
+\L@UnitsRaiseScriptstyle=\skip45
+
+(/home/akhil/.miktex/texmfs/install/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+))
 (/home/akhil/.miktex/texmfs/install/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2017/09/02 v2.17a AMS math features
-\@mathmargin=\skip43
+\@mathmargin=\skip46
 
 For additional information on amsmath, use the `?' option.
 (/home/akhil/.miktex/texmfs/install/tex/latex/amsmath/amstext.sty
@@ -72,16 +117,16 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 \totwidth@=\dimen110
 \lineht@=\dimen111
 \@envbody=\toks17
-\multlinegap=\skip44
-\multlinetaggap=\skip45
+\multlinegap=\skip47
+\multlinetaggap=\skip48
 \mathdisplay@stack=\toks18
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\symAMSa=\mathgroup4
-\symAMSb=\mathgroup5
+\symAMSa=\mathgroup6
+\symAMSb=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
@@ -92,9 +137,9 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@headfont=\toks21
 \thm@notefont=\toks22
 \thm@headpunct=\toks23
-\thm@preskip=\skip46
-\thm@postskip=\skip47
-\thm@headsep=\skip48
+\thm@preskip=\skip49
+\thm@postskip=\skip50
+\thm@headsep=\skip51
 \dth@everypar=\toks24
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/amsfonts/amssymb.sty
@@ -220,7 +265,58 @@ Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip49
+\Hy@SectionHShift=\skip52
+)
+(/home/akhil/.miktex/texmfs/install/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count110
+\algocf@hangindent=\skip53
+
+(/home/akhil/.miktex/texmfs/install/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count111
+)
+(/home/akhil/.miktex/texmfs/install/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/home/akhil/.miktex/texmfs/install/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+\skiptotal=\skip54
+\skiplinenumber=\skip55
+\skiprule=\skip56
+\skiphlne=\skip57
+\skiptext=\skip58
+\skiplength=\skip59
+\algomargin=\skip60
+\skipalgocfslide=\skip61
+\algowidth=\dimen116
+\inoutsize=\dimen117
+\inoutindent=\dimen118
+\interspacetitleruled=\dimen119
+\interspacealgoruled=\dimen120
+\interspacetitleboxruled=\dimen121
+\algocf@ruledwidth=\skip62
+\algocf@inoutbox=\box28
+\algocf@inputbox=\box29
+\AlCapSkip=\skip63
+\AlCapHSkip=\skip64
+\algoskipindent=\skip65
+\algocf@nlbox=\box30
+\algocf@hangingbox=\box31
+\algocf@untilbox=\box32
+\algocf@skipuntil=\skip66
+\algocf@capbox=\box33
+\algocf@lcaptionbox=\skip67
+\algoheightruledefault=\skip68
+\algoheightrule=\skip69
+\algotitleheightruledefault=\skip70
+\algotitleheightrule=\skip71
+\c@algocfline=\count112
+\c@algocfproc=\count113
+\c@algocf=\count114
+\algocf@algoframe=\box34
+\algocf@algobox=\box35
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/graphics/color.sty
 Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
@@ -247,16 +343,16 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 )
-\Gin@req@height=\dimen116
-\Gin@req@width=\dimen117
+\Gin@req@height=\dimen122
+\Gin@req@width=\dimen123
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count110
+\c@float@type=\count115
 \float@exts=\toks26
-\float@box=\box28
+\float@box=\box36
 \@float@everytoks=\toks27
-\@floatcapt=\box29
+\@floatcapt=\box37
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/caption/caption.sty
 Package: caption 2018/05/01 v3.3-147 Customizing captions (AR)
@@ -264,15 +360,15 @@ Package: caption 2018/05/01 v3.3-147 Customizing captions (AR)
 (/home/akhil/.miktex/texmfs/install/tex/latex/caption/caption3.sty
 Package: caption3 2018/05/27 v1.8a caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen118
-\captionmargin@=\dimen119
-\captionwidth=\dimen120
-\caption@tempdima=\dimen121
-\caption@indent=\dimen122
-\caption@parindent=\dimen123
-\caption@hangindent=\dimen124
+\captionmargin=\dimen124
+\captionmargin@=\dimen125
+\captionwidth=\dimen126
+\caption@tempdima=\dimen127
+\caption@indent=\dimen128
+\caption@parindent=\dimen129
+\caption@hangindent=\dimen130
 )
-\c@ContinuedFloat=\count111
+\c@ContinuedFloat=\count116
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 )
@@ -282,53 +378,50 @@ Package: easy-todo 2014/01/01
 (/home/akhil/.miktex/texmfs/install/tex/latex/tocloft/tocloft.sty
 Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
 Package tocloft Info: The document has section divisions on input line 51.
-\cftparskip=\skip50
-\cftbeforetoctitleskip=\skip51
-\cftaftertoctitleskip=\skip52
-\cftbeforepartskip=\skip53
-\cftpartnumwidth=\skip54
-\cftpartindent=\skip55
-\cftbeforesecskip=\skip56
-\cftsecindent=\skip57
-\cftsecnumwidth=\skip58
-\cftbeforesubsecskip=\skip59
-\cftsubsecindent=\skip60
-\cftsubsecnumwidth=\skip61
-\cftbeforesubsubsecskip=\skip62
-\cftsubsubsecindent=\skip63
-\cftsubsubsecnumwidth=\skip64
-\cftbeforeparaskip=\skip65
-\cftparaindent=\skip66
-\cftparanumwidth=\skip67
-\cftbeforesubparaskip=\skip68
-\cftsubparaindent=\skip69
-\cftsubparanumwidth=\skip70
-\cftbeforeloftitleskip=\skip71
-\cftafterloftitleskip=\skip72
-\cftbeforefigskip=\skip73
-\cftfigindent=\skip74
-\cftfignumwidth=\skip75
-\c@lofdepth=\count112
-\c@lotdepth=\count113
-\cftbeforelottitleskip=\skip76
-\cftafterlottitleskip=\skip77
-\cftbeforetabskip=\skip78
-\cfttabindent=\skip79
-\cfttabnumwidth=\skip80
-)
-(/home/akhil/.miktex/texmfs/install/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+\cftparskip=\skip72
+\cftbeforetoctitleskip=\skip73
+\cftaftertoctitleskip=\skip74
+\cftbeforepartskip=\skip75
+\cftpartnumwidth=\skip76
+\cftpartindent=\skip77
+\cftbeforesecskip=\skip78
+\cftsecindent=\skip79
+\cftsecnumwidth=\skip80
+\cftbeforesubsecskip=\skip81
+\cftsubsecindent=\skip82
+\cftsubsecnumwidth=\skip83
+\cftbeforesubsubsecskip=\skip84
+\cftsubsubsecindent=\skip85
+\cftsubsubsecnumwidth=\skip86
+\cftbeforeparaskip=\skip87
+\cftparaindent=\skip88
+\cftparanumwidth=\skip89
+\cftbeforesubparaskip=\skip90
+\cftsubparaindent=\skip91
+\cftsubparanumwidth=\skip92
+\cftbeforeloftitleskip=\skip93
+\cftafterloftitleskip=\skip94
+\cftbeforefigskip=\skip95
+\cftfigindent=\skip96
+\cftfignumwidth=\skip97
+\c@lofdepth=\count117
+\c@lotdepth=\count118
+\cftbeforelottitleskip=\skip98
+\cftafterlottitleskip=\skip99
+\cftbeforetabskip=\skip100
+\cfttabindent=\skip101
+\cfttabnumwidth=\skip102
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/oberdiek/ifdraft.sty
 Package: ifdraft 2016/05/16 v1.4 Detect class options draft and final (HO)
 )
-\c@todos=\count114
-\cftbeforetodosskip=\skip81
-\cfttodosindent=\skip82
-\cfttodosnumwidth=\skip83
-\c@loddepth=\count115
-\cftbeforelodtitleskip=\skip84
-\cftafterlodtitleskip=\skip85
+\c@todos=\count119
+\cftbeforetodosskip=\skip103
+\cfttodosindent=\skip104
+\cfttodosnumwidth=\skip105
+\c@loddepth=\count120
+\cftbeforelodtitleskip=\skip106
+\cftafterlodtitleskip=\skip107
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
@@ -347,83 +440,89 @@ LaTeX Info: Redefining \Cpagerefrange on input line 2370.
 LaTeX Info: Redefining \labelcref on input line 2370.
 LaTeX Info: Redefining \labelcpageref on input line 2370.
 Package cleveref Info: `amsthm' support loaded on input line 3026.
+Package cleveref Info: `algorithm2e' support loaded on input line 3147.
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip86
-\bibsep=\skip87
+\bibhang=\skip108
+\bibsep=\skip109
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count116
+\c@NAT@ctr=\count121
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count117
+\etb@tempcnta=\count122
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/geometry-de/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
-\Gm@cnth=\count118
-\Gm@cntv=\count119
-\c@Gm@tempcnt=\count120
-\Gm@bindingoffset=\dimen125
-\Gm@wd@mp=\dimen126
-\Gm@odd@mp=\dimen127
-\Gm@even@mp=\dimen128
-\Gm@layoutwidth=\dimen129
-\Gm@layoutheight=\dimen130
-\Gm@layouthoffset=\dimen131
-\Gm@layoutvoffset=\dimen132
+\Gm@cnth=\count123
+\Gm@cntv=\count124
+\c@Gm@tempcnt=\count125
+\Gm@bindingoffset=\dimen131
+\Gm@wd@mp=\dimen132
+\Gm@odd@mp=\dimen133
+\Gm@even@mp=\dimen134
+\Gm@layoutwidth=\dimen135
+\Gm@layoutheight=\dimen136
+\Gm@layouthoffset=\dimen137
+\Gm@layoutvoffset=\dimen138
 \Gm@dimlist=\toks28
 
 (/home/akhil/.miktex/texmfs/install/tex/latex/geometry/geometry.cfg))
 (/home/akhil/.miktex/texmfs/install/tex/latex/bezos/accents.sty
 Package: accents 2006/05/12 v1.3 Math Accent Tools
-\cc@skew=\dimen133
-\cc@wd=\dimen134
-\cc@code=\count121
-\cc@group=\count122
-\cc@skewchar=\count123
+\cc@skew=\dimen139
+\cc@wd=\dimen140
+\cc@code=\count126
+\cc@group=\count127
+\cc@skewchar=\count128
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/graphics/lscape.sty
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 (/home/akhil/.miktex/texmfs/install/tex/latex/ulem/ulem.sty
-\UL@box=\box30
-\UL@hyphenbox=\box31
-\UL@skip=\skip88
+\UL@box=\box38
+\UL@hyphenbox=\box39
+\UL@skip=\skip110
 \UL@hook=\toks29
-\UL@height=\dimen135
-\UL@pe=\count124
-\UL@pixel=\dimen136
-\ULC@box=\box32
+\UL@height=\dimen141
+\UL@pe=\count129
+\UL@pixel=\dimen142
+\ULC@box=\box40
 Package: ulem 2012/05/18
-\ULdepth=\dimen137
+\ULdepth=\dimen143
 )
-\c@prop=\count125
-\c@lemm=\count126
-\c@thm=\count127
-\c@conj=\count128
-\c@assn=\count129
-\c@defn=\count130
-\c@coro=\count131
+\c@prop=\count130
+\c@lemm=\count131
+\c@thm=\count132
+\c@conj=\count133
+\c@assn=\count134
+\c@defn=\count135
+\c@coro=\count136
  (calibration.aux)
 \openout1 = `calibration.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-\AtBeginShipoutBox=\box33
-Package hyperref Info: Link coloring OFF on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 66.
+
+(/home/akhil/.miktex/texmfs/install/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+\AtBeginShipoutBox=\box41
+Package hyperref Info: Link coloring OFF on input line 66.
 
 (/home/akhil/.miktex/texmfs/install/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -431,11 +530,11 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/akhil/.miktex/texmfs/install/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count132
+\c@section@level=\count137
 )
-LaTeX Info: Redefining \ref on input line 52.
-LaTeX Info: Redefining \pageref on input line 52.
-LaTeX Info: Redefining \nameref on input line 52.
+LaTeX Info: Redefining \ref on input line 66.
+LaTeX Info: Redefining \pageref on input line 66.
+LaTeX Info: Redefining \nameref on input line 66.
 
 (calibration.out) (calibration.out)
 \@outlinefile=\write3
@@ -444,16 +543,16 @@ LaTeX Info: Redefining \nameref on input line 52.
 
 (/home/akhil/.miktex/texmfs/install/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count133
-\scratchdimen=\dimen138
-\scratchbox=\box34
-\nofMPsegments=\count134
-\nofMParguments=\count135
+\scratchcounter=\count138
+\scratchdimen=\dimen144
+\scratchbox=\box42
+\nofMPsegments=\count139
+\nofMParguments=\count140
 \everyMPshowfont=\toks30
-\MPscratchCnt=\count136
-\MPscratchDim=\dimen139
-\MPnumerator=\count137
-\makeMPintoPDFobject=\count138
+\MPscratchCnt=\count141
+\MPscratchDim=\dimen145
+\MPnumerator=\count142
+\makeMPintoPDFobject=\count143
 \everyMPtoPDFconversion=\toks31
 ) (/home/akhil/.miktex/texmfs/install/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -479,15 +578,15 @@ Package caption Info: End \AtBeginDocument code.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(50.58878pt, 513.11745pt, 50.58878pt)
-* v-part:(T,H,B)=(50.58878pt, 693.79243pt, 50.58878pt)
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=513.11745pt
-* \textheight=693.79243pt
-* \oddsidemargin=-21.68121pt
-* \evensidemargin=-21.68121pt
-* \topmargin=-58.68121pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=12.0pt
@@ -505,136 +604,290 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 55.
-(/home/akhil/.miktex/texmfs/install/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 69
+.
+(/home/akhil/.miktex/texmfs/install/tex/latex/psnfss/ot1ztmcm.fd
+File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 55.
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 69
+.
 
-(/home/akhil/.miktex/texmfs/install/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+(/home/akhil/.miktex/texmfs/install/tex/latex/psnfss/omlztmcm.fd
+File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 58--59
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 69
+.
+
+(/home/akhil/.miktex/texmfs/install/tex/latex/psnfss/omsztmcm.fd
+File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 69
+.
+
+(/home/akhil/.miktex/texmfs/install/tex/latex/psnfss/omxztmcm.fd
+File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 69.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 69.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 69.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 70.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 [1
 
 {/home/akhil/.miktex/texmfs/data/pdftex/config/pdftex.map}]
-Overfull \hbox (5.23991pt too wide) in paragraph at lines 81--82
-[]\OT1/cmr/m/n/12 where the $\OML/cmm/m/it/12 []$ \OT1/cmr/m/n/12 and $\OML/cm
-m/m/it/12 []$ \OT1/cmr/m/n/12 parameters measure intrinsic probabilities of sa
-tellite-satellite and satellites-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 91--92
+Underfull \hbox (badness 10000) in paragraph at lines 105--106
 
  []
 
 
-Package natbib Warning: Citation `ASATdata' on page 2 undefined on input line 9
-3.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 113--114
-
- []
+Package natbib Warning: Citation `ASATdata' on page 2 undefined on input line 1
+07.
 
 [2]
-<../../images/risk_fit_plot.png, id=80, 401.5pt x 401.5pt>
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+
+ []
+
+<../../images/risk_fit_plot.png, id=116, 401.5pt x 401.5pt>
 File: ../../images/risk_fit_plot.png Graphic file (type png)
 <use ../../images/risk_fit_plot.png>
-Package pdftex.def Info: ../../images/risk_fit_plot.png  used on input line 118
+Package pdftex.def Info: ../../images/risk_fit_plot.png  used on input line 132
 .
-(pdftex.def)             Requested size: 256.55872pt x 256.57315pt.
-<../../images/debris_lom_fit_plot.png, id=81, 401.5pt x 401.5pt>
+(pdftex.def)             Requested size: 234.8775pt x 234.88573pt.
+<../../images/debris_lom_fit_plot.png, id=117, 401.5pt x 401.5pt>
 File: ../../images/debris_lom_fit_plot.png Graphic file (type png)
 <use ../../images/debris_lom_fit_plot.png>
 Package pdftex.def Info: ../../images/debris_lom_fit_plot.png  used on input li
-ne 119.
-(pdftex.def)             Requested size: 256.55872pt x 256.57315pt.
+ne 133.
+(pdftex.def)             Requested size: 234.8775pt x 234.88573pt.
 
-Overfull \hbox (2.61107pt too wide) in paragraph at lines 118--123
+Overfull \hbox (2.28001pt too wide) in paragraph at lines 132--137
 [][] [] 
  []
 
 [3 <../../images/risk_fit_plot.png (PNG copy)> <../../images/debris_lom_fit_plo
 t.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 161--162
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 175--176
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 177--178
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
-<../../images/risk_return_plot.png, id=127, 401.5pt x 401.5pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
+
+ []
+
+[5]
+<../../images/risk_return_plot.png, id=168, 401.5pt x 401.5pt>
 File: ../../images/risk_return_plot.png Graphic file (type png)
 <use ../../images/risk_return_plot.png>
 Package pdftex.def Info: ../../images/risk_return_plot.png  used on input line 
-191.
-(pdftex.def)             Requested size: 256.55872pt x 256.57315pt.
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 213--214
+206.
+(pdftex.def)             Requested size: 234.8775pt x 234.88573pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 228--229
+
+ []
+
+[6 <../../images/risk_return_plot.png (PNG copy)>]
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 238.
+
+[7]
+Overfull \hbox (5.33357pt too wide) in paragraph at lines 270--271
+\OT1/ptm/m/n/12 and one sequence for each management regime type. We compute ea
+ch sequence through backwards
+ []
+
+
+Overfull \hbox (3.14922pt too wide) in paragraph at lines 270--271
+\OT1/ptm/m/n/12 induction: beginning at the final period in our projection hori
+zon, and iteratively working backwards
+ []
+
+
+Overfull \hbox (11.17644pt too wide) in paragraph at lines 270--271
+\OT1/ptm/m/n/12 similar rationales, e.g. the models compared in []Wilkerson et 
+al.[] ([]2015[]). Our work here is conceptually
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 270--271
 
  []
 
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 223.
+Overfull \hbox (1.02519pt too wide) in paragraph at lines 272--273
+\OT1/ptm/m/n/12 time. In contrast to a standard Chebyshev grid, an expanded Che
+byshev grid allows for computation
+ []
 
-[6 <../../images/risk_return_plot.png (PNG copy)>] (calibration.bbl) [7]
-<../../images/debris_lom_sensitivity_plot.png, id=175, 602.25pt x 602.25pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 277--278
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 285--286
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 352--353
+
+ []
+
+<../../images/32_pt_opt_simulated_historical_series.png, id=243, 702.625pt x 70
+2.625pt>
+File: ../../images/32_pt_opt_simulated_historical_series.png Graphic file (type
+ png)
+<use ../../images/32_pt_opt_simulated_historical_series.png>
+Package pdftex.def Info: ../../images/32_pt_opt_simulated_historical_series.png
+  used on input line 358.
+(pdftex.def)             Requested size: 469.75502pt x 469.76996pt.
+[11]
+<../../images/32_pt_opt_simulated_historical_cost_tax.png, id=258, 702.625pt x 
+702.625pt>
+File: ../../images/32_pt_opt_simulated_historical_cost_tax.png Graphic file (ty
+pe png)
+<use ../../images/32_pt_opt_simulated_historical_cost_tax.png>
+Package pdftex.def Info: ../../images/32_pt_opt_simulated_historical_cost_tax.p
+ng  used on input line 368.
+(pdftex.def)             Requested size: 469.75502pt x 469.76996pt.
+ [12 <../../images/32_pt_opt_simulated_historical_series.png (PNG copy)>]
+[13 <../../images/32_pt_opt_simulated_historical_cost_tax.png (PNG copy)>]
+(calibration.bbl
+Underfull \hbox (badness 6032) in paragraph at lines 8--15
+[]\OT1/ptm/m/n/12 Adam Jonas, Simon Flannery Benjamin Swinburne Patrick Welling
+ton Terence Tsui
+ []
+
+
+Underfull \hbox (badness 1077) in paragraph at lines 8--15
+\OT1/ptm/m/n/12 Rajeev Lalwani James E Faucette Brian Nowak Ravi Shanker Kai Pa
+n Eva Zlotnicka,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--15
+\OT1/cmtt/m/n/12 mediahandler / media / 106686 / Space _ %20Investment % 20Impl
+ications % 20of % 20the %
+ []
+
+) [14]
+<../../images/debris_lom_sensitivity_plot.png, id=292, 602.25pt x 602.25pt>
 File: ../../images/debris_lom_sensitivity_plot.png Graphic file (type png)
 <use ../../images/debris_lom_sensitivity_plot.png>
 Package pdftex.def Info: ../../images/debris_lom_sensitivity_plot.png  used on 
-input line 260.
-(pdftex.def)             Requested size: 359.18063pt x 359.19322pt.
+input line 396.
+(pdftex.def)             Requested size: 328.82707pt x 328.84004pt.
 
-Overfull \hbox (6.62709pt too wide) in paragraph at lines 269--275
+Overfull \hbox (39.43123pt too wide) in paragraph at lines 405--411
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 284--285
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
 
  []
 
-[8 <../../images/debris_lom_sensitivity_plot.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 290--291
+[15 <../../images/debris_lom_sensitivity_plot.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 426--427
 
  []
+
+
+Overfull \hbox (5.19986pt too wide) in paragraph at lines 440--441
+\OT1/ptm/m/n/12 constraint forward with a linear time trend and an intercept. T
+able []6[] shows the estimated coefficients,
+ []
+
+[16]
+<../../images/linear_trend_launch_constraint.png, id=316, 702.625pt x 702.625pt
+>
+File: ../../images/linear_trend_launch_constraint.png Graphic file (type png)
+<use ../../images/linear_trend_launch_constraint.png>
+Package pdftex.def Info: ../../images/linear_trend_launch_constraint.png  used 
+on input line 456.
+(pdftex.def)             Requested size: 328.82707pt x 328.84004pt.
 
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 302.
-[9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 302.
- (calibration.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 302.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 302.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 464.
+[17 <../../images/linear_trend_launch_constraint.png (PNG copy)>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 464.
+
+(calibration.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 464.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 464.
 Package rerunfilecheck Info: File `calibration.out' has not changed.
-(rerunfilecheck)             Checksum: C92CAEEAFF40B8E9E1B7DADF103496F8;321.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 302.
+(rerunfilecheck)             Checksum: 6863CDD3B55703C1AC52018BF027E555;1101.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 464.
  ) 
 Here is how much of TeX's memory you used:
- 10573 strings out of 494888
- 169529 string characters out of 3178637
- 261705 words of memory out of 3000000
- 14018 multiletter control sequences out of 15000+200000
- 14016 words of font info for 55 fonts, out of 3000000 for 9000
+ 11784 strings out of 494888
+ 189688 string characters out of 3178637
+ 290624 words of memory out of 3000000
+ 15122 multiletter control sequences out of 15000+200000
+ 59779 words of font info for 137 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
- 36i,17n,39p,1807b,399s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exi
+ 36i,20n,39p,1816b,488s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{Hfootnote.7} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exist
+, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exist
 , replaced by a fixed one
@@ -651,26 +904,20 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
 
-</home/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
-/home/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></
-home/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></h
-ome/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb></ho
-me/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home
-/akhil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/a
-khil/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/akh
-il/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/akhil
-/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/akhil/.
-miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/akhil/.mik
-tex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/akhil/.miktex
-/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/akhil/.miktex/
-texmfs/install/fonts/type1/public/amsfonts/cm/cmsy7.pfb></home/akhil/.miktex/te
-xmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/akhil/.miktex/texm
-fs/install/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/akhil/.miktex/texmf
-s/install/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/akhil/.miktex/texmfs
-/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on calibration.pdf (9 pages, 420693 bytes).
+{/home/akhil/.miktex/texmfs/install/fonts/enc/dvips/base/8r.enc}</home/akhil/.m
+iktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/akhil/.mi
+ktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/akhil/.mik
+tex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/akhil/.mikte
+x/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/akhil/.miktex
+/texmfs/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/akhil/.miktex/
+texmfs/install/fonts/type1/urw/symbol/usyr.pfb></home/akhil/.miktex/texmfs/inst
+all/fonts/type1/urw/symbol/usyr.pfb></home/akhil/.miktex/texmfs/install/fonts/t
+ype1/urw/times/utmb8a.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw/t
+imes/utmr8a.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw/times/utmri
+8a.pfb>
+Output written on calibration.pdf (17 pages, 480208 bytes).
 PDF statistics:
- 267 PDF objects out of 1000 (max. 8388607)
- 58 named destinations out of 1000 (max. 500000)
- 53 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 380 PDF objects out of 1000 (max. 8388607)
+ 103 named destinations out of 1000 (max. 500000)
+ 156 words of extra memory for PDF output out of 10000 (max. 10000000)
 
