@@ -226,7 +226,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		if(t==T) {
 			policy_delta <- max(abs((panel$X-newX)))
 			ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model,p[T],F[T],asats[T]), newV <- newV)
-			ifelse(policy_delta<1, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
+			ifelse(policy_delta<0.1, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
 			cat(paste("\n Policy delta is ", policy_delta, sep=""))
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV

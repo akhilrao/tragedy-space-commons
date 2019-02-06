@@ -6,6 +6,6 @@
 #Rscript --verbose final_script.r 16 16
 #Rscript --verbose final_script.r 16 24
 #Rscript --verbose final_script.r 16 25
-#Rscript --verbose final_script.r 16 32
+#Rscript --verbose final_script.r 32 32
 #Rscript --verbose final_script.r 24 48
 Rscript --verbose final_script.r 32 64
