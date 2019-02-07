@@ -154,14 +154,14 @@ policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t,asat
 }
 
 ### fleet planner VFI algorithm: solve for policy assuming steady state reached or assuming a perfect-foresight path to steady state
+# MAKE RECTANGULAR
 dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	# initialize hyperparameters
 	panrows <- nrow(panel)
 	gridmin <- min(igrid)
 	gridmax <- max(igrid)
-	n_grid_points <- length(unique(igrid[,1]))^2
-	base_grid <- unique(igrid[,1])
-	#dev.new(width=12,height=5,unit="in")
+	n_grid_points <- length(unique(igrid[,1]))^2 # MAKE RECTANGULAR
+	base_grid <- unique(igrid[,1]) # MAKE RECTANGULAR
 	dev.new(width=8,height=7,unit="in")
 	par(mfrow=c(2,2))
 
@@ -169,14 +169,16 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	newX <- rep(-1,length=panrows)
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
-	ifelse(t==T, epsilon <- max(n_grid_points*1e-5,1e-3), epsilon <- max(n_grid_points*2e-5,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
-	#ifelse(t==T, epsilon <- 10, epsilon <- 1) # for testing
-	ifelse(t==T,panel$X <- panel$X, panel$X <- panel$X) #rnorm(length(panel$X),mean=10,sd=1))
+	#ifelse(t==T, epsilon <- max(n_grid_points*1e-5,1e-3), epsilon <- max(n_grid_points*2e-5,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
+	ifelse(t==T, epsilon <- 1e-4, epsilon <- 2e-3) # for testing
 	delta_old <- 0
 	delta <- epsilon + 10
 	delta2 <- 25
 	count <- 0
 	cat(paste("\n Stopping criteria: distance < ", epsilon, "\n", sep=""))
+
+	# set starting point for policy
+	ifelse(t==T, panel$X <- panel$X, panel$X <- panel$X) #rnorm(length(panel$X),mean=10,sd=1))
 
 	# solver loop
 	while(delta > epsilon) {
@@ -192,8 +194,9 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		cat(paste0("\n Done."))
 
 		spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
-		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
-		policy_mat <- matrix(panel$X,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR
+		policy_mat <- matrix(panel$X,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR
+		
 		# TODO: replace this with call to plot_pfn_vfn
 		image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
 		image2D(z=policy_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
@@ -225,7 +228,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		## calculate distance (|V-newV| or |X-newX|) and update policy or value  
 		if(t==T) {
 			policy_delta <- max(abs((panel$X-newX)))
-			ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model,p[T],F[T],asats[T]), newV <- newV)
+			#ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model,p[T],F[T],asats[T]), newV <- newV)
 			ifelse(policy_delta<0.1, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
 			cat(paste("\n Policy delta is ", policy_delta, sep=""))
 			delta <- max(abs((panel$V-newV)))
@@ -251,22 +254,20 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	}
 
 	if(t!=T) {panel$V <- newV}
-	# png(file=paste0("Value_policy_t_",t,".png"))
-	# plot_pfn_vfn(panel$V,panel$X,base_grid,c("Value function","Policy function"))
-	# dev.off()
+
 	output <- as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_launch_pfn=panel$X,optimal_fleet_vfn=panel$V,optimal_fleet_size=S_(panel$X,panel$S,panel$D),t=t,p=p[t],F=F[t]))
 	colnames(output)[4] <- "optimal_fleet_vfn"
 	return(output)
 }
 
-### algorithm to compute optimal policy and value functions along a given returns and cost path
+### algorithm to compute optimal policy and value functions along a given returns and cost path -- MAKE RECTANGULAR
 opt_pvfn_path_solver <- function(dvs_output,gridpanel,gridsize,gridlist,asats,T,p,F,ncores,...) {
 	total.grid.time <- proc.time()[3]
 	registerDoParallel(cores=ncores)
 	for(i in T:1){
 		dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
-		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=gridsize,ncol=gridsize)
-		lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=gridsize,ncol=gridsize)
+		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=gridsize,ncol=gridsize) # MAKE RECTANGULAR
+		lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=gridsize,ncol=gridsize) # MAKE RECTANGULAR
 		gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 		dev.off()
 	}
@@ -275,7 +276,7 @@ opt_pvfn_path_solver <- function(dvs_output,gridpanel,gridsize,gridlist,asats,T,
 	return(dvs_output)
 }
 
-### function to begin an optimal finite-horizong launch sequence at a given time
+### function to begin an optimal finite-horizon launch sequence at a given time
 simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 	fe_eqm <- p/F - discount_rate
 	asats_inf <- rep(0,length=T)
@@ -339,7 +340,12 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 	for(k in 2:(T-t0)) {
 		current_clock_time <- t0 + k # need to calculate what the time is in the outside world for asats and launch constraint
 		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
-		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)])
+		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)]) 
+		#ifelse(deb_seq[k]>)
+		#print(max(igrid))
+		#print(k)
+		#print(spline_list[[k]]) # check that these objects are the right inputs
+		#print(cbind(sat_seq[k],deb_seq[k])) # check that these objects are the right inputs
 		X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
 		X[k] <- ifelse(X[k]<0,0,X[k])
 		X[k] <- ifelse(X[k]>launchcon_seq[current_clock_time],X[k]<-launchcon_seq[current_clock_time],X[k]<-X[k])

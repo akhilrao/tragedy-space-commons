@@ -42,7 +42,8 @@ args <- commandArgs(trailingOnly=TRUE)
 upper <- 1e15 # upper limit for some rootfinders - should never bind
 ncores <- 32#as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 16
-opt_gridsize <- 32#as.numeric(args[2])
+opt_gridsize <- 128#as.numeric(args[2])
+grid_upper <- 60000
 
 total_time <- proc.time()[3]
 
@@ -53,14 +54,13 @@ total_time <- proc.time()[3]
 source("calibrate_parameters.r")
 
 #############################################################################
-# 2a. Open access policies and values
+# 2b. Optimal policies and values
 #############################################################################
 
 # build grid
-
-#### Maybe try stitching small grids together?
+### Maybe try stitching small grids together?
 # make_gridpanel <- function(gridmin,gridmax,gridsize,cheby) {
-# 	gridsize <- oa_gridsize
+# 	gridsize <- opt_gridsize
 # 	gridlist <- build_grid(gridmin=gridmin, gridmax=gridmax, gridsize, cheby=1)
 # 	# generate value and policy guesses - use final period
 # 	S_T_1 <- gridlist$igrid$sats
@@ -81,37 +81,9 @@ source("calibrate_parameters.r")
 
 # gridlist <- list(base_piece=c(gridlist_1$base_piece,gridlist_2$base_piece), igrid=cbind(gridlist_1$igrid,gridlist_2$igrid))
 
-gridsize <- oa_gridsize
-gridlist <- build_grid(gridmin=0, gridmax=20000, gridsize, cheby=1)
-
-# generate value and policy guesses - use final period
-S_T_1 <- gridlist$igrid$sats
-D_T_1 <- gridlist$igrid$debs
-S_T <- S_T_1*(1-L(S_T_1,D_T_1))
-V_T <- p[T]*S_T
-vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
-lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
-gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
-
-print(round(gridlist$base_piece,digits=5))
-
-# initialize solver output list
-oa_dvs_output <- list()
-
-# run path solver
-oa_dvs_output <- suppressWarnings(oa_pvfn_path_solver(oa_dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores=ncores))
-
-# bind the list of solved policies into a long dataframe
-oa_pvfn_path <- rbindlist(oa_dvs_output)
-
-#############################################################################
-# 2b. Optimal policies and values
-#############################################################################
-
-# build grid
 gridsize <- opt_gridsize # not clear what the right choice is here - as high as possible? larger values require a desktop with multiple cores and lots of RAM.
 # another issue: larger values make the (0,0) launch decision much larger than the OA decision. is this a numerical artefact in the solve? or a result of parameter values which limit Kessler possibilities? HOW TO TEST THIS? i can maybe rule out Kessler with fake parms?
-gridlist <- build_grid(gridmin=0, gridmax=20000, gridsize, cheby=1) # gridmax=25000 seems to work well for the data
+gridlist <- build_grid(gridmin=0, gridmax=grid_upper, gridsize, cheby=1) # gridmax=25000 seems to work well for the data
 
 # generate value and policy guesses - use terminal period. keep this separate from the open access guesses to allow for different gridsizes.
 S_T_1 <- gridlist$igrid$sats
@@ -134,11 +106,41 @@ opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel
 opt_pvfn_path <- rbindlist(opt_dvs_output)
 
 #############################################################################
+# 2a. Open access policies and values
+#############################################################################
+
+# build grid
+
+gridsize <- oa_gridsize
+gridlist <- build_grid(gridmin=0, gridmax=grid_upper, gridsize, cheby=1)
+
+# generate value and policy guesses - use final period
+S_T_1 <- gridlist$igrid$sats
+D_T_1 <- gridlist$igrid$debs
+S_T <- S_T_1*(1-L(S_T_1,D_T_1))
+V_T <- p[T]*S_T
+vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
+lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
+gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
+
+print(round(gridlist$base_piece,digits=5))
+
+# initialize solver output list
+oa_dvs_output <- list()
+
+# run path solver
+oa_dvs_output <- suppressWarnings(oa_pvfn_path_solver(oa_dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores=ncores))
+
+# bind the list of solved policies into a long dataframe
+oa_pvfn_path <- rbindlist(oa_dvs_output)
+
+#############################################################################
 # 3. Generate open access and optimal time paths
 #############################################################################
 
 ### open access paths
 oa_grid_lookup <- data.frame(sats=oa_pvfn_path$satellites,debs=oa_pvfn_path$debris,F=oa_pvfn_path$F)
+#source("simulation_algorithms.r")
 oa_tps_path <- tps_path_gen(S0,D0,0,p,F,oa_pvfn_path,asats,launch_constraint,oa_grid_lookup,ncores=ncores,OPT=0,linear_policy_interp=0)
 oa_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(oa_tps_path)),oa_tps_path)
 

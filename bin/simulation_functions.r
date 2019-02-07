@@ -51,7 +51,7 @@ seriesgen_ts <- function(X,S,D,T,asats_seq,p,F,...) {
 	return(values)
 }
 
-# Plot policy and value functions on a given grid
+# Plot policy and value functions on a given grid -- MAKE RECTANGULAR
 plot_pfn_vfn <- function(vfn,launch_pfn,basegrid,labels) {
 	fv_mat <- t(matrix(vfn,nrow=length(basegrid)))
 	l_po_mat <- t(matrix(launch_pfn,nrow=length(basegrid)))
@@ -91,7 +91,7 @@ make_cheby <- function(input) {
 	return(cheby_nodes)
 }
 
-# Build a square grid at Chebyshev nodes
+# Build a square grid at Chebyshev nodes -- MAKE RECTANGULAR
 build_grid <- function(gridmin, gridmax, gridlength, cheby) {
 	base_piece <- seq(from=gridmin, to=gridmax, length.out=gridlength)
 	ifelse(cheby==1, base_piece<-make_cheby(base_piece), base_piece<-base_piece)
@@ -102,7 +102,7 @@ build_grid <- function(gridmin, gridmax, gridlength, cheby) {
 	return(list(base_piece=base_piece,igrid=igrid))
 }
 
-# Convert a square grid to a panel
+# Convert a square grid to a panel -- MAKE RECTANGULAR
 grid_to_panel <- function(gridlist,launch_pguess,contval) {
 	base_piece <- gridlist[[1]]
 	igrid <- gridlist[[2]]
