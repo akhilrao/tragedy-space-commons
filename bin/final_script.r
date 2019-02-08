@@ -42,8 +42,8 @@ args <- commandArgs(trailingOnly=TRUE)
 upper <- 1e15 # upper limit for some rootfinders - should never bind
 ncores <- 32#as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 16
-opt_gridsize <- 128#as.numeric(args[2])
-grid_upper <- 60000
+opt_gridsize <- 64#as.numeric(args[2])
+grid_upper <- 40000
 
 total_time <- proc.time()[3]
 
