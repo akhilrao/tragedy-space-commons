@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930) (preloaded format=pdflatex 2019.1.11)  5 FEB 2019 14:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930) (preloaded format=pdflatex 2019.1.11)  6 FEB 2019 11:32
 entering extended mode
 **./calibration.tex
 (calibration.tex
@@ -634,70 +634,69 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 69.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 70.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
 
-Underfull \hbox (badness 10000) in paragraph at lines 72--73
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
+
+
+Overfull \vbox (1.89302pt too high) has occurred while \output is active []
+
 
 [1
 
 {/home/akhil/.miktex/texmfs/data/pdftex/config/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 105--106
+Underfull \hbox (badness 10000) in paragraph at lines 107--108
 
  []
 
 
 Package natbib Warning: Citation `ASATdata' on page 2 undefined on input line 1
-07.
+09.
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
 
  []
 
 <../../images/risk_fit_plot.png, id=116, 401.5pt x 401.5pt>
 File: ../../images/risk_fit_plot.png Graphic file (type png)
 <use ../../images/risk_fit_plot.png>
-Package pdftex.def Info: ../../images/risk_fit_plot.png  used on input line 132
+Package pdftex.def Info: ../../images/risk_fit_plot.png  used on input line 134
 .
 (pdftex.def)             Requested size: 234.8775pt x 234.88573pt.
 <../../images/debris_lom_fit_plot.png, id=117, 401.5pt x 401.5pt>
 File: ../../images/debris_lom_fit_plot.png Graphic file (type png)
 <use ../../images/debris_lom_fit_plot.png>
 Package pdftex.def Info: ../../images/debris_lom_fit_plot.png  used on input li
-ne 133.
+ne 135.
 (pdftex.def)             Requested size: 234.8775pt x 234.88573pt.
 
-Overfull \hbox (2.28001pt too wide) in paragraph at lines 132--137
+Overfull \hbox (2.28001pt too wide) in paragraph at lines 134--139
 [][] [] 
  []
 
 [3 <../../images/risk_fit_plot.png (PNG copy)> <../../images/debris_lom_fit_plo
 t.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
+Underfull \hbox (badness 10000) in paragraph at lines 177--178
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--191
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
 
@@ -706,55 +705,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 192--193
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 194--195
+
+ []
+
 [5]
 <../../images/risk_return_plot.png, id=168, 401.5pt x 401.5pt>
 File: ../../images/risk_return_plot.png Graphic file (type png)
 <use ../../images/risk_return_plot.png>
 Package pdftex.def Info: ../../images/risk_return_plot.png  used on input line 
-206.
+208.
 (pdftex.def)             Requested size: 234.8775pt x 234.88573pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--229
+Underfull \hbox (badness 10000) in paragraph at lines 230--231
 
  []
 
 [6 <../../images/risk_return_plot.png (PNG copy)>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 238.
+               Default added (so using `tbp') on input line 240.
 
 [7]
-Overfull \hbox (5.33357pt too wide) in paragraph at lines 270--271
+Overfull \hbox (5.33357pt too wide) in paragraph at lines 272--273
 \OT1/ptm/m/n/12 and one sequence for each management regime type. We compute ea
 ch sequence through backwards
  []
 
 
-Overfull \hbox (3.14922pt too wide) in paragraph at lines 270--271
+Overfull \hbox (3.14922pt too wide) in paragraph at lines 272--273
 \OT1/ptm/m/n/12 induction: beginning at the final period in our projection hori
 zon, and iteratively working backwards
  []
 
 
-Overfull \hbox (11.17644pt too wide) in paragraph at lines 270--271
+Overfull \hbox (11.17644pt too wide) in paragraph at lines 272--273
 \OT1/ptm/m/n/12 similar rationales, e.g. the models compared in []Wilkerson et 
 al.[] ([]2015[]). Our work here is conceptually
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 270--271
+Underfull \hbox (badness 10000) in paragraph at lines 272--273
 
  []
 
 
-Overfull \hbox (1.02519pt too wide) in paragraph at lines 272--273
+Overfull \hbox (1.02519pt too wide) in paragraph at lines 274--275
 \OT1/ptm/m/n/12 time. In contrast to a standard Chebyshev grid, an expanded Che
 byshev grid allows for computation
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 275--276
-
  []
 
 
@@ -767,23 +766,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 285--286
+
+Underfull \hbox (badness 10000) in paragraph at lines 281--282
 
  []
 
-
+[8]
 Underfull \hbox (badness 10000) in paragraph at lines 287--288
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--290
+
+ []
+
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 333--334
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 352--353
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
 
  []
 
@@ -793,16 +797,16 @@ File: ../../images/32_pt_opt_simulated_historical_series.png Graphic file (type
  png)
 <use ../../images/32_pt_opt_simulated_historical_series.png>
 Package pdftex.def Info: ../../images/32_pt_opt_simulated_historical_series.png
-  used on input line 358.
+  used on input line 364.
 (pdftex.def)             Requested size: 469.75502pt x 469.76996pt.
 [11]
-<../../images/32_pt_opt_simulated_historical_cost_tax.png, id=258, 702.625pt x 
+<../../images/32_pt_opt_simulated_historical_cost_tax.png, id=261, 702.625pt x 
 702.625pt>
 File: ../../images/32_pt_opt_simulated_historical_cost_tax.png Graphic file (ty
 pe png)
 <use ../../images/32_pt_opt_simulated_historical_cost_tax.png>
 Package pdftex.def Info: ../../images/32_pt_opt_simulated_historical_cost_tax.p
-ng  used on input line 368.
+ng  used on input line 374.
 (pdftex.def)             Requested size: 469.75502pt x 469.76996pt.
  [12 <../../images/32_pt_opt_simulated_historical_series.png (PNG copy)>]
 [13 <../../images/32_pt_opt_simulated_historical_cost_tax.png (PNG copy)>]
@@ -825,64 +829,64 @@ ications % 20of % 20the %
  []
 
 ) [14]
-<../../images/debris_lom_sensitivity_plot.png, id=292, 602.25pt x 602.25pt>
+<../../images/debris_lom_sensitivity_plot.png, id=295, 602.25pt x 602.25pt>
 File: ../../images/debris_lom_sensitivity_plot.png Graphic file (type png)
 <use ../../images/debris_lom_sensitivity_plot.png>
 Package pdftex.def Info: ../../images/debris_lom_sensitivity_plot.png  used on 
-input line 396.
+input line 402.
 (pdftex.def)             Requested size: 328.82707pt x 328.84004pt.
 
-Overfull \hbox (39.43123pt too wide) in paragraph at lines 405--411
+Overfull \hbox (39.43123pt too wide) in paragraph at lines 411--417
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 420--421
-
- []
-
-[15 <../../images/debris_lom_sensitivity_plot.png (PNG copy)>]
 Underfull \hbox (badness 10000) in paragraph at lines 426--427
 
  []
 
+[15 <../../images/debris_lom_sensitivity_plot.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
 
-Overfull \hbox (5.19986pt too wide) in paragraph at lines 440--441
+ []
+
+
+Overfull \hbox (5.19986pt too wide) in paragraph at lines 446--447
 \OT1/ptm/m/n/12 constraint forward with a linear time trend and an intercept. T
 able []6[] shows the estimated coefficients,
  []
 
 [16]
-<../../images/linear_trend_launch_constraint.png, id=316, 702.625pt x 702.625pt
+<../../images/linear_trend_launch_constraint.png, id=319, 702.625pt x 702.625pt
 >
 File: ../../images/linear_trend_launch_constraint.png Graphic file (type png)
 <use ../../images/linear_trend_launch_constraint.png>
 Package pdftex.def Info: ../../images/linear_trend_launch_constraint.png  used 
-on input line 456.
+on input line 462.
 (pdftex.def)             Requested size: 328.82707pt x 328.84004pt.
 
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 464.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 470.
 [17 <../../images/linear_trend_launch_constraint.png (PNG copy)>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 464.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 470.
 
 (calibration.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 464.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 464.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 470.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 470.
 Package rerunfilecheck Info: File `calibration.out' has not changed.
 (rerunfilecheck)             Checksum: 6863CDD3B55703C1AC52018BF027E555;1101.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 464.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 470.
  ) 
 Here is how much of TeX's memory you used:
- 11784 strings out of 494888
- 189688 string characters out of 3178637
+ 11790 strings out of 494888
+ 189742 string characters out of 3178637
  290624 words of memory out of 3000000
  15122 multiletter control sequences out of 15000+200000
- 59779 words of font info for 137 fonts, out of 3000000 for 9000
+ 61643 words of font info for 140 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
- 36i,20n,39p,1816b,488s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,20n,39p,1825b,493s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{Hfootnote.7} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -915,9 +919,9 @@ all/fonts/type1/urw/symbol/usyr.pfb></home/akhil/.miktex/texmfs/install/fonts/t
 ype1/urw/times/utmb8a.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw/t
 imes/utmr8a.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw/times/utmri
 8a.pfb>
-Output written on calibration.pdf (17 pages, 480208 bytes).
+Output written on calibration.pdf (17 pages, 481344 bytes).
 PDF statistics:
- 380 PDF objects out of 1000 (max. 8388607)
- 103 named destinations out of 1000 (max. 500000)
+ 383 PDF objects out of 1000 (max. 8388607)
+ 106 named destinations out of 1000 (max. 500000)
  156 words of extra memory for PDF output out of 10000 (max. 10000000)
 

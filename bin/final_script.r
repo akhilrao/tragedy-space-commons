@@ -40,10 +40,11 @@ args <- commandArgs(trailingOnly=TRUE)
 #############################################################################
 
 upper <- 1e15 # upper limit for some rootfinders - should never bind
-ncores <- 32#as.numeric(args[1]) # number of cores to use for parallel computations
+ncores <- 4#as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 16
-opt_gridsize <- 64#as.numeric(args[2])
-grid_upper <- 40000
+opt_gridsize <- 8#as.numeric(args[2])
+S_grid_upper <- 15000
+D_grid_upper <- 40000
 
 total_time <- proc.time()[3]
 
@@ -81,9 +82,9 @@ source("calibrate_parameters.r")
 
 # gridlist <- list(base_piece=c(gridlist_1$base_piece,gridlist_2$base_piece), igrid=cbind(gridlist_1$igrid,gridlist_2$igrid))
 
-gridsize <- opt_gridsize # not clear what the right choice is here - as high as possible? larger values require a desktop with multiple cores and lots of RAM.
-# another issue: larger values make the (0,0) launch decision much larger than the OA decision. is this a numerical artefact in the solve? or a result of parameter values which limit Kessler possibilities? HOW TO TEST THIS? i can maybe rule out Kessler with fake parms?
-gridlist <- build_grid(gridmin=0, gridmax=grid_upper, gridsize, cheby=1) # gridmax=25000 seems to work well for the data
+gridsize <- opt_gridsize # 32 is a decent choice
+# issue: larger values make the (0,0) launch decision much larger than the OA decision. is this a numerical artefact in the solve? or a result of parameter values which limit Kessler possibilities? HOW TO TEST THIS? i can maybe rule out Kessler with fake parms?
+gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper, Dgridmax=D_grid_upper, Sgridlength=gridsize, Dgridlength=gridsize, cheby=1) # gridmax=25000 seems to work well for the data
 
 # generate value and policy guesses - use terminal period. keep this separate from the open access guesses to allow for different gridsizes.
 S_T_1 <- gridlist$igrid$sats
@@ -94,13 +95,14 @@ vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
 lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
 gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 
-print(round(gridlist$base_piece,digits=5))
+print(round(gridlist$S_base_piece,digits=5))
+print(round(gridlist$D_base_piece,digits=5))
 
 # initialize solver output list
 opt_dvs_output <- list()
 
 # run path solver
-opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel,gridsize,gridlist,asats,T,p,F,ncores=ncores))
+opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel,gridsize,gridsize,gridlist,asats,T,p,F,ncores=ncores))
 
 # bind the list of solved policies into a long dataframe
 opt_pvfn_path <- rbindlist(opt_dvs_output)
@@ -110,9 +112,8 @@ opt_pvfn_path <- rbindlist(opt_dvs_output)
 #############################################################################
 
 # build grid
-
 gridsize <- oa_gridsize
-gridlist <- build_grid(gridmin=0, gridmax=grid_upper, gridsize, cheby=1)
+gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper, Dgridmax=D_grid_upper, Sgridlength=gridsize, Dgridlength=gridsize, cheby=1)
 
 # generate value and policy guesses - use final period
 S_T_1 <- gridlist$igrid$sats
@@ -123,7 +124,12 @@ vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
 lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
 gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 
-print(round(gridlist$base_piece,digits=5))
+print(round(gridlist$S_base_piece,digits=5))
+print(round(gridlist$D_base_piece,digits=5))
+
+# dev.new()
+# par(mfrow=c(1,2))
+# plot_pfn_vfn(vguess,lpguess,gridlist$S_base_piece,gridlist$D_base_piece,c("vfn","pfn"))
 
 # initialize solver output list
 oa_dvs_output <- list()

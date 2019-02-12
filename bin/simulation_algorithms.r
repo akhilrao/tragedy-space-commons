@@ -56,7 +56,7 @@ ptm <- proc.time()
 	p_vec <- rep(p,length=dim(igrid)[1])
 	F_vec <- rep(F,length=dim(igrid)[1])
 	for(j in 1:dim(igrid)[1]) {
-		X <- uniroot.all(eqmcond,c(0,1e+9),S=igrid$sats[j],D=(igrid$debs[j]),fe_eqm=fe_eqm[t+1],asats=asats[t])
+		X <- uniroot.all(eqmcond,c(0,1e+9),S=igrid$sats[j],D=igrid$debs[j],fe_eqm=fe_eqm[t+1],asats=asats[t])
 		launches[j] <- ifelse(length(X)==0,0,X)
 	}
 
@@ -74,25 +74,26 @@ ptm <- proc.time()
 oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores,...) {
 	total.grid.time <- proc.time()[3]
 	registerDoParallel(cores=ncores)
-	base_grid <- unique(gridlist$igrid[,1])
+	S_base_grid <- unique(gridlist$igrid$sats)
+	D_base_grid <- unique(gridlist$igrid$debs)
 	fe_eqm_padded <- c(fe_eqm,fe_eqm[T]) # pad final period as having no change in equilibrium risk. this has implications for the correct imputed value of F[T].
 	for(i in T:1){
 		dvs_output[[i]] <- oapolicy(igrid=gridlist$igrid,fe_eqm_padded,t=i,asats=asats,p=p[i],F=F[i])
 		if(i==T) {
-			tps_x <- as.matrix(cbind(gridlist$igrid$sats,gridlist$igrid$debs))
+			tps_x <- as.matrix(cbind(gridlist$igrid[,1],gridlist$igrid[,2]))
 			tps_y <- as.matrix(gridpanel$V)
 			tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
 			spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
-			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
-			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 
 			# make pictures
 			dev.new(width=8,height=7,unit="in")
 			par(mfrow=c(2,2))
-			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
-			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
-			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=500,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
 
 			# assign output
@@ -102,16 +103,16 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			tps_x <- as.matrix(cbind(gridlist$igrid$sats,gridlist$igrid$debs))
 			tps_y <- as.matrix(dvs_output[[i+1]]$oa_fleet_vfn)
 			spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
-			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)			
-			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE)
+			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)			
+			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 
 			# make pictures
 			dev.new(width=8,height=7,unit="in")
 			par(mfrow=c(2,2))
-			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-			image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
-			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
-			image2D(z=pfn,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 
 			# interpolate fleet prevalue function at next period state
 			value_fn <- foreach(j=1:length(gridlist$igrid$sats), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
@@ -159,9 +160,13 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	# initialize hyperparameters
 	panrows <- nrow(panel)
 	gridmin <- min(igrid)
-	gridmax <- max(igrid)
-	n_grid_points <- length(unique(igrid[,1]))^2 # MAKE RECTANGULAR
-	base_grid <- unique(igrid[,1]) # MAKE RECTANGULAR
+	Sgridmax <- max(igrid$sats)
+	Dgridmax <- max(igrid$debs)
+	# n_grid_points <- length(unique(igrid[,1]))^2 # MAKE RECTANGULAR
+	n_grid_points <- length(unique(igrid$sats))*length(unique(igrid$debs))
+	# base_grid <- unique(igrid[,1]) # MAKE RECTANGULAR
+	S_base_grid <- unique(igrid$sats)
+	D_base_grid <- unique(igrid$debs)
 	dev.new(width=8,height=7,unit="in")
 	par(mfrow=c(2,2))
 
@@ -184,7 +189,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	while(delta > epsilon) {
 
 		## plot pfn and vfn
-		plot_pfn_vfn(panel$V,panel$X,base_grid,c("Value function","Policy function"))
+		plot_pfn_vfn(panel$V,panel$X,S_base_grid,D_base_grid,c("Value function","Policy function"))
 
 		## create spline interpolation model
 		cat(paste0("\nEstimating spline interpolant of value function..."))
@@ -194,12 +199,14 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		cat(paste0("\n Done."))
 
 		spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
-		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR
-		policy_mat <- matrix(panel$X,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR
+		# spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR
+		# policy_mat <- matrix(panel$X,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR		
+		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		policy_mat <- matrix(panel$X,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		
 		# TODO: replace this with call to plot_pfn_vfn
-		image2D(z=spline_vfn_int_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-		image2D(z=policy_mat,x=base_grid,y=base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+		image2D(z=spline_vfn_int_mat,x=S_base_grid,y=D_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+		image2D(z=policy_mat,x=S_base_grid,y=D_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 
 		t.tm <- proc.time()
 		## maximization step
@@ -207,7 +214,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		m.tm <- proc.time()
 		result <- foreach(k=1:panrows, .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
 			ctm <- proc.time()[3]
-			ulim <- gridmax
+			ulim <- Sgridmax
 			solution <- optim(par=panel$X[k], fn=fleet_preval_spline, S=panel$S[k], D=panel$D[k], value_fn=panel$V, asats=asats, t=t, p=p, F=F, igrid=igrid, tps_model=tps_model, control=list(fnscale=-1), method="L-BFGS-B", lower=0, upper=ulim)
 			launch_rate <- solution$par[1]
 			vfn <- solution$value
@@ -261,13 +268,13 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 }
 
 ### algorithm to compute optimal policy and value functions along a given returns and cost path -- MAKE RECTANGULAR
-opt_pvfn_path_solver <- function(dvs_output,gridpanel,gridsize,gridlist,asats,T,p,F,ncores,...) {
+opt_pvfn_path_solver <- function(dvs_output,gridpanel,Sgridsize,Dgridsize,gridlist,asats,T,p,F,ncores,...) {
 	total.grid.time <- proc.time()[3]
 	registerDoParallel(cores=ncores)
 	for(i in T:1){
 		dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
-		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=gridsize,ncol=gridsize) # MAKE RECTANGULAR
-		lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=gridsize,ncol=gridsize) # MAKE RECTANGULAR
+		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=Sgridsize,ncol=Dgridsize) # MAKE RECTANGULAR
+		lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=Sgridsize,ncol=Dgridsize) # MAKE RECTANGULAR
 		gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 		dev.off()
 	}
@@ -342,10 +349,10 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
 		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)]) 
 		#ifelse(deb_seq[k]>)
-		#print(max(igrid))
-		#print(k)
-		#print(spline_list[[k]]) # check that these objects are the right inputs
-		#print(cbind(sat_seq[k],deb_seq[k])) # check that these objects are the right inputs
+		print(max(igrid))
+		print(k)
+		print(spline_list[[k]]) # check that these objects are the right inputs
+		print(cbind(sat_seq[k],deb_seq[k])) # check that these objects are the right inputs
 		X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
 		X[k] <- ifelse(X[k]<0,0,X[k])
 		X[k] <- ifelse(X[k]>launchcon_seq[current_clock_time],X[k]<-launchcon_seq[current_clock_time],X[k]<-X[k])

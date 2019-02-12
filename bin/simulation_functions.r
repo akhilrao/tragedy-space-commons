@@ -51,13 +51,13 @@ seriesgen_ts <- function(X,S,D,T,asats_seq,p,F,...) {
 	return(values)
 }
 
-# Plot policy and value functions on a given grid -- MAKE RECTANGULAR
-plot_pfn_vfn <- function(vfn,launch_pfn,basegrid,labels) {
-	fv_mat <- t(matrix(vfn,nrow=length(basegrid)))
-	l_po_mat <- t(matrix(launch_pfn,nrow=length(basegrid)))
+# Plot policy and value functions on a given grid
+plot_pfn_vfn <- function(vfn,launch_pfn,Sbasegrid,Dbasegrid,labels) {
+	fv_mat <- t(matrix(vfn,nrow=length(Sbasegrid),ncol=length(Dbasegrid)))
+	l_po_mat <- t(matrix(launch_pfn,nrow=length(Sbasegrid),ncol=length(Dbasegrid)))
 
-	image2D(z=fv_mat,x=basegrid,y=basegrid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=labels[1])
-	image2D(z=l_po_mat,x=basegrid,y=basegrid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100), main=labels[2])
+	image2D(z=fv_mat,x=Dbasegrid,y=Sbasegrid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=labels[1])
+	image2D(z=l_po_mat,x=Dbasegrid,y=Sbasegrid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100), main=labels[2])
 }
 
 # function to translate [a,b] to [-1,1]; a = output_range[1], b = output_range[2]
@@ -92,20 +92,57 @@ make_cheby <- function(input) {
 }
 
 # Build a square grid at Chebyshev nodes -- MAKE RECTANGULAR
-build_grid <- function(gridmin, gridmax, gridlength, cheby) {
-	base_piece <- seq(from=gridmin, to=gridmax, length.out=gridlength)
-	ifelse(cheby==1, base_piece<-make_cheby(base_piece), base_piece<-base_piece)
-	sats <- base_piece
-	debs <- base_piece
+# build_grid <- function(gridmin, gridmax, gridlength, cheby) {
+# 	S_base_piece <- seq(from=gridmin, to=gridmax, length.out=gridlength)
+# 	ifelse(cheby==1, base_piece<-make_cheby(base_piece), base_piece<-base_piece)
+# 	sats <- base_piece
+# 	debs <- base_piece
+# 	igrid <- as.data.frame(expand.grid(sats,debs))
+# 	colnames(igrid) <- c("sats","debs")
+# 	return(list(base_piece=base_piece,igrid=igrid))
+# }
+
+build_grid <- function(gridmin, Sgridmax, Dgridmax, Sgridlength, Dgridlength, cheby) {
+	S_base_piece <- seq(from=gridmin, to=Sgridmax, length.out=Sgridlength)
+	D_base_piece <- seq(from=gridmin, to=Dgridmax, length.out=Dgridlength)
+	ifelse(cheby==1, S_base_piece<-make_cheby(S_base_piece), S_base_piece<-S_base_piece)
+	ifelse(cheby==1, D_base_piece<-make_cheby(D_base_piece), D_base_piece<-D_base_piece)
+	sats <- S_base_piece
+	debs <- D_base_piece
 	igrid <- as.data.frame(expand.grid(sats,debs))
 	colnames(igrid) <- c("sats","debs")
-	return(list(base_piece=base_piece,igrid=igrid))
+	return(list(S_base_piece=S_base_piece,D_base_piece=D_base_piece,igrid=igrid))
 }
 
 # Convert a square grid to a panel -- MAKE RECTANGULAR
+# grid_to_panel <- function(gridlist,launch_pguess,contval) {
+# 	S_base_piece <- gridlist[[1]]
+# 	D_base_piece <- gridlist[[2]]
+# 	igrid <- gridlist[[3]]
+
+# 	# initialize empty matrix for panel
+# 	pancols <- 4
+# 	panrows <- dim(igrid)[1]
+# 	panel <- data.frame(matrix(0,nrow=panrows,ncol=pancols))
+# 	colnames(panel)[1:4] <- c("V","S","D","X")
+
+# 	# satellite-debris grid parameters and assignments for panel
+# 	S_basegrid <- unique(igrid[,1])
+# 	D_basegrid <- unique(igrid[,2])
+# 	n_grid_points <- length(S_basegrid)*length(D_basegrid)
+# 	gridspace <- abs(mean(diff(igrid$sats)))
+# 	panel$S <- igrid$sats
+# 	panel$D <- igrid$debs
+# 	panel$X <- as.vector(launch_pguess)
+# 	panel$V <- as.vector(contval)
+
+# 	return(panel)
+# }
+
 grid_to_panel <- function(gridlist,launch_pguess,contval) {
-	base_piece <- gridlist[[1]]
-	igrid <- gridlist[[2]]
+	S_base_piece <- gridlist[[1]]
+	D_base_piece <- gridlist[[2]]
+	igrid <- gridlist[[3]]
 
 	# initialize empty matrix for panel
 	pancols <- 4
@@ -114,9 +151,9 @@ grid_to_panel <- function(gridlist,launch_pguess,contval) {
 	colnames(panel)[1:4] <- c("V","S","D","X")
 
 	# satellite-debris grid parameters and assignments for panel
-	basegrid <- unique(igrid[,1])
-	n_grid_points <- length(basegrid)^2
-	gridspace <- abs(mean(diff(igrid$sats)))
+	S_basegrid <- unique(igrid[,1])
+	D_basegrid <- unique(igrid[,2])
+	n_grid_points <- length(S_basegrid)*length(D_basegrid)
 	panel$S <- igrid$sats
 	panel$D <- igrid$debs
 	panel$X <- as.vector(launch_pguess)

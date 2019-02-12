@@ -9,6 +9,9 @@ library(gridExtra)
 library(reshape2)
 library(gmm)
 
+install.packages(c("pracma","data.table","rootSolve","gridExtra","ggplot2","viridis","doParallel","progress","plot3D","reshape2","fields","compiler","plyr","dplyr","glmnet","gmm"))
+
+
 #dfrm <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
 dfrm <- read.csv("/platter/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]
