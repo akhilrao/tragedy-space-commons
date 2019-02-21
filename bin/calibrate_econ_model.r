@@ -78,7 +78,7 @@ summary(riskmodel)
 
 riskparms <- coef(riskmodel)
 riskxvars <- matrix(c(rep(1,length=dim(dfrm)[1]), dfrm$r_s, dfrm$Ft_Ft), ncol=3, byrow=FALSE )
-fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision probability as a function of returns and costs")
+fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision rate as a function of returns and costs")
 dev.off()
 
 write.csv(riskparms,file="econ_series_coefs.csv")

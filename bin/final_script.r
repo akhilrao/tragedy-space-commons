@@ -55,12 +55,12 @@ upper <- 1e15 # upper limit for some rootfinders - should never bind
 ncores <- 32#as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 32
 # what's the right size?
-S_gridsize_opt <- 64#as.numeric(args[2]) 
-D_gridsize_opt <- 64#as.numeric(args[2]) 
+S_gridsize_opt <- 16#as.numeric(args[2]) 
+D_gridsize_opt <- 16#as.numeric(args[2]) 
 S_grid_upper_oa <- 15000
 S_grid_upper_opt <- 8000
 D_grid_upper_oa <- 300000
-D_grid_upper_opt <- 400000
+D_grid_upper_opt <- 200000
 
 total_time <- proc.time()[3]
 
