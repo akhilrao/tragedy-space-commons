@@ -9,9 +9,9 @@ library(gridExtra)
 library(reshape2)
 library(gmm)
 
-setwd("/home/akhil/Documents/git-repos/tragedy-space-commons/data/")
+setwd("../data/")
 
-dfrm <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
+dfrm <- read.csv("ST_stock_series.csv")
 #dfrm <- read.csv("/platter/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]
 

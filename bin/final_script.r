@@ -28,10 +28,9 @@ library(compiler)
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
 #############################################################################
 
-setwd("/home/akhil/Documents/git-repos/tragedy-space-commons/bin/")
 source("calibrate_physical_model.r")
 
-setwd("/home/akhil/Documents/git-repos/tragedy-space-commons/bin/")
+setwd("../bin/")
 source("calibrate_econ_model.r")
 
 rm(list=ls())
@@ -53,15 +52,15 @@ args <- commandArgs(trailingOnly=TRUE)
 #############################################################################
 
 upper <- 1e15 # upper limit for some rootfinders - should never bind
-ncores <- 4#as.numeric(args[1]) # number of cores to use for parallel computations
+ncores <- 32#as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 32
 # what's the right size?
-S_gridsize_opt <- 8#as.numeric(args[2]) 
-D_gridsize_opt <- 32#as.numeric(args[2]) 
+S_gridsize_opt <- 64#as.numeric(args[2]) 
+D_gridsize_opt <- 64#as.numeric(args[2]) 
 S_grid_upper_oa <- 15000
 S_grid_upper_opt <- 8000
 D_grid_upper_oa <- 300000
-D_grid_upper_opt <- 300000
+D_grid_upper_opt <- 400000
 
 total_time <- proc.time()[3]
 

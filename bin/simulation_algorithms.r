@@ -168,7 +168,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	# base_grid <- unique(igrid[,1]) # MAKE RECTANGULAR
 	S_base_grid <- unique(igrid$sats)
 	D_base_grid <- unique(igrid$debs)
-	dev.new(width=8,height=7,unit="in")
+	dev.new(width=8.5,height=7,unit="in")
 	par(mfrow=c(2,2))
 
 	# initialize output objects
@@ -197,12 +197,11 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		cat(paste0("\nEstimating spline interpolant of value function..."))
 		tps_x <- as.matrix(cbind(panel$S,panel$D))
 		tps_y <- as.matrix(panel$V)
-		# tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
-		tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y))
-		cat(paste0("\n Done."))
+		tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
+		# tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y))
 		vspline.time <- (proc.time() - vspline.tm)[3]
 		## out
-		cat(paste0("\n Done. Total grid compute time taken: ",round(proc.time()[3] - vspline.time,3)," seconds"))
+		cat(paste0("\n Done. Time to estimate interpolant: ",round(proc.time()[3] - vspline.time,3)," seconds"))
 
 		spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
 		# spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR
@@ -241,8 +240,8 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		## calculate distance (|V-newV| or |X-newX|) and update policy or value  
 		if(t==T) {
 			policy_delta <- max(abs((panel$X-newX)))
-			ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=75,tps_model,p[T],F[T],asats[T]), newV <- newV)
-			#ifelse(policy_delta<0.1, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
+			#ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=75,tps_model,p[T],F[T],asats[T]), newV <- newV)
+			ifelse(policy_delta<0.01, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
 			cat(paste("\n Policy delta is ", policy_delta, sep=""))
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV

@@ -38,7 +38,7 @@ F_calc <- function(a_1,a_2,a_3,F_1,pi_t,risk,...) {
 }
 
 ##### read in data, aggregate, and reshape 
-aggrc <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/industry_revenues.csv")
+aggrc <- read.csv("../data/industry_revenues.csv")
 aggrc <- subset(aggrc, select=c(Category, Commercial.Infrastructure.and.Support.Industries,Ground.Stations.and.Equipment, Satellite.Manufacturing..Commercial., Satellite.Launch.Industry..Commercial., Insurance.Premiums, Commercial.Space.Products.and.Services)) 
 aggrc <- ddply(aggrc, ~Category, transform, tot_rev = Commercial.Space.Products.and.Services, tot_cost = (Commercial.Infrastructure.and.Support.Industries + Ground.Stations.and.Equipment + Satellite.Manufacturing..Commercial. + Satellite.Launch.Industry..Commercial.) )
 aggrc$r_s_raw <- aggrc$tot_rev/aggrc$tot_cost  #calculate the raw rate of return on a satellite - the number of satellites drops out of the formula 
@@ -47,7 +47,7 @@ colnames(aggrc)[1] <- "year"
 aggrc <- aggrc[-1,]
 
 ### scale aggregate revenues/costs by share in LEO
-satellites <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ucsfaa_merged.csv")
+satellites <- read.csv("../data/ucsfaa_merged.csv")
 LEO_share <- ddply(satellites, ~Launch.Year, summarize, share_in_LEO=mean(LEO), share_in_GSO=mean(GSO) )
 colnames(LEO_share)[1] <- c("year")
 
@@ -55,7 +55,7 @@ aggrc <- merge(LEO_share,aggrc,by=c("year"))
 #aggrc$r_s <- aggrc$r_s_raw*aggrc$share_in_LEO # disabled because (1) I don't have the right measure of share; (2) it feels like data snooping to use the share of launches instead of share of satellites; (3) shouldn't OLS "learn" the share and embed it in the parameter estimates?
 aggrc$r_s <- aggrc$r_s_raw
 
-dfrm <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
+dfrm <- read.csv("../data/ST_stock_series.csv")
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]
 risk <- subset(dfrm,select=c(year, risk))
 risk$risk <- risk$risk/dfrm$payloads_in_orbit
