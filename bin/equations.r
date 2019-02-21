@@ -1,14 +1,12 @@
 ##### functions to be used in deterministic satellite-debris model dynamic programming solver script
 
-# Collision probability 
+# Collision rate 
 L <- function(S,D,...) {
-	#1 - exp(-aSS*S-aSD*D)			#negexp rate
-	#SD <- ifelse(S*D==0,1e-7,S*D)
-	pmax(pmin(aS*S + aD*D + aSS*S^2 + aSD*(S*D) + aDD*D^2,1),0)		#statmech rate
-	#pmax(pmin(aS*S + aD*D + aSS*S^2 + aSD*(S*D),1),0)		#statmech rate
+	#pmax(pmin(aS*S + aD*D + aSS*S^2 + aSD*(S*D) + aDD*D^2,1),0)		#statmech rate
+	pmax(pmin(aSS*S^2 + aSD*(S*D),S),0)		#statmech rate -- treat as total number of collisions rather than P(arbitrary single collision)
 }
 
-# Derivatives of collision probability
+# Derivatives of collision rate
 L_S <- function(S,D,...) {
 	ifelse(L(S,D)==1, 0, aS + 2*aSS*S + aSD*D)
 }
@@ -18,21 +16,28 @@ L_D <- function(S,D,...) {
 }
 
 # debris growth function
+# G <- function(S,D,...) {
+# 	sat_caused <- ifelse( (S+D)>0, L(S,D)*(S/(S+D)), 0)
+# 	deb_caused <- ifelse( (S+D)>0, L(S,D)*(D/(S+D)), 0)
+# 	newfrags <- bSS*sat_caused*S + bSD*deb_caused*S + aDDbDD*D^2
+# 	return(newfrags)
+# }
+
+# debris growth function -- BW2009 parameterization
 G <- function(S,D,...) {
-	sat_caused <- ifelse( (S+D)>0, L(S,D)*(S/(S+D)), 0)
-	deb_caused <- ifelse( (S+D)>0, L(S,D)*(D/(S+D)), 0)
-	newfrags <- bSS*sat_caused*S + bSD*deb_caused*S + aDDbDD*D^2
-	return(newfrags)
+	aSS*bSS*S^2 + aSD*bSD*S*D + aDDbDD*D^2
 }
 
 # Satellite law of motion 
 S_ <- function(X,S,D,...) {
-	S*(1-avg_sat_decay)*(1-L(S,D)) + X
+	#S*avg_sat_decay*(1-L(S,D)) + X
+	(S - L(S,D))*avg_sat_decay + X #treating L(S,D) as the number of satellites lost in collisions, rather than probability single satellite is lost. assume decay happens after collisions.
 }
 
 # Debris law of motion
 D_ <- function(X,S,D,asats,...) {
-	stock <- D*(1-d) + G(S,D) + m*X + Z_coef*avg_sat_decay*S + asat_coef*asats
+	#stock <- D*(1-d) + G(S,D) + m*X + Z_coef*avg_sat_decay*S + asat_coef*asats
+	stock <- D*(1-d) + G(S,D) + m*X + asat_coef*asats
 	stock[which(stock=="NaN")] <- D
 	stock[which(stock=="NA")] <- D
 	stock
@@ -71,7 +76,8 @@ fleet_preval_spline <- function(X,S,D,asats,t,value_fn,p,F,igrid,tps_model,...) 
 
 # open access equilibrium condition
 eqmcond <- function(X,S,D,fe_eqm,asats,...) {
-	L(S_(X,S,D),D_(X,S,D,asats)) - fe_eqm
+	L(S_(X,S,D),D_(X,S,D,asats)) - fe_eqm*S_(X,S,D)
+	#L(S_(X,S,D),D_(X,S,D,asats)) - fe_eqm
 }
 
 # terminal period steady state value assuming returns and costs stay constant and only replacement launches
@@ -79,14 +85,3 @@ fleet_ssval_T <- function(S,D,T,p,F,...) {
 	value <- ((discount_fac^T)/(1-discount_fac))*one_p_return(L(S,D)*S,S,T,p,F)
 	return(value)
 } 
-
-
-# # Infinite horizon satellite value
-# V_ss <- function(S,D,...) {
-# 	p/(1-discount_fac*(1-L(S,D)))
-# }
-
-# # Infinite horizon fleet value
-# W_ss <- function(S,D,...) {
-# 	(p(S)*S - F*L(S,D)*S)/(1-discount_fac)
-# }

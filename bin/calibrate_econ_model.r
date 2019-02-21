@@ -58,6 +58,7 @@ aggrc$r_s <- aggrc$r_s_raw
 dfrm <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]
 risk <- subset(dfrm,select=c(year, risk))
+risk$risk <- risk$risk/dfrm$payloads_in_orbit
 
 dfrm <- merge(aggrc,risk,by=c("year"))
 dfrm <- subset(dfrm,select=c(year,tot_rev,tot_cost,r_s,r_s_raw,risk,share_in_LEO,Ft_Ft))
@@ -71,15 +72,14 @@ write.csv(dfrm,file="econ_series.csv",row.names=FALSE)
 ##### model risk as a function of the return
 dfrm_mat <- as.matrix(subset(dfrm,select=-c(risk,year,implied_r,tot_rev,tot_cost,r_s_raw,share_in_LEO)))
 risk <- dfrm$risk
-# riskelnet <- glmnet(x=dfrm_mat,y=risk,alpha=0,lambda=cv.glmnet(x=dfrm_mat,y=risk,alpha=0)$lambda.min,intercept=TRUE)
-# riskelnet
-# coef(riskelnet)
 
 riskmodel <- lm( risk ~ r_s + Ft_Ft, data=dfrm)
 summary(riskmodel)
 
 riskparms <- coef(riskmodel)
 riskxvars <- matrix(c(rep(1,length=dim(dfrm)[1]), dfrm$r_s, dfrm$Ft_Ft), ncol=3, byrow=FALSE )
+fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision probability as a function of returns and costs")
+dev.off()
 
 write.csv(riskparms,file="econ_series_coefs.csv")
 
@@ -89,7 +89,7 @@ F <- F_calc(a_1=riskparms[1],a_2=riskparms[2],a_3=riskparms[3],F_1=(dfrm$Ft_Ft[1
 p <- dfrm$tot_rev
 
 printed_table_of_costs_and_returns <- data.frame(year=seq(from=aggrc$year[1],length.out=nrow(dfrm)),pi_t=dfrm$tot_rev,F_t=dfrm$tot_cost,F_hat=F)
-View(printed_table_of_costs_and_returns)
+#View(printed_table_of_costs_and_returns)
 
 write.csv(round(printed_table_of_costs_and_returns,digits=2),file="implied_costs.csv")
 

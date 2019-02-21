@@ -1,8 +1,9 @@
 ##### Script to set calibrated economic and physical parameters based on observed data and theory
 
-# Read in data and calibration estimates
-risk_cal <- read.csv("../data/calibrated_risk_eqn_coefs.csv")
+# Read in data and parameter estimates
+risk_cal <- read.csv("../bin/calibrated_risk_eqn_coefs.csv")
 deblom_cal <- read.csv("../data/calibrated_debris_lom_coefs.csv")
+satlom_cal <- read.csv("../data/calibrated_satellite_lom_coefs.csv")
 econ_series <- read.csv("../data/econ_series.csv")
 econ_coefs <- read.csv("../data/econ_series_coefs.csv")
 implied_econ_series <- read.csv("../data/implied_costs.csv")
@@ -12,23 +13,45 @@ MS_proj_total <- read.csv("../data/avg_econ_total.csv")
 
 # Set parameters
 start_year <- 2006
+selected_years <- which(observed_time_series$year>=start_year)
 S0 <- observed_time_series$payloads_in_orbit[which(observed_time_series$year==start_year)]
 D0 <- observed_time_series$debris[which(observed_time_series$year==start_year)]
-avg_sat_decay <- mean(observed_time_series$payloads_decayed[which(observed_time_series$year>=start_year)]/observed_time_series$payloads_in_orbit[which(observed_time_series$year>=start_year)])
 
-aS <- risk_cal[1,2]
-aD <- risk_cal[2,2]
-aSS <- risk_cal[3,2]
-aSD <- risk_cal[4,2]
-aDD <- risk_cal[5,2]
+# estimated parameterization
+satlom_cal_names <- as.character(satlom_cal[,1])
+satlom_cal <- data.frame(parameters=t(c(satlom_cal[,2])))
+colnames(satlom_cal) <- satlom_cal_names
+avg_sat_decay <- satlom_cal$payloads_in_orbit # corresponds to just over 30 years on orbit: on average 5 year mission time + 25 year post-mission disposal compliance. Value estimated from statistical model for satellite law of motion. 
+# decay coefficient is currently represented as survival rate rather than decay rate.
 
-aDDbDD <- deblom_cal[7,2]
-bSS <- deblom_cal[5,2]
-bSD <- deblom_cal[6,2]
-d <- deblom_cal[2,2]
-Z_coef <- deblom_cal[1,2]
-m <- deblom_cal[3,2]
-asat_coef <- deblom_cal[4,2]
+risk_cal_names <- as.character(risk_cal[,1])
+risk_cal <- data.frame(parameters=t(c(risk_cal[,2])))
+colnames(risk_cal) <- risk_cal_names
+aSS <- risk_cal$S2
+aSD <- risk_cal$SD
+
+deblom_cal_names <- as.character(deblom_cal[,1])
+deblom_cal <- data.frame(parameters=t(c(deblom_cal[,2])))
+colnames(deblom_cal) <- deblom_cal_names
+aDDbDD <- 0#deblom_cal$D2
+bSS <- deblom_cal$SSfrags
+bSD <- deblom_cal$SDfrags
+d <- deblom_cal$debris
+#Z_coef <- deblom_cal[1,2]
+m <- deblom_cal$launch_successes
+asat_coef <- deblom_cal$num_destr_asat
+
+# Bradley-Wein 2009 parameterization -- need to redo equations a bit for this
+# risk_cal <- risk_cal*20 #the risk values were averaged across 20 shells in LEO, multiplying by 20 reverts back to the original values
+# aSS <- 2.55e-7
+# aSD <- 7.64e-8
+# aDDbDD <- 1.22011e-08
+# bSS <- 331.29/aSS
+# bSD <- 331.29/aSD
+# d <- 0.0276925 #or use min, 1.23*10^-3
+# Z_coef <- 0
+# m <- 1/3 #BW set lambda_R = 1/year and lambda_o = 3/year in their SOI; keeping the ratio gives m=1/3 for this model.
+# asat_coef <- 1500 #roughly eyeball-calibrated to the FY-1C missile test, which was a big one
 
 discount_rate <- 0.05
 discount_fac <- 1/(1+discount_rate)

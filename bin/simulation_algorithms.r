@@ -56,7 +56,7 @@ ptm <- proc.time()
 	p_vec <- rep(p,length=dim(igrid)[1])
 	F_vec <- rep(F,length=dim(igrid)[1])
 	for(j in 1:dim(igrid)[1]) {
-		X <- uniroot.all(eqmcond,c(0,1e+9),S=igrid$sats[j],D=igrid$debs[j],fe_eqm=fe_eqm[t+1],asats=asats[t])
+		X <- uniroot.all(eqmcond,c(0,1e+15),S=igrid$sats[j],D=igrid$debs[j],fe_eqm=fe_eqm[t+1],asats=asats[t])
 		launches[j] <- ifelse(length(X)==0,0,X)
 	}
 
@@ -66,7 +66,7 @@ ptm <- proc.time()
 	loss <- L(S_(launches,igrid$sats,igrid$debs),D_(launches,igrid$sats,igrid$debs,asats))
 	results <- as.data.frame(cbind(igrid,launches,fleet_size,loss,fe_eqm_vec,p_vec,F_vec))
 	colnames(results) <- c("satellites","debris","oa_launch_pfn","oa_fleet_size","loss_next","fe_eqm","p","F")
-	print(paste("Total time taken for open access policy: ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
+	print(paste("Total time taken for open access policy in period ",t,": ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
 	return(results)
 }
 
@@ -94,7 +94,8 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
 			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
-			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=500,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
+
+			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=50,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
 
 			# assign output
 			dvs_output[[i]]$oa_fleet_vfn <- value_fn
@@ -175,7 +176,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
 	#ifelse(t==T, epsilon <- max(n_grid_points*1e-5,1e-3), epsilon <- max(n_grid_points*2e-5,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
-	ifelse(t==T, epsilon <- 1e-4, epsilon <- 6e-3) # for testing
+	ifelse(t==T, epsilon <- 1, epsilon <- 1) # for testing
 	delta_old <- 0
 	delta <- epsilon + 10
 	delta2 <- 25
@@ -192,11 +193,16 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		plot_pfn_vfn(panel$V,panel$X,S_base_grid,D_base_grid,c("Value function","Policy function"))
 
 		## create spline interpolation model
+		vspline.tm <- proc.time()
 		cat(paste0("\nEstimating spline interpolant of value function..."))
 		tps_x <- as.matrix(cbind(panel$S,panel$D))
 		tps_y <- as.matrix(panel$V)
-		tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
+		# tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
+		tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y))
 		cat(paste0("\n Done."))
+		vspline.time <- (proc.time() - vspline.tm)[3]
+		## out
+		cat(paste0("\n Done. Total grid compute time taken: ",round(proc.time()[3] - vspline.time,3)," seconds"))
 
 		spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
 		# spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR
@@ -205,8 +211,8 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		policy_mat <- matrix(panel$X,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		
 		# TODO: replace this with call to plot_pfn_vfn
-		image2D(z=spline_vfn_int_mat,x=S_base_grid,y=D_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-		image2D(z=policy_mat,x=S_base_grid,y=D_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+		image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+		image2D(z=policy_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 
 		t.tm <- proc.time()
 		## maximization step
@@ -235,8 +241,8 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		## calculate distance (|V-newV| or |X-newX|) and update policy or value  
 		if(t==T) {
 			policy_delta <- max(abs((panel$X-newX)))
-			#ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=10,tps_model,p[T],F[T],asats[T]), newV <- newV)
-			ifelse(policy_delta<0.1, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
+			ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=75,tps_model,p[T],F[T],asats[T]), newV <- newV)
+			#ifelse(policy_delta<0.1, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
 			cat(paste("\n Policy delta is ", policy_delta, sep=""))
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV
@@ -302,6 +308,11 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 	profit_seq <- rep(0,length=(T-t0))
 	discounted_profit_seq <- rep(0,length=(T-t0))
 	fleet_npv_path <- rep(0,length=(T-t0))
+	# runaway <- rep("?",length=(T-t0))
+	# kessler <- rep("?",length=(T-t0))
+	runaway <- vector(mode="character",length=(T-t0))
+	kessler <- vector(mode="character",length=(T-t0))
+	
 	X <- rep(-1,length=(T-t0))
 
 	if(length(launchcon_seq)==-1) {launchcon_seq <- rep(upper,length=(T-t0))} # -1 is a flag to set the constraint large enough that it never binds
@@ -343,28 +354,44 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 	discounted_profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 	fleet_npv_path[1] <- predict(vfn_spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]))
+	ifelse(G(sat_seq[1],deb_seq[1])>d*deb_seq[1], runaway[1] <- "yes", runaway[1] <- "no")
+	ifelse(G(0,deb_seq[1])>d*deb_seq[1], kessler[1] <- "yes", kessler[1] <- "no")
 
 	for(k in 2:(T-t0)) {
 		current_clock_time <- t0 + k # need to calculate what the time is in the outside world for asats and launch constraint
-		sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
-		deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)]) 
-		#ifelse(deb_seq[k]>)
-		print(max(igrid))
-		print(k)
-		print(spline_list[[k]]) # check that these objects are the right inputs
-		print(cbind(sat_seq[k],deb_seq[k])) # check that these objects are the right inputs
-		X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
-		X[k] <- ifelse(X[k]<0,0,X[k])
-		X[k] <- ifelse(X[k]>launchcon_seq[current_clock_time],X[k]<-launchcon_seq[current_clock_time],X[k]<-X[k])
-		profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
-		discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
-		fleet_npv_path[k] <- predict(vfn_spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
+		## if-else block for Kessler Syndrome, D=1e+6 is an upper bound. If the orbit is unusable (L(0,D)=1), then don't go through this computation and set the launch rate to zero. This is reasonable unless satellites make more than 100% of their total cost to build+launch every period, in which case you would still launch satellites then.
+		if(deb_seq[(k-1)]<=1e+6){ 
+			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
+			deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)]) 
+			print(k)
+			print(cbind(sat_seq[k],deb_seq[k])) # check that these objects are the right inputs
+			X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
+			X[k] <- ifelse(X[k]<0,0,X[k])
+			X[k] <- ifelse(X[k]>launchcon_seq[current_clock_time],X[k]<-launchcon_seq[current_clock_time],X[k]<-X[k])
+			profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
+			discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
+			fleet_npv_path[k] <- predict(vfn_spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
+			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k], runaway[k] <- "yes", runaway[k] <- "no")
+			ifelse(G(0,deb_seq[k])>d*deb_seq[k], kessler[k] <- "yes", kessler[k] <- "no")
+		}
+		if(deb_seq[(k-1)]>1e+6){
+			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
+			ifelse(deb_seq[(k-1)]>=1e+154, deb_seq[k] <- deb_seq[(k-1)], deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)])) # prevent NAs when the debris stock grows uncontrollably
+			X[k] <- 0
+			profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
+			discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
+			fleet_npv_path[k] <- 0
+			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k], runaway[k] <- "yes", runaway[k] <- "no")
+			ifelse(G(0,deb_seq[k])>d*deb_seq[k], kessler[k] <- "yes", kessler[k] <- "no")
+		} 
 	}
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
 	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
 	profit_seq[(T-t0)] <- fleet_ssval_T(X[(T-t0)],sat_seq[(T-t0)],T,p,F)
 	losses <- L(sat_seq,deb_seq)
-	values <- as.data.frame(cbind(times,X,sat_seq,deb_seq,profit_seq,discounted_profit_seq,fleet_npv_path,losses,p,F))
-	colnames(values) <- c("time","launches","satellites","debris","fleet_flowv","fleet_pv","fleet_vfn_path","collision_rate","returns","costs")
+	print(class(kessler))
+	print(class(sat_seq))
+	values <- data.frame(time=times,launches=X,satellites=sat_seq,debris=deb_seq,runaway=runaway,kessler=kessler,fleet_flowv=profit_seq,fleet_pv=discounted_profit_seq,fleet_vfn_path=fleet_npv_path,collision_rate=losses,returns=p,costs=F, stringsAsFactors=FALSE)
+#	colnames(values) <- c("time","launches","satellites","debris","runaway","kessler","fleet_flowv","fleet_pv","fleet_vfn_path","collision_rate","returns","costs")
 	return(values)
 }
