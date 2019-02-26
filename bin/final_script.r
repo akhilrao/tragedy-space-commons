@@ -52,15 +52,15 @@ args <- commandArgs(trailingOnly=TRUE)
 #############################################################################
 
 upper <- 1e15 # upper limit for some rootfinders - should never bind
-ncores <- 32#as.numeric(args[1]) # number of cores to use for parallel computations
+ncores <- 4#as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 32
 # what's the right size?
-S_gridsize_opt <- 16#as.numeric(args[2]) 
-D_gridsize_opt <- 16#as.numeric(args[2]) 
+S_gridsize_opt <- 32#as.numeric(args[2]) 
+D_gridsize_opt <- 32#as.numeric(args[2]) 
 S_grid_upper_oa <- 15000
-S_grid_upper_opt <- 8000
+S_grid_upper_opt <- 12000
 D_grid_upper_oa <- 300000
-D_grid_upper_opt <- 200000
+D_grid_upper_opt <- 100000
 
 total_time <- proc.time()[3]
 
@@ -167,6 +167,16 @@ source("simulation_algorithms.r")
 oa_grid_lookup <- data.frame(sats=oa_pvfn_path$satellites,debs=oa_pvfn_path$debris,F=oa_pvfn_path$F)
 oa_tps_path <- tps_path_gen(S0,D0,0,p,F,oa_pvfn_path,asats,launch_constraint,oa_grid_lookup,ncores=ncores,OPT=0,linear_policy_interp=0)
 oa_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(oa_tps_path)),oa_tps_path)
+
+# t0=0
+# policy_path=oa_pvfn_path
+# asats_seq=asats
+# launchcon_seq=launch_constraint
+# igrid=oa_grid_lookup
+# ncores=4
+# OPT=0
+# linear_policy_interp=0
+
 
 ### optimal paths
 opt_grid_lookup <- data.frame(sats=opt_pvfn_path$satellites,debs=opt_pvfn_path$debris,F=opt_pvfn_path$F)

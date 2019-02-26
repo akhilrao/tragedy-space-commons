@@ -204,13 +204,14 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		cat(paste0("\n Done. Time to estimate interpolant: ",round(proc.time()[3] - vspline.time,3)," seconds"))
 
 		spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
-		# spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR
-		# policy_mat <- matrix(panel$X,nrow=length(base_grid),ncol=length(base_grid),byrow=TRUE) # MAKE RECTANGULAR		
 		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		policy_mat <- matrix(panel$X,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		loss_vec <- L(S_(panel$X,panel$S,panel$D),D_(panel$X,panel$S,panel$D,asats[t]))
+		loss_mat <- matrix(loss_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		
 		# TODO: replace this with call to plot_pfn_vfn
-		image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+		#image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+		image2D(z=loss_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("satellites lost in collisions"))
 		image2D(z=policy_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 
 		t.tm <- proc.time()
@@ -321,8 +322,9 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 	ifelse(OPT==1, launch_pfn <- as.vector(policy_path$optimal_launch_pfn), launch_pfn <- as.vector(policy_path$oa_launch_pfn))
 	ifelse(OPT==1, fleet_vfn <- as.vector(policy_path$optimal_fleet_vfn), fleet_vfn <- as.vector(policy_path$oa_fleet_vfn))
 
-	# Thin plate splines to fit the policy functions
+	# Thin plate splines to fit the policy and value functions
 	spline_list <- list()
+	vfn_spline_list <- list()
 
 	s.tm <- proc.time()[3]
 	cat(paste0("\nEstimating spline interpolants of policy functions..."))

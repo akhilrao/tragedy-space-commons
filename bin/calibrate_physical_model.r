@@ -8,6 +8,7 @@ library(glmnet)
 library(gridExtra)
 library(reshape2)
 library(gmm)
+library(BB)
 
 setwd("../data/")
 
@@ -29,7 +30,21 @@ fitplot <- function(xvars,coefs,year,truth,title) {
 						theme_minimal()
 
 	grid.arrange(plot_fitplot,plot_error,nrow=2)
+}
 
+nls_fitplot <- function(xvars,coefs,year,truth,title) {
+	fitline <- xvars[,1]*(1 - exp(-coefs[1]*xvars[,1] -coefs[2]*xvars[,2]))
+	fit <- data.frame(year=year,fit=fitline,truth=truth,error=(fitline-truth))
+
+	plot_base <- ggplot(data=fit, aes(x=year))
+	plot_fitplot <- plot_base + geom_point(aes(y=truth),size=1.1) +
+							geom_line(aes(y=fit),size=0.9,linetype="dashed", color="blue") +
+							theme_minimal() + ggtitle(paste(title))
+	plot_error <- plot_base + geom_line(aes(y=error),size=0.9) +
+						geom_hline(yintercept=0,linetype="dashed") +
+						theme_minimal()
+
+	grid.arrange(plot_fitplot,plot_error,nrow=2)
 }
 
 ##### Create additional X variables for regressions
@@ -106,21 +121,59 @@ png(width=400,height=400,filename="../images/risk_fit_plot.png")
 fitplot(risk_xvars,risk_coefs,series$year,risk,"Collision rate equation calibration")
 dev.off()
 
-write.csv(risk_coefs,file="calibrated_risk_eqn_coefs.csv")
+# NLS calibration of negative exponential collision rate
+objective <- function(parms,rate,S,D) {
+	aSS <- parms[1]
+	aSD <- parms[2]
+	obj <- sum((rate - S*(1 - exp(-(aSS*S)-(aSD*D))))^2)
+	return(obj)
+}
+
+nls_risk_xvars <- subset(series,select=c(payloads_in_orbit,debris))
+colnames(nls_risk_xvars) <- c("sats","debs")
+
+## Run through grid of initial guesses to get the best one
+# init_cond_element <- seq(from=0,to=1e-6,length.out=750)
+# init_cond_grid <- expand.grid(init_cond_element,init_cond_element)
+# nls_values <- as.data.frame(matrix(1e+25,nrow=nrow(init_cond_grid),ncol=4))
+# colnames(nls_values) <- c("obj_fn","SS_parm","SD_parm","conv")
+
+# for(i in 1:nrow(init_cond_grid)) {
+# 	print(i)
+# 	nls_result <- invisible(spg(par=c(init_cond_grid[i,1],init_cond_grid[i,2]), fn=objective, rate=risk, S=nls_risk_xvars$sats, D=nls_risk_xvars$debs, lower=0, upper=0.5,control=list(ftol=1e-15), quiet=TRUE))
+# 	nls_values$obj_fn[i] <- nls_result$value
+# 	nls_values$SS_parm[i] <- nls_result$par[1]
+# 	nls_values$SD_parm[i] <- nls_result$par[2]
+# 	nls_values$conv[i] <- nls_result$convergence
+# }
+
+# best_init <- which.min(nls_values$obj_fn)
+# nls_coefs <- nls_values[best_init,2:3]
+
+nls_result <- invisible(spg(par=c(1.001335e-07,1.695594e-07), fn=objective, rate=risk, S=nls_risk_xvars$sats, D=nls_risk_xvars$debs, lower=0, upper=0.5,control=list(ftol=1e-15), quiet=TRUE))
+nls_coefs <- c(nls_result$par[1],nls_result$par[2])
+
+nls_fitplot(nls_risk_xvars,c(nls_coefs[1],nls_coefs[2]),series$year,risk,"Collision rate equation calibration")
+
+nls_coefs <- data.frame(S2=nls_coefs[1],SD=nls_coefs[2])
+
+write.csv(nls_coefs,file="calibrated_risk_eqn_coefs.csv")
 
 ### create more variables for debris modeling
-Sfrac <- risk_coefs[1]*dfrm$payloads_in_orbit
-Dfrac <- risk_coefs[2]*dfrm$debris
+# Sfrac <- risk_coefs[1]*dfrm$payloads_in_orbit
+# Dfrac <- risk_coefs[2]*dfrm$debris
+Sfrac <- 1 - exp(-nls_coefs[1,1]*dfrm$payloads_in_orbit)
+Dfrac <- 1 - exp(-nls_coefs[1,2]*dfrm$debris)
 dfrm$SSfrags <- Sfrac*dfrm$payloads_in_orbit
 dfrm$SDfrags <- Dfrac*dfrm$payloads_in_orbit
 
 series <- cbind(dfrm[-(dim(dfrm)[1]),],D_next,S_next,risk)
-dfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,payloads_decayed,debris,launch_successes,launch_failures,num_destr_asat,SSfrags,SDfrags,D2) ) )
+dfit_mat <- as.matrix(subset(series,select=c(payloads_in_orbit,payloads_decayed,debris,launch_successes,launch_failures,num_destr_asat,SSfrags,SDfrags) ) )
 
 ### debris equation calibration
 # Elnet fit
 ### The ridge fit isn't really theoretically grounded, but the coefficients all satisfy the theoretical restrictions and are plausible orders of magnitude (with the exception of delta, which seems too high).
-dfit_mat_elnet <- as.matrix(subset(dfit_mat,select=c(debris,launch_successes,num_destr_asat,SSfrags,SDfrags,D2) ) )
+dfit_mat_elnet <- as.matrix(subset(dfit_mat,select=c(debris,launch_successes,num_destr_asat,SSfrags,SDfrags) ) )
 m2 <- glmnet(x=dfit_mat_elnet,y=D_next, alpha=0,lambda=cv.glmnet(x=dfit_mat,y=D_next,alpha=0)$lambda.min,intercept=FALSE)
 #m2 <- glmnet(x=dfit_mat_elnet,y=D_next, alpha=0,lambda=0,intercept=FALSE) # turn off penalization
 coef(m2)
@@ -130,8 +183,6 @@ dfit_dfrm <- as.data.frame(cbind(D_next,dfit_mat_elnet))
 debs_ols <- lm(D_next ~ -1 + ., data=dfit_dfrm)
 coef(debs_ols)
 
-# time series GLS calibration. D_t+1 is an AR(1) process 
-
 # plot fit
 m2xvars <- as.matrix(cbind(subset(series,select=colnames(dfit_mat_elnet))))
 m2coefs <- coef(m2)[-1]
@@ -139,6 +190,7 @@ names(m2coefs) <- colnames(dfit_mat_elnet)
 fitplot(m2xvars,m2coefs,series$year,D_next,"Debris law of motion calibration")
 dev.off()
 
+# plot fit
 png(width=400,height=400,filename="../images/debris_lom_fit_plot.png")
 fitplot(m2xvars,m2coefs,series$year,D_next,"Debris law of motion calibration")
 dev.off()

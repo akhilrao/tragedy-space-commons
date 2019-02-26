@@ -2,8 +2,8 @@
 
 # Collision rate 
 L <- function(S,D,...) {
-	#pmax(pmin(aS*S + aD*D + aSS*S^2 + aSD*(S*D) + aDD*D^2,1),0)		#statmech rate
-	pmax(pmin(aSS*S^2 + aSD*(S*D),S),0)		#statmech rate -- treat as total number of collisions rather than P(arbitrary single collision)
+	S*(1-exp( -(aSS*S) -(aSD*D) ))
+	#pmax(pmin(aSS*S^2 + aSD*(S*D),S),0)		#1 statmech rate -- treat as total number of collisions rather than P(arbitrary single collision)
 }
 
 # Derivatives of collision rate
@@ -16,16 +16,9 @@ L_D <- function(S,D,...) {
 }
 
 # debris growth function
-# G <- function(S,D,...) {
-# 	sat_caused <- ifelse( (S+D)>0, L(S,D)*(S/(S+D)), 0)
-# 	deb_caused <- ifelse( (S+D)>0, L(S,D)*(D/(S+D)), 0)
-# 	newfrags <- bSS*sat_caused*S + bSD*deb_caused*S + aDDbDD*D^2
-# 	return(newfrags)
-# }
-
-# debris growth function -- BW2009 parameterization
 G <- function(S,D,...) {
-	aSS*bSS*S^2 + aSD*bSD*S*D + aDDbDD*D^2
+	#aSS*bSS*S^2 + aSD*bSD*S*D + aDDbDD*D^2
+	bSS*(1-exp(-aSS*S))*S + bSD*(1-exp(-aSD*D))*S
 }
 
 # Satellite law of motion 
