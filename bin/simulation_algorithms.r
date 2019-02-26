@@ -70,6 +70,28 @@ ptm <- proc.time()
 	return(results)
 }
 
+### optimal policy approximation algorithm - full serial (still fast - just rootfinding with no integration)
+optpolicy_approx <- function(igrid,fe_eqm,t,asats,p,F,...) {
+ptm <- proc.time()
+	launches <- rep(0,length=dim(igrid)[1])
+	fe_eqm_vec <- rep(fe_eqm,length=dim(igrid)[1])
+	p_vec <- rep(p,length=dim(igrid)[1])
+	F_vec <- rep(F,length=dim(igrid)[1])
+	for(j in 1:dim(igrid)[1]) {
+		X <- uniroot.all(optcond,c(0,1e+15),S=igrid$sats[j],D=igrid$debs[j],fe_eqm=fe_eqm[t+1],asats=asats[t],t=t)
+		launches[j] <- ifelse(length(X)==0,0,X)
+	}
+
+	launches[which(launches=="Inf")] <- -1
+	fleet_size <- S_(launches,igrid$sats,igrid$debs)
+
+	loss <- L(S_(launches,igrid$sats,igrid$debs),D_(launches,igrid$sats,igrid$debs,asats))
+	results <- as.data.frame(cbind(igrid,launches,fleet_size,loss,fe_eqm_vec,p_vec,F_vec))
+	colnames(results) <- c("satellites","debris","oa_launch_pfn","oa_fleet_size","loss_next","fe_eqm","p","F")
+	print(paste("Total time taken for open access policy in period ",t,": ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
+	return(results)
+}
+
 ### algorithm to compute open access value functions along a given returns and cost path
 oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores,...) {
 	total.grid.time <- proc.time()[3]
