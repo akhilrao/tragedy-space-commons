@@ -1,7 +1,7 @@
 ##### algorithms to be used in deterministic satellite-debris model dynamic programming simulation script
 
-# fleet planner time series generator
-fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
+# fleet planner time series generator -- numerically solves a joint maximization
+fp_tsgen_numerical <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 	ctm <- proc.time()[3]
 	parms <- c(rep(15,length=T),S,D)
 	launch_path <- optim(par=parms[1:T],fn=fhvf, S=parms[(T+1)], D=parms[(T+2)], asats_seq=asats_seq, launch_con=launch_con, T=T,p=p,F=F, control=list(fnscale=-1, pgtol=1e-2),method="L-BFGS-B",lower=0,upper=1e+14)$par
@@ -14,6 +14,35 @@ fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 	print("Fleet planner time series generated.") 
 	print(paste0("Time to compute launch path: ", launch_path_clock, " seconds."))
 	print(paste0("Time to propagate stocks: ", propagation_clock, " seconds."))
+
+	return(time_series)
+}
+
+# fleet planner time series generator
+fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
+	ctm <- proc.time()[3]
+	launch_path <- rep(0,length=(T+1))
+	sat_path <- rep(S,length=(T+1))
+	deb_path <- rep(D,length=(T+1))
+	profit_seq <- rep(0,length=(T+1))
+	discounted_profit_seq <- rep(0,length=(T+1))
+	for(t in 1:T ) {
+		X <- uniroot.all(optcond_exact,c(0,1e+6),S=sat_path[t],D=deb_path[t],p=p,F=F,clock_time=t,asats=asats[t])
+		if(length(X)==0) { launch_path[t] <- 0 }	
+		if(length(X)>0) { launch_path[t] <- X }
+		if(launch_path[t]>launch_con[t]) {launch_path[t] <- launch_con[t]}
+		sat_path[t+1] <- S_(launch_path[t],sat_path[t],deb_path[t])
+		deb_path[t+1] <- D_(launch_path[t],sat_path[t],deb_path[t],asats[t])
+		profit_seq[t] <- one_p_return(launch_path[t],sat_path[t],t,p,F)
+		discounted_profit_seq[t] <- profit_seq[t]*discount_fac^(t-1)
+	}
+	clock <- proc.time()[3] - ctm
+	print(uniroot.all(optcond_exact,c(0,1e+6),S=sat_path[T+1],D=deb_path[T+1],p=p,F=F,clock_time=(T+1),asats=asats[T+1]))
+
+	time_series <- data.frame(time=seq(0,T),launches=launch_path,satellites=sat_path,debris=deb_path,fleet_flowv=profit_seq,fleet_pv=discounted_profit_seq,collision_rate=L(sat_path,deb_path))
+
+	print("Open access time series generated.") 
+	print(paste0("Time to compute launch path and propagate stocks: ", clock, " seconds."))
 
 	return(time_series)
 }
@@ -70,26 +99,94 @@ ptm <- proc.time()
 	return(results)
 }
 
-### optimal policy approximation algorithm - full serial (still fast - just rootfinding with no integration)
-optpolicy_approx <- function(igrid,fe_eqm,t,asats,p,F,...) {
+### optimal policy exact(?) algorithm - full serial (still fast - just rootfinding with no integration)
+optpolicy_exact <- function(igrid,fe_eqm,clock_time,asats,p,F,...) {
 ptm <- proc.time()
 	launches <- rep(0,length=dim(igrid)[1])
 	fe_eqm_vec <- rep(fe_eqm,length=dim(igrid)[1])
-	p_vec <- rep(p,length=dim(igrid)[1])
-	F_vec <- rep(F,length=dim(igrid)[1])
+	p_vec <- rep(p[clock_time],length=dim(igrid)[1])
+	F_vec <- rep(F[clock_time],length=dim(igrid)[1])
 	for(j in 1:dim(igrid)[1]) {
-		X <- uniroot.all(optcond,c(0,1e+15),S=igrid$sats[j],D=igrid$debs[j],fe_eqm=fe_eqm[t+1],asats=asats[t],t=t)
-		launches[j] <- ifelse(length(X)==0,0,X)
+		solution <- uniroot.all(optcond_exact,c(0,1500),S=igrid$sats[j],D=igrid$debs[j],clock_time=clock_time,p=p,F=F,asats=asats)
+		solution_1 <- ifelse(length(solution)>1,solution[1],solution)
+		launches[j] <- ifelse(identical(solution,numeric(0)),0,solution_1)
 	}
 
 	launches[which(launches=="Inf")] <- -1
 	fleet_size <- S_(launches,igrid$sats,igrid$debs)
 
-	loss <- L(S_(launches,igrid$sats,igrid$debs),D_(launches,igrid$sats,igrid$debs,asats))
+	loss <- L(S_(launches,igrid$sats,igrid$debs),D_(launches,igrid$sats,igrid$debs,asats[clock_time]))
 	results <- as.data.frame(cbind(igrid,launches,fleet_size,loss,fe_eqm_vec,p_vec,F_vec))
-	colnames(results) <- c("satellites","debris","oa_launch_pfn","oa_fleet_size","loss_next","fe_eqm","p","F")
-	print(paste("Total time taken for open access policy in period ",t,": ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
+	colnames(results) <- c("satellites","debris","opt_launch_pfn","opt_fleet_size","loss_next","fe_eqm","p","F")
+	print(paste("Total time taken for optimal policy in period ",clock_time,": ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
 	return(results)
+}
+
+
+### algorithm to compute optimal value functions exactly along a given returns and cost path
+opt_exact_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores,...) {
+	total.grid.time <- proc.time()[3]
+	registerDoParallel(cores=ncores)
+	S_base_grid <- unique(gridlist$igrid$sats)
+	D_base_grid <- unique(gridlist$igrid$debs)
+	# pad final period as having no change in economic parameters
+	fe_eqm_padded <- c(fe_eqm,fe_eqm[T]) 
+	p_padded <- c(p,p[T])
+	F_padded <- c(F,F[T])
+	for(i in T:1){
+		print(i)
+		dvs_output[[i]] <- optpolicy_exact(igrid=gridlist$igrid,fe_eqm=fe_eqm,clock_time=i,asats=asats,p=p_padded,F=F_padded)
+		#View(dvs_output[[i]])
+		if(i==T) {
+			tps_x <- as.matrix(cbind(gridlist$igrid[,1],gridlist$igrid[,2]))
+			tps_y <- as.matrix(gridpanel$V)
+			tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
+			spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
+			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+			pfn <- matrix(dvs_output[[i]]$opt_launch_pfn,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+
+			# make pictures
+			dev.new(width=8,height=7,unit="in")
+			par(mfrow=c(2,2))
+			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+
+			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$opt_launch_pfn,value_fn=V_T,T=50,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
+
+			# assign output
+			dvs_output[[i]]$opt_fleet_vfn <- value_fn
+		}
+		if(i!=T) {
+			tps_x <- as.matrix(cbind(gridlist$igrid$sats,gridlist$igrid$debs))
+			tps_y <- as.matrix(dvs_output[[i+1]]$opt_fleet_vfn)
+			spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
+			spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)			
+			pfn <- matrix(dvs_output[[i]]$opt_launch_pfn,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+
+			# make pictures
+			dev.new(width=8,height=7,unit="in")
+			par(mfrow=c(2,2))
+			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+
+			# interpolate fleet prevalue function at next period state
+			value_fn <- foreach(j=1:length(gridlist$igrid$sats), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
+				result <- suppressWarnings(fleet_preval_spline(X=dvs_output[[i]]$opt_launch_pfn[j],S=gridlist$igrid$sats[j],D=gridlist$igrid$debs[j],value_fn=value_fn,asats=asats,t=i,p=p,F=F,igrid=gridlist$igrid,tps_model=tps_model))
+				result
+			}
+
+			# assign output
+			dvs_output[[i]]$opt_fleet_vfn <- value_fn
+		}
+		dev.off()
+	}
+	stopImplicitCluster()
+	cat(paste0("\n Done. Total grid compute time taken: ",round(proc.time()[3] - total.grid.time,3)," seconds"))
+	return(dvs_output)
 }
 
 ### algorithm to compute open access value functions along a given returns and cost path
@@ -178,7 +275,6 @@ policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t,asat
 }
 
 ### fleet planner VFI algorithm: solve for policy assuming steady state reached or assuming a perfect-foresight path to steady state
-# MAKE RECTANGULAR
 dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	# initialize hyperparameters
 	panrows <- nrow(panel)
@@ -295,14 +391,14 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	return(output)
 }
 
-### algorithm to compute optimal policy and value functions along a given returns and cost path -- MAKE RECTANGULAR
+### algorithm to compute optimal policy and value functions along a given returns and cost path
 opt_pvfn_path_solver <- function(dvs_output,gridpanel,Sgridsize,Dgridsize,gridlist,asats,T,p,F,ncores,...) {
 	total.grid.time <- proc.time()[3]
 	registerDoParallel(cores=ncores)
 	for(i in T:1){
 		dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
-		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=Sgridsize,ncol=Dgridsize) # MAKE RECTANGULAR
-		lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=Sgridsize,ncol=Dgridsize) # MAKE RECTANGULAR
+		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=Sgridsize,ncol=Dgridsize)
+		lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=Sgridsize,ncol=Dgridsize)
 		gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 		dev.off()
 	}
@@ -341,8 +437,8 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 
 	sat_seq[1] <- S0
 	deb_seq[1] <- D0
-	ifelse(OPT==1, launch_pfn <- as.vector(policy_path$optimal_launch_pfn), launch_pfn <- as.vector(policy_path$oa_launch_pfn))
-	ifelse(OPT==1, fleet_vfn <- as.vector(policy_path$optimal_fleet_vfn), fleet_vfn <- as.vector(policy_path$oa_fleet_vfn))
+	ifelse(OPT==1, launch_pfn <- as.vector(policy_path$opt_launch_pfn), launch_pfn <- as.vector(policy_path$oa_launch_pfn))
+	ifelse(OPT==1, fleet_vfn <- as.vector(policy_path$opt_fleet_vfn), fleet_vfn <- as.vector(policy_path$oa_fleet_vfn))
 
 	# Thin plate splines to fit the policy and value functions
 	spline_list <- list()

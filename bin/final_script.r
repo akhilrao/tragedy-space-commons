@@ -52,15 +52,15 @@ args <- commandArgs(trailingOnly=TRUE)
 #############################################################################
 
 upper <- 1e15 # upper limit for some rootfinders - should never bind
-ncores <- 32#as.numeric(args[1]) # number of cores to use for parallel computations
+ncores <- 2#as.numeric(args[1]) # number of cores to use for parallel computations
 oa_gridsize <- 32
 # what's the right size?
-S_gridsize_opt <- 75#as.numeric(args[2]) 
-D_gridsize_opt <- 75#as.numeric(args[2]) 
+S_gridsize_opt <- 32#as.numeric(args[2]) 
+D_gridsize_opt <- 32#as.numeric(args[2]) 
 S_grid_upper_oa <- 50000
-S_grid_upper_opt <- 25000
-D_grid_upper_oa <- 300000
-D_grid_upper_opt <- 500000
+S_grid_upper_opt <- 10000
+D_grid_upper_oa <- 1000000
+D_grid_upper_opt <- 50000
 
 total_time <- proc.time()[3]
 
@@ -74,8 +74,6 @@ source("calibrate_parameters.r")
 # 2b. Optimal policies and values
 #############################################################################
 
-#gridsize <- opt_gridsize # 32 is a decent choice
-# issue: larger values make the (0,0) launch decision much larger than the OA decision. is this a numerical artefact in the solve? or a result of parameter values which limit Kessler possibilities? HOW TO TEST THIS? i can maybe rule out Kessler with fake parms?
 gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_opt, Dgridmax=D_grid_upper_opt, Sgridlength=S_gridsize_opt, Dgridlength=D_gridsize_opt, cheby=1) # gridmax=25000 seems to work well for the data
 
 # generate value and policy guesses - use terminal period. keep this separate from the open access guesses to allow for different gridsizes.
@@ -92,21 +90,6 @@ gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 # par(mfrow=c(1,2))
 # plot_pfn_vfn(vguess,lpguess,gridlist$S_base_piece,gridlist$D_base_piece,c("vfn","pfn"))
 
-# alternate guess generation: solve a penultimate period problem.
-# produces same guess
-# penultimate_period_value <- function(X,S,D,t,p,F) {
-# 	S_final <- (S - L(S,D))*avg_sat_decay + X
-# 	p[t]*S - F[t]*X + discount_fac*p[t]*S_final
-# }
-# X_T_1 <- rep(-1,length=length(S_T_1))
-# V_T_alt <- rep(-1,length=length(S_T_1))
-# for(i in 1:length(S_T_1)){
-# 	result <- optim(par=10,fn=penultimate_period_value, S=S_T_1[i], D=D_T_1[i], t=length(p),p=p,F=F, control=list(fnscale=-1, pgtol=1e-20),method="L-BFGS-B",lower=0,upper=launch_constraint[length(p)])
-# 	X_T_1[i] <- result$par
-# }
-# S_T_alt <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay + X_T_1
-# V_T_alt <- p[length(p)]*S_T_alt
-
 # dev.new()
 # par(mfrow=c(1,2))
 # plot_pfn_vfn(V_T_alt,X_T_1,gridlist$S_base_piece,gridlist$D_base_piece,c("vfn","pfn"))
@@ -118,7 +101,8 @@ print(round(gridlist$D_base_piece,digits=5))
 opt_dvs_output <- list()
 
 # run path solver
-opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel,S_gridsize_opt,D_gridsize_opt,gridlist,asats,T,p,F,ncores=ncores))
+#opt_dvs_output <- suppressWarnings(opt_exact_pvfn_path_solver(opt_dvs_output,gridpanel,S_gridsize_opt,D_gridsize_opt,gridlist,asats,T,p,F,ncores=ncores))
+opt_dvs_output <- suppressWarnings(opt_exact_pvfn_path_solver(opt_dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm,ncores=ncores))
 
 # bind the list of solved policies into a long dataframe
 opt_pvfn_path <- rbindlist(opt_dvs_output)
