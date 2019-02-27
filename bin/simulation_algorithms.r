@@ -27,9 +27,11 @@ fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 	profit_seq <- rep(0,length=(T+1))
 	discounted_profit_seq <- rep(0,length=(T+1))
 	for(t in 1:T ) {
-		X <- uniroot.all(optcond_exact,c(0,1e+6),S=sat_path[t],D=deb_path[t],p=p,F=F,clock_time=t,asats=asats[t])
+		X <- uniroot.all(optcond_exact,c(0,800),S=sat_path[t],D=deb_path[t],p=p,F=F,clock_time=t,asats=asats[t])
+		print(X)
 		if(length(X)==0) { launch_path[t] <- 0 }	
-		if(length(X)>0) { launch_path[t] <- X }
+		if(length(X)>1) { launch_path[t] <- X[1] }
+		if(length(X)==1) { launch_path[t] <- X }
 		if(launch_path[t]>launch_con[t]) {launch_path[t] <- launch_con[t]}
 		sat_path[t+1] <- S_(launch_path[t],sat_path[t],deb_path[t])
 		deb_path[t+1] <- D_(launch_path[t],sat_path[t],deb_path[t],asats[t])
@@ -153,7 +155,7 @@ opt_exact_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F
 			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 
-			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$opt_launch_pfn,value_fn=V_T,T=50,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
+			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$opt_launch_pfn,value_fn=V_T,T=150,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
 
 			# assign output
 			dvs_output[[i]]$opt_fleet_vfn <- value_fn
@@ -214,7 +216,7 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 
-			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=50,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
+			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=150,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
 
 			# assign output
 			dvs_output[[i]]$oa_fleet_vfn <- value_fn
@@ -257,6 +259,7 @@ policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t,asat
 	F_vec <- rep(F_t,length=T)
 	asats_vec <- rep(0,length=T) 
 	tot.time <- proc.time()[3]
+	tps_x <- as.matrix(cbind(igrid$sats,igrid$debs))
 	## make progress bar
 	BIpb <- progress_bar$new(format="Doing backwards induction [:bar] :percent",total=(T+1))
 	BIpb$tick(0)
@@ -265,6 +268,8 @@ policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t,asat
 			result <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
 			result
 		}
+		tps_y <- as.matrix(value_fn)
+		tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
 		count <- count + 1
 		BIpb$tick()
 	}

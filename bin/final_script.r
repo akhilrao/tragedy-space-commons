@@ -79,7 +79,6 @@ gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_opt, Dgridmax=D_grid_upp
 # generate value and policy guesses - use terminal period. keep this separate from the open access guesses to allow for different gridsizes.
 S_T_1 <- gridlist$igrid$sats
 D_T_1 <- gridlist$igrid$debs
-#S_T <- S_T_1*(1-L(S_T_1,D_T_1))
 S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay #guess for BW parameterization
 V_T <- p[T]*S_T
 vguess <- matrix(V_T,nrow=S_gridsize_opt,ncol=D_gridsize_opt)
@@ -118,8 +117,7 @@ gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_oa, Dgridmax=D_grid_uppe
 # generate value and policy guesses - use final period
 S_T_1 <- gridlist$igrid$sats
 D_T_1 <- gridlist$igrid$debs
-#S_T <- S_T_1*(1-L(S_T_1,D_T_1))
-S_T <- S_T_1 - L(S_T_1,D_T_1) #guess for BW parameterization
+S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay #guess for BW parameterization
 V_T <- p[T]*S_T
 vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
 lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
@@ -127,10 +125,6 @@ gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 
 print(round(gridlist$S_base_piece,digits=5))
 print(round(gridlist$D_base_piece,digits=5))
-
-# dev.new()
-# par(mfrow=c(1,2))
-# plot_pfn_vfn(S_T,lpguess,gridlist$S_base_piece,gridlist$D_base_piece,c("vfn","pfn"))
 
 # initialize solver output list
 oa_dvs_output <- list()
@@ -152,20 +146,21 @@ oa_grid_lookup <- data.frame(sats=oa_pvfn_path$satellites,debs=oa_pvfn_path$debr
 oa_tps_path <- tps_path_gen(S0,D0,0,p,F,oa_pvfn_path,asats,launch_constraint,oa_grid_lookup,ncores=ncores,OPT=0,linear_policy_interp=0)
 oa_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(oa_tps_path)),oa_tps_path)
 
-# t0=0
-# policy_path=oa_pvfn_path
-# asats_seq=asats
-# launchcon_seq=launch_constraint
-# igrid=oa_grid_lookup
-# ncores=4
-# OPT=0
-# linear_policy_interp=0
+# test<- oa_tsgen(S0,D0,T,fe_eqm,launch_constraint,asats)
 
+# head(oa_path)
+# head(test)
 
 ### optimal paths
 opt_grid_lookup <- data.frame(sats=opt_pvfn_path$satellites,debs=opt_pvfn_path$debris,F=opt_pvfn_path$F)
 opt_tps_path <- tps_path_gen(S0,D0,0,p,F,opt_pvfn_path,asats,launch_constraint,opt_grid_lookup,ncores=ncores,OPT=1,linear_policy_interp=0)
 opt_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(opt_tps_path)),opt_tps_path)
+
+# test2<- fp_tsgen(S0,D0,T,fe_eqm,launch_constraint,asats,p,F)
+
+# head(opt_path)
+# head(test2)
+
 
 #############################################################################
 # 4. Draw plots, write output
@@ -178,9 +173,10 @@ OA_OPT <- merge(OA_OPT,econ_series,by=c("year"),all=TRUE)
 
 #selected_years <- intersect(which(OA_OPT$year>start_year),which(OA_OPT$year<2025))
 selected_years <- which(OA_OPT$year>start_year)
+OA_OPT_selected <- OA_OPT[selected_years,]
 
 dev.new()
-OA_OPT_base <- ggplot(data=OA_OPT[selected_years,],aes(x=year))
+OA_OPT_base <- ggplot(data=OA_OPT_selected,aes(x=year))
 OA_OPT_launch <- OA_OPT_base + geom_line(aes(y=launches.opt),linetype="dashed",color="blue",size=0.85) +
 							geom_line(aes(y=launches.oa),linetype="dashed",color="red",size=0.8) +
 							geom_line(aes(y=launch_successes),size=1) +					
@@ -216,12 +212,10 @@ OA_OPT$flowWelfPoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa
 # Price of Anarchy in terms of NPV of welfare. 1 : no permanent gains or losses to anarchy, >1 : permanent losses to anarchy, <1 : permanent gains to anarchy.
 OA_OPT$NPVPoA <- OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa 
 
-# Not clear what is the right number of satellites to divide by, but since we're using aggregate data we need to divide by something to get things into per-satellite units. Dividing by open access # of satellites puts everything relative to the "initial condition of open access".
+# Since we're using aggregate data we need to divide by the number of satellites to get things into per-satellite units. Dividing by open access # of satellites puts everything relative to the "initial condition of open access".
 OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa - OA_OPT$fleet_flowv.opt)*norm_const/OA_OPT$satellites.oa
 OA_OPT$npv_welfare_loss <- (OA_OPT$fleet_vfn_path.oa - OA_OPT$fleet_vfn_path.opt)*norm_const/OA_OPT$satellites.oa
 OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*F*1e+9*norm_const # 1e+9 scales to units of billion (nominal) dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience.
-
-#write.csv(OA_OPT,file=paste0("../data/",gridsize,"_pt_computed_paths.csv"))
 
 oaoptcomp_base <- ggplot(data=OA_OPT[selected_years,],aes(x=year))
 
