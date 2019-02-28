@@ -291,8 +291,8 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	# base_grid <- unique(igrid[,1]) # MAKE RECTANGULAR
 	S_base_grid <- unique(igrid$sats)
 	D_base_grid <- unique(igrid$debs)
-	dev.new(width=8.5,height=7,unit="in")
-	par(mfrow=c(2,2))
+	dev.new(width=8.5,height=10.5,unit="in")
+	par(mfrow=c(3,2))
 
 	# initialize output objects
 	newX <- rep(-1,length=panrows)
@@ -337,16 +337,46 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		image2D(z=loss_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("satellites lost in collisions"))
 		image2D(z=policy_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 
+		# plot S_t+1 and D_t+1 given X_t
+		S_next_vec <- S_(panel$X,panel$S,panel$D)
+		S_next_mat <- matrix(S_next_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		D_next_vec <- D_(panel$X,panel$S,panel$D,asats[t])
+		D_next_mat <- matrix(D_next_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		image2D(z=S_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period satellite stock"))
+		image2D(z=D_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period debris stock"))
+
 		t.tm <- proc.time()
 		## maximization step
 		cat(paste0("\n Starting maximization step, grid size = ", n_grid_points,": \n","."))
 		m.tm <- proc.time()
+
+			#print(head(panel))
 		result <- foreach(k=1:panrows, .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
 			ctm <- proc.time()[3]
 			ulim <- Sgridmax
-			solution <- optim(par=panel$X[k], fn=fleet_preval_spline, S=panel$S[k], D=panel$D[k], value_fn=panel$V, asats=asats, t=t, p=p, F=F, igrid=igrid, tps_model=tps_model, control=list(fnscale=-1), method="L-BFGS-B", lower=0, upper=ulim)
-			launch_rate <- solution$par[1]
-			vfn <- solution$value
+			## use numerical optimizer to find optimal X from value fn
+			# solution <- optim(par=panel$X[k], fn=fleet_preval_spline, S=panel$S[k], D=panel$D[k], value_fn=panel$V, asats=asats, t=t, p=p, F=F, igrid=igrid, tps_model=tps_model, control=list(fnscale=-1), method="L-BFGS-B", lower=0, upper=ulim)
+			# launch_rate <- solution$par[1]
+			# vfn <- solution$value		
+			
+			## use numerical rootfinder on FOC
+			clock_time <- t
+			#print(clock_time)
+			solution <- uniroot.all(optcond_exact,c(0,1500),S=panel$S[k], D=panel$D[k],clock_time=t,p=p,F=F,asats=asats)
+
+			if(length(solution)==0) {solution <- 0}
+			#if(intersect(c(0),solution)==numeric(0)) {solution <- c(0,solution)}
+
+			values <- fleet_preval_spline(X=solution,S=panel$S[k],D=panel$D[k],t=clock_time,value_fn=0,p=p,F=F,igrid=igrid,tps_model=tps_model,asats=asats)
+			solution <- c(0,solution)
+			values <- c(fleet_preval_spline(X=0,S=panel$S[k],D=panel$D[k],t=clock_time,value_fn=0,p=p,F=F,igrid=igrid,tps_model=tps_model,asats=asats),values)
+
+			soln_dfrm <- data.frame(policy=solution,value=values)
+
+			best_val <- which.max(soln_dfrm$value)
+			launch_rate <- soln_dfrm[best_val,1]
+			vfn <- soln_dfrm[best_val,2]
+
 			clock <- proc.time()[3] - ctm
 			result <- c(launch_rate,vfn,clock)
 			return(result)
@@ -391,8 +421,8 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 
 	if(t!=T) {panel$V <- newV}
 
-	output <- as.data.frame(cbind(satellites=panel$S,debris=panel$D,optimal_launch_pfn=panel$X,optimal_fleet_vfn=panel$V,optimal_fleet_size=S_(panel$X,panel$S,panel$D),t=t,p=p[t],F=F[t]))
-	colnames(output)[4] <- "optimal_fleet_vfn"
+	output <- as.data.frame(cbind(satellites=panel$S,debris=panel$D,opt_launch_pfn=panel$X,opt_fleet_vfn=panel$V,optimal_fleet_size=S_(panel$X,panel$S,panel$D),t=t,p=p[t],F=F[t]))
+	colnames(output)[4] <- "opt_fleet_vfn"
 	return(output)
 }
 
@@ -402,8 +432,8 @@ opt_pvfn_path_solver <- function(dvs_output,gridpanel,Sgridsize,Dgridsize,gridli
 	registerDoParallel(cores=ncores)
 	for(i in T:1){
 		dvs_output[[i]] <- dynamic_vfi_solver(gridpanel,igrid=gridlist$igrid,asats,i,T,p,F)
-		vguess <- matrix(dvs_output[[i]]$optimal_fleet_vfn,nrow=Sgridsize,ncol=Dgridsize)
-		lpguess <- matrix(dvs_output[[i]]$optimal_launch_pfn,nrow=Sgridsize,ncol=Dgridsize)
+		vguess <- matrix(dvs_output[[i]]$opt_fleet_vfn,nrow=Sgridsize,ncol=Dgridsize)
+		lpguess <- matrix(dvs_output[[i]]$opt_launch_pfn,nrow=Sgridsize,ncol=Dgridsize)
 		gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
 		dev.off()
 	}
@@ -422,6 +452,14 @@ simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 	return(opt_path)
 }
 
+# t0=0
+# policy_path=opt_pvfn_path
+# asats_seq=asats
+# launchcon_seq=launch_constraint
+# igrid=opt_grid_lookup
+# OPT=1
+# linear_policy_interp=0
+
 ### algorithm to compute a time path using thin plate spline interpolation of solved policy functions
 # S0, D0 are the initial conditions. t0 is the initial time, which is used to generate paths starting at different times.
 tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,ncores,OPT,linear_policy_interp) {
@@ -431,8 +469,6 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 	profit_seq <- rep(0,length=(T-t0))
 	discounted_profit_seq <- rep(0,length=(T-t0))
 	fleet_npv_path <- rep(0,length=(T-t0))
-	# runaway <- rep("?",length=(T-t0))
-	# kessler <- rep("?",length=(T-t0))
 	runaway <- vector(mode="character",length=(T-t0))
 	kessler <- vector(mode="character",length=(T-t0))
 	
@@ -511,7 +547,7 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 	}
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
 	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
-	profit_seq[(T-t0)] <- fleet_ssval_T(X[(T-t0)],sat_seq[(T-t0)],T,p,F)
+	profit_seq[(T-t0)] <- one_p_return(X[(T-t0)],sat_seq[(T-t0)],(T-t0),p,F)
 	losses <- L(sat_seq,deb_seq)
 	print(class(kessler))
 	print(class(sat_seq))

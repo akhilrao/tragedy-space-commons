@@ -62,13 +62,16 @@ elL <- function(S,D,...) {
 # function for "marginal satellite return" (\alpha_1)
 alpha_1 <- function(S,D,t,p,F,...) {
 	ifelse(identical(F[t],numeric(0)), F_curr <- 0, F_curr <- F[t])
-	p[t] + elL(S,D)*F_curr
+	ifelse(is.na(F[t]), F_curr <- 0, F_curr <- F[t])
+	ifelse(is.na(p[t]), p_curr <- p[t-1], p_curr <- p[t])
+	p_curr + elL(S,D)*F_curr
 }
 
 # function for "cost of marginal debris' collision" (\alpha_2)
 alpha_2 <- function(S,D,t,F,...) {
 	ifelse(identical(F[t],numeric(0)), F_curr <- 0, F_curr <- F[t])
-	-S*L_D(S,D)*avg_sat_decay*F_curr
+	ifelse(is.na(F[t]), F_curr <- 0, F_curr <- F[t])
+	0-S*L_D(S,D)*avg_sat_decay*F_curr
 }
 
 # function for "growth-launch fragment balance" (\Gamma_1)
@@ -84,6 +87,16 @@ Gamma_2 <- function(S,D,...) {
 # fleet planner's marginal value of debris (should be exact?)
 W_D <- function(S,D,t,p,F,...) {
 	ifelse(identical(F[t-1],numeric(0)), F_prev <- 0, F_prev <- F[t-1])
+	ifelse(identical(F[t],numeric(0)), F_prev <- 0, F_prev <- F[t-1])
+	ifelse(is.na(F[t-1]), F_prev <- 0, F_prev <- F[t-1])
+	ifelse(is.na(F[t]), F_prev <- 0, F_prev <- F[t-1])
+	# if(t==36){
+	# 		print(F_prev/discount_fac)
+	# 		print(alpha_1(S,D,t,p,F))
+	# 		print(Gamma_1(S,D)/Gamma_2(S,D))
+	# 		print(alpha_2(S,D,t,F))
+	# 		print(Gamma_1(S,D)/Gamma_2(S,D) + m)
+	# 	}
 	(F_prev/discount_fac - alpha_1(S,D,t,p,F) + (Gamma_1(S,D)/Gamma_2(S,D))*alpha_2(S,D,t,F))/(Gamma_1(S,D)/Gamma_2(S,D) + m)
 }
 
@@ -105,7 +118,16 @@ optcond_approx <- function(X,S,D,fe_eqm,t,F,asats,...) {
 
 # fleet planner's exact(?) optimality condition: needs d < 1 to be well-defined
 optcond_exact <- function(X,S,D,clock_time,p,F,asats,...) {
-	W_D(S,D,clock_time,p,F) - alpha_2(S,D,clock_time,F) - discount_fac*Gamma_2(S,D)*W_D(S_(X,S,D),D_(X,S,D,asats[clock_time]),(clock_time+1),p,F)
+	#print(W_D(S,D,clock_time,p,F))
+	# print(alpha_2(S,D,clock_time,F))
+	# print(Gamma_2(S,D))
+	#print(S_(X,S,D))
+	#print(D_(X,S,D,asats[clock_time]))
+	#print(W_D(S_(X,S,D),D_(X,S,D,asats[clock_time]),(clock_time+1),p,F))
+	#print(X)
+	result <- W_D(S,D,clock_time,p,F) - alpha_2(S,D,clock_time,F) - discount_fac*Gamma_2(S,D)*W_D(S_(X,S,D),D_(X,S,D,asats[clock_time]),(clock_time+1),p,F)
+	#print(result)
+	return(result)
 }
 
 # One-period fleet returns
