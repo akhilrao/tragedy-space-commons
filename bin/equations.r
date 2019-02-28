@@ -135,13 +135,25 @@ one_p_return <- function(X,S,t,p,F) {
 	p[t]*S - F[t]*X
 }
 
-# Fleet pre-value function with spline interpolation
+# Fleet pre-value function with spline interpolation. The spline model object (tps_model) should come from a Tps() call, not a fastTps() call.
 fleet_preval_spline <- function(X,S,D,asats,t,value_fn,p,F,igrid,tps_model,...) {
 	S_next <- S_(X,S,D)
 	D_next <- D_(X,S,D,asats[t])
 	next_state <- c(S_next,D_next)
 	gridmax <- max(igrid)
 	interpolation <- predict(tps_model,x=cbind(S_next,D_next))
+	ifelse(next_state[2]>gridmax||L(next_state[1],next_state[2])==1,interpolation<-0,interpolation<-interpolation)
+	prof <- one_p_return(X,S,t,p,F) + discount_fac*interpolation
+	return(prof)
+}
+
+# Fleet pre-value function with hand-coded 2D interpolation. Potentially a little less accurate than a call to tps_model, but allows for much faster interpolant estimation.
+fleet_preval_basic <- function(X,S,D,asats,t,value_fn,p,F,igrid,tps_model,...) {
+	S_next <- S_(X,S,D)
+	D_next <- D_(X,S,D,asats[t])
+	next_state <- c(S_next,D_next)
+	gridmax <- max(igrid)
+	interpolation <- interpolate(target=next_state,grid=igrid,values=value_fn)
 	ifelse(next_state[2]>gridmax||L(next_state[1],next_state[2])==1,interpolation<-0,interpolation<-interpolation)
 	prof <- one_p_return(X,S,t,p,F) + discount_fac*interpolation
 	return(prof)

@@ -286,9 +286,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	gridmin <- min(igrid)
 	Sgridmax <- max(igrid$sats)
 	Dgridmax <- max(igrid$debs)
-	# n_grid_points <- length(unique(igrid[,1]))^2 # MAKE RECTANGULAR
 	n_grid_points <- length(unique(igrid$sats))*length(unique(igrid$debs))
-	# base_grid <- unique(igrid[,1]) # MAKE RECTANGULAR
 	S_base_grid <- unique(igrid$sats)
 	D_base_grid <- unique(igrid$debs)
 	dev.new(width=8.5,height=10.5,unit="in")
@@ -320,13 +318,17 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		cat(paste0("\nEstimating spline interpolant of value function..."))
 		tps_x <- as.matrix(cbind(panel$S,panel$D))
 		tps_y <- as.matrix(panel$V)
-		tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
-		# tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y))
+		## TODO: test with lambda free
+		tps_model <- fastTps(x=tps_x, Y=tps_y, m=NULL, lambda=0, theta=ceiling(0.5*sqrt(n_grid_points)))
+		#tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
 		vspline.time <- (proc.time() - vspline.tm)[3]
 		## out
 		cat(paste0("\n Done. Time to estimate interpolant: ",round(proc.time()[3] - vspline.time,3)," seconds"))
 
-		spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
+		#spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
+		spline_vfn_int <- as.vector(predict(tps_model))
+		## replace solved value function with smoother(?) interpolation
+		# panel$V <- spline_vfn_int
 		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		policy_mat <- matrix(panel$X,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		loss_vec <- L(S_(panel$X,panel$S,panel$D),D_(panel$X,panel$S,panel$D,asats[t]))
@@ -350,7 +352,6 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		cat(paste0("\n Starting maximization step, grid size = ", n_grid_points,": \n","."))
 		m.tm <- proc.time()
 
-			#print(head(panel))
 		result <- foreach(k=1:panrows, .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
 			ctm <- proc.time()[3]
 			ulim <- Sgridmax
@@ -361,18 +362,19 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 			
 			## use numerical rootfinder on FOC
 			clock_time <- t
-			#print(clock_time)
-			solution <- uniroot.all(optcond_exact,c(0,1500),S=panel$S[k], D=panel$D[k],clock_time=t,p=p,F=F,asats=asats)
+			solution <- uniroot.all(optcond_exact,c(0,1500),S=panel$S[k], D=panel$D[k],clock_time=clock_time,p=p,F=F,asats=asats)
 
 			if(length(solution)==0) {solution <- 0}
-			#if(intersect(c(0),solution)==numeric(0)) {solution <- c(0,solution)}
-
-			values <- fleet_preval_spline(X=solution,S=panel$S[k],D=panel$D[k],t=clock_time,value_fn=0,p=p,F=F,igrid=igrid,tps_model=tps_model,asats=asats)
+			#values <- fleet_preval_spline(X=solution,S=panel$S[k],D=panel$D[k],t=clock_time,value_fn=NULL,p=p,F=F,igrid=igrid,tps_model=tps_model,asats=asats)
+			values <- fleet_preval_basic(X=solution,S=panel$S[k],D=panel$D[k],t=clock_time,value_fn=panel$V,p=p,F=F,igrid=igrid,tps_model=NULL,asats=asats)
+			
+			# add 0 to the set of candidate solutions, in case it isn't there
 			solution <- c(0,solution)
-			values <- c(fleet_preval_spline(X=0,S=panel$S[k],D=panel$D[k],t=clock_time,value_fn=0,p=p,F=F,igrid=igrid,tps_model=tps_model,asats=asats),values)
-
+			#values <- c(fleet_preval_spline(X=0,S=panel$S[k],D=panel$D[k],t=clock_time,value_fn=0,p=p,F=F,igrid=igrid,tps_model=tps_model,asats=asats),values)
+			values <- c(fleet_preval_basic(X=0,S=panel$S[k],D=panel$D[k],t=clock_time,value_fn=panel$V,p=p,F=F,igrid=igrid,tps_model=NULL,asats=asats),values)
 			soln_dfrm <- data.frame(policy=solution,value=values)
 
+			# select the candidate solution with the highest value
 			best_val <- which.max(soln_dfrm$value)
 			launch_rate <- soln_dfrm[best_val,1]
 			vfn <- soln_dfrm[best_val,2]
@@ -395,7 +397,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		if(t==T) {
 			policy_delta <- max(abs((panel$X-newX)))
 			#ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=75,tps_model,p[T],F[T],asats[T]), newV <- newV)
-			ifelse(policy_delta<0.01, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
+			#ifelse(policy_delta<0.01, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
 			cat(paste("\n Policy delta is ", policy_delta, sep=""))
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV
