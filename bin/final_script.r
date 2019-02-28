@@ -170,7 +170,7 @@ OA_OPT_full <- merge(OA_OPT_full,observed_time_series,by=c("year"),suffixes=c(".
 
 OA_OPT_full <- merge(OA_OPT_full,econ_series,by=c("year"),all=TRUE)
 
-selected_years <- intersect(which(OA_OPT_full$year>=start_year),which(OA_OPT_full$year>=end_year))
+selected_years <- intersect(which(OA_OPT_full$year>=start_year),which(OA_OPT_full$year<=end_year))
 OA_OPT <- OA_OPT_full[selected_years,]
 
 dev.new()
@@ -192,9 +192,9 @@ OA_OPT_deb <- OA_OPT_base + geom_line(aes(y=debris.opt),linetype="dashed",color=
 							geom_line(aes(y=debris),size=1) +
 							geom_vline(xintercept=2015,size=1,linetype="dashed") +
 							ylab("Debris in LEO") + xlab("year") + theme_minimal()
-OA_OPT_risk <- OA_OPT_base + geom_line(aes(y=collision_rate.opt),linetype="dashed",color="blue",size=0.85) +
-							geom_line(aes(y=collision_rate.oa),linetype="dashed",color="red",size=0.8) +
-							geom_line(aes(y=risk.x),size=1) +
+OA_OPT_risk <- OA_OPT_base + geom_line(aes(y=collision_rate.opt/satellites.opt),linetype="dashed",color="blue",size=0.85) +
+							geom_line(aes(y=collision_rate.oa/satellites.oa),linetype="dashed",color="red",size=0.8) +
+							geom_line(aes(y=risk.x/payloads_in_orbit),size=1) +
 							geom_vline(xintercept=2015,size=1,linetype="dashed") +
 							ylab("Collision risk in LEO") + xlab("year") + theme_minimal()
 grid.arrange(OA_OPT_launch,OA_OPT_sat,OA_OPT_risk,OA_OPT_deb,ncol=2)
@@ -204,7 +204,7 @@ grid.arrange(OA_OPT_launch,OA_OPT_sat,OA_OPT_risk,OA_OPT_deb,ncol=2)
 #dev.off()
 
 # Price of Anarchy in terms of collision risk. 1 represents no loss to anarchy, larger numbers show larger losses from anarchy.
-OA_OPT$riskPoA <- OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt
+OA_OPT$riskPoA <- (OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt)*(OA_OPT$satellites.opt/OA_OPT$satellites.oa)
 # Price of Anarchy in terms of flow welfare. 1 : no present gains or losses to anarchy, >1 : present losses to anarchy, <1 : present gains to anarchy.
 OA_OPT$flowWelfPoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa 
 # Price of Anarchy in terms of NPV of welfare. 1 : no permanent gains or losses to anarchy, >1 : permanent losses to anarchy, <1 : permanent gains to anarchy.
@@ -213,9 +213,11 @@ OA_OPT$NPVPoA <- OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa
 # Since we're using aggregate data we need to divide by the number of satellites to get things into per-satellite units. Dividing by open access # of satellites puts everything relative to the "initial condition of open access".
 OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa - OA_OPT$fleet_flowv.opt)*norm_const/OA_OPT$satellites.oa
 OA_OPT$npv_welfare_loss <- (OA_OPT$fleet_vfn_path.oa - OA_OPT$fleet_vfn_path.opt)*norm_const/OA_OPT$satellites.oa
-OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*F*1e+9*norm_const # 1e+9 scales to units of billion (nominal) dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience. We divide by the number of satellites to get the rate into a probability.
 
-oaoptcomp_base <- ggplot(data=OA_OPT[selected_years,],aes(x=year))
+F_over_horizon <- F[1:nrow(OA_OPT)]
+OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*F_over_horizon*norm_const*1e+9/OA_OPT$satellites.oa # 1e+9 scales to units of billion (nominal) dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience. We divide by the number of satellites to get the rate into a probability. The final division by the number of open access satellites converts the cost (F_over_horizon*norm_const*1e+9) from total dollars paid by industry into dollars per open-access satellite.
+
+oaoptcomp_base <- ggplot(data=OA_OPT,aes(x=year))
 
 risk_comps <- oaoptcomp_base + geom_line(aes(y=riskPoA),size=0.85) +
 							geom_hline(yintercept=1,linetype="dashed",color="blue") +
