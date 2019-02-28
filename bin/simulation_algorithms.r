@@ -265,7 +265,8 @@ policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t,asat
 	BIpb$tick(0)
 	while(count<=T) {
 		value_fn <- foreach(i=1:length(launch_policy), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
-			result <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
+			#result <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
+			result <- fleet_preval_basic(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
 			result
 		}
 		tps_y <- as.matrix(value_fn)
