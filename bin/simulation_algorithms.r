@@ -148,12 +148,12 @@ opt_exact_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F
 			pfn <- matrix(dvs_output[[i]]$opt_launch_pfn,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 
 			# make pictures
-			dev.new(width=8,height=7,unit="in")
-			par(mfrow=c(2,2))
-			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
-			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
-			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+			# dev.new(width=8,height=7,unit="in")
+			# par(mfrow=c(2,2))
+			# image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+			# image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			# image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			# image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 
 			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$opt_launch_pfn,value_fn=V_T,T=150,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
 
@@ -168,12 +168,12 @@ opt_exact_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F
 			pfn <- matrix(dvs_output[[i]]$opt_launch_pfn,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 
 			# make pictures
-			dev.new(width=8,height=7,unit="in")
-			par(mfrow=c(2,2))
-			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
-			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
-			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+			# dev.new(width=8,height=7,unit="in")
+			# par(mfrow=c(2,2))
+			# image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+			# image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			# image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			# image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 
 			# interpolate fleet prevalue function at next period state
 			value_fn <- foreach(j=1:length(gridlist$igrid$sats), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
@@ -184,7 +184,7 @@ opt_exact_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F
 			# assign output
 			dvs_output[[i]]$opt_fleet_vfn <- value_fn
 		}
-		dev.off()
+		# dev.off()
 	}
 	stopImplicitCluster()
 	cat(paste0("\n Done. Total grid compute time taken: ",round(proc.time()[3] - total.grid.time,3)," seconds"))
@@ -209,12 +209,12 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 
 			# make pictures
-			dev.new(width=8,height=7,unit="in")
-			par(mfrow=c(2,2))
-			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
-			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
-			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+			# dev.new(width=8,height=7,unit="in")
+			# par(mfrow=c(2,2))
+			# image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+			# image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			# image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			# image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 
 			value_fn <- policy_eval_BI(igrid=gridlist$igrid,launch_policy=dvs_output[[i]]$oa_launch_pfn,value_fn=V_T,T=150,tps_model=tps_model,p_t=p[T],F_t=F[T],asats_t=0)
 
@@ -229,12 +229,12 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			pfn <- matrix(dvs_output[[i]]$oa_launch_pfn,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 
 			# make pictures
-			dev.new(width=8,height=7,unit="in")
-			par(mfrow=c(2,2))
-			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-			image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
-			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
-			image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
+			# dev.new(width=8,height=7,unit="in")
+			# par(mfrow=c(2,2))
+			# image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
+			# image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("value function interpolation"))
+			# image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+			# image2D(z=pfn,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=FALSE,main=c("policy function"))
 
 			# interpolate fleet prevalue function at next period state
 			value_fn <- foreach(j=1:length(gridlist$igrid$sats), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
@@ -245,7 +245,7 @@ oa_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F,fe_eqm
 			# assign output
 			dvs_output[[i]]$oa_fleet_vfn <- value_fn
 		}
-		dev.off()
+		# dev.off()
 	}
 	stopImplicitCluster()
 	cat(paste0("\n Done. Total grid compute time taken: ",round(proc.time()[3] - total.grid.time,3)," seconds"))
@@ -290,8 +290,8 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	n_grid_points <- length(unique(igrid$sats))*length(unique(igrid$debs))
 	S_base_grid <- unique(igrid$sats)
 	D_base_grid <- unique(igrid$debs)
-	dev.new(width=8.5,height=10.5,unit="in")
-	par(mfrow=c(3,2))
+	# dev.new(width=8.5,height=10.5,unit="in")
+	# par(mfrow=c(3,2))
 
 	# initialize output objects
 	newX <- rep(-1,length=panrows)
@@ -312,7 +312,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	while(delta > epsilon) {
 
 		## plot pfn and vfn
-		plot_pfn_vfn(panel$V,panel$X,S_base_grid,D_base_grid,c("Value function","Policy function"))
+		# plot_pfn_vfn(panel$V,panel$X,S_base_grid,D_base_grid,c("Value function","Policy function"))
 
 		## create spline interpolation model
 		vspline.tm <- proc.time()
@@ -335,18 +335,18 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		loss_vec <- L(S_(panel$X,panel$S,panel$D),D_(panel$X,panel$S,panel$D,asats[t]))
 		loss_mat <- matrix(loss_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		
-		# TODO: replace this with call to plot_pfn_vfn
+		# TODO: replace this with call to # plot_pfn_vfn
 		#image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-		image2D(z=loss_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("satellites lost in collisions"))
-		image2D(z=policy_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
+		# image2D(z=loss_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("satellites lost in collisions"))
+		# image2D(z=policy_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 
 		# plot S_t+1 and D_t+1 given X_t
 		S_next_vec <- S_(panel$X,panel$S,panel$D)
 		S_next_mat <- matrix(S_next_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		D_next_vec <- D_(panel$X,panel$S,panel$D,asats[t])
 		D_next_mat <- matrix(D_next_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
-		image2D(z=S_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period satellite stock"))
-		image2D(z=D_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period debris stock"))
+		# image2D(z=S_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period satellite stock"))
+		# image2D(z=D_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period debris stock"))
 
 		t.tm <- proc.time()
 		## maximization step
@@ -379,6 +379,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 			best_val <- which.max(soln_dfrm$value)
 			launch_rate <- soln_dfrm[best_val,1]
 			vfn <- soln_dfrm[best_val,2]
+			#print(launch_rate,panel$S[k],panel$D[k])
 
 			clock <- proc.time()[3] - ctm
 			result <- c(launch_rate,vfn,clock)
@@ -438,7 +439,7 @@ opt_pvfn_path_solver <- function(dvs_output,gridpanel,Sgridsize,Dgridsize,gridli
 		vguess <- matrix(dvs_output[[i]]$opt_fleet_vfn,nrow=Sgridsize,ncol=Dgridsize)
 		lpguess <- matrix(dvs_output[[i]]$opt_launch_pfn,nrow=Sgridsize,ncol=Dgridsize)
 		gridpanel <- grid_to_panel(gridlist,lpguess,vguess)
-		dev.off()
+		# dev.off()
 	}
 	stopImplicitCluster()
 	cat(paste0("\n Done. Total grid compute time taken: ",round(proc.time()[3] - total.grid.time,3)," seconds"))

@@ -2,8 +2,9 @@
 
 # Read in data and parameter estimates
 ## bootstrapped parameters
-risk_cal <- read.csv("../bin/calibrated_risk_eqn_coefs.csv")
-deblom_cal <- read.csv("../data/calibrated_debris_lom_coefs.csv")
+risk_cal_set <- read.csv("../data/bootstrapped_risk_eqn_coefs.csv")
+test <- read.csv("../data/calibrated_risk_eqn_coefs.csv")
+deblom_cal_set <- read.csv("../data/bootstrapped_debris_lom_coefs.csv")
 ## non-bootstrapped values
 econ_coefs <- read.csv("../data/econ_series_coefs.csv")
 implied_econ_series <- read.csv("../data/implied_costs.csv")
@@ -12,6 +13,35 @@ econ_series <- read.csv("../data/econ_series.csv")
 observed_time_series <- read.csv("../data/ST_ESA_series.csv")
 MS_proj_rev <- read.csv("../data/avg_econ_return.csv")
 MS_proj_total <- read.csv("../data/avg_econ_total.csv")
+
+# restrict risk_cal parameters to values where SD > 0 (both collision risk couplings active)
+accepted_risk_cal_set <- risk_cal_set[which(risk_cal_set$SD>0),]
+
+# the physical parameters are draws from the bootstrap world's conditional distribution, parameters(risk) and parameters(debris|risk)
+set.seed(501)
+start_loc <- sample(c(1:(nrow(risk_cal_set)-B)),size=1)
+risk_cal_set_B <- accepted_risk_cal_set[start_loc:(start_loc+B),-1]
+deblom_cal_set_B <- deblom_cal_set[start_loc:(start_loc+B),-1]
+# bootstrap_grid <- matrix(-1,nrow=B*B,ncol=sum(ncol(risk_cal_set_B),ncol(deblom_cal_set_B)))
+# for(i in 1:B) {
+# 	for(j in 1:B) {
+# 		bootstrap_grid[(j+(i-1)*B),1] <- risk_cal_set_B[j,1]
+# 		bootstrap_grid[(j+(i-1)*B),2] <- risk_cal_set_B[j,2]
+# 		bootstrap_grid[(j+(i-1)*B),3] <- deblom_cal_set_B[i,1]
+# 		bootstrap_grid[(j+(i-1)*B),4] <- deblom_cal_set_B[i,2]
+# 		bootstrap_grid[(j+(i-1)*B),5] <- deblom_cal_set_B[i,3]
+# 		bootstrap_grid[(j+(i-1)*B),6] <- deblom_cal_set_B[i,4]
+# 		bootstrap_grid[(j+(i-1)*B),7] <- deblom_cal_set_B[i,5]
+# 	}
+# }
+
+bootstrap_grid <- cbind(risk_cal_set_B,deblom_cal_set_B)
+bootstrap_grid <- data.frame(bootstrap_grid)
+colnames(bootstrap_grid) <- c(colnames(risk_cal_set_B),colnames(deblom_cal_set_B))
+
+# select bootstrap parameters
+risk_cal <- bootstrap_grid[b,1:2]#accepted_risk_cal_set[b,]
+deblom_cal <- bootstrap_grid[b,3:7]#deblom_cal_set[b,]
 
 # Extend Morgan Stanley revenue and total value projections an additional 5 years, to avoid any end-of-horizon effects for a forecast out to 2040 (e.g. numerical distortions in steady-state value functions). The idea is to "project" out to 2050 using the mean annual growth rate of the Morgan Stanley projections, then truncate back to 2040 to avoid any end-of-horizon effects.
 projection_start <- MS_proj_rev$Year[nrow(MS_proj_rev)]+1
@@ -39,15 +69,9 @@ colnames(satlom_cal) <- satlom_cal_names
 avg_sat_decay <- satlom_cal$payloads_in_orbit # corresponds to just over 30 years on orbit: on average 5 year mission time + 25 year post-mission disposal compliance. Value estimated from statistical model for satellite law of motion. 
 # decay coefficient is currently represented as survival rate rather than decay rate.
 
-risk_cal_names <- as.character(risk_cal[,1])
-risk_cal <- data.frame(parameters=t(c(risk_cal[,2])))
-colnames(risk_cal) <- risk_cal_names
 aSS <- risk_cal$S2
 aSD <- risk_cal$SD
 
-deblom_cal_names <- as.character(deblom_cal[,1])
-deblom_cal <- data.frame(parameters=t(c(deblom_cal[,2])))
-colnames(deblom_cal) <- deblom_cal_names
 aDDbDD <- 0#deblom_cal$D2
 bSS <- deblom_cal$SSfrags
 bSD <- deblom_cal$SDfrags
@@ -85,10 +109,7 @@ F <- F/norm_const
 # Regression: This is what was estimated. It adjusts for measurement error.
 fe_eqm <- econ_coefs[1,2] + econ_coefs[2,2]*econ_series$r_s + econ_coefs[3,2]*econ_series$Ft_Ft # calculate the path of the OA eqm condition from the calibrated regression
 
-# Observed: this is what was observed. it does not adjust for measurement error, but may fit the observed data better.
-#fe_eqm <- observed_time_series$risk[which(observed_time_series$year>2005)] # use the observed collision probability as the path of the OA eqm condition
-
-fe_eqm_proj <- econ_coefs[1,2] + econ_coefs[2,2]*(p[-length(p)]/F[-length(F)]) + econ_coefs[3,2]*(F[-1]/F[-length(F)])
+fe_eqm_proj <- econ_coefs[1,2] + econ_coefs[2,2]*(p[-length(p)]/F[-length(F)]) + econ_coefs[3,2]*(F[-1]/F[-length(F)]) # the final period, assume underlying econ parameters are constant
 
 p <- p[-length(p)]
 F <- F[-length(F)]
@@ -126,6 +147,3 @@ lc_path <- lc_path_base + geom_line(aes(y=projected_constraint),linetype="dashed
 
 lc_path
 
-png(width=400,height=400,filename="../images/linear_trend_launch_constraint.png")
-lc_path
-dev.off()

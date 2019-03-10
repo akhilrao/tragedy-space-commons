@@ -1,15 +1,18 @@
 \BOOKMARK [1][-]{section.1}{Calibrating the physical model}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Data}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{Calibration procedure}{section.1}% 3
-\BOOKMARK [1][-]{section.2}{Calibrating the economic model}{}% 4
-\BOOKMARK [2][-]{subsection.2.1}{Data}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.2}{Calibration procedure}{section.2}% 6
-\BOOKMARK [1][-]{section.3}{Computing satellite tax projections}{}% 7
-\BOOKMARK [2][-]{subsection.3.1}{Open access and optimal policy functions}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.2}{Generating time paths}{section.3}% 9
-\BOOKMARK [1][-]{section.4}{Appendix}{}% 10
-\BOOKMARK [2][-]{subsection.4.1}{Sensitivity analysis of sampling procedure for estimating equation 7}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.2}{Factors which may cause coefficient attenuation}{section.4}% 12
-\BOOKMARK [3][-]{subsubsection.4.2.1}{Measurement error}{subsection.4.2}% 13
-\BOOKMARK [3][-]{subsubsection.4.2.2}{Launch constraints}{subsection.4.2}% 14
-\BOOKMARK [2][-]{subsection.4.3}{Estimating the launch constraint}{section.4}% 15
+\BOOKMARK [2][-]{subsection.1.1}{A physical model of orbital aggregates}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Data}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Calibration procedure}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{Calibrating the economic model}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{An economic model of open access to orbit}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{An economic model of socially optimal orbit use}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Data}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Calibration procedure}{section.2}% 9
+\BOOKMARK [1][-]{section.3}{Computing optimal projected satellite taxes}{}% 10
+\BOOKMARK [2][-]{subsection.3.1}{A formula for an optimal satellite tax}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Open access and optimal policy functions}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.3}{Generating time paths}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Appendix}{}% 14
+\BOOKMARK [2][-]{subsection.4.1}{Factors which may bias economic parameter estimates}{section.4}% 15
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Measurement error}{subsection.4.1}% 16
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Launch constraints}{subsection.4.1}% 17
+\BOOKMARK [2][-]{subsection.4.2}{Estimating the launch constraint}{section.4}% 18

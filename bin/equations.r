@@ -118,15 +118,7 @@ optcond_approx <- function(X,S,D,fe_eqm,t,F,asats,...) {
 
 # fleet planner's exact(?) optimality condition: needs d < 1 to be well-defined
 optcond_exact <- function(X,S,D,clock_time,p,F,asats,...) {
-	#print(W_D(S,D,clock_time,p,F))
-	# print(alpha_2(S,D,clock_time,F))
-	# print(Gamma_2(S,D))
-	#print(S_(X,S,D))
-	#print(D_(X,S,D,asats[clock_time]))
-	#print(W_D(S_(X,S,D),D_(X,S,D,asats[clock_time]),(clock_time+1),p,F))
-	#print(X)
 	result <- W_D(S,D,clock_time,p,F) - alpha_2(S,D,clock_time,F) - discount_fac*Gamma_2(S,D)*W_D(S_(X,S,D),D_(X,S,D,asats[clock_time]),(clock_time+1),p,F)
-	#print(result)
 	return(result)
 }
 

@@ -4,20 +4,6 @@
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 
-\bibitem[{Adam~Jonas(2017)}]{MSreport}
-Adam~Jonas, Simon Flannery Benjamin Swinburne Patrick Wellington Terence Tsui
-  Rajeev Lalwani James E Faucette Brian Nowak Ravi Shanker Kai Pan
-  Eva~Zlotnicka, Armintas~Sinkevicius. 2017.
-\newblock \enquote{Space: Investment Implications of the Final Frontier.}
-\newblock Tech. rep., Morgan Stanley.
-\newblock
-  \urlprefix\url{https://fa.morganstanley.com/griffithwheelwrightgroup/mediahandler/media/106686/Space_%20Investment%20Implications%20of%20the%20Final%20Frontier.pdf}.
-
-\bibitem[{Bradley and Wein(2009)}]{bradleywein2009}
-Bradley, Andrew~M. and Lawrence~M. Wein. 2009.
-\newblock \enquote{Space debris: Assessing risk and responsibility.}
-\newblock \emph{Advances in Space Research} 43:1372--1390.
-
 \bibitem[{{Combined Space Operations Center}(2018)}]{spacetrackData}
 {Combined Space Operations Center}. 2018.
 \newblock \enquote{Space-Track.org Satellite Catalog.}
@@ -28,11 +14,28 @@ Bradley, Andrew~M. and Lawrence~M. Wein. 2009.
 \newblock \enquote{DISCOS database.}
 \newblock From ESA at \url{https://discosweb.esoc.esa.int/web/guest/home}.
 
+\bibitem[{Jonas et~al.(2017)Jonas, Sinkevicius, Flannery, Swinburne,
+  Wellington, Tsui, Lalwani, Faucette, Nowak, Shanker, Pan, and
+  Zlotnicka}]{MSreport}
+Jonas, Adam, Armintas Sinkevicius, Simon Flannery, Benjamin Swinburne, Patrick
+  Wellington, Terence Tsui, Rajeev Lalwani, James~E Faucette, Brian Nowak, Ravi
+  Shanker, Kai Pan, and Eva Zlotnicka. 2017.
+\newblock \enquote{Space: Investment Implications of the Final Frontier.}
+\newblock Tech. rep., Morgan Stanley.
+\newblock
+  \urlprefix\url{https://fa.morganstanley.com/griffithwheelwrightgroup/mediahandler/media/106686/Space_%20Investment%20Implications%20of%20the%20Final%20Frontier.pdf}.
+
 \bibitem[{Letizia, Lemmens, and Krag(2018)}]{ECOBdata}
 Letizia, F., S.~Lemmens, and H.~Krag. 2018.
 \newblock \enquote{Application of a debris index for global evaluation of
   mitigation strategies.}
 \newblock 69th International Astronautical Congress.
+
+\bibitem[{Letizia et~al.(2017)Letizia, Colombo, Lewis, and
+  Krag}]{letiziaetal2017}
+Letizia, Francesca, Camilla Colombo, Hugh Lewis, and Holger Krag. 2017.
+\newblock \enquote{Extending the ECOB space debris index with fragmentation
+  risk estimation.} .
 
 \bibitem[{Rao(2018)}]{raoJMP}
 Rao, Akhil. 2018.
