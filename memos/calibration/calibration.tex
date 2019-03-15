@@ -71,8 +71,7 @@
 
 \paragraph{}This supplement describes technical details of our modeling approach. \\
 
-%Paragraph 1: high-level overview of what we're doing \\
-We generate the path of optimal satellite taxes in three steps. First, we calibrate functions describing the physics and economics of orbit use to match observed data on satellite and debris stock levels and aggregate satellite industry costs and returns prior to 2018. Then, using the calibrated values, we generate open access and optimal launch paths from 2006 to 2040. Finally, by comparing the open access path of collision risk to the optimal path of collision risk, we calculate the path of the optimal satellite tax which induces open access satellite owners to internalize the externality they impose on other orbit users. \\
+We generate the path of an optimal satellite tax in three steps. First, we calibrate functions describing the physics and economics of orbit use to match observed data on satellite and debris stock levels and aggregate satellite industry costs and returns prior to 2018. Then, using the calibrated values, we generate open access and optimal launch paths from 2006 to 2040. Finally, by comparing the open access path of collision risk to the optimal path of collision risk, we calculate the path of the optimal satellite tax which induces open access satellite owners to internalize the externality they impose on other orbit users. \\
 
 %Paragraph 2: high-level overview of how we're doing it \\
 We obtain physical functions relating launches, satellites, and debris stocks to collisions, new fragments, and satellite and debris growth from the engineering literature, and economic functions relating the decision to launch to collision risk, costs, and returns from the economics literature. To calibrate the physical functions, we estimate the unknown parameters from satellite stocks, debris stocks, and launches observed over 1957-2017. We constrain the parameters to comply with theoretical restrictions imposed by the engineering model. To calibrate the economic functions, we estimate the unknown parameters from satellite stocks, debris stocks, launches, aggregate satellite industry costs, and aggregate satellite industry returns over 2005-2015. To allow the estimation process to adjust for unobserved launch market frictions, we do not constrain these parameter estimates. \\
@@ -87,9 +86,96 @@ Our economic model is also founded on the simplifying assumption of ``one satell
 Lastly, our model abstracts entirely away from the question of satellite placement. That is, two orbital objects within a given volume shell can be placed in orbits such that at one extreme they are guaranteed to collide, or at the other extreme they will never collide. Our projections are based on collision rate estimates which are calculated using historical placement patterns. Thus, our projections assume that the systematic factors which resulted in current object placements will continue into the future. While technology and constellation ownership are likely to lead to improvements in placement patterns our collision risk projections would be biased for both the open access and optimal launch paths. However, the magnitude of the gap between open access and optimal collision risk may actually be understated by this issue. To the extent that economic agents have the placement margin available to them it is induces another externality, similar in spirit but different in detail to the orbit use externality we describe in this article, wherein firms do not account for the full magnitude of orbital use efficiency losses due to their placement. A fleet planner who coordinated all satellites in orbit would account for such placement-related externalities. By taking advantage of any efficiencies in placement, would be able to reduce collision rates below what open access satellite owners would have an incentive to consider. Thus, while the inclusion of a placement margin may reduce levels of collision risk, the differences in collision risk between open access and optimal use will likely increase, making our satellite tax estimates a lower bound on average\footnote{While some regimes in a spatially-differentiated orbit model may have lower tax values than the ones we calculate here, the average tax value across all regimes will likely be larger.}.
 
 
-\section{Calibrating the physical model}	
+\section{Data}
 
-\subsection{A physical model of orbital aggregates}
+\subsection{Satellite and debris counts, 1958---2015}
+
+We use data on satellites in orbit from the Space-Track dataset hosted by the Combined Space Operations Center (CSpOC) \citep{spacetrackData} to construct the satellite stock and launch rate series. The Space-Track dataset provides details on active payloads in LEO and their decay dates. The data are described in Table \ref{physstock_sumstat}.\\
+
+We construct the numbers of active satellites in each year by calculating the number of objects launched a particular year, adding the number of satellites previously calculated in orbit, and then subtracting the number of satellites listed as having decayed in that year.\footnote{This procedure is likely to produce an upward-biased estimate of the returns-generating satellite stock in any given year, since satellites which are no longer operational will not be removed from the estimated stock until they have deorbited. Thus, the satellite stock in this procedure includes some objects which are, economically speaking, ``socially-useless debris''. We use this procedure despite the attribution issue for two reasons. First, we do not have data on when specific satellites were declared nonoperational by their owners. Such a determination can be particularly tricky when a mission has ended, but the satellite still has fuel and could be repurposed for another mission. Second, to the extent that our estimates of the satellite stock are biased upward (toward positive infinity), our physical and economic parameters estimates will be biased downwards. The downward bias in economic parameters will deflate both the open access and socially optimal launch rates, while the downward bias in physical parameters will inflate both the open access and socially optimal launch rates, with the net effect being difficult to determine. However, the downward bias in our estimated collision risk coefficients and the upward bias in our estimated satellite stock will bias our estimated satellite tax downward, so that it is a lower bound.} \\
+
+%We use data on satellites in orbit from the Space-Track dataset hosted by the Combined Space Operations Center (CSpOC) \citep{spacetrackData} to construct the satellite stock and launch rate series. The Space-Track dataset provides details on active payloads in LEO and their decay dates. We construct the numbers of active satellites in each year by calculating the number of objects launched a particular year, adding the number of satellites previously calculated in orbit, and then subtracting the number of satellites estimated to be nonoperational. We attribute operational status to satellites based on the number of years since the satellite's launch: if a satellite was launched at year $t$ with a lifespan of $\hat{t}$ years, then the satellite will be declared nonoperational in year $t + \hat{t}$. 
+
+Letting $\ell_t$ be the number of collisions observed and $Z_t$ be the number of payloads listed as decayed, we construct the launch rate from the satellite stock series as
+
+\begin{equation}
+\label{launchRateAccounting}
+X_t = S_{t+1} - S_t + Z_t + \ell_t,
+\end{equation}
+
+where $S_t$ is the number of active payloads in year $t$ and $Z_t$ is the number of payloads listed as decayed in year $t$. \\
+
+The debris and collision risk series' we use were provided by the European Space Agency. We use debris data from the DISCOS database \citep{FRAGdata} and collision probability data used in \citep{ECOBdata} (the variable $p_c$ in that paper). We use only objects with a semi-major axis of 2000km or less in all our data series. We prefer to use the DISCOS fragment data rather than the Space-Track fragment data as it tracks fragments from the time they were created or detected, whereas the Space-Track data tracks fragments from the time their parent body was launched. The DISCOS attribution method is closer to how economic agents in our model receive information and make decisions. %We record the number of anti-satellite missile tests in a year using data from Wikipedia \citep{ASATdata}.
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Tue, Mar 12, 2019 - 08:04:10 AM
+\begin{table}[!htbp] \centering 
+	\caption[LEO satellite and debris summary statistics]{LEO satellite and debris summary statistics} 
+	\label{physstock_sumstat} 
+	\hspace*{-1cm}
+	\begin{tabular}{@{\extracolsep{5pt}}lccccccc} 
+		\\[-1.8ex]\hline 
+		\hline \\[-1.8ex] 
+		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{$25^{th}$ percentile} & \multicolumn{1}{c}{$75^{th}$ percentile} & \multicolumn{1}{c}{Max} \\ 
+		\hline \\[-1.8ex] 
+		Satellites & 58 & 1,057.897 & 720.298 & 4 & 400.5 & 1,784 & 2,271 \\ 
+		Launch successes & 58 & 89.931 & 47.137 & 5 & 59 & 112.8 & 334 \\ 
+		Payloads decayed & 58 & 50.810 & 24.166 & 3 & 30.2 & 69.5 & 90 \\ 
+		Launch failures & 58 & 13.845 & 9.817 & 1 & 6 & 20.8 & 42 \\ 
+		ASAT tests & 58 & 0.190 & 0.545 & 0 & 0 & 0 & 3 \\ 
+		Debris & 58 & 3,375.586 & 2,681.324 & 0 & 1,609 & 3,852.2 & 9,662 \\ 
+		Collision rate & 58 & 2.598 & 1.800 & 0 & 1.0 & 3.8 & 6 \\ 
+		\hline \\[-1.8ex] 
+	\end{tabular} 
+\end{table} 
+
+
+\subsection{Aggregate satellite industry returns and costs, 2006---2015}
+
+We use data on satellite industry revenues from \citet{wienzierl2018}, and data on satellites in LEO (semi-major axis less than 2000km) from the Union of Concerned Scientists' list of active satellites \citep{UCSdata}. The economic data provide a breakdown of revenues across satellite manufacture, launch, insurance, and products and services. The satellite industry revenues data cover 2006-2015, while the active satellites data cover 1958-2017. The historical data are described in Table \ref{revcost_sumstat}. \\
+
+We calculate the per-period returns on owning a satellite ($\pi_t$) as the revenues generated from commercial space products and services, and the per-period costs of launching a satellite ($F_t$) as the sum of revenues from commercial infrastructure and support industries, ground stations and equipment, commercial satellite manufacturing, and commercial satellite launching. The ratio $\pi_t/F_t$ then gives a time series of the rate of return on a single satellite, as the number of satellites cancels out of the numerator and denominator. Since the numbers provided in \citet{wienzierl2018} are for the satellite industry as a whole, the ratio still needs to be adjusted to represent satellites in LEO. We do not explicitly conduct this adjustment, but let the adjustment be calculated during the estimation of equation \ref{OAeqm_ch3_2}.\footnote{Another way to perform this adjustment is by calculating the yearly share of satellites in LEO and multiplying the ratio $\pi_t/F_t$ by the share in LEO. This approach is difficult to generalize to future years since it requires projections of satellites in other orbits. It is also not clear that the returns of satellites in LEO are truly proportional to the LEO share of the total number of active satellites in all orbits.} \\ %We adjust for this by calculating the yearly share of satellites in LEO and multiplying the ratio by this share. \\ , and runs the risk of ``data-snooping'': since we are trying to predict the launch rate using only economic parameters (returns, costs, interest rates), incorporating the share of satellites in LEO adds physical information to the economic estimation.
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Tue, Mar 12, 2019 - 07:53:16 AM
+\begin{table}[!htbp] \centering 
+	\caption[Satellite industry historical aggregate revenue and cost summary statistics]{Satellite industry historical aggregate revenue and cost summary statistics} 
+	\label{revcost_sumstat} 
+	\hspace*{-1.2cm}
+	\begin{tabular}{@{\extracolsep{5pt}}lccccccc} 
+		\\[-1.8ex]\hline 
+		\hline \\[-1.8ex] 
+		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{$25^{th}$ percentile} & \multicolumn{1}{c}{$75^{th}$ percentile} & \multicolumn{1}{c}{Max} \\ 
+		\hline \\[-1.8ex] 
+		Total industry revenues & 10 & 101.774 & 20.352 & 70.440 & 87.392 & 118.823 & 126.551 \\ 
+		Total industry costs & 10 & 185.376 & 40.050 & 136.162 & 162.511 & 208.644 & 254.387 \\
+		\hline \\[-1.8ex] 
+	\end{tabular} 
+\end{table} 
+
+To generate launch rate and satellite tax projections out to 2040, we revenue and cost projections from \citep{MSreport}. These projections are described in Table \ref{revcost_proj_sumstat}.
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Tue, Mar 12, 2019 - 08:13:49 AM
+\begin{table}[!htbp] \centering 
+	\caption[Satellite industry projected aggregate revenue and cost summary statistics]{Satellite industry projected aggregate revenue and cost summary statistics} 
+	\label{revcost_proj_sumstat} 
+	\hspace*{-1.2cm}
+	\begin{tabular}{@{\extracolsep{5pt}}lccccccc} 
+		\\[-1.8ex]\hline 
+		\hline \\[-1.8ex] 
+		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{$25^{th}$ percentile} & \multicolumn{1}{c}{$75^{th}$ percentile} & \multicolumn{1}{c}{Max} \\ 
+		\hline \\[-1.8ex] 
+		Total industry revenues & 36 & 217.898 & 76.448 & 120.786 & 153.089 & 277.506 & 366.555 \\ 
+		Total industry costs & 36 & 362.207 & 86.974 & 210.674 & 289.326 & 418.468 & 525.072 \\ 
+		\hline \\[-1.8ex] 
+	\end{tabular} 
+\end{table} 
+
+
+\section{Models}
+
+\subsection{Orbital mechanics with limited lifespans, missile tests, and certainty}
 
 Our physical model uses accounting relationships in the aggregate stocks of satellites and debris for the laws of motion, and draws on \citep{letiziaetal2017} for the functional forms of the new fragment creation and collision probability functions $G(S,D)$ and $L(S,D)$. The time period scale is set as one calendar year to match our data. $S_t$ denotes the number of active satellites in an orbital shell in period $t$, $D_t$ the number of debris objects in the shell in $t$, $X_t$ the number of satellites launched in $t$, $L(S_t,D_t)$ the probability that an active satellite in the shell will be destroyed in a collision in $t$, $\mu$ is the fraction of satellites which do not deorbit in $t$, and $m$ is the average amount of debris generated by deorbiting satellites. $\delta$ is the average proportion of debris objects which deorbit in $t$, and $G(S_t,D_t)$ is the number of new debris fragments generated due to all collisions between satellites and debris.\footnote{For most of our sample, the number of observed collisions is zero. We use the probability of collisions in our models rather than the observed number for two reasons. First, it proxies for unobserved collisions, including non-catastrophic ones. Second, a model with stochastic collisions complicates the process of solving for the optimal time path by adding another state variable to the dynamic programming algorithm. As the number of objects in a single period increases, the fraction of satellites destroyed in collisions in that period converges to the probability of destruction, so this assumption provides a ``mean field''-type approximation.} $m$ is the number of debris pieces contributed by satellites launched. $A_t$ is the number of anti-satellite missile tests conducted in $t$, and $\gamma$ is the average number of fragments created by one test. We assume that satellites which deorbit do so without creating any additional debris. \\
 
@@ -120,110 +206,28 @@ We ignore the possibility of collisions between debris objects for two reasons. 
 
 Equations \ref{debrisLoM}, \ref{collFunction}, and \ref{growthFunction} can be viewed as reduced-form statistical models which recreate the results of higher-fidelity physics models of debris growth and the collision probability. While higher-fidelity physics models may use the same functional forms, the key difference between our approach and the approach in such models is how we calibrate the models: rather than derive the appropriate parameter values from physical first principles, we estimate the values of those parameters which maximize the fit between model-predicted collision probabilities and debris stocks and the data.
 
-\subsection{Data}
+\subsection{Open access orbit use with time-varying aggregate returns and costs}
 
-We use data on satellites in orbit from the Space-Track dataset hosted by the Combined Space Operations Center (CSpOC) \citep{spacetrackData} to construct the satellite stock and launch rate series. The Space-Track dataset provides details on active payloads in LEO and their decay dates. We construct the numbers of active satellites in each year by calculating the number of objects launched a particular year, adding the number of satellites previously calculated in orbit, and then subtracting the number of satellites listed as having decayed in that year.\footnote{This procedure is likely to produce an upward-biased estimate of the returns-generating satellite stock in any given year, since satellites which are no longer operational will not be removed from the estimated stock until they have deorbited. Thus, the satellite stock in this procedure includes some objects which are, economically speaking, ``socially-useless debris''. We use this procedure despite this issue for two reasons. First, we do not have data on when specific satellites were declared nonoperational by their owners. Such a determination can be particularly tricky when a mission has ended, but the satellite still has fuel and could be repurposed for another mission. Second, to the extent that our estimates of the satellite stock are biased upward (toward positive infinity), our physical and economic parameters estimates will be biased downwards. The downward bias in economic parameters will deflate both the open access and socially optimal launch rates, while the downward bias in physical parameters will inflate both the open access and socially optimal launch rates, with the net effect being difficult to determine. However, the downward bias in our estimated collision risk coefficients and the upward bias in our estimated satellite stock will bias our estimated satellite tax downward, so that it is a lower bound.} \\
-
-%We use data on satellites in orbit from the Space-Track dataset hosted by the Combined Space Operations Center (CSpOC) \citep{spacetrackData} to construct the satellite stock and launch rate series. The Space-Track dataset provides details on active payloads in LEO and their decay dates. We construct the numbers of active satellites in each year by calculating the number of objects launched a particular year, adding the number of satellites previously calculated in orbit, and then subtracting the number of satellites estimated to be nonoperational. We attribute operational status to satellites based on the number of years since the satellite's launch: if a satellite was launched at year $t$ with a lifespan of $\hat{t}$ years, then the satellite will be declared nonoperational in year $t + \hat{t}$. 
-
-Letting $\ell_t$ be the number of collisions observed and $Z_t$ be the number of payloads listed as decayed, we construct the launch rate from the satellite stock series as
-
+The economic model of open access here is based on the model of open access in \citet{raorondinaWP} to determine the satellite launch rate under open access, $X_t$, as a function of the collision probability, $L(S_{t+1},D_{t+1})$, and the excess return on a satellite, $r_{s} - r$. In the simplest case, where all of the economic parameters are constant over time, the open access launch rate equates the collision probability with the excess return:
 \begin{equation}
-\label{launchRateAccounting}
-X_t = S_{t+1} - S_t + Z_t + \ell_t,
-\end{equation}
-
-where $S_t$ is the number of active payloads in year $t$ and $Z_t$ is the number of payloads listed as decayed in year $t$. \\
-
-The debris and collision risk series' we use were provided by the European Space Agency. We use debris data from the DISCOS database \citep{FRAGdata} and collision probability data used in \citep{ECOBdata} (the variable $p_c$ in that paper). We use only objects with a semi-major axis of 2000km or less in all our data series. We prefer to use the DISCOS fragment data rather than the Space-Track fragment data as it tracks fragments from the time they were created or detected, whereas the Space-Track data tracks fragments from the time their parent body was launched. The DISCOS attribution method is closer to how economic agents in our model receive information and make decisions. %We record the number of anti-satellite missile tests in a year using data from Wikipedia \citep{ASATdata}.
-
-\subsection{Calibration procedure}
-
-%Calibrating the rate of at which satellites deorbit, $\mu$, is straightforward. We conduct a grid search over integer values of $\hat{t}$ to match the stock of operational satellites in LEO in 2015 with the value recorded by the Union of Concerned Scientists' total for the end of 2015. This yields an estimated average operational lifespan of 9 years, i.e. $\hat{\mu} = 0.89$.
-
-We calibrate the rate at which satellites deorbit, $\mu$, by estimating the following analog to equation \ref{launchRateAccounting} by OLS:
-
-\begin{equation}
-\label{deorbitRateEstimate}
-S_{t+1} = S_t(1-L(S_t,D_t))\hat{\mu} + X_t.
-\end{equation}
-
-This yields an estimated average operational lifespan of about 30 years, i.e. $\hat{\mu} = 0.967$. This is consistent with an average mission length of 5 years, followed by compliance with the 25-year deorbit guideline issued by the IADC \citep{IADCguidelines}. While only four in five LEO operators who launched between 2003 and 2014 are estimated to comply with the guideline, including this rate in our forward simulations is conservative in the sense that the estimated satellite tax becomes a lower bound relative to a model with imperfect compliance. \\
-
-We calibrate equations \ref{collFunction} and \ref{debrisLoM} by estimating the following equations:
-\begin{align}
-\label{riskEstimation}
-L(S_t,D_t) &= 1 - \exp(-\hat{\alpha}_{SS} S_t-\hat{\alpha}_{SD} D_t) + \epsilon_{L t}  \\
-\label{debLoMEstimation}
-D_{t+1} &= \hat{(1-\delta)} D_t + \hat{\beta}_{SS} (1-\exp(-\hat{\alpha}_{SS}S_t))S_t + \hat{\beta}_{SD} (1-\exp(-\hat{\alpha}_{SD}D_t))S_t + \\
-&~~~~~  \hat{\gamma} A_t + \hat{m} X_t + \epsilon_{D t},
-\end{align}
-
-where $\epsilon_{xt}$ are mean-zero error terms to minimize and $a_{xi}$ are parameters to estimate. In theory, the $\alpha_{jk}$, $\beta_{jk}$, and $m$ are nonnegative, and $\delta$ is in $(0,1)$. We constrain the parameter estimates to comply with the theoretical restrictions.\\
-
-We estimate equations \ref{riskEstimation} and \ref{debLoMEstimation} in two stages. First, we estimate equation \ref{riskEstimation} by constrained NLS. Then, using the estimated values of $\hat{\alpha}_{SS}$ and $\hat{\alpha}_{SD}$ to generate $(1-\exp(-\hat{\alpha}_{SS}S_t))S_t$ and $(1-\exp(-\hat{\alpha}_{SD}D_t))S_t$, we estimate equation \ref{debLoMEstimation} by constrained ridge regression, estimating $(1-\delta)$ directly\footnote{We use ridge regression for the debris equation to improve the model fit, despite bias in the estimated parameters.}. We estimate both equations on the sample from 1957-2013. The fitted values are shown against the actual values with residuals in figure \ref{debCalibration}.
-
-\begin{figure}[H]
-	\includegraphics[width=0.5\textwidth]{../../images/risk_fit_plot.png}
-	\includegraphics[width=0.5\textwidth]{../../images/debris_lom_fit_plot.png}
-	\captionsetup{format=hang}
-	\caption{\textit{Calibration fit.} \\
-		The upper panels show fitted values (blue dashed line) against actual values (black dots). The lower panels show the residuals.
-	}
-	\label{debCalibration}
-\end{figure}
-
-Tables \ref{riskParms} and \ref{debParms} show the calibrated parameters for equations \ref{riskEstimation} and \ref{debLoMEstimation}:
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|l|l|l|}
-		\hline
-		\textit{Collision probability parameters:}      & \textbf{$\alpha_{SS}$} & \textbf{$\alpha_{SD}$} \\ \hline
-		\textit{Parameter values:} & 1.29e-06               & 2.56e-08               \\ \hline
-	%	\textit{Standard errors:} & 7.71e-11 & 2.2e-11 \\ \hline
-	\end{tabular}
-	\caption{Parameter values from estimating equation \ref{riskEstimation}.}
-	\label{riskParms}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|l|l|l|l|l|l|l|l|}
-		\hline
-		\textit{Debris law of motion parameters} & \textbf{$\delta$} & \textbf{$m$} & \textbf{$\gamma$} & \textbf{$\beta_{SS}$} & \textbf{$\beta_{SD}$} \\ \hline
-		\textit{Parameter values:}                           & 0.49                & 4.84         & 144.13              & 292.72                & 5026.17                          \\ \hline
-	\end{tabular}
-		\caption{Parameter values from estimating equation \ref{debLoMEstimation}. All values are rounded to two decimal places. The penalty parameter $\lambda$ was selected through cross-validation.}
-		\label{debParms}
-\end{table}
-
-These parameter values are physically plausible, with the values estimated for equation \ref{debLoMEstimation} being lower bounds\footnote{Ridge estimates are biased toward zero relative to OLS estimates. For a given penalty parameter $\lambda \geq 0$, the relationship between a ridge coefficient estimate $\hat{\beta}^{\text{ridge}}$ and the corresponding OLS estimate $\hat{\beta}^{\text{OLS}}$ is $\hat{\beta}^{\text{ridge}} = \hat{\beta}^{\text{OLS}}/(1+\lambda)$.}. For example, the value of $m$ suggests that every satellite launched creates (at least) $4.84$ pieces of debris on average, while the value of $\gamma$ suggests that anti-satellite missile tests create (at least) $144.13$ pieces of debris on average. While higher-fidelity physical models which derive these quantities from first principles will yield more accurate results, the estimated values appear to be a reasonable first-order approximation to the true values based on the model fits (shown in figure \ref{debCalibration}).
-
-\section{Calibrating the economic model}
-
-\subsection{An economic model of open access to orbit}
-
-Our economic model draws on \cite{raorondinaWP} to determine the satellite launch rate under open access, $X_t$, as a function of the collision probability, $L(S_{t+1},D_{t+1})$, and the excess return on a satellite, $r_{s} - r$. In the simplest case, where all of the economic parameters are constant over time, the open access launch rate equates the collision probability with the excess return:
-\begin{equation}
-\label{OAeqm}
+\label{OAeqm_ch3}
 L(S_{t+1},D_{t+1}) = \underbrace{r_s - r}_{\text{\shortstack{excess return\\on a satellite}}},
 \end{equation}
 
 where $r_s$ is the per-period rate of return on a single satellite ($\pi/F$, where $\pi$ is the per-period return generated by a satellite and $F$ is the cost of launching a satellite, inclusive of non-launch expenditures such as satellite manufacturing and ground stations) and $r$ is the risk-free interest rate.\footnote{More precisely, $r$ is the opportunity cost of funds invested in launching a satellite, and may diverge from the risk-free rate if the satellite launcher's most-preferred alternate investment is not a risk-free security. This rate is sometimes referred to as the internal rate of return (IRR).} \\
 
-Equation \ref{OAeqm} can therefore also be used to calculate the implied IRR for satellite investments from observed data on collision risk and satellite returns. $r$ is not observed in our data. When costs, returns, and the discount rate are all time-varying, equation \ref{OAeqm} becomes
+Equation \ref{OAeqm_ch3} can therefore also be used to calculate the implied IRR for satellite investments from observed data on collision risk and satellite returns. $r$ is not observed in our data. When costs and returns are time-varying, equation \ref{OAeqm_ch3} becomes
 \begin{align}
-\label{OAeqm2}
-L(S_{t+1},D_{t+1}) &= 1+ r_{s,t+1} - (1+r_t) \frac{F_t}{F_{t+1}} \\
-\implies L(S_{t+1},D_{t+1}) &= \underbrace{\left( r_{s,t+1} - r_t \frac{F_t}{F_{t+1}} \right)}_{\text{\shortstack{excess return\\on a satellite}}} + \underbrace{\left(1 - \frac{F_t}{F_{t+1}} \right)}_{\text{\shortstack{capital gains\\from open access\\and satellite launch\\cost variation}}} 
+\label{OAeqm_ch3_2}
+L(S_{t+1},D_{t+1}) &= 1+ r_{s,t+1} - (1+r) \frac{F_t}{F_{t+1}} \\
+\implies L(S_{t+1},D_{t+1}) &= \underbrace{\left( r_{s,t+1} - r \frac{F_t}{F_{t+1}} \right)}_{\text{\shortstack{excess return\\on a satellite}}} + \underbrace{\left(1 - \frac{F_t}{F_{t+1}} \right)}_{\text{\shortstack{capital gains\\from open access\\and satellite launch\\cost variation}}} \nonumber
 \end{align}
 
-where $r_{s,t+1} = \pi_{t+1}/F_{t+1}$. With time-varying economic parameters, two sources of returns drive the collision risk. One is the excess return realized in $t+1$ from launching a satellite in $t$. The other is the capital gain (or loss) due to open access and the change in satellite costs. Since open access drives the value of a satellite down to the total cost of launching and operating it, $F_t$ becomes the cost of receiving $F_{t+1}$ in present value the following period, and the returns are given as percentages of $F_{t+1}$. Since the discount rate is unobserved, we fix it to be constant over time to facilitate estimation. \\
+where $r_{s,t+1} = \pi_{t+1}/F_{t+1}$. With time-varying economic parameters, two sources of returns drive the collision risk. One is the excess return realized in $t+1$ from launching a satellite in $t$. The other is the capital gain (or loss) due to open access and the change in satellite costs. Since open access drives the value of a satellite down to the total cost of launching and operating it, $F_t$ becomes the cost of receiving $F_{t+1}$ in present value the following period, and the returns are given as percentages of $F_{t+1}$. Since the discount rate is unobserved, we fix it to be constant over time to facilitate estimation.\footnote{This equation was derived in the Appendix of \cite{raorondinaWP}. In that setting the discount rate was not constant over time.} \\
 
 The maximum number of satellites which can be launched in a year are limited by a variety of factors, including weather, availability of rockets, and availability of launch sites. We estimate this ``launch constraint'' from the observed data for the historical period, and extrapolate it forward for the projection period. We describe this procedure in more detail in section \ref{launch_constraint} of the Appendix.
 
-\subsection{An economic model of socially optimal orbit use}
+\subsection{Optimal orbit use with time-varying aggregate returns and costs}
 
 The fleet planner's problem is more complicated. The fleet planner launches satellites to maximize the value of the entire fleet into the (discounted) infinite future, subject to the laws of motion of satellite and debris stocks. Formally, letting $\beta = (1+r)^{-1}$ be the discount factor, the planner solves
 
@@ -247,35 +251,92 @@ where $W_D(S,D)$, the marginal value of another unit of debris on the satellite 
 W_D(S,D) =& \left[ \frac{'F}{\beta} - \pi - (1 - L(S,D) - S L_S(S,D))F - \frac{G_S(S,D) - m(1 - L(S,D) - SL_S(S,D))}{1 - \delta + G_D(S,D) + m L_D(S,D)}L_D(S,D) S F  \right] \cdot \nonumber \\
 & ~~ \left[ \frac{G_S(S,D) - m(1 - L(S,D) - SL_S(S,D))}{1 - \delta + G_D(S,D) + m L_D(S,D)} + m \right]^{-1},
 \end{align}
-subscripts indicate derivatives with respect to the subscripted variable, and $'F$ indicates the previous period's launch cost. Intuition for this formula and its components are discussed in \citep{raorondinaWP}. 
+subscripts indicate derivatives with respect to the subscripted variable, and $'F$ indicates the previous period's launch cost.
 
-\subsection{Data}
+\section{Calibration and simulation}
 
-We use data on satellite industry revenues from \citet{wienzierl2018}, and data on satellites in LEO (semi-major axis less than 2000km) from the Union of Concerned Scientists' list of active satellites \citep{UCSdata}. The economic data provide a breakdown of revenues across satellite manufacture, launch, insurance, and products and services. The satellite industry revenues data cover 2005-2015, while the active satellites data cover 1958-2017. \\
+\subsection{Physical parameters: deorbit, decay, collisions, and fragments}
 
-We calculate the per-period returns on owning a satellite ($\pi_t$) as the revenues generated from commercial space products and services, and the per-period costs of launching a satellite ($F_t$) as the sum of revenues from commercial infrastructure and support industries, ground stations and equipment, commercial satellite manufacturing, and commercial satellite launching. The ratio $\pi_t/F_t$ then gives a time series of the rate of return on a single satellite, as the number of satellites cancels out of the numerator and denominator. Since the numbers provided in \citet{wienzierl2018} are for the satellite industry as a whole, the ratio still needs to be adjusted to represent satellites in LEO. We do not explicitly conduct this adjustment, but let the adjustment be calculated during the estimation of equation \ref{OAeqm2}.\footnote{Another way to perform this adjustment is by calculating the yearly share of satellites in LEO and multiplying the ratio $\pi_t/F_t$ by the share in LEO. This approach is difficult to generalize to future years since it requires projections of satellites in other orbits. It is also not clear that the returns of satellites in LEO are truly proportional to the LEO share of the total number of active satellites in all orbits.} \\ %We adjust for this by calculating the yearly share of satellites in LEO and multiplying the ratio by this share. \\ , and runs the risk of ``data-snooping'': since we are trying to predict the launch rate using only economic parameters (returns, costs, interest rates), incorporating the share of satellites in LEO adds physical information to the economic estimation.
+We calibrate the rate at which satellites deorbit, $\mu$, by estimating the following analog to equation \ref{launchRateAccounting} by OLS:
 
-\subsection{Calibration procedure}
+\begin{equation}
+\label{deorbitRateEstimate}
+S_{t+1} = S_t(1-L(S_t,D_t))\hat{\mu} + X_t.
+\end{equation}
 
-Since $r$ is unobserved, we calibrate equation \ref{OAeqm2} by estimating
+This yields an estimated average operational lifespan of about 30 years, i.e. $\hat{\mu} = 0.967$. This is consistent with an average mission length of 5 years, followed by compliance with the 25-year deorbit guideline issued by the IADC \citep{IADCdmg}. While only four in five LEO operators who launched between 2003 and 2014 are estimated to comply with the guideline, including this rate in our forward simulations is conservative in the sense that the estimated satellite tax becomes a lower bound relative to a model with imperfect compliance. \\
+
+We calibrate equations \ref{collFunction} and \ref{debrisLoM} by estimating the following equations:
+\begin{align}
+\label{riskEstimation}
+L(S_t,D_t) &= 1 - \exp(-\hat{\alpha}_{SS} S_t-\hat{\alpha}_{SD} D_t) + \epsilon_{L t}  \\
+\label{debLoMEstimation}
+D_{t+1} &= \hat{(1-\delta)} D_t + \hat{\beta}_{SS} (1-\exp(-\hat{\alpha}_{SS}S_t))S_t + \hat{\beta}_{SD} (1-\exp(-\hat{\alpha}_{SD}D_t))S_t + \\
+&~~~~~  \hat{\gamma} A_t + \hat{m} X_t + \epsilon_{D t},
+\end{align}
+
+where $\epsilon_{xt}$ are mean-zero error terms to minimize and $a_{xi}$ are parameters to estimate. In theory, the $\alpha_{jk}$, $\beta_{jk}$, and $m$ are nonnegative, and $\delta$ is in $(0,1)$. We constrain the parameter estimates to comply with the theoretical restrictions.\\
+
+We calibrate equations \ref{riskEstimation} and \ref{debLoMEstimation} in two stages. First, we estimate equation \ref{riskEstimation} by constrained NLS. Then, using the estimated values of $\hat{\alpha}_{SS}$ and $\hat{\alpha}_{SD}$ to generate $(1-\exp(-\hat{\alpha}_{SS}S_t))S_t$ and $(1-\exp(-\hat{\alpha}_{SD}D_t))S_t$, we estimate equation \ref{debLoMEstimation} by constrained ridge regression, estimating $(1-\delta)$ directly.\footnote{We use ridge regression for the debris equation to improve the model fit, despite bias in the estimated parameters.} We estimate both equations on the sample from 1957-2013. The fitted values are shown against the actual values with residuals in figure \ref{debCalibration}.
+
+\begin{figure}
+	\hspace*{-1.5cm}
+	\includegraphics[width=0.6\textwidth]{../../images/risk_fit_plot.png}
+	\includegraphics[width=0.6\textwidth]{../../images/debris_lom_fit_plot.png}
+	\captionsetup{format=hang}
+	\caption[Collision probability and debris law of motion model fits]{\textit{Calibration fit.} \\
+		The upper panels show fitted values (blue dashed line) against actual values (black dots). The lower panels show the residuals.
+	}
+	\label{debCalibration}
+\end{figure}
+
+Tables \ref{riskParms} and \ref{debParms} show the calibrated parameters for equations \ref{riskEstimation} and \ref{debLoMEstimation}:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textit{Collision probability parameters:}      & \textbf{$\alpha_{SS}$} & \textbf{$\alpha_{SD}$} \\ \hline
+		\textit{Parameter values:} & 1.29e-06               & 2.56e-08               \\ \hline
+		%	\textit{Standard errors:} & 7.71e-11 & 2.2e-11 \\ \hline
+	\end{tabular}
+	\caption[Parameter values from estimating equation \ref{riskEstimation}]{Parameter values from estimating equation \ref{riskEstimation}.}
+	\label{riskParms}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|l|l|l|}
+		\hline
+		\textit{Debris law of motion parameters} & \textbf{$\delta$} & \textbf{$m$} & \textbf{$\gamma$} & \textbf{$\beta_{SS}$} & \textbf{$\beta_{SD}$} \\ \hline
+		\textit{Parameter values:}                           & 0.49                & 4.84         & 144.13              & 292.72                & 5026.17                          \\ \hline
+	\end{tabular}
+	\caption[Parameter values from estimating equation \ref{debLoMEstimation}]{Parameter values from estimating equation \ref{debLoMEstimation}. All values are rounded to two decimal places. The penalty parameter $\lambda$ was selected through cross-validation.}
+	\label{debParms}
+\end{table}
+
+These parameter values are physically plausible, with the values estimated for equation \ref{debLoMEstimation} being lower bounds.\footnote{Ridge estimates are biased toward zero relative to OLS estimates. For a given penalty parameter $\lambda \geq 0$, the relationship between a ridge coefficient estimate $\hat{\beta}^{\text{ridge}}$ and the corresponding OLS estimate $\hat{\beta}^{\text{OLS}}$ is $\hat{\beta}^{\text{ridge}} = \hat{\beta}^{\text{OLS}}/(1+\lambda)$.} For example, the value of $m$ suggests that every satellite launched creates (at least) $4.84$ pieces of debris on average, while the value of $\gamma$ suggests that anti-satellite missile tests create (at least) $144.13$ pieces of debris on average. While higher-fidelity physical models which derive these quantities from first principles will yield more accurate results, the estimated values appear to be a reasonable first-order approximation to the true values based on the model fits (shown in figure \ref{debCalibration}).
+
+\subsection{Economic parameters: returns, costs, and discounting}
+
+Since $r$ is unobserved, we calibrate equation \ref{OAeqm_ch3_2} by estimating
 \begin{equation}
 \label{empiricalEqn}
 L(S_{t+1},D_{t}) = a_{L 1} + a_{L 2} r_{st} + a_{L 3} \frac{F_{t-1}}{F_t} + \epsilon_{r t},
 \end{equation}
 
-using OLS on the sample of returns data from 2005-2014\footnote{We omit the first observation, for 2005, to construct $F_{t-1}/F_{t}$.}, where $\epsilon_{rt}$ is a mean-zero error term, $a_{L 2}$ is a scale parameter, and $a_{L 3}$ measures the gross IRR, $1+r$. The fitted values are shown against the actual values with residuals in figure \ref{econCalibration}.%\footnote{While the theoretical model prescribes that $E_{t-1}[\ell_t|S_t,D_t]$ is the object being controlled by the period $t-1$ launch rate, we use the observed $\ell_t$ as a stand-in for $E_{t-1}[\ell_t|S_t,D_t]$. This is consistent with satellite launchers holding rational expectations over the future state of the orbit. While rational expectations may not be exactly true of such agents, given the planning and resources required to implement capital-intensive projects such as satellite construction and launch, we believe it to be a reasonable approximation.}
+using OLS on the sample of returns data from 2005-2015, omitting the first observation (for 2005) to construct $F_{t-1}/F_{t}$. $\epsilon_{rt}$ is a mean-zero error term, $a_{L 2}$ is a scale parameter, and $a_{L 3}$ measures the gross IRR, $1+r$. The fitted values are shown against the actual values with residuals in figure \ref{econCalibration}. Table \ref{econParms} shows the calibrated parameters. %\footnote{While the theoretical model prescribes that $E_{t-1}[\ell_t|S_t,D_t]$ is the object being controlled by the period $t-1$ launch rate, we use the observed $\ell_t$ as a stand-in for $E_{t-1}[\ell_t|S_t,D_t]$. This is consistent with satellite launchers holding rational expectations over the future state of the orbit. While rational expectations may not be exactly true of such agents, given the planning and resources required to implement capital-intensive projects such as satellite construction and launch, we believe it to be a reasonable approximation.}
 
-\begin{figure}[H]
+\begin{figure}
 	\centering
-	\includegraphics[width=0.5\textwidth]{../../images/risk_return_plot.png}
+	\includegraphics[width=0.7\textwidth]{../../images/risk_return_plot.png}
 	\captionsetup{format=hang}
-	\caption{\textit{Calibration fit.} \\
+	\caption[Open access equilibrium condition model fit]{\textit{Calibration fit.} \\
 		The upper panel shows fitted values (blue dashed line) against actual values (black solid line). The lower panel shows the residuals.
 	}
 	\label{econCalibration}
 \end{figure}
 
-Tables \ref{econParms} shows the calibrated parameters:
 
 \begin{table}[H]
 	\centering
@@ -285,26 +346,36 @@ Tables \ref{econParms} shows the calibrated parameters:
 		\textit{Parameter values:} & 0.004               & 0.009               & -0.0004 \\ \hline
 		%\textit{Standard errors:} & 0.002 & 0.002 & 0.001 \\ \hline
 	\end{tabular}
-	\caption{Parameter values from estimating equation \ref{OAeqm2}. All values are rounded to the first non-zero digit.}
+	\caption[Parameter values from estimating equation \ref{empiricalEqn}]{Parameter values from estimating equation \ref{empiricalEqn}. All values are rounded to the first non-zero digit.}
 	\label{econParms}
 \end{table}
 
-If our data perfectly measured the costs and returns of satellite ownership, and our theoretical model held exactly, we would expect $a_{L 1}=1$, $a_{L 2} = 1$, and $a_{L 3} < -1$. Our estimates therefore suggest that our returns and cost series are measured with error or that our theoretical model is missing some important factors, such as constraints on the number of launches possible each period. These are discussed in \ref{attenuationFactors} in the Appendix.\\
+If our data perfectly measured the costs and returns of satellite ownership, and our theoretical model held exactly, we would expect $a_{L 1}=1$, $a_{L 2} = 1$, and $a_{L 3} < -1$. Our estimates therefore suggest that our returns and cost series are measured with error or that our theoretical model is missing some important factors, such as constraints on the number of launches possible each period. Since constraints on the number of launches in each period are a type of flow control, we adapt equation the flow-controlled equilibrium condition from \cite{raoJMP} to infer the aggregate shadow price of the launch constraint. \\
 
-In particular, if our data were perfect and our model held exactly with a constant discount rate $r$, we would have $a_{L3} = - (1+r)$. Given the potential for measurement errors and factors missing from a theoretical model with a constant discount rate, we therefore set the discount rate to be 5\%, i.e. $r=0.05$. This is consistent with typical social discount rates in environmental economics, and implies a discount factor of $\beta = (1+r)^{-1} \approx 0.95$. 
+The open access model described so far assumes that any firm which wants to launch a satellite can do so. If launches are limited, as they are in practice, this assumption will be violated. The limits will prevent open access launching from equating the excess return on a satellite with the risk of its destruction. In this way, firms which are able to launch earn rents from having a satellite while the collision risk is below the excess return. The wedge between the collision risk and excess return will reflect the value of those rents.
+
+\begin{equation}
+\label{OAfloweqmcond}
+L(S_{t+1},D_{t+1}) = (1 - \frac{p_t}{F_{t+1} + p_{t+1}}) + \frac{\pi_{t+1}}{F_{t+1} + p_{t+1}} - (1+r_t)\frac{F_t}{F_{t+1} + p_{t+1}},
+\end{equation}
+
+$p_t$ can be interpreted in two ways. It can be viewed as the implied rent received by a firm which already owns a satellite in $t$ due to launches in $t$ being restricted. It can also be viewed as the implied launch tax paid by a firm which is allotted a launch slot in $t$. In either view, a binding launch constraint results in positive values of $p_t$ and $p_{t+1}$, biasing the coefficients from regression \ref{OAeqm_ch3_2}. $a_{L1}$ is biased toward negative infinity, while $a_{L 2}$ and $a_{L 3}$ are biased toward zero. \\
+
+If the data were free of measurement error and an atomistic homogeneous open access model with a constant discount rate $r$ was correct, we would have $a_{L3} = - (1+r)$. Consistent with typical social discount rates in environmental economics, we set the discount rate to be 5\% ($r=0.05$, implying a discount factor of $\beta = (1+r)^{-1} \approx 0.95$). \\
 
 Regardless of the factors missing from the theoretical model, we use equation \ref{empiricalEqn} to recursively calculate the sequence of launch costs implied by the combination of open access, observed launch rates, and observed satellite returns as
 \begin{align}
 L(S_t,D_t) &= a_{L 1} + a_{L 2} r_{st} + a_{L 3} \frac{F_{t-1}}{F_t} + \epsilon_{r t} \nonumber \\
 \implies \hat{F}_t &=	\frac{a_2 \pi_t + a_3 F_{t-1}}{L_t - a_1}.
+\label{recursive_impliedcosts}
 \end{align}
 
 Table \ref{launchCosts} shows the observed satellite returns ($\pi_t$), observed launch costs ($F_t$), and implied launch costs ($\hat{F}_t$). \\
 
 \begin{table}[]
 	\centering
-	\begin{tabular}{|l|l|l|l|}
-		\hline
+	\begin{tabular}{@{\extracolsep{5pt}}|l|l|l|l|}
+		\hline 
 		\textit{Year} & \multicolumn{1}{l|}{Observed return} & \multicolumn{1}{l|}{Observed cost} & \multicolumn{1}{l|}{Implied cost} \\ \hline
 		\textit{2006} & 70.44                                & 161.02                             & 194.26                            \\ \hline
 		\textit{2007} & 73.87                                & 185.5                              & 178.88                            \\ \hline
@@ -316,41 +387,20 @@ Table \ref{launchCosts} shows the observed satellite returns ($\pi_t$), observed
 		\textit{2013} & 120.25                               & 215.9                              & 170.79                            \\ \hline
 		\textit{2014} & 123.18                               & 254.39                             & 170.68                            \\ \hline
 	\end{tabular}
-	\caption{Launch costs implied by open access and observed values. All values are given in billions of nominal US dollars per year.}
+	\caption[Launch costs implied by open access model and observed revenues and costs]{Launch costs implied by open access and observed revenues and costs. All values are given in billions of nominal US dollars per year. 2015 is omitted due to the recursive nature of equation \ref{recursive_impliedcosts}. }
 	\label{launchCosts}
 \end{table}
 
-\section{Computing optimal projected satellite taxes}
+\subsection{Algorithms for open access and optimal policy functions}
 
-With the calibrated parameter values, we turn to computing satellite tax projections. We split this process into two stages. In the first stage, we compute the time paths of the satellite stock, debris stock, and launch rate, given the open access and fleet planner models of orbit use. These describe the projected evolution of the orbital aggregates. In the second stage, we use the computed time paths with the estimated collision probability function and launch cost path to calculate the optimal satellite tax. The tax is derived from the same open access and fleet planner models. It describes the amount by which a satellite owner would have to be taxed, beginning from the projection horizon's initial conditions, in order to align their incentives with the fleet planner's.\footnote{This can also be thought of as ``How much of the profits from orbit use currently reflect resource rents which should not have been dissipated?'' }\\
-
-First, we compute open access and optimal launch policy functions in each period using the calibrated parameter values. The policy functions prescribe the number of satellites launched under each type of management regime for given levels of satellite and debris stocks and economic parameters. We compute these policy functions recursively from the final period in our projection to the initial period. We then interpolate between solved points in each period's policy functions to generate launch rate predictions, beginning with the initial condition (observed satellite and debris stocks) in the first projection period and continuing recursively forward until the final projection period. Second, we use a simple formula to calculate the optimal satellite tax from the projected open access and optimal expected value losses due to satellite-destroying collisions. The expected value losses are easy to calculate from the observed or assumed time path of launch costs and the collision probabilities calculated during the launch rate prediction step. We show the in-sample fit of our open access projections to establish that our approach can approximate the observed history, and then use predictions of space economy revenues and costs from \citep{MSreport} to project out the open access and optimal launch rates given those predictions. 
-
-\subsection{A formula for an optimal satellite tax}
-
-We calculate the optimal satellite tax along those time paths using equation \ref{optTax}:
-
-\begin{equation}
-\label{optTax}
-	\tau_t = (L(S^o_{t+1},D^o_{t+1}) - L(S^*_{t+1},D^*_{t+1}))F_{t+1},
-\end{equation}
-
-where $S^o_{t+1}$ and $D^o_{t+1}$ are satellite and debris stocks in $t+1$ under open access management, and $S^*_{t+1}$ and $D^*_{t+1}$ are satellite and debris stocks in $t+1$ under optimal management. The optimal tax is positive whenever the planner would maintain a lower collision probability than firms under open access would. The planner, in turn, will maintain a lower collision probability if the lifetime social benefits of another satellite in orbit are less than that satellite's expected future damages to other satellites in the fleet. By charging open access firms the marginal external cost of their satellite as a tax, their incentives are aligned with those of the planner despite the institutional differences. With their incentives aligned, their decisions to launch or not are shifted to optimize society's intertemporal economic welfare from orbit use rather than their own individual profit. \\
-
-Formally, equation \ref{optTax} can be derived by comparing the open access equilibrium condition (equation \ref{OAeqm2}) to the fleet planner's optimality condition for launching (the first-order condition of system of equations \ref{plannersProblem}). These conditions can be written to express the expected loss in satellite value (collision probability multiplied by replacement cost) in terms of economic and, in the case of the optimality condition, physical parameters. Those economic parameters include terms for the current excess return on a satellite in addition to the capital gain or loss from changes in the cost of a replacement satellite. By subtracting the optimal expected loss from the open access expected loss, we recover the additional physical and economic term the social planner accounts for --- the marginal external cost of a satellite. The derivation of and intuition for this formula are described in more detail in \cite{raorondinaWP}.
-
-% since firms under open access set the collision risk equal to the excess return on a satellite while the planner sets the collision risk equal to the excess return of a satellite minus its marginal external cost, the difference in these collision risks gives us the marginal external cost of a satellite. 
-
-\subsection{Open access and optimal policy functions}
-
-We generate two sequences of policy functions: one function for each period under consideration, and one sequence for each management regime type. We compute each sequence through backwards induction: beginning at the final period in our projection horizon, and iteratively working backwards to the initial period. This procedure implies ``perfect foresight'' planning under each management regime, i.e. that all agents under any management regime are able to perfectly forecast the sequence of returns, costs, interest rates, launch rates, and other model objects. The perfect foresight assumption is clearly unrealistic, but our purpose is not to show how uncertainty in economic parameters propagates over time. Rather, our purpose is to show how an optimal satellite tax would vary over time and the time paths of orbital aggregate stocks under different management regimes. Such assumptions are used in integrated assessment models of climate change with similar rationales, e.g. the models compared in \cite{IAMsummary}. Our work here is conceptually similar to integrated assessment modeling. \\
+We generate two sequences of policy functions: one function for each period under consideration, and one sequence for each management regime type. We compute each sequence through backwards induction: beginning at the final period in our projection horizon, and iteratively working backwards to the initial period. This procedure implies ``perfect foresight'' planning under each management regime, i.e. that all agents under any management regime are able to perfectly forecast the sequence of returns, costs, interest rates, launch rates, and other model objects. The perfect foresight assumption is clearly unrealistic, but our purpose is not to show how uncertainty in economic parameters propagates over time. Rather, our purpose is to show how an optimal satellite tax would vary over time and the time paths of orbital aggregate stocks under different management regimes. Such assumptions are used in integrated assessment models of climate change with similar rationales, e.g. the models studied in \citet{kellykolstad1999, nordhaus2013, IAMsummary}. Our work here is conceptually similar to integrated assessment modeling. \\
 
 To compute the open access time path, we first generate a grid of satellite and debris levels, $(grid_S,grid_D)$. We generate this grid as an expanded Chebyshev grid to reduce numerical errors from interpolation, provide higher fidelity near boundaries, and economize on overall computation time. In contrast to a standard Chebyshev grid, an expanded Chebyshev grid allows for computation (rather than extrapolation) at the boundary points. The formula for the $k^{th}$ expanded Chebyshev node on an interval $[a,b]$ with $n$ points is
 \[ x_k = \frac{1}{2}(a+b) + \frac{1}{2}(b-a)\sec\left( \frac{\pi}{2n} \right) \cos\left( \frac{k}{n} - \frac{1}{2n} \right) \]
 
 We set different values of $a$ and $b$ for $S$ and $D$, creating a rectangular grid. The main issue in setting $b$ is ensuring that the time paths we solve for (described in section \ref{genTimePaths}) do not run into or beyond the boundary. To avoid this issue while minimizing the number of points in regions the time paths never reach, we set different $a$ and $b$ bounds for open access and the optimal plan, with the open access grid being strictly larger in both dimensions than the optimal plan grid. \\ 
 
-In general, computing decentralized solutions under open access is simpler than computing the planner's solutions. This is because open access simplifies the continuation value to the cost of launching a satellite. We use \texttt{R} for all simulations, parallelizing where possible. \\
+In general, computing decentralized solutions under open access is simpler than computing the planner's solutions. This is because open access simplifies the continuation value to the cost of launching a satellite. We use \texttt{R} for all simulations, parallelizing where possible. To facilitate convergence of policy and value functions, we normalize the returns and costs parameters so that $\pi_1 = 1$ during computation, and rescale the parameters after the time paths have been generated. \\
 
 We compute optimal value functions by value function iteration on a grid of the state variables $S$ and $D$. We initialize the algorithm with a guess of the value and policy functions. Then, at each point on the grid, we solve the first-order condition for the planner's problem (equation \ref{plannersFOC}). Since there may be multiple solutions, only one of which leads to a global maximum, we then evaluate the value function at each solution (including zero) and select the launch rate attached to the largest level of the value function. Algorithm \ref{vfpfi_algo} describes how we compute the optimal policy and value functions for a given grid and given value function guess $guess(S,D)$, while algorithm \ref{oa_sd_algo} describes how we compute the open access policy and value functions. \\
 
@@ -358,15 +408,15 @@ We construct our initial guess of the planner's value function as the terminal v
 
 \[ S_T = S_{T-1}(1-L(S_T,D_T)) .\]
 
-In the final period ($T$), the payoff of the fleet is $\pi S_T$. Our assumption that it is not optimal to launch any satellites in the penultimate period implies that the one-period returns of a satellite do not cover the cost of building and launching ($\beta \pi_T < F_{T-1}$), which we verify to hold in every period of our data. We use the implied series of $F_t$ given the observed $\pi_t$ and launch rate series in solving for open access and optimal policies.\\
+In the final period ($T$), the payoff of the fleet is $\pi S_T$. Our assumption that it is not optimal to launch any satellites in the penultimate period implies that the one-period returns of a satellite do not cover the cost of building and launching ($\beta \pi_T < F_{T-1}$), which we verify to hold in every period of our data. We use the implied series of $F_t$ given the observed $\pi_t$ and launch rate series in solving for open access and optimal policies.
 
-%To construct the implied series of $F_t$ given the observed $\pi_t$ and launch rate series', we solve equation \ref{OAeqm2} using the estimated coefficients from equation \ref{empiricalEqn}. We denote the implied launch cost as $\hat{F}_t$ and the implied rate of return on a satellite as $\hat{r}_{st}$.  \\
+%To construct the implied series of $F_t$ given the observed $\pi_t$ and launch rate series', we solve equation \ref{OAeqm_ch3_2} using the estimated coefficients from equation \ref{empiricalEqn}. We denote the implied launch cost as $\hat{F}_t$ and the implied rate of return on a satellite as $\hat{r}_{st}$.  \\
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	Set 
 	\begin{align*} 
-		W_0(S,D) &= guess(S,D), \\
-		X_0 &\equiv 0
+	W_0(S,D) &= guess(S,D), \\
+	X_0 &\equiv 0
 	\end{align*}
 	for all $(S,D) \in (grid_S, grid_D)$
 	
@@ -382,19 +432,14 @@ In the final period ($T$), the payoff of the fleet is $\pi S_T$. Our assumption 
 		
 		$\delta \leftarrow || W_i(S,D) - W_{i-1}(S,D)||_{\infty}$.\algorithmfootnote{We use $||\cdot||_{\infty}$ for the sup norm.}
 		
-		$\delta_{policy} \leftarrow || X^*_i - X_{i-1}||_{\infty}$
+		%$\delta_{policy} \leftarrow || X^*_i - X_{i-1}||_{\infty}$
 		
-		\If{$\delta_{policy} < 1$ (some fixed small value),}
-%		{
-%			Evaluate the policy. Approximate $W_i^{\infty}(S,D) = \sum_{t=1}^{\infty} \beta^{t-1} (\pi S_t - \hat{F} X_t^o)$ as $W_i^T(S,D) = \sum_{t=1}^{T-1} \beta^{t-1} (\pi S_t - \hat{F} X_t^*) + W_i(S_{t+1},D_{t+1})$ by backwards induction, using the laws of motion for $S_{t+1}$ and $D_{t+1}$ and $\ell_t = \min\{ a_{\ell 1} S_t^2 + a_{\ell 2} S_t D_t, 1\}$. We use progressively increasing values of $T$, beginning at $2$ and rising with $i$ to a maximum of $75$.\algorithmfootnote{This schedule for $T$ allows for the value function iteration step to correct errors early on in the process, while speeding up convergence later on. We found strongly diminishing marginal returns to policy evaluation beyond $75$ periods.} 
-%			Set $W_i(S,D) = W_i^T(S,D)$ and return to step (a). \\
-%		}
-	i $\leftarrow$ i+1
+		i $\leftarrow$ i+1	
 	}
 	\caption{Value function iteration}\label{vfpfi_algo}
 \end{algorithm}
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	Use a numerical rootfinder to find the $X_{t-1}^o$ which solves
 	\[ L(S_t,D_t) =  a_{L 1} + a_{L 2} \hat{r}_{st} + a_{L 3} \frac{\hat{F}_{t-1}}{\hat{F}_t}, \]
 	using the estimated laws of motion for $S_t$ and $D_t$ as functions of $X_{t-1}$, and the estimated function for $L(S_t,D_t)$.
@@ -404,11 +449,11 @@ In the final period ($T$), the payoff of the fleet is $\pi S_T$. Our assumption 
 	\caption{Open access launch plan computation}\label{oa_sd_algo}
 \end{algorithm}
 
-\subsection{Generating time paths}
+\subsection{Projected time paths}
 \label{genTimePaths}
-We use algorithms \ref{vfpfi_algo} and \ref{oa_sd_algo} to compute policy and value functions in each period, and run them sequentially from the final period to the first period to generate a series of policy and value functions for each period's set of economic parameters. Algorithm \ref{pfn_vfn_sequence} describes this process. \\
+We use algorithms \ref{vfpfi_algo} and \ref{oa_sd_algo} to compute policy and value functions in each period, and run them sequentially from the final period to the first period to generate a series of policy and value functions for each period's set of economic parameters. Algorithm \ref{pfn_vfn_sequence} describes this process.
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	Set economic parameters to final period values.
 	
 	Run algorithm \ref{vfpfi_algo} (for an optimal path) or \ref{oa_sd_algo} (for an open access path).
@@ -419,7 +464,7 @@ We use algorithms \ref{vfpfi_algo} and \ref{oa_sd_algo} to compute policy and va
 			Using the value function from the previous step as $W(S_{t+1},D_{t+1})$, calculate
 			\begin{align*}
 			X^*_{it} &: W_{Dt}(S_t,D_t) + S_t L_D(S_t,D_t) \hat{F}_t - \\
-			 &~~ \beta [1 - \delta + G_D(S_t,D_t) + m S_tL_D(S_t,D_t)] W_{Dt}(S_{t+1},D_{t+1}) = 0, \\
+			&~~ \beta [1 - \delta + G_D(S_t,D_t) + m S_tL_D(S_t,D_t)] W_{Dt}(S_{t+1},D_{t+1}) = 0, \\
 			&~~ \text{ (for an optimal path, where $W_{Dt}(S,D)$ is given by equation \ref{W_Dformula})},
 			\end{align*}
 			or
@@ -436,15 +481,15 @@ We use algorithms \ref{vfpfi_algo} and \ref{oa_sd_algo} to compute policy and va
 
 It is important to note that when obtaining the sequence of policy functions we do not do backwards induction within each economic time period prior to the final period. Instead, we hold the continuation value ($W(S_{t+1},D_{t+1})$) fixed and iterate on the policy functions, using previous iterations' policies as starting points. This ensures that the continuation value incorporates each period's returns and costs only once until the final period, while allowing for any numerical errors in initial policy solves to be corrected. This type of ``policy iteration'' typically takes 1-2 iterations to converge to within 1$e$-3. Backwards induction on the value function in the final period treats that period's costs and returns as steady state values. This is why we change the notation for the fleet value function for algorithm \ref{pfn_vfn_sequence}, indexing by time to indicate that the launch cost and satellite per-period return are changing in each period. \\
 
+Once we have a sequence of policy functions for each period's economic parameters, we generate time paths by picking a starting condition $(S_0,D_0)$, computing the launch rate $X_0$ by thin-plate spline interpolation of the policy function, using the launch rate to compute the next-period state variables, and repeating the process until the terminal period. \\
 
-
-Once we have a sequence of policy functions for each period's economic parameters, we generate time paths by picking a starting condition $(S_0,D_0)$, computing the launch rate $X_0$ by thin-plate spline interpolation of the policy function, using the launch rate to compute the next-period state variables, and repeating the process until the terminal period. Figure \ref{simulated_historical_path_of_states} shows the simulated open access and optimal paths of launches, satellites, debris, and collision risk over an ``in-sample'' period from 2005-2015. Figure \ref{simulated_projected_path_of_states} shows the same values over the in-sample period as well as projections from 2016-2040. Figure \ref{projected_tax_path} shows the paths of the flow of instantaneous welfare gains from open access (interpretable as the incentive to private agents to avoid self-regulation), the net present value of welfare losses from open access (the capitalized benefit to society from optimal orbit management), the price of anarchy under open access (the ratio of open access collision risk to optimal risk), and the path of an optimal satellite tax beginning in 2005 over the 2005-2040 sample period.
+Figure \ref{simulated_historical_path_of_states} shows the simulated open access and optimal paths of launches, satellites, debris, and collision risk over an ``in-sample'' period from 2005-2015. Figure \ref{simulated_projected_path_of_states} shows the same values over the in-sample period as well as projections from 2016-2040. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{../../images/40_pt_opt_simulated_historical_series.png}
+	\includegraphics[width=0.8\textwidth]{../../images/simulated_historical_series.png}
 	\captionsetup{format=hang}
-	\caption{\textit{Simulated historical time paths of orbital aggregates.} \\
+	\caption[Simulated historical time paths of orbital aggregates]{\textit{Simulated historical time paths of orbital aggregates.} \\
 		The red lines show simulated open access paths. The blue lines show simulated optimal paths. The black lines show observed time paths.
 	}
 	\label{simulated_historical_path_of_states}
@@ -452,20 +497,67 @@ Once we have a sequence of policy functions for each period's economic parameter
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{../../images/40_pt_opt_simulated_projected_series.png}
+	\includegraphics[width=0.8\textwidth]{../../images/simulated_projected_series.png}
 	\captionsetup{format=hang}
-	\caption{\textit{Simulated historical time paths of orbital aggregates.} \\
+	\caption[Projected time paths of orbital aggregates]{\textit{Projected time paths of orbital aggregates.} \\
 		The red lines show simulated open access paths. The blue lines show simulated optimal paths. The black lines show observed time paths.
 	}
 	\label{simulated_projected_path_of_states}
 \end{figure}
 
+% TALK THROUGH THE FIGURES
+DESCRIBE THE FIGURES
+
+\section{Optimal satellite taxes and the Price of Anarchy in space}
+
+With the calibrated parameter values, we turn to computing satellite tax projections. We split this process into two stages. In the first stage, we compute the time paths of the satellite stock, debris stock, and launch rate, given the open access and fleet planner models of orbit use. These describe the projected evolution of the orbital aggregates. In the second stage, we use the computed time paths with the estimated collision probability function and launch cost path to calculate the optimal satellite tax. The tax is derived from the same open access and fleet planner models. It describes the amount by which a satellite owner would have to be taxed, beginning from the projection horizon's initial conditions, in order to align their incentives with the fleet planner's.\footnote{This can also be thought of as ``How much of the profits from orbit use currently reflect resource rents which should not have been dissipated?'' }\\
+
+First, we compute open access and optimal launch policy functions in each period using the calibrated parameter values. The policy functions prescribe the number of satellites launched under each type of management regime for given levels of satellite and debris stocks and economic parameters. We compute these policy functions recursively from the final period in our projection to the initial period. We then interpolate between solved points in each period's policy functions to generate launch rate predictions, beginning with the initial condition (observed satellite and debris stocks) in the first projection period and continuing recursively forward until the final projection period. Second, we use a simple formula to calculate the optimal satellite tax from the projected open access and optimal expected value losses due to satellite-destroying collisions. The expected value losses are easy to calculate from the observed or assumed time path of launch costs and the collision probabilities calculated during the launch rate prediction step. We show the in-sample fit of our open access projections to establish that our approach can approximate the observed history, and then use predictions of space economy revenues and costs from \citep{MSreport} to project out the open access and optimal launch rates given those predictions. 
+
+\subsection{An optimal satellite tax path}
+
+We calculate the time path of an optimal satellite tax from equation \ref{optTax}:
+
+\begin{equation}
+\label{optTax}
+\tau_t = (L(S^o_{t+1},D^o_{t+1}) - L(S^*_{t+1},D^*_{t+1}))F_{t+1},
+\end{equation}
+
+where $S^o_{t+1}$ and $D^o_{t+1}$ are satellite and debris stocks in $t+1$ under open access management, and $S^*_{t+1}$ and $D^*_{t+1}$ are satellite and debris stocks in $t+1$ under optimal management. The optimal tax is positive whenever the planner would maintain a lower collision probability than firms under open access would. The planner, in turn, will maintain a lower collision probability if the lifetime social benefits of another satellite in orbit are less than that satellite's expected future damages to other satellites in the fleet. By charging open access firms the marginal external cost of their satellite as a tax, their incentives are aligned with those of the planner despite the institutional differences. With their incentives aligned, their decisions to launch or not are shifted to optimize society's intertemporal economic welfare from orbit use rather than their own individual profit. \\
+
+Formally, equation \ref{optTax} can be derived by comparing the open access equilibrium condition (equation \ref{OAeqm_ch3_2}) to the fleet planner's optimality condition for launching (the first-order condition of system of equations \ref{plannersProblem}). These conditions can be written to express the expected loss in satellite value (collision probability multiplied by replacement cost) in terms of economic and, in the case of the optimality condition, physical parameters. Those economic parameters include terms for the current excess return on a satellite in addition to the capital gain or loss from changes in the cost of a replacement satellite. By subtracting the optimal expected loss from the open access expected loss, we recover the additional physical and economic term the social planner accounts for --- the marginal external cost of a satellite. 
+
+% since firms under open access set the collision risk equal to the excess return on a satellite while the planner sets the collision risk equal to the excess return of a satellite minus its marginal external cost, the difference in these collision risks gives us the marginal external cost of a satellite. 
+
+\subsection{Efficiency loss and the Price of Anarchy}
+
+The Price of Anarchy ($PoA$) is a measure of efficiency loss can be used to consider both the actual and the potential inefficiency of decentralized orbit management. The $PoA$ is a dimensionless ratio measuring the increase in cost (decrease in welfare) from abandoning an optimal centralized plan and moving to the worst Nash equilibrium. If the $PoA$ is close to $1$, then the worst-case efficiency loss - including any spatial externalities - relative to the optimal plan is small. The $PoA$ has been used in the literature on selfish routing in congestible networks (\cite{robinson2004}, \cite{poaFirst}) as a measure of worst-case inefficiency due to selfish behavior (\cite{roughgarden2005selfish}, \cite{gairingetal2006}, \cite{roughgarden2009}).\\ %Under some assumptions, the $PoA$ does not rely on the actual dollar value of the cost and remains constant as the number of agents in the system scales. Consequently, many analyses which use the $PoA$ are able to derive bounds on the magnitude of efficiency loss.\\
+
+The $PoA$ is most often constructed as a ratio of the total cost of the worst Nash equilibrium of a multi-agent system to the total cost of the optimal centralized solution\footnote{The measure can be generalized to situations where welfare is maximized instead of cost being minimized. I ignore this case since it is a straightforward extension and tangential to my objective of measuring the potential inefficiency open access to orbits.}. Intuitively, the $PoA$ answers the question, ``how bad can selfish behavior in this system be?'' Formally, given a set of strategies $\mathcal{S}$, a set of Nash equilibria $\mathcal{E} \subseteq \mathcal{S}$, and a system-wide cost function $C(s)$,
+\[ PoA \equiv \frac{\max_{s\in \mathcal{E}} C(s) }{ \min_{s \in \mathcal{S}} C(s)}. \]
+
+%The $PoA$ is bounded below at $1$, and unbounded above. Smaller values indicate that worst-case selfish behavior is less inefficient, while higher values indicate the opposite. Its cousin, the \textit{empirical} Price of Anarchy ($ePoA$), uses observed behavior for the numerator instead of the worst-possible Nash equilibrium and is necessarily between $1$ and $PoA$ (\cite{monnotetal2017}). The $ePoA$ measures the existing efficiency loss due to lack of coordination, and the potential percentage gain in the objective from moving to optimal management. \\ 
+
+To apply the $PoA$ to orbit management, we use collision risk and fleet net present value under the optimal plan as objective functions. The $PoA$ in terms of collision risk shows the safety improvement that would be obtained from switching to the optimal plan. The $PoA$ in terms of fleet net present value shows the gain in social welfare obtained from switching to the optimal plan. Formally, letting $\hat{S}$ and $\hat{D}$ denote open access values and $S^*$ and $D^*$ denote optimal plan values,
+\begin{align}
+PoA_{risk} &= \frac{L(\hat{S},\hat{D})}{L(S^*,D^*)} \\
+PoA_{welfare} &= \frac{W(S^*,D^*)}{W(\hat{S},\hat{D})}.
+\end{align}
+
+We use open access welfare in the denominator of the welfare measure to satisfy the bounds described above. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Figure \ref{projected_tax_path} shows the paths of the flow of instantaneous welfare gains from open access (interpretable as the incentive to private agents to avoid self-regulation), the net present value of welfare losses from open access (the capitalized benefit to society from optimal orbit management), the price of anarchy under open access (the ratio of open access collision risk to optimal risk), and the path of an optimal satellite tax beginning in 2006 over the 2006-2040 sample period.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{../../images/40_pt_opt_simulated_historical_cost_tax.png}
+	\includegraphics[width=0.8\textwidth]{../../images/welfare_and_tax.png}
 	\captionsetup{format=hang}
-	\caption{\textit{Projected historical time paths of private gains, social losses, degree of risk suboptimality, and optimal satellite tax.} \\
-		From the upper left, going clockwise: the flow of instantaneous welfare gains from open access (the incentive to private agents to avoid self-regulation), the net present value of welfare losses from open access (the capitalized benefit to society from optimal orbit management), the path of an optimal satellite tax beginning in 2005, and the price of anarchy under open access (the factor by which open access risk exceeds optimal risk).
+	\caption[Projected optimal orbit rental fee and gains from optimal management]{\textit{Projected optimal orbit rental fee and gains from optimal management.} \\
+		\textit{Top panel:} The optimal satellite tax over time, with optimal management beginning in 2006. Values are in nominal US dollars. \\
+		\textit{Middle panel:} The factor of collision risk reduction under optimal management, beginning in 2006. A $PoA$ of 1 indicates no gain from optimal management, while 2 indicates a halving in risk. \\
+		\textit{Bottom panel:} The factor of discounted net social welfare improvement under optimal management, beginning in 2006. A $PoA$ of 1 indicates no gain from optimal management, while 2 indicates a doubling in welfare. \\
 	}
 	\label{projected_tax_path}
 \end{figure}
@@ -483,55 +575,48 @@ Once we have a sequence of policy functions for each period's economic parameter
 
 \section{Appendix}
 
-%\subsection{Sensitivity analysis of sampling procedure for estimating equation \ref{debLoMEstimation}}
-%\label{sensitivity}
-%
-%We estimate equation \ref{debLoMEstimation} using only a quarter of the sample to avoid overfitting. To evaluate how sensitive the predictions and coefficient estimates are to our sampling procedure, we conduct a sensitivity analysis. Our procedure is straightforward. We randomly draw a quarter of the sample (15 observations) 1000 times, estimate equation \ref{debLoMEstimation} on each random sample, and plot the predictions against the observed $D_{t+1}$ in figure \ref{debSensitivityFig}. We also take the mean of the estimated coefficients and compare them against the model we selected in table \ref{debParms}. Table \ref{debSensitivityCoefs} shows the comparison.
-%
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=0.7\textwidth]{../../images/debris_lom_sensitivity_plot.png}
-%	\captionsetup{format=hang}
-%	\caption{\textit{Calibration fit.} \\
-%		The thin blue lines show fits from random samples. The thick black line shows the actual debris time series. The large sometimes-negative spikes in the predicted series' correspond to anti-satellite missile tests, of which the 2007 FY-1C test generated the most debris.
-%	}
-%	\label{debSensitivityFig}
-%\end{figure}
-%
-%\begin{table}[H]
-%	\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
-%		\hline
-%		\textit{Debris law of motion parameters} & \textbf{$\delta$} & \textbf{$\mu$} & \textbf{$m$} & \textbf{$\gamma$} & \textbf{$\beta_{SS}$} & \textbf{$\beta_{SD}$} & \textbf{$\beta_{DD}\alpha_{DD}$} & $\lambda$ \\ \hline
-%		\textit{Model selected in table \ref{debParms}:}                           & 0.52              & 5.83           & 2.19         & 604.04              & 336.42                & 127.96                & 2.1e-05  &    287.21                     \\ \hline
-%		\textit{Mean parameter values:}                           & 0.76              & 16.19           & 2.31         & 156.57              &  487.68                & 137.94                & 1.9e-05      &  325.61                  \\ \hline
-%	\end{tabular}
-%	\caption{Parameter values from estimating equation \ref{debLoMEstimation}. All values except $\beta_{DD}\alpha_{DD}$ are rounded to two decimal places. $\lambda$ is the ridge penalty parameter, with larger values corresponding to greater shrinkage (and coefficient bias). We selected $\lambda$ by cross-validation on the training sample in all cases.}
-%	\label{debSensitivityCoefs}
-%\end{table}
-%
+\subsection{Measurement error in satellite and debris counts}
+\label{physicsMeasurementError}
 
-\subsection{Factors which may bias economic parameter estimates}
+%Random measurement error in the satellite or debris data would bias our estimates of physical parameters toward zero. 
+Limitations of sensor technology suggest that the debris counts are lower-bound estimates. To the extent that this biases the collision probability and debris counts downward, it will bias the estimated decay rate, collision probability parameters, fragmentation parameters, and launch debris weakly downwards. Since downward bias in the physical parameters makes collisions and missile tests appear to cause less congestion than they actually do, the open access and optimal launch rates will be inflated.\\
+
+Downward bias in the collision probability data will bias the economic parameter estimates weakly downwards as well. This will to some degree offset the inflation in the launch rate caused by the physical parameter underestimation, though the exact extent of the offset is not clear. \\
+
+In general, measurement error in the collision probability data also causes the nonnegativity constraint on the collision probability parameters ($\alpha_{SS}$ and $\alpha_{SD}$) to bind in some bootstrap replications. This causes issues, of the type described in \citep{ketz2018}, in obtaining asymptotic standard errors.
+
+\subsection{Collision probability model misspecification}
+
+We assume that the collision probability model has constant parameters. Changes in patterns of satellite placement, construction, and ownership structures lead to changes over time in the physical primitives reflected in $\alpha_{SS}$ and $\alpha_{SD}$. The ``net'' convexity or concavity of the time path of the primitives will determine whether the constant approximations over or understate the true time-varying parameters in any period on average. A convex time path --- low values initially and high values later on --- will be overestimated on average, while a concave time path --- high values initially, with slow increases over time --- will be underestimated on average. \\
+
+The misspecification causes two problems with simulation and inference. First, underestimation will inflate launch rate projections and overestimation will deflate them. However, because the deflation affects both open access and optimal launch rates in the same way, the simulated optimal satellite tax will not be affected. Second, underestimation may cause the nonnegativity constraint on the collision probability parameters to bind in some bootstrap replications, causing the same types of asymptotic issues as measurement error.
+
+\subsection{Measurement error in returns and costs}
 \label{attenuationFactors}
-\subsubsection{Measurement error}
 
-Random measurement error would attenuate parameter estimates, which may partially explain why our estimates are close to zero. Non-random measurement error is another possibility. \\
+We take the returns and costs of satellite ownership from the data used in \citet{wienzierl2018}, which aggregate revenues from all commercial satellites in orbit. By including more than just LEO satellites, the direct returns and costs data overstate the returns to LEO paths. The economic parameter estimates therefore reflect a ``LEO share'' coefficient on the revenue data between $0$ and $1$. The LEO share coefficient attenuates the estimates of $a_{L 1}$, $a_{L 2}$, and $a_{L 3}$.
 
-In particular, our data are almost certainly overstating the returns to LEO. We take the returns and costs of satellite ownership from the data used in \citet{wienzierl2018}, which aggregate revenues from all commercial satellites in orbit. However, our physical model is based on data for low-Earth orbit. As long as the returns to LEO satellites are less than 100\% of the total revenues from all commercial satellites in orbit, using our data to measure the returns to LEO is overstating those returns. The near-zero parameter estimates may therefore partially reflect a ``LEO-share'' coefficient on the revenue data between $0$ and $1$.
+\subsection{Returns to scale and economic misspecification}
 
-\subsubsection{Launch constraints}
+We assume that the LEO satellites aggregate in constellations with constant returns to scale. Decreasing returns to scale will inflate the projected open access and optimal launch rates, while increasing returns to scale will have the opposite effect. While I do not have detailed data on LEO constellation revenues, historical returns and fleet sizes for GEO telecom satellites over 2000---2012 from the TelAstra Communications Satellite Databases \citep{ta17data} offer suggest that both increasing and decreasing returns to scale are plausible. \\
 
-Our theoretical model assumes that any firm which wants to launch a satellite can do so. If launches are limited, as they are in practice, firms will be unable to do so. This will prevent open access launching from equating the excess return on a satellite with the risk of its destruction. Firms which are able to launch will then earn rents from having a satellite while the collision risk is below the excess return. The wedge between the collision risk and excess return will reflect the value of those rents. \\
+The data contain returns and constellation sizes for the major commercial entities offering Fixed Satellite Services (using GEO satellites) from 2000 to 2012. Selecting operators with both a constellation size and a returns entry in each recorded period yields the 17 largest constellations in GEO, accounting for approximately 68\% of all satellites in GEO in 2009. 
 
-Launch limitations which allow only $\bar{X}_t$ firms to launch in $t$ are a type of ``flow control'', studied in more depth in \citet{raoJMP}. In particular, \citet{raoJMP} establishes that flow controls which restrict the quantity of launches in each period are equivalent to flow controls which impose an additional positive price $p_t$ on launching in $t$. Generalizing the flow-controlled equilibrium condition from that paper, we obtain the open access equilibrium condition for launches when costs, returns, and discount rates are all time-varying:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../../images/GEO_satellite_productivity.png}
+	\captionsetup{format=hang}
+	\caption[Trends in GEO satellite productivity and ownership]{\textit{Trends in GEO satellite productivity and ownership.} \\
+		\textit{Upper left:} The natural log of satellite Total Factor Productivity. \\
+		\textit{Upper right:} The revenue elasticity of satellites in a constellation, i.e. returns to scale from satellite ownership. \\
+		\textit{Lower left:} The average number of satellites in a GEO constellation over time. \\
+		\textit{Lower right:} The Herfindahl-Hirschman Index for GEO satellite ownership. Higher HHI values indicate more ownership concentration. The vertical black dashed line marks the merger between Intelsat and PanAmSat, wherein Intelsat received all of PanAmSat's satellites. \\
+		Standard errors in TFP and output elasticity estimates are shown as shaded regions.
+	}
+	\label{GEO_satellite_productivity}
+\end{figure}
 
-\begin{equation}
-\label{OAfloweqmcond}
-L(S_{t+1},D_{t+1}) = (1 - \frac{p_t}{F_{t+1} + p_{t+1}}) + \frac{\pi_{t+1}}{F_{t+1} + p_{t+1}} - (1+r_t)\frac{F_t}{F_{t+1} + p_{t+1}},
-\end{equation}
-
-$p_t$ can be interpreted in two ways. It may be viewed as the implied rent received by a firm which already owns a satellite in $t$ due to launches in $t$ being restricted. It may also be viewed as the implied launch tax paid by a firm which is allotted a launch slot in $t$. In either view, a binding launch constraint results in positive values of $p_t$ and $p_{t+1}$, biasing the coefficients from regression \ref{OAeqm2}. $a_{L1}$ is biased toward negative infinity, while $a_{L 2}$ and $a_{L 3}$ are biased toward zero.
-
-\subsection{Estimating the launch constraint}
+\subsection{Projecting the launch constraint}
 \label{launch_constraint}
 
 To prevent the model from violating the limited availability of launches, we estimate the launch constraint from the observed historical data and then project it forward. In each historical period, we calculate the maximum number of satellites which can be launched as the cumulative maximum of launch attempts (successes+failures). From the historical calculation, we project the launch constraint forward with a linear time trend and an intercept. Table \ref{lc_coefs} shows the estimated coefficients, and figure \ref{lc_time_path} shows the estimated and projected launch constraint time paths.
@@ -544,7 +629,7 @@ To prevent the model from violating the limited availability of launches, we est
 		\textit{Parameter values:}                   & 30.13     & 12.5       \\ \hline
 		\textit{Standard errors:}                    & 16.43     & 2.65       \\ \hline
 	\end{tabular}
-	\caption{Parameter values from linear model of launch constraint. All values are rounded to two decimal places. We estimate these coefficients using OLS on the historical launch constraint.}
+	\caption[Parameter values from linear model of launch constraint]{Parameter values from linear model of launch constraint. All values are rounded to two decimal places. We estimate these coefficients using OLS on the historical launch constraint.}
 	\label{lc_coefs}
 \end{table}
 
@@ -552,10 +637,71 @@ To prevent the model from violating the limited availability of launches, we est
 	\centering
 	\includegraphics[width=0.7\textwidth]{../../images/linear_trend_launch_constraint.png}
 	\captionsetup{format=hang}
-	\caption{\textit{Launch constraint, observed and projected.} \\
+	\caption[Observed and projected launch constraint]{\textit{Launch constraint, observed and projected.} \\
 		The black line shows the observed launch constraint (cumulative max of attempted launches). The blue dashed line shows a linear projection of the launch constraint.
 	}
 	\label{lc_time_path}
 \end{figure}
+
+\subsection{Sensitivity analyses of physical equation calibration}
+\label{physicsSensitivity}
+
+To study the sensitivity of our conclusions to estimated physical parameters, we conduct a sensitivity analysis of the model simulations given different physical parameter values. We use a residual bootstrap procedure to accomplish this. \\
+
+First, we estimate equations \ref{riskEstimation} and \ref{debLoMEstimation} as described above. Then, we sample from the distribution of residuals to generate ``bootstrap worlds''. We add these residuals to the estimated models to generate bootstrap world outcome variables. Finally, we re-estimate the model using the bootstrap world outcomes to generate alternate sets of physical parameter estimates, and simulate the model under a random sample of those estimates. \\
+
+One issue to note is that, because we estimate equation \ref{riskEstimation} with a constrained procedure and the coefficients are near one of the constraint boundaries, the asymptotic properties of this procedure are difficult to obtain. Since our goal is not asymptotic analysis of standard errors but rather to generate alternate parameter sets in a principled way for counterfactual simulations, we select the main model estimates as the mean of the bootstrap world parameters. This ensures that our sensitivity analysis selects parameters around the main model estimates. Ultimately this is inconsequential for the outcomes of interest --- collision risk under open access and optimal management, and the resulting satellite tax --- since the outcomes are endogenous variables which satisfy economic conditions irrespective of the specific physical parameter values. The physical parameter values affect the specific paths of launches, satellites, and debris, but only such that the collision risk continues to satisfy the economic conditions.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../../images/collision_rate_bootstrap_prediction_plot.png}
+	\captionsetup{format=hang}
+	\caption[Bootstrapped collision rate model projections]{\textit{Bootstrapped collision rate model projections.} \\
+		Equation \ref{riskEstimation} projections generated from residual-bootstrapped parameter estimates.
+	}
+	\label{risk_eqn_prediction_bootstrap}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../../images/debris_bootstrap_prediction_plot.png}
+	\captionsetup{format=hang}
+	\caption[Bootstrapped debris law of motion model projections]{\textit{Bootstrapped debris law of motion model projections.} \\
+		Equation \ref{debLoMEstimation} projections generated from residual-bootstrapped parameter estimates.
+	}
+	\label{debris_eqn_prediction_bootstrap}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../../images/bootstrapped_openaccess_simulation_plot.png}
+	\captionsetup{format=hang}
+	\caption[Bootstrapped open access orbit use projections]{\textit{Bootstrapped open access orbit use projections.} \\
+		Open access orbit use projections generated from residual-bootstrapped physical parameter estimates.
+	}
+	\label{open_access_projection_bootstrap}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../../images/bootstrapped_optimal_simulation_plot.png}
+	\captionsetup{format=hang}
+	\caption[Bootstrapped optimal orbit use projections]{\textit{Bootstrapped optimal orbit use projections.} \\
+		Optimal orbit use projections generated from residual-bootstrapped physical parameter estimates.
+	}
+	\label{optimal_projection_bootstrap}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../../images/bootstrapped_optimal_sattax_projection.png}
+	\captionsetup{format=hang}
+	\caption[Bootstrapped optimal satellite tax projections]{\textit{Bootstrapped optimal satellite tax projections.} \\
+		Optimal satellite tax projections generated from residual-bootstrapped physical parameter estimates.
+	}
+	\label{optimal_sattax_bootstrap}
+\end{figure}
+
+
 
 \end{document}

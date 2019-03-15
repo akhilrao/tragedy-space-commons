@@ -466,7 +466,7 @@ simulate_optimal_path <- function(p,F,discount_rate,T,...) {
 
 ### algorithm to compute a time path using thin plate spline interpolation of solved policy functions
 # S0, D0 are the initial conditions. t0 is the initial time, which is used to generate paths starting at different times.
-tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,ncores,OPT,linear_policy_interp) {
+tps_path_gen <- function(S0,D0,t0,R_start,R_start_year,R_frac,p,F,policy_path,asats_seq,launchcon_seq,igrid,ncores,OPT,linear_policy_interp) {
 	times <- seq(from=1,to=(T-t0),by=1)	
 	sat_seq <- rep(0,length=(T-t0))
 	deb_seq <- rep(0,length=(T-t0))
@@ -493,7 +493,9 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 	cat(paste0("\nEstimating spline interpolants of policy functions..."))
 	spline_list <- foreach(k=1:(T-t0), .export=ls(), .inorder=TRUE) %dopar% {
 			current_cost <- which(igrid$F==F[k])
-			tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
+			current_sats <- policy_path$satellites[current_cost]
+			current_debs <- policy_path$debris[current_cost]*(1 - (k>=R_start)*R_frac)
+			tps_x <- as.matrix(cbind(current_sats,current_debs))
 			tps_y <- as.matrix(launch_pfn[current_cost])
 			ifelse(linear_policy_interp==1,tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y,lambda=0)),tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y)))
 			return(tps_model)
@@ -503,7 +505,9 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 	cat(paste0("\nEstimating spline interpolants of value functions..."))
 	vfn_spline_list <- foreach(k=1:(T-t0), .export=ls(), .inorder=TRUE) %dopar% {
 			current_cost <- which(igrid$F==F[k])
-			tps_x <- as.matrix(cbind(policy_path$satellites[current_cost],policy_path$debris[current_cost]))
+			current_sats <- policy_path$satellites[current_cost]
+			current_debs <- policy_path$debris[current_cost]*(1 - (k>=R_start)*R_frac)
+			tps_x <- as.matrix(cbind(current_sats,current_debs))
 			tps_y <- as.matrix(fleet_vfn[current_cost])
 			vfn_tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y,lambda=0))
 			return(vfn_tps_model)
@@ -512,50 +516,49 @@ tps_path_gen <- function(S0,D0,t0,p,F,policy_path,asats_seq,launchcon_seq,igrid,
 
 	s.tm <- proc.time()[3]
 	cat(paste0("\nGenerating policy time path..."))
-	X[1] <- predict(spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]))
+	X[1] <- predict(spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]*(1 - (1>=R_start)*R_frac)))
 	X[1] <- ifelse(X[1]<0,0,X[1])
 	X[1] <- ifelse(X[1]>launchcon_seq[1],X[1]<-launchcon_seq[1],X[1]<-X[1])
 	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 	discounted_profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
-	fleet_npv_path[1] <- predict(vfn_spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]))
-	ifelse(G(sat_seq[1],deb_seq[1])>d*deb_seq[1], runaway[1] <- "yes", runaway[1] <- "no")
-	ifelse(G(0,deb_seq[1])>d*deb_seq[1], kessler[1] <- "yes", kessler[1] <- "no")
+	fleet_npv_path[1] <- predict(vfn_spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]*(1 - (1>=R_start)*R_frac)))
+	ifelse(G(sat_seq[1],deb_seq[1])>d*deb_seq[1]*(1 - (1>=R_start)*R_frac), runaway[1] <- "yes", runaway[1] <- "no")
+	ifelse(G(0,deb_seq[1])>d*deb_seq[1]*(1 - (1>=R_start)*R_frac), kessler[1] <- "yes", kessler[1] <- "no")
 
 	for(k in 2:(T-t0)) {
 		current_clock_time <- t0 + k # need to calculate what the time is in the outside world for asats and launch constraint
 		## if-else block for Kessler Syndrome, D=1e+6 is an upper bound. If the orbit is unusable (L(0,D)=1), then don't go through this computation and set the launch rate to zero. This is reasonable unless satellites make more than 100% of their total cost to build+launch every period, in which case you would still launch satellites then.
 		if(deb_seq[(k-1)]<=1e+6){ 
-			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
-			deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)]) 
-			print(k)
-			print(cbind(sat_seq[k],deb_seq[k])) # check that these objects are the right inputs
-			X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
+			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)]*(1 - ((k-1)>=R_start)*R_frac))
+			deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)]*(1 - ((k-1)>=R_start)*R_frac),asats_seq[(current_clock_time-1)]) 
+			# print(k)
+			# print(cbind(sat_seq[k],deb_seq[k]*(1 - (k>=R_start)*R_frac))) # check that these objects are the right inputs
+			X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]*(1 - (k>=R_start)*R_frac)))
 			X[k] <- ifelse(X[k]<0,0,X[k])
 			X[k] <- ifelse(X[k]>launchcon_seq[current_clock_time],X[k]<-launchcon_seq[current_clock_time],X[k]<-X[k])
 			profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
 			discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
 			fleet_npv_path[k] <- predict(vfn_spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
-			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k], runaway[k] <- "yes", runaway[k] <- "no")
-			ifelse(G(0,deb_seq[k])>d*deb_seq[k], kessler[k] <- "yes", kessler[k] <- "no")
+			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k]*(1 - (k>=R_start)*R_frac), runaway[k] <- "yes", runaway[k] <- "no")
+			ifelse(G(0,deb_seq[k])>d*deb_seq[k]*(1 - (k>=R_start)*R_frac), kessler[k] <- "yes", kessler[k] <- "no")
 		}
 		if(deb_seq[(k-1)]>1e+6){
-			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
+			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)]*(1 - ((k-1)>=R_start)*R_frac))
 			ifelse(deb_seq[(k-1)]>=1e+154, deb_seq[k] <- deb_seq[(k-1)], deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)])) # prevent NAs when the debris stock grows uncontrollably
 			X[k] <- 0
 			profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
 			discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
 			fleet_npv_path[k] <- 0
-			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k], runaway[k] <- "yes", runaway[k] <- "no")
-			ifelse(G(0,deb_seq[k])>d*deb_seq[k], kessler[k] <- "yes", kessler[k] <- "no")
+			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k]*(1 - (k>=R_start)*R_frac), runaway[k] <- "yes", runaway[k] <- "no")
+			ifelse(G(0,deb_seq[k])>d*deb_seq[k]*(1 - (k>=R_start)*R_frac), kessler[k] <- "yes", kessler[k] <- "no")
 		} 
 	}
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))
 	deb_seq[is.na(deb_seq)] <- max(!is.na(deb_seq))
 	profit_seq[(T-t0)] <- one_p_return(X[(T-t0)],sat_seq[(T-t0)],(T-t0),p,F)
 	losses <- L(sat_seq,deb_seq)
-	print(class(kessler))
-	print(class(sat_seq))
-	values <- data.frame(time=times,launches=X,satellites=sat_seq,debris=deb_seq,runaway=runaway,kessler=kessler,fleet_flowv=profit_seq,fleet_pv=discounted_profit_seq,fleet_vfn_path=fleet_npv_path,collision_rate=losses,returns=p,costs=F, stringsAsFactors=FALSE)
+	values <- data.frame(time=times,launches=X,satellites=sat_seq,debris=deb_seq,runaway=runaway,kessler=kessler,fleet_flowv=profit_seq,fleet_pv=discounted_profit_seq,fleet_vfn_path=fleet_npv_path,collision_rate=losses,returns=p[(t0+1):T],costs=F[(t0+1):T],start_time=t0,R_frac=R_frac,R_start_year=R_start_year, stringsAsFactors=FALSE)
+
 #	colnames(values) <- c("time","launches","satellites","debris","runaway","kessler","fleet_flowv","fleet_pv","fleet_vfn_path","collision_rate","returns","costs")
 	return(values)
 }

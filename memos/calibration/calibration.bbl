@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{18}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -14,6 +14,18 @@
 \newblock \enquote{DISCOS database.}
 \newblock From ESA at \url{https://discosweb.esoc.esa.int/web/guest/home}.
 
+\bibitem[{Gairing et~al.(2006)Gairing, L{\"u}cking, Mavronicolas, and
+  Monien}]{gairingetal2006}
+Gairing, Martin, Thomas L{\"u}cking, Marios Mavronicolas, and Burkhard Monien.
+  2006.
+\newblock \enquote{The price of anarchy for polynomial social cost.}
+\newblock \emph{Theoretical Computer Science} 369~(1-3):116--135.
+
+\bibitem[{IADC(2007)}]{IADCdmg}
+IADC. 2007.
+\newblock \enquote{IADC Space Debris Mitigation Guidelines.}
+\newblock Tech. Rep. IADC-02-01.
+
 \bibitem[{Jonas et~al.(2017)Jonas, Sinkevicius, Flannery, Swinburne,
   Wellington, Tsui, Lalwani, Faucette, Nowak, Shanker, Pan, and
   Zlotnicka}]{MSreport}
@@ -24,6 +36,18 @@ Jonas, Adam, Armintas Sinkevicius, Simon Flannery, Benjamin Swinburne, Patrick
 \newblock Tech. rep., Morgan Stanley.
 \newblock
   \urlprefix\url{https://fa.morganstanley.com/griffithwheelwrightgroup/mediahandler/media/106686/Space_%20Investment%20Implications%20of%20the%20Final%20Frontier.pdf}.
+
+\bibitem[{Kelly and Kolstad(1999)}]{kellykolstad1999}
+Kelly, David~L and Charles~D Kolstad. 1999.
+\newblock \enquote{Integrated assessment models for climate change control.}
+\newblock \emph{International yearbook of environmental and resource economics}
+  2000:171--197.
+
+\bibitem[{Koutsoupias and Papadimitriou(2009)}]{poaFirst}
+Koutsoupias, Elias and Christos Papadimitriou. 2009.
+\newblock \enquote{Worst-case Equilibria.}
+\newblock \emph{Comput. Sci. Rev.} 3~(2):65--69.
+\newblock \urlprefix\url{http://dx.doi.org/10.1016/j.cosrev.2009.04.003}.
 
 \bibitem[{Letizia, Lemmens, and Krag(2018)}]{ECOBdata}
 Letizia, F., S.~Lemmens, and H.~Krag. 2018.
@@ -49,6 +73,30 @@ Rao, Akhil and Giacomo Rondina. 2018.
   Commons.}
 \newblock Latest draft available at
   \url{https://akhilrao.github.io/assets/working_papers/Cost_in_Space.pdf}.
+
+\bibitem[{Robinson(2004)}]{robinson2004}
+Robinson, Sara. 2004.
+\newblock \enquote{The price of anarchy.}
+\newblock \emph{SIAM News} 37~(5):1--4.
+
+\bibitem[{Roughgarden(2005)}]{roughgarden2005selfish}
+Roughgarden, Tim. 2005.
+\newblock \emph{Selfish routing and the price of anarchy}, vol. 174.
+\newblock MIT press Cambridge.
+
+\bibitem[{Roughgarden(2009)}]{roughgarden2009}
+---{}---{}---. 2009.
+\newblock \enquote{Intrinsic Robustness of the Price of Anarchy.}
+\newblock In \emph{Proceedings of the Forty-first Annual ACM Symposium on
+  Theory of Computing}, STOC '09. New York, NY, USA: ACM, 513--522.
+\newblock \urlprefix\url{http://doi.acm.org/10.1145/1536414.1536485}.
+
+\bibitem[{{TelAstra, Inc.}(2017)}]{ta17data}
+{TelAstra, Inc.} 2017.
+\newblock \enquote{Communications Satellite Databases.}
+\newblock From TelAstra, Inc. at \url{http://telastra.com/} . The data shown
+  here are from the 2017 edition, which is available through the CU Boulder
+  Libraries.
 
 \bibitem[{{Union of Concerned Scientists}(2018)}]{UCSdata}
 {Union of Concerned Scientists}. 2018.

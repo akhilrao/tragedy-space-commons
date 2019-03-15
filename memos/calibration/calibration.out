@@ -1,18 +1,22 @@
-\BOOKMARK [1][-]{section.1}{Calibrating the physical model}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{A physical model of orbital aggregates}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{Data}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{Calibration procedure}{section.1}% 4
-\BOOKMARK [1][-]{section.2}{Calibrating the economic model}{}% 5
-\BOOKMARK [2][-]{subsection.2.1}{An economic model of open access to orbit}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.2}{An economic model of socially optimal orbit use}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.3}{Data}{section.2}% 8
-\BOOKMARK [2][-]{subsection.2.4}{Calibration procedure}{section.2}% 9
-\BOOKMARK [1][-]{section.3}{Computing optimal projected satellite taxes}{}% 10
-\BOOKMARK [2][-]{subsection.3.1}{A formula for an optimal satellite tax}{section.3}% 11
-\BOOKMARK [2][-]{subsection.3.2}{Open access and optimal policy functions}{section.3}% 12
-\BOOKMARK [2][-]{subsection.3.3}{Generating time paths}{section.3}% 13
-\BOOKMARK [1][-]{section.4}{Appendix}{}% 14
-\BOOKMARK [2][-]{subsection.4.1}{Factors which may bias economic parameter estimates}{section.4}% 15
-\BOOKMARK [3][-]{subsubsection.4.1.1}{Measurement error}{subsection.4.1}% 16
-\BOOKMARK [3][-]{subsubsection.4.1.2}{Launch constraints}{subsection.4.1}% 17
-\BOOKMARK [2][-]{subsection.4.2}{Estimating the launch constraint}{section.4}% 18
+\BOOKMARK [1][-]{section.1}{Data}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Satellite and debris counts, 1958\2042015}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Aggregate satellite industry returns and costs, 2006\2042015}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Models}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Orbital mechanics with limited lifespans, missile tests, and certainty}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Open access orbit use with time-varying aggregate returns and costs}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Optimal orbit use with time-varying aggregate returns and costs}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Calibration and simulation}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Physical parameters: deorbit, decay, collisions, and fragments}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Economic parameters: returns, costs, and discounting}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.3}{Algorithms for open access and optimal policy functions}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.4}{Projected time paths}{section.3}% 12
+\BOOKMARK [1][-]{section.4}{Optimal satellite taxes and the Price of Anarchy in space}{}% 13
+\BOOKMARK [2][-]{subsection.4.1}{An optimal satellite tax path}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.2}{Efficiency loss and the Price of Anarchy}{section.4}% 15
+\BOOKMARK [1][-]{section.5}{Appendix}{}% 16
+\BOOKMARK [2][-]{subsection.5.1}{Measurement error in satellite and debris counts}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.2}{Collision probability model misspecification}{section.5}% 18
+\BOOKMARK [2][-]{subsection.5.3}{Measurement error in returns and costs}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.4}{Returns to scale and economic misspecification}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.5}{Projecting the launch constraint}{section.5}% 21
+\BOOKMARK [2][-]{subsection.5.6}{Sensitivity analyses of physical equation calibration}{section.5}% 22

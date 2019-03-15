@@ -201,6 +201,25 @@ nls_coefs <- data.frame(S2=nls_coefs[1],SD=nls_coefs[2])
 
 write.csv(nls_coefs,file="calibrated_risk_eqn_coefs.csv")
 
+### linearized risk equation calibration
+# lin_risk_xvars <- subset(series,select=c(payloads_in_orbit,debris))
+# #lin_risk_xvars$log_sats <- log(lin_risk_xvars$payloads_in_orbit)
+# #colnames(lin_risk_xvars) <- c("sats","debs","log_sats")
+# colnames(lin_risk_xvars) <- c("sats","debs")
+# linearized_risk <- log(lin_risk_xvars$sats - risk)
+# linearized_risk <- log(1 - (risk/lin_risk_xvars$sats))
+
+# test <- lm(linearized_risk ~ -1 + ., data=lin_risk_xvars)
+# lin_risk_coefs <- coef(test)
+
+# # plot fit
+# lin_risk_xvars_mat <- as.matrix(lin_risk_xvars)
+# fitplot(lin_risk_xvars_mat,lin_risk_coefs,series$year,linearized_risk,"Linearized collision rate")
+
+# #m1 <- glmnet(x=lin_risk_xvars_mat,y=linearized_risk, alpha=0, lower.limits=c(-Inf, -Inf, 0), upper.limits=c(0, 0, Inf), lambda=cv.glmnet(x=lin_risk_xvars_mat,y=linearized_risk,alpha=0)$lambda.min,intercept=FALSE)
+# m1 <- glmnet(x=lin_risk_xvars_mat,y=linearized_risk, alpha=0, lambda=cv.glmnet(x=lin_risk_xvars_mat,y=linearized_risk,alpha=0)$lambda.min,intercept=FALSE)
+# coef(m1)
+
 #####
 # residual (semi-parametric) bootstrap for estimated nls parameters. grid searches same interval as original model estimate. 
 #####
@@ -265,7 +284,7 @@ if(physics_bootstrap==1){
 				theme_bw()
 	grid.arrange(S2_hist,SD_hist,ncol=2)
 
-	png(width=800,height=400,filename="../images/collision_rate_parameter_bootstrap_plot.png")
+	png(width=600,height=600,filename="../images/collision_rate_parameter_bootstrap_plot.png")
 	grid.arrange(S2_hist,SD_hist,ncol=2)
 	dev.off()
 
@@ -381,7 +400,7 @@ if(physics_bootstrap==1) {
 	gamma_hist <- ggplot(data=ridge_debris_bootstrap_coefs, aes(x=num_destr_asat)) + 
 				geom_histogram(aes(y=..density..), bins=floor(B/3), colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666",colour="dark gray") +
-				xlab("Fragments from anti-satellite missile tests") +
+				xlab(paste0("Fragments from \nanti-satellite missile tests")) +
 				geom_vline(xintercept=m2coefs[3], linetype="dashed", color="blue") +
 				geom_vline(xintercept=mean(ridge_debris_bootstrap_coefs$num_destr_asat), linetype="dashed") +
 				ggtitle("\n") +
@@ -389,7 +408,7 @@ if(physics_bootstrap==1) {
 	beta_SS_hist <- ggplot(data=ridge_debris_bootstrap_coefs, aes(x=SSfrags)) + 
 				geom_histogram(aes(y=..density..), bins=floor(B/3), colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666",colour="dark gray") +
-				xlab("Fragments from satellite-satellite collisions") +
+				xlab(paste0("Fragments from \nsatellite-satellite collisions")) +
 				geom_vline(xintercept=m2coefs[4], linetype="dashed", color="blue") +
 				geom_vline(xintercept=mean(ridge_debris_bootstrap_coefs$SSfrags), linetype="dashed") +
 				ggtitle("\n") +
@@ -397,7 +416,7 @@ if(physics_bootstrap==1) {
 	beta_SD_hist <- ggplot(data=ridge_debris_bootstrap_coefs, aes(x=SDfrags)) + 
 				geom_histogram(aes(y=..density..), bins=floor(B/3), colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666",colour="dark gray") +
-				xlab("Fragments from satellite-satellite collisions") +
+				xlab(paste0("Fragments from \nsatellite-debris collisions")) +
 				geom_vline(xintercept=m2coefs[5], linetype="dashed", color="blue") +
 				geom_vline(xintercept=mean(ridge_debris_bootstrap_coefs$SDfrags), linetype="dashed") +
 				ggtitle("\n") +
@@ -407,7 +426,7 @@ if(physics_bootstrap==1) {
 	multiplot(title_hist, d_hist, m_hist, gamma_hist, beta_SS_hist, beta_SD_hist, 
 				layout=matrix(c(2,1,3,4,5,6), 
 				nrow=3, ncol=2, byrow=TRUE))
-	png(width=400,height=600,filename="../images/debris_bootstrap_parameter_plot.png")
+	png(width=600,height=600,filename="../images/debris_bootstrap_parameter_plot.png")
 	multiplot(title_hist, d_hist, m_hist, gamma_hist, beta_SS_hist, beta_SD_hist, 
 				layout=matrix(c(2,1,3,4,5,6), 
 				nrow=3, ncol=2, byrow=TRUE))

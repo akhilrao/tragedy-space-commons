@@ -53,9 +53,9 @@ S_gridsize_opt <- 24#as.numeric(args[2])
 D_gridsize_opt <- 24#as.numeric(args[2]) 
 S_grid_upper_oa <- 8000
 S_grid_upper_opt <- 8000
-D_grid_upper_oa <- 500000
+D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 50000
-B <- 30#as.numeric(args[3])
+B <- 125#as.numeric(args[3])
 
 set.seed(501)
 
@@ -65,12 +65,13 @@ quiet <- function(x) {
   quiet(force(x)) 
 } 
 
-total_time <- proc.time()[3]
-
 # BEGIN BOOTSTRAP LOOP
 
 for(b in 1:B) {
-print(paste0("\n\nBeginning bootstrap loop ",b))
+
+total_time <- proc.time()[3]
+
+cat(paste0("\n\nBeginning bootstrap draw ",b))
 	#############################################################################
 	# 1d. Calibration
 	#############################################################################
@@ -96,7 +97,7 @@ print(paste0("\n\nBeginning bootstrap loop ",b))
 	opt_dvs_output <- list()
 
 	# run path solver
-print("Generating full-sample optimal models...")
+cat(paste0("\nCalculating optimal models for draw ",b,"..."))
 sink("log.solve.txt", append=TRUE)
 	opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel,S_gridsize_opt,D_gridsize_opt,opt_gridlist,asats,T,p,F,ncores=ncores))
 sink()
@@ -125,7 +126,7 @@ sink()
 	oa_dvs_output <- list()
 
 	# run path solver
-print("Calculating full-sample open access models...")
+cat(paste0("\nCalculating open access models for draw ",b,"..."))
 sink("log.solve.txt", append=TRUE)
 	oa_dvs_output <- suppressWarnings(oa_pvfn_path_solver(oa_dvs_output,gridpanel,oa_gridlist,asats,T,p,F,fe_eqm,ncores=ncores))
 sink()
@@ -139,7 +140,7 @@ sink()
 
 	### open access paths
 	oa_grid_lookup <- data.frame(sats=oa_pvfn_path$satellites,debs=oa_pvfn_path$debris,F=oa_pvfn_path$F)
-print("Generating full-sample open access path...")
+cat(paste0("\nGenerating open access path for draw ",b,"..."))
 sink("log.solve.txt", append=TRUE)
 	oa_tps_path <- tps_path_gen(S0,D0,0,p,F,oa_pvfn_path,asats,launch_constraint,oa_grid_lookup,ncores=ncores,OPT=0,linear_policy_interp=0)
 sink()
@@ -147,7 +148,7 @@ sink()
 
 	### optimal paths
 	opt_grid_lookup <- data.frame(sats=opt_pvfn_path$satellites,debs=opt_pvfn_path$debris,F=opt_pvfn_path$F)
-print("Generating full-sample optimal path...")
+cat(paste0("\nGenerating optimal path for draw ",b,"..."))
 sink("log.solve.txt", append=TRUE)
 	opt_tps_path <- tps_path_gen(S0,D0,0,p,F,opt_pvfn_path,asats,launch_constraint,opt_grid_lookup,ncores=ncores,OPT=1,linear_policy_interp=0)
 sink()
@@ -247,7 +248,7 @@ sink()
 								ylab("Price of Anarchy\n(1 is no gain, larger numbers = larger gain)") + xlab("year") + theme_minimal() +
 								ggtitle("Improvement in global satellite fleet NPV\nfrom optimal management")
 
-	cat(paste0("\n Done. Total script wall time: ",round(proc.time()[3] - total_time,3)/60," minutes"))
+	cat(paste0("\n Done. Total loop wall time: ",round(proc.time()[3] - total_time,3)/60," minutes"))
 	if(b==1) {
 		OA_OPT_bootstrap <- OA_OPT
 	}

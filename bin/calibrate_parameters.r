@@ -2,8 +2,15 @@
 
 # Read in data and parameter estimates
 ## bootstrapped parameters
-risk_cal <- read.csv("../bin/calibrated_risk_eqn_coefs.csv")
+risk_cal <- read.csv("../data/calibrated_risk_eqn_coefs.csv")
 deblom_cal <- read.csv("../data/calibrated_debris_lom_coefs.csv")
+
+risk_cal_set <- read.csv("../data/bootstrapped_risk_eqn_coefs.csv")
+deblom_cal_set <- read.csv("../data/bootstrapped_debris_lom_coefs.csv")
+accepted_set <- which(risk_cal_set$SD>0)
+risk_cal_accepted <- risk_cal_set[accepted_set,]
+deblom_cal_accepted <- deblom_cal_set[accepted_set,]
+
 ## non-bootstrapped values
 econ_coefs <- read.csv("../data/econ_series_coefs.csv")
 implied_econ_series <- read.csv("../data/implied_costs.csv")
@@ -42,19 +49,19 @@ avg_sat_decay <- satlom_cal$payloads_in_orbit # corresponds to just over 30 year
 risk_cal_names <- as.character(risk_cal[,1])
 risk_cal <- data.frame(parameters=t(c(risk_cal[,2])))
 colnames(risk_cal) <- risk_cal_names
-aSS <- risk_cal$S2
-aSD <- risk_cal$SD
+aSS <- mean(risk_cal_accepted$S2)#risk_cal$S2
+aSD <- mean(risk_cal_accepted$SD)#risk_cal$SD
 
 deblom_cal_names <- as.character(deblom_cal[,1])
 deblom_cal <- data.frame(parameters=t(c(deblom_cal[,2])))
 colnames(deblom_cal) <- deblom_cal_names
 aDDbDD <- 0#deblom_cal$D2
-bSS <- deblom_cal$SSfrags
-bSD <- deblom_cal$SDfrags
-d <- 1-deblom_cal$debris
+bSS <- mean(deblom_cal_accepted$SSfrags)#deblom_cal$SSfrags
+bSD <- mean(deblom_cal_accepted$SDfrags)#deblom_cal$SDfrags
+d <- 1-mean(deblom_cal_accepted$debris) #1-deblom_cal$debris
 #Z_coef <- deblom_cal[1,2]
-m <- deblom_cal$launch_successes
-asat_coef <- deblom_cal$num_destr_asat
+m <- mean(deblom_cal_accepted$launch_successes)#deblom_cal$launch_successes
+asat_coef <- mean(deblom_cal_accepted$num_destr_asat)#deblom_cal$num_destr_asat
 
 discount_rate <- 0.05
 discount_fac <- 1/(1+discount_rate)
@@ -119,13 +126,13 @@ lc_dfrm <- data.frame(year=seq(from=start_year,length.out=length(launch_constrai
 
 lc_path_base <- ggplot(data=lc_dfrm,aes(x=year))
 lc_path <- lc_path_base + geom_line(aes(y=projected_constraint),linetype="dashed",color="blue",size=0.8) +
-		geom_line(aes(y=observed_constraint),size=0.85) +							
-		geom_vline(xintercept=2015,size=1,linetype="dashed") +
+		geom_line(aes(y=observed_constraint),size=1.2) +							
+		geom_vline(xintercept=2015,size=1.2,linetype="dashed") +
 		ylab("Cumulative maximum launch attempts") + theme_minimal() +
 		ggtitle("Observed and projected launch constraint")
 
 lc_path
 
-png(width=400,height=400,filename="../images/linear_trend_launch_constraint.png")
+png(width=300,height=300,filename="../images/linear_trend_launch_constraint.png")
 lc_path
 dev.off()
