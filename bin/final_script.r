@@ -12,6 +12,7 @@
 #############################################################################
 
 rm(list=ls())
+
 library(pracma)
 library(data.table)
 library(rootSolve)
@@ -25,6 +26,8 @@ library(reshape2)
 library(fields)
 library(compiler)
 library(stargazer)
+library(cowplot)
+library(extrafont)
 
 #############################################################################
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
@@ -63,10 +66,10 @@ args <- commandArgs(trailingOnly=TRUE)
 
 upper <- 1e15 # upper limit for some rootfinders - should never bind
 ncores <- 3#as.numeric(args[1]) # number of cores to use for parallel computations
-oa_gridsize <- 24
+oa_gridsize <- 32
 # what's the right size?
-S_gridsize_opt <- 24#as.numeric(args[2]) 
-D_gridsize_opt <- 24#as.numeric(args[2]) 
+S_gridsize_opt <- 32#as.numeric(args[2]) 
+D_gridsize_opt <- 32#as.numeric(args[2]) 
 S_grid_upper_oa <- 8000
 S_grid_upper_opt <- 8000
 D_grid_upper_oa <- 250000
@@ -80,10 +83,14 @@ total_time <- proc.time()[3]
 # 1d. Calibration
 #############################################################################
 
+# Setting the end_year different from the projection_end extends the Morgan Stanley revenue and total value projections an additional 5 years, to avoid any end-of-horizon effects for a forecast out to end_year (e.g. numerical distortions in steady-state value functions). The idea is to "project" out to projection_end using the mean annual growth rate of the Morgan Stanley projections, then truncate back to end_year to avoid any end-of-horizon effects.
+start_year <- 2006 # beginning of simulation
+end_year <- 2060 # final year for plots
+projection_end <- 2075 # final year for calculation
 source("calibrate_parameters.r")
 
-R_frac <- 0 # fraction of debris removed every period once removal is online.
-R_start_year <- 2025 # pick a year within the projection time frame. to turn it off, set R_frac to 0.
+R_frac <- 0.25 # fraction of debris removed every period once removal is online.
+R_start_year <- 2030 # pick a year within the projection time frame. to turn it off, set R_frac to 0.
 R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year)
 
 #############################################################################
@@ -97,6 +104,7 @@ source("main_model_estimation.r")
 #############################################################################
 
 opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
+#opt_start_year <- c(start_year)
 source("main_model_projection.r")
 
 #############################################################################

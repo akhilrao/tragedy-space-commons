@@ -510,9 +510,7 @@ DESCRIBE THE FIGURES
 
 \section{Optimal satellite taxes and the Price of Anarchy in space}
 
-With the calibrated parameter values, we turn to computing satellite tax projections. We split this process into two stages. In the first stage, we compute the time paths of the satellite stock, debris stock, and launch rate, given the open access and fleet planner models of orbit use. These describe the projected evolution of the orbital aggregates. In the second stage, we use the computed time paths with the estimated collision probability function and launch cost path to calculate the optimal satellite tax. The tax is derived from the same open access and fleet planner models. It describes the amount by which a satellite owner would have to be taxed, beginning from the projection horizon's initial conditions, in order to align their incentives with the fleet planner's.\footnote{This can also be thought of as ``How much of the profits from orbit use currently reflect resource rents which should not have been dissipated?'' }\\
-
-First, we compute open access and optimal launch policy functions in each period using the calibrated parameter values. The policy functions prescribe the number of satellites launched under each type of management regime for given levels of satellite and debris stocks and economic parameters. We compute these policy functions recursively from the final period in our projection to the initial period. We then interpolate between solved points in each period's policy functions to generate launch rate predictions, beginning with the initial condition (observed satellite and debris stocks) in the first projection period and continuing recursively forward until the final projection period. Second, we use a simple formula to calculate the optimal satellite tax from the projected open access and optimal expected value losses due to satellite-destroying collisions. The expected value losses are easy to calculate from the observed or assumed time path of launch costs and the collision probabilities calculated during the launch rate prediction step. We show the in-sample fit of our open access projections to establish that our approach can approximate the observed history, and then use predictions of space economy revenues and costs from \citep{MSreport} to project out the open access and optimal launch rates given those predictions. 
+With the calibrated parameter values, we turn to computing satellite tax projections. We split this process into two stages. In the first stage, we compute the time paths of the satellite stock, debris stock, and launch rate, given the open access and fleet planner models of orbit use. These describe the projected evolution of the orbital aggregates. In the second stage, we use the computed time paths with the estimated collision probability function and launch cost path to calculate the optimal satellite tax. The tax is derived from the same open access and fleet planner models. It describes the amount by which a satellite owner would have to be taxed, beginning from the projection horizon's initial conditions, in order to align their incentives with the fleet planner's.\footnote{This can also be thought of as ``How much of the profits from orbit use currently reflect resource rents which should not have been dissipated?'' } We show the in-sample fit of our open access projections to establish that our approach can approximate the observed history, and then use predictions of space economy revenues and costs from \citep{MSreport} to project out the open access and optimal launch rates given those predictions. 
 
 \subsection{An optimal satellite tax path}
 
@@ -548,11 +546,12 @@ We use open access welfare in the denominator of the welfare measure to satisfy 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Figure \ref{projected_tax_path} shows the paths of the flow of instantaneous welfare gains from open access (interpretable as the incentive to private agents to avoid self-regulation), the net present value of welfare losses from open access (the capitalized benefit to society from optimal orbit management), the price of anarchy under open access (the ratio of open access collision risk to optimal risk), and the path of an optimal satellite tax beginning in 2006 over the 2006-2040 sample period.
+Figure \ref{projected_tax_path} shows the paths of an optimal satellite tax, the factor of satellite safety improvement, and the gain in net present value beginning at different points over the 2006-2040 sample period.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../images/welfare_and_tax.png}
+	%\includegraphics[width=0.8\textwidth]{../../images/welfare_and_tax.png}
+	\includegraphics[width=0.8\textwidth]{../../images/manystarts_welfare_and_tax_optstart_2006_remfrac_0_remstart_2025.png}	
 	\captionsetup{format=hang}
 	\caption[Projected optimal orbit rental fee and gains from optimal management]{\textit{Projected optimal orbit rental fee and gains from optimal management.} \\
 		\textit{Top panel:} The optimal satellite tax over time, with optimal management beginning in 2006. Values are in nominal US dollars. \\
@@ -560,6 +559,19 @@ Figure \ref{projected_tax_path} shows the paths of the flow of instantaneous wel
 		\textit{Bottom panel:} The factor of discounted net social welfare improvement under optimal management, beginning in 2006. A $PoA$ of 1 indicates no gain from optimal management, while 2 indicates a doubling in welfare. \\
 	}
 	\label{projected_tax_path}
+\end{figure}
+
+Figure \ref{costs_of_inaction} shows the NPV gains in beginning optimal management in different years, and the permanent orbit use value losses in 2040 from delaying optimal management. The permanent orbit use value is the discounted value of the satellite fleet over the long-run, accounting for losses and replacements.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../images/costs_of_inaction_2006_remfrac_0_remstart_2025.png}
+	\captionsetup{format=hang}
+	\caption[Permanent orbit use value loss from delaying action]{\textit{Projected gains from optimal management and permanent orbit use value loss from delaying action.} \\
+		\textit{Left panel:} NPV gains of orbit recovery, with optimal management beginning in different years. \\
+		\textit{Right panel:} Gap in permanent orbit use value from delaying optimal management, relative to 2015 optimal management start. \\
+	}
+	\label{costs_of_inaction}
 \end{figure}
 
 \newpage

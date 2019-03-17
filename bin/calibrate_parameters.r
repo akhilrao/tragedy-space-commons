@@ -20,9 +20,8 @@ observed_time_series <- read.csv("../data/ST_ESA_series.csv")
 MS_proj_rev <- read.csv("../data/avg_econ_return.csv")
 MS_proj_total <- read.csv("../data/avg_econ_total.csv")
 
-# Extend Morgan Stanley revenue and total value projections an additional 5 years, to avoid any end-of-horizon effects for a forecast out to 2040 (e.g. numerical distortions in steady-state value functions). The idea is to "project" out to 2050 using the mean annual growth rate of the Morgan Stanley projections, then truncate back to 2040 to avoid any end-of-horizon effects.
 projection_start <- MS_proj_rev$Year[nrow(MS_proj_rev)]+1
-projection_end <- 2050
+
 revenue_mean_CAGR <- mean((MS_proj_rev[-1,2]/MS_proj_rev[-nrow(MS_proj_rev),2] - 1))
 revenue_growth <- cumprod(rep(1+revenue_mean_CAGR,length=length(c(projection_start:projection_end))))
 revenue_projection <- data.frame(Year=c(projection_start:projection_end),Revenues=(MS_proj_rev[nrow(MS_proj_rev),2]*revenue_growth))
@@ -33,8 +32,6 @@ MS_proj_rev <- rbind(MS_proj_rev,revenue_projection)
 MS_proj_total<- rbind(MS_proj_total,total_projection)
 
 # Set parameters
-start_year <- 2006
-end_year <- 2040
 selected_years <- which(observed_time_series$year>=start_year)
 S0 <- observed_time_series$payloads_in_orbit[which(observed_time_series$year==start_year)]
 D0 <- observed_time_series$debris[which(observed_time_series$year==start_year)]
