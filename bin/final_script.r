@@ -89,7 +89,7 @@ end_year <- 2060 # final year for plots
 projection_end <- 2075 # final year for calculation
 source("calibrate_parameters.r")
 
-R_frac <- 0.25 # fraction of debris removed every period once removal is online.
+R_frac <- as.numeric(args[1])#0.25 # fraction of debris removed every period once removal is online.
 R_start_year <- 2030 # pick a year within the projection time frame. to turn it off, set R_frac to 0.
 R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year)
 
@@ -103,7 +103,7 @@ source("main_model_estimation.r")
 # 3. Generate open access and optimal time paths
 #############################################################################
 
-opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
+opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035,2040)
 #opt_start_year <- c(start_year)
 source("main_model_projection.r")
 
