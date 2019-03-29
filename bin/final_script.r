@@ -28,6 +28,7 @@ library(compiler)
 library(stargazer)
 library(cowplot)
 library(extrafont)
+library(tidyr)
 
 #############################################################################
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms

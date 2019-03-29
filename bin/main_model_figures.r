@@ -104,53 +104,55 @@ OA_OPT_risk_hist <- OA_OPT_base_hist +
 # Projection figures: starting in 2006 only
 OA_OPT_base_proj <- ggplot(data=OA_OPT[which(OA_OPT$start_time.opt==0),],aes(x=year))
 OA_OPT_launch_proj <- OA_OPT_base_proj + 
-	geom_line(aes(y=launches.opt),linetype="dotted",color=OPT_fit_color,size=OA_OPT_fit_size) +
+	geom_line(aes(y=launches.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=launches.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=launch_successes),size=data_size) +					
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ylab("Satellites launched") + theme_minimal() +
 	ggtitle("Simulated historical and projected series\nLaunches")	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 OA_OPT_sat_proj <- OA_OPT_base_proj + 
-	geom_line(aes(y=satellites.opt),linetype="dotted",color=OPT_fit_color,size=OA_OPT_fit_size) +
+	geom_line(aes(y=satellites.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=payloads_in_orbit),size=data_size) +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle(" \n Satellites") +
-	ylab("LEO satellite stock") + theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+	ylab("LEO satellite stock") + theme_minimal() +
+	theme(text=element_text(size=10),
+		axis.text.x=element_text(size=10),
+		axis.text.y=element_text(size=10),
+		plot.title=element_text(size=10),
+		legend.text=element_text(size=10) ) + 
+	ylim(limits = c(0, max(OA_OPT$satellites.oa)))
 OA_OPT_deb_proj <- OA_OPT_base_proj + 
-	geom_line(aes(y=debris.opt),linetype="dotted",color=OPT_fit_color,size=OA_OPT_fit_size) +
+	geom_line(aes(y=debris.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=debris.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=debris),size=data_size) +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Debris") +
 	ylab("LEO debris stock") + xlab("year") + theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 OA_OPT_risk_proj <- OA_OPT_base_proj + 
-	geom_line(aes(y=collision_rate.opt/satellites.opt),linetype="dotted",color=OPT_fit_color, size=OA_OPT_fit_size) +
+	geom_line(aes(y=collision_rate.opt/satellites.opt),linetype="dashed",color=OPT_fit_color, size=OA_OPT_fit_size) +
 	geom_line(aes(y=collision_rate.oa/satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=risk.x/payloads_in_orbit),size=data_size) +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Collision probability") +
 	ylab("LEO collision risk") + xlab("year") + theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+	theme(text=element_text(size=10),
+		axis.text.x=element_text(size=10),
+		axis.text.y=element_text(size=10),
+		plot.title=element_text(size=10),
+		legend.text=element_text(size=10) ) + 
+	ylim(limits = c(0, max(OA_OPT$collision_rate.oa/OA_OPT$satellites.oa)))
 
 # Projection figures: starting in all years
 OA_OPT_base_proj_all <- ggplot(data=OA_OPT, aes(x=year))
@@ -163,11 +165,11 @@ OA_OPT_launch_proj_all <- OA_OPT_base_proj_all +
 	labs(fill="Optimal mgmt\nstart year") +
 	ylab("Satellites launched") + theme_minimal() +
 	ggtitle("Simulated historical and projected series\nLaunches")	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 OA_OPT_sat_proj_all <- OA_OPT_base_proj_all + 
 	geom_line(aes(y=satellites.opt, group=as.factor(start_year), color=as.factor(start_year)),linetype="dotted",size=OA_OPT_fit_size) +
 	geom_line(aes(y=satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
@@ -177,11 +179,11 @@ OA_OPT_sat_proj_all <- OA_OPT_base_proj_all +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle(" \n Satellites") +
 	ylab("LEO satellite stock") + theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 OA_OPT_deb_proj_all <- OA_OPT_base_proj_all + 
 	geom_line(aes(y=debris.opt, group=as.factor(start_year), color=as.factor(start_year)),linetype="dotted",size=OA_OPT_fit_size) +
 	geom_line(aes(y=debris.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
@@ -191,11 +193,11 @@ OA_OPT_deb_proj_all <- OA_OPT_base_proj_all +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle("Debris") +
 	ylab("LEO debris stock") + xlab("year") + theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 OA_OPT_risk_proj_all <- OA_OPT_base_proj_all + 
 	geom_line(aes(y=collision_rate.opt/satellites.opt, group=as.factor(start_year), color=as.factor(start_year)),linetype="dotted",size=OA_OPT_fit_size) +
 	geom_line(aes(y=collision_rate.oa/satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
@@ -205,11 +207,11 @@ OA_OPT_risk_proj_all <- OA_OPT_base_proj_all +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle("Collision probability") +
 	ylab("LEO collision risk") + xlab("year") + theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 
 # Prices of Anarchy and optimal tax path: starting in every year
 risk_proj <- ggplot(data=OA_OPT,aes(x=year))
@@ -220,11 +222,11 @@ risk_comps <- risk_proj +
 	ylab("Collision risk Price of Anarchy") + xlab("year") + theme_minimal() +
 	ggtitle("Improvement in satellite safety from optimal management") +
 	scale_color_viridis(discrete=TRUE)	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 flow_welf_loss <- risk_proj + 
 	geom_line(aes(y=flow_welfare_loss,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	guides(color=FALSE) +
@@ -232,22 +234,22 @@ flow_welf_loss <- risk_proj +
 	ylab("Flow welfare gap (open access-optimal) \n(undiscounted $1b)") + xlab("year") + theme_minimal() +
 	ggtitle("Historical cost of open access and optimal tax path") +
 	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 npv_welf_loss <- risk_proj + 
 	geom_line(aes(y=npv_welfare_loss,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	labs(color="Optimal mgmt\nstart year") +
 	ylab("NPV welfare loss from open access ($1b)") + xlab("year") + theme_minimal() +
 	ggtitle("") +
 	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15),
-					legend.text=element_text(size=15) )
+				theme(text=element_text(size=10),
+					axis.text.x=element_text(size=10),
+					axis.text.y=element_text(size=10),
+					plot.title=element_text(size=10),
+					legend.text=element_text(size=10) )
 opt_tax_path <- risk_proj + 
 	geom_line(aes(y=opt_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	labs(color="Optimal mgmt\nstart year") +
@@ -275,8 +277,20 @@ npv_poa_path_test <- risk_proj +
 	geom_line(aes(y=test,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	guides(color=FALSE) +
 	geom_hline(yintercept=1,linetype="dashed",color="blue") +
-	ylab("Welfare NPV Price of Anarchy") + xlab("year") + theme_minimal() +
+	ylab("NPV improvement") + xlab("year") + theme_minimal() +
 	ggtitle("Improvement in global satellite fleet NPV from optimal management") +
+	scale_color_viridis(discrete=TRUE)	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15) )
+risk_poa_path <- risk_proj + 
+	geom_line(aes(y=riskPoA,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
+	guides(color=FALSE) +
+	geom_hline(yintercept=1,linetype="dashed",color="blue") +
+	ylab("Collision risk improvement") + xlab("year") + theme_minimal() +
+	ggtitle("Improvement in satellite safety from optimal management") +
 	scale_color_viridis(discrete=TRUE)	+
 				theme(text=element_text(size=15),
 					axis.text.x=element_text(size=15),
@@ -335,18 +349,14 @@ npv_welf_paths <- risk_proj +
 #############################################################################
 
 # policy benefits
-png(width=450,height=600,filename=paste0("../images/",length(opt_start_year),"_starts_welfare_and_tax_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-grid.arrange(opt_tax_path, risk_comps, npv_poa_path, ncol=1)
+png(width=500,height=700,filename=paste0("../images/",length(opt_start_year),"_starts_welfare_and_tax_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
+grid.arrange(opt_tax_path, risk_poa_path, npv_poa_path, ncol=1)
 dev.off()
 
 # costs of inaction
-png(width=850,height=450,filename=paste0("../images/",length(opt_start_year),"_costs_of_inaction_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-# print(npv_welf_paths)
-# print(coi_plot,vp=vp) # this puts one inset to the other
+png(width=850,height=450,filename=paste0("../images/",length(opt_start_year),"_costs_of_inaction_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))]
 plot_grid(npv_welf_paths,coi_plot,align="h",axis="1",nrow=1,rel_widths=c(3.7/5,1.3/5))
 dev.off()
-
-# removal paths 
 
 # historical fit path panel
 png(width=500,height=500,filename=paste0("../images/",length(opt_start_year),"_simulated_historical_series_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
@@ -355,6 +365,6 @@ dev.off()
 
 # projected fit panel
 png(width=500,height=500,filename=paste0("../images/",length(opt_start_year),"_simulated_projected_series_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-#grid.arrange(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,ncol=2)
-plot_grid(OA_OPT_launch_proj_all,OA_OPT_sat_proj_all,OA_OPT_risk_proj_all,OA_OPT_deb_proj_all,align="h",axis="1",nrow=2,rel_widths=c(1/2,1/2))
+plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",nrow=2,rel_widths=c(1/2,1/2))
+#plot_grid(OA_OPT_launch_proj_all,OA_OPT_sat_proj_all,OA_OPT_risk_proj_all,OA_OPT_deb_proj_all,align="h",axis="1",nrow=2,rel_widths=c(1/2,1/2))
 dev.off()

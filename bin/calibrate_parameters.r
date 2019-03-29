@@ -19,6 +19,7 @@ econ_series <- read.csv("../data/econ_series.csv")
 observed_time_series <- read.csv("../data/ST_ESA_series.csv")
 MS_proj_rev <- read.csv("../data/avg_econ_return.csv")
 MS_proj_total <- read.csv("../data/avg_econ_total.csv")
+commercial_sector_growth <- read.csv("../data/commercial_sector_growth.csv")
 
 projection_start <- MS_proj_rev$Year[nrow(MS_proj_rev)]+1
 
@@ -79,31 +80,6 @@ econ_proj[,c(2,3,4)] <- econ_proj[,c(2,3,4)]/1000
 p <- c(p,econ_proj$Revenues)
 F <- c(F,econ_proj$Costs)
 
-econ_data_plot_series_orig <- econ_series[,1:3]
-colnames(econ_data_plot_series_orig) <- c("Year","Revenues","Costs")
-econ_data_plot_series_proj <- econ_proj[,c(1,2,4)]
-econ_data_plot_series <- rbind(econ_data_plot_series_orig, econ_data_plot_series_proj)
-econ_data_plot_series_long <- reshape(data=econ_data_plot_series, idvar="Year", varying=c("Revenues","Costs"), v.name=c("value"), times=c("Total industry revenues","Total industry costs"), direction="long", new.row.names=1:1000)
-colnames(econ_data_plot_series_long) <- c("Year","Variable","Value")
-
-revcost_plot <- ggplot(data=econ_data_plot_series_long, aes(x=Year, y=Value)) + 
-				geom_line(aes(group=as.factor(Variable),color=as.factor(Variable)),size=1) +
-				ggtitle("Satellite industry costs and revenues") +
-				labs(color="Legend") +
-				xlab("Year") +
-				ylab("Billion USD")	+
-				geom_vline(xintercept=econ_proj$Year[1],linetype="dashed",size=1) +
-				theme_minimal() +
-				scale_color_hue(labels=c("\nTotal\nindustry\ncosts\n","Total\nindustry\nrevenues"))	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15) )
-
-png(width=600,height=400,filename="../images/industry_revcost_plot.png")
-revcost_plot
-dev.off()
-
 # Normalize pi_1 := 1. This helps convergence to a fixed tolerance because the numbers are smaller to begin with. In the end, we undo the normalization to get things back into the right units.
 norm_const <- p[1]
 p <- p/norm_const
@@ -144,8 +120,11 @@ lc_proj <- lc_design%*%lc_coef
 
 launch_constraint <- c(obs_launch_constraint,floor(lc_proj))
 
-lc_dfrm <- data.frame(year=seq(from=start_year,length.out=length(launch_constraint)),observed_constraint=c(obs_launch_constraint, rep(NA,length=(length(launch_constraint)-length(obs_launch_constraint)))),projected_constraint=launch_constraint)
 
+#### Plot projections and other calibration data
+
+# Launch constraint
+lc_dfrm <- data.frame(year=seq(from=start_year,length.out=length(launch_constraint)),observed_constraint=c(obs_launch_constraint, rep(NA,length=(length(launch_constraint)-length(obs_launch_constraint)))),projected_constraint=launch_constraint)
 lc_path_base <- ggplot(data=lc_dfrm,aes(x=year))
 lc_path <- lc_path_base + geom_line(aes(y=projected_constraint),linetype="dashed",color="blue",size=0.8) +
 		geom_line(aes(y=observed_constraint),size=1.2) +							
@@ -154,7 +133,57 @@ lc_path <- lc_path_base + geom_line(aes(y=projected_constraint),linetype="dashed
 		ggtitle("Observed and projected launch constraint")
 
 lc_path
-
 png(width=300,height=300,filename="../images/linear_trend_launch_constraint.png")
 lc_path
+dev.off()
+
+# Industry revenues and costs
+econ_data_plot_series_orig <- econ_series[,1:3]
+colnames(econ_data_plot_series_orig) <- c("Year","Revenues","Costs")
+econ_data_plot_series_proj <- econ_proj[,c(1,2,4)]
+econ_data_plot_series <- rbind(econ_data_plot_series_orig, econ_data_plot_series_proj)
+econ_data_plot_series_long <- reshape(data=econ_data_plot_series, idvar="Year", varying=c("Revenues","Costs"), v.name=c("value"), times=c("Total industry revenues","Total industry costs"), direction="long", new.row.names=1:1000)
+colnames(econ_data_plot_series_long) <- c("Year","Variable","Value")
+revcost_plot <- ggplot(data=econ_data_plot_series_long, aes(x=Year, y=Value)) + 
+				geom_line(aes(group=as.factor(Variable),linetype=as.factor(Variable)),size=1) +
+				ggtitle("Aggregate commercial satellite costs and revenues") +
+				labs(linetype="") +
+				xlab("Year") +
+				ylab("Billion USD")	+
+				geom_vline(xintercept=econ_proj$Year[1],linetype="dashed",size=1,color="darkgray") +
+				theme_minimal() +
+				scale_linetype_discrete(labels=c("\n\nCosts:\nlaunch,\nmanufacturing,\nsupport\n","Revenues:\ntelecom,\nimaging"))	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15))
+
+png(width=600,height=400,filename="../images/industry_revcost_plot.png")
+revcost_plot
+dev.off()
+
+# Growth in commercial relative to govt space
+csg_long <- gather(commercial_sector_growth, variable, value, Commercial.Infrastructure.and.Support.Industries:Non.U.S..Government.Space.Budgets, factor_key=TRUE)
+
+csg_base <- ggplot(data=csg_long[union(which(csg_long$Year==2005),which(csg_long$Year==2015)),],aes(as.factor(Year),value))
+
+csg_plot <-	csg_base +
+			geom_bar(aes(fill=variable), position="dodge", stat="identity" ) +
+			labs(fill="") +
+			ggtitle("Commercial space revenues and government space budgets") +
+			ylab("Billion USD") +
+			xlab("Year") +
+			theme_minimal() +
+			scale_fill_viridis(discrete=TRUE, labels=c("Commercial Infrastructure\n& Support Industries\nRevenues\n", "Commercial Space\nProducts & Services\nRevenues\n","US Govt\nSpace Budgets\n","Non-US Govt\nSpace Budgets")) +
+			theme(text=element_text(size=15),
+				axis.text.x=element_text(size=15),
+				axis.text.y=element_text(size=15),
+				plot.title=element_text(size=15),
+				legend.text=element_text(size=15))
+
+plot_grid(revcost_plot,csg_plot,align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
+
+png(width=800,height=600,filename="../images/commercial_space_growth.png")
+plot_grid(revcost_plot,csg_plot,align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
 dev.off()
