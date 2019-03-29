@@ -27,8 +27,9 @@ library(fields)
 library(compiler)
 library(stargazer)
 library(cowplot)
-library(extrafont)
 library(tidyr)
+library(extrafont)
+font_import()
 
 #############################################################################
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
@@ -90,8 +91,8 @@ end_year <- 2040 # final year for plots
 projection_end <- 2050 # final year for calculation
 source("calibrate_parameters.r")
 
-R_frac <- 0 # fraction of debris removed every period once removal is online.
-R_start_year <- 2030 # pick a year within the projection time frame. to turn it off, set R_frac to 0.
+R_frac <- 0.5 # fraction of debris removed every period once removal is online.
+R_start_year <- 2028 # pick a year within the projection time frame. to turn it off, set R_frac to 0.
 R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year)
 
 #############################################################################

@@ -183,7 +183,7 @@ To generate launch rate and satellite tax projections out to 2040, we revenue an
 	\includegraphics[width=\textwidth]{../../images/industry_revcost_plot.png}
 	\captionsetup{format=hang}
 	\caption[Historical and projected satellite industry revenues and costs]{\textit{Satellite industry revenues and costs.} \\
-		Historical and projected satellite industry revenues and costs. The vertical black dashed line indicates where we begin to use projected data (2015).
+		Historical and projected satellite industry revenues and costs. The vertical gray dashed line indicates where we begin to use projected data (2015).
 	}
 	\label{revcost_plot}
 \end{figure}
@@ -525,11 +525,9 @@ Figure \ref{simulated_projected_path_of_states} shows the simulated open access 
 % TALK THROUGH THE FIGURES
 While the historical fit of the open access model is not exact, it is on the right order of magnitude and exhibits the correct trends. Our model is highly simplified and aggregated, and does not include a detailed model of orbital mechanics (necessary to correctly propagate the state variables over time) or a detailed model of launch industry dynamics (necessary to correctly model the idiosyncrasies of the launch path).\footnote{For example, on the physical side we abstract from different types of objects in orbit and time variation in their inclinations and relative velocities. On the economic side, we abstract from market power in the launch industry, the different types of commercial industries using satellites, and increasing returns to scale in satellite launch and ownership.} Our focus is on obtaining approximations which are the correct order of magnitude and exhibit the correct time trends. Future research which integrates detailed physical models of orbital mechanics with detailed models of satellite and launch industry dynamics will be required to provide precise values for satellite taxes and welfare loss.
 
-\section{Optimal satellite taxes and the Price of Anarchy in space}
+\section{Projecting the optimal satellite tax path}
 
-With the calibrated parameter values, we turn to computing satellite tax projections. We split this process into two stages. In the first stage, we compute the time paths of the satellite stock, debris stock, and launch rate, given the open access and fleet planner models of orbit use. These describe the projected evolution of the orbital aggregates. In the second stage, we use the computed time paths with the estimated collision probability function and launch cost path to calculate the optimal satellite tax. The tax is derived from the same open access and fleet planner models. It describes the amount by which a satellite owner would have to be taxed, beginning from the projection horizon's initial conditions, in order to align their incentives with the fleet planner's.\footnote{This can also be thought of as ``How much of the profits from orbit use currently reflect resource rents which should not have been dissipated?'' } We show the in-sample fit of our open access projections to establish that our approach can approximate the observed history, and then use predictions of space economy revenues and costs from \citep{MSreport} to project out the open access and optimal launch rates given those predictions. 
-
-\subsection{An optimal satellite tax path}
+With the calibrated parameter values, we turn to projecting the optimal satellite tax path. We split this process into two stages. In the first stage, we compute the time paths of the satellite stock, debris stock, and launch rate, given the open access and fleet planner models of orbit use. These describe the projected evolution of the orbital aggregates. In the second stage, we use the computed time paths with the estimated collision probability function and launch cost path to calculate the optimal satellite tax. The tax is derived from the same open access and fleet planner models. It describes the amount by which a satellite owner would have to be taxed, beginning from the projection horizon's initial conditions, in order to align their incentives with the fleet planner's.\footnote{This can also be thought of as ``How much of the profits from orbit use currently reflect resource rents which should not have been dissipated?'' } We show the in-sample fit of our open access projections to establish that our approach can approximate the observed history, and then use predictions of space economy revenues and costs from \citep{MSreport} to project out the open access and optimal launch rates given those predictions. \\
 
 We calculate the time path of an optimal satellite tax from equation \ref{optTax}:
 
@@ -540,40 +538,40 @@ We calculate the time path of an optimal satellite tax from equation \ref{optTax
 
 where $S^o_{t+1}$ and $D^o_{t+1}$ are satellite and debris stocks in $t+1$ under open access management, and $S^*_{t+1}$ and $D^*_{t+1}$ are satellite and debris stocks in $t+1$ under optimal management. The optimal tax is positive whenever the planner would maintain a lower collision probability than firms under open access would. The planner, in turn, will maintain a lower collision probability if the lifetime social benefits of another satellite in orbit are less than that satellite's expected future damages to other satellites in the fleet. By charging open access firms the marginal external cost of their satellite as a tax, their incentives are aligned with those of the planner despite the institutional differences. With their incentives aligned, their decisions to launch or not are shifted to optimize society's intertemporal economic welfare from orbit use rather than their own individual profit. \\
 
-Formally, equation \ref{optTax} can be derived by comparing the open access equilibrium condition (equation \ref{OAeqm_ch3_2}) to the fleet planner's optimality condition for launching (the first-order condition of system of equations \ref{plannersProblem}). These conditions can be written to express the expected loss in satellite value (collision probability multiplied by replacement cost) in terms of economic and, in the case of the optimality condition, physical parameters. Those economic parameters include terms for the current excess return on a satellite in addition to the capital gain or loss from changes in the cost of a replacement satellite. By subtracting the optimal expected loss from the open access expected loss, we recover the additional physical and economic term the social planner accounts for --- the marginal external cost of a satellite. 
+Formally, equation \ref{optTax} can be derived by comparing the open access equilibrium condition (equation \ref{OAeqm_ch3_2}) to the fleet planner's optimality condition for launching (the first-order condition of system of equations \ref{plannersProblem}). These conditions can be written to express the expected loss in satellite value (collision probability multiplied by replacement cost) in terms of economic and, in the case of the optimality condition, physical parameters. Those economic parameters include terms for the current excess return on a satellite in addition to the capital gain or loss from changes in the cost of a replacement satellite. By subtracting the optimal expected loss from the open access expected loss, we recover the additional physical and economic term the social planner accounts for --- the marginal external cost of a satellite. The marginal external cost is the optimal tax value to levy on each satellite. \\
 
 % since firms under open access set the collision risk equal to the excess return on a satellite while the planner sets the collision risk equal to the excess return of a satellite minus its marginal external cost, the difference in these collision risks gives us the marginal external cost of a satellite. 
-
-\subsection{Efficiency loss and the Price of Anarchy}
-
-The Price of Anarchy ($PoA$) is a measure of efficiency loss can be used to consider both the actual and the potential inefficiency of decentralized orbit management. The $PoA$ is a dimensionless ratio measuring the increase in cost (decrease in welfare) from abandoning an optimal centralized plan and moving to the worst Nash equilibrium. If the $PoA$ is close to $1$, then the worst-case efficiency loss - including any spatial externalities - relative to the optimal plan is small. The $PoA$ has been used in the literature on selfish routing in congestible networks (\cite{robinson2004}, \cite{poaFirst}) as a measure of worst-case inefficiency due to selfish behavior (\cite{roughgarden2005selfish}, \cite{gairingetal2006}, \cite{roughgarden2009}).\\ %Under some assumptions, the $PoA$ does not rely on the actual dollar value of the cost and remains constant as the number of agents in the system scales. Consequently, many analyses which use the $PoA$ are able to derive bounds on the magnitude of efficiency loss.\\
-
-The $PoA$ is most often constructed as a ratio of the total cost of the worst Nash equilibrium of a multi-agent system to the total cost of the optimal centralized solution\footnote{The measure can be generalized to situations where welfare is maximized instead of cost being minimized. I ignore this case since it is a straightforward extension and tangential to my objective of measuring the potential inefficiency open access to orbits.}. Intuitively, the $PoA$ answers the question, ``how bad can selfish behavior in this system be?'' Formally, given a set of strategies $\mathcal{S}$, a set of Nash equilibria $\mathcal{E} \subseteq \mathcal{S}$, and a system-wide cost function $C(s)$,
-\[ PoA \equiv \frac{\max_{s\in \mathcal{E}} C(s) }{ \min_{s \in \mathcal{S}} C(s)}. \]
-
-%The $PoA$ is bounded below at $1$, and unbounded above. Smaller values indicate that worst-case selfish behavior is less inefficient, while higher values indicate the opposite. Its cousin, the \textit{empirical} Price of Anarchy ($ePoA$), uses observed behavior for the numerator instead of the worst-possible Nash equilibrium and is necessarily between $1$ and $PoA$ (\cite{monnotetal2017}). The $ePoA$ measures the existing efficiency loss due to lack of coordination, and the potential percentage gain in the objective from moving to optimal management. \\ 
-
-To apply the $PoA$ to orbit management, we use collision risk and fleet net present value under the optimal plan as objective functions. The $PoA$ in terms of collision risk shows the safety improvement that would be obtained from switching to the optimal plan. The $PoA$ in terms of fleet net present value shows the gain in social welfare obtained from switching to the optimal plan. Formally, letting $\hat{S}$ and $\hat{D}$ denote open access values and $S^*$ and $D^*$ denote optimal plan values,
-\begin{align}
-PoA_{risk} &= \frac{L(\hat{S},\hat{D})}{L(S^*,D^*)} \\
-PoA_{welfare} &= \frac{W(S^*,D^*)}{W(\hat{S},\hat{D})}.
-\end{align}
-
-We use open access welfare in the denominator of the welfare measure to satisfy the bounds described above. \\
+%
+%\subsection{Efficiency loss and the Price of Anarchy}
+%
+%The Price of Anarchy ($PoA$) is a measure of efficiency loss can be used to consider both the actual and the potential inefficiency of decentralized orbit management. The $PoA$ is a dimensionless ratio measuring the increase in cost (decrease in welfare) from abandoning an optimal centralized plan and moving to the worst Nash equilibrium. If the $PoA$ is close to $1$, then the worst-case efficiency loss - including any spatial externalities - relative to the optimal plan is small. The $PoA$ has been used in the literature on selfish routing in congestible networks (\cite{robinson2004}, \cite{poaFirst}) as a measure of worst-case inefficiency due to selfish behavior (\cite{roughgarden2005selfish}, \cite{gairingetal2006}, \cite{roughgarden2009}).\\ %Under some assumptions, the $PoA$ does not rely on the actual dollar value of the cost and remains constant as the number of agents in the system scales. Consequently, many analyses which use the $PoA$ are able to derive bounds on the magnitude of efficiency loss.\\
+%
+%The $PoA$ is most often constructed as a ratio of the total cost of the worst Nash equilibrium of a multi-agent system to the total cost of the optimal centralized solution\footnote{The measure can be generalized to situations where welfare is maximized instead of cost being minimized. I ignore this case since it is a straightforward extension and tangential to my objective of measuring the potential inefficiency open access to orbits.}. Intuitively, the $PoA$ answers the question, ``how bad can selfish behavior in this system be?'' Formally, given a set of strategies $\mathcal{S}$, a set of Nash equilibria $\mathcal{E} \subseteq \mathcal{S}$, and a system-wide cost function $C(s)$,
+%\[ PoA \equiv \frac{\max_{s\in \mathcal{E}} C(s) }{ \min_{s \in \mathcal{S}} C(s)}. \]
+%
+%%The $PoA$ is bounded below at $1$, and unbounded above. Smaller values indicate that worst-case selfish behavior is less inefficient, while higher values indicate the opposite. Its cousin, the \textit{empirical} Price of Anarchy ($ePoA$), uses observed behavior for the numerator instead of the worst-possible Nash equilibrium and is necessarily between $1$ and $PoA$ (\cite{monnotetal2017}). The $ePoA$ measures the existing efficiency loss due to lack of coordination, and the potential percentage gain in the objective from moving to optimal management. \\ 
+%
+%To apply the $PoA$ to orbit management, we use collision risk and fleet net present value under the optimal plan as objective functions. The $PoA$ in terms of collision risk shows the safety improvement that would be obtained from switching to the optimal plan. The $PoA$ in terms of fleet net present value shows the gain in social welfare obtained from switching to the optimal plan. Formally, letting $\hat{S}$ and $\hat{D}$ denote open access values and $S^*$ and $D^*$ denote optimal plan values,
+%\begin{align}
+%PoA_{risk} &= \frac{L(\hat{S},\hat{D})}{L(S^*,D^*)} \\
+%PoA_{welfare} &= \frac{W(S^*,D^*)}{W(\hat{S},\hat{D})}.
+%\end{align}
+%
+%We use open access welfare in the denominator of the welfare measure to satisfy the bounds described above. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Figure \ref{projected_tax_path} shows the paths of an optimal satellite tax, the factor of satellite safety improvement, and the gain in net present value beginning at different points over the 2006-2040 sample period.
+Figure \ref{projected_tax_path} shows the paths of an optimal satellite tax, the factor of satellite safety improvement, and the gain in net present value beginning at different points over the 2006---2040 sample period.
 
 \begin{figure}[H]
 	\centering
 	%\includegraphics[width=0.8\textwidth]{../../images/welfare_and_tax.png}
-	\includegraphics[width=0.85\textwidth]{../../images/manystarts_welfare_and_tax_optstart_2006_remfrac_0_remstart_2025.png}	
+	\includegraphics[width=0.85\textwidth]{../../images/7_starts_welfare_and_tax_optstart_2006_remfrac_0_remstart_2030.png}	
 	\captionsetup{format=hang}
 	\caption[Projected optimal orbit rental fee and gains from optimal management]{\textit{Projected optimal orbit rental fee and gains from optimal management.} \\
 		\textit{Top panel:} The optimal satellite tax over time, with optimal management beginning in different years. Values are in nominal US dollars. \\
-		\textit{Middle panel:} The factor of collision risk reduction under optimal management, beginning in different years. A $PoA$ of 1 indicates no gain from optimal management, while 2 indicates a halving in risk. \\
-		\textit{Bottom panel:} The factor of discounted net social welfare improvement under optimal management, beginning in different years. A $PoA$ of 1 indicates no gain from optimal management, while 2 indicates a doubling in welfare. \\
+		\textit{Middle panel:} The factor of collision risk reduction under optimal management, beginning in different years. A factor of 1 indicates no gain from optimal management, while 2 indicates a halving in risk. \\
+		\textit{Bottom panel:} The factor of discounted net social welfare improvement under optimal management, beginning in different years. A factor of 1 indicates no gain from optimal management, while 2 indicates a doubling in welfare. \\
 	}
 	\label{projected_tax_path}
 \end{figure}
@@ -582,7 +580,7 @@ Figure \ref{costs_of_inaction} shows the NPV gains in beginning optimal manageme
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{../../images/costs_of_inaction_2006_remfrac_0_remstart_2025.png}
+	\includegraphics[width=\textwidth]{../../images/7_costs_of_inaction_2006_remfrac_0_remstart_2030.png}
 	\captionsetup{format=hang}
 	\caption[Permanent orbit use value loss from delaying action]{\textit{Projected gains from optimal management and permanent orbit use value loss from delaying action.} \\
 		\textit{Left panel:} NPV gains of orbit recovery, with optimal management beginning in different years. \\

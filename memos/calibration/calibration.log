@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.6975) (preloaded format=pdflatex 2019.2.9)  28 MAR 2019 18:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.6975) (preloaded format=pdflatex 2019.2.9)  29 MAR 2019 00:00
 entering extended mode
 **./calibration.tex
 (calibration.tex
@@ -653,14 +653,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
 
-[1
 
-{/home/akhil/.miktex/texmfs/data/pdftex/config/pdftex.map}]
 Underfull \hbox (badness 10000) in paragraph at lines 76--77
 
  []
 
+[1
 
+{/home/akhil/.miktex/texmfs/data/pdftex/config/pdftex.map}]
 Underfull \hbox (badness 10000) in paragraph at lines 78--79
 
  []
@@ -692,12 +692,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 86--87
 
  []
 
-[2]
+
 Underfull \hbox (badness 10000) in paragraph at lines 88--89
 
  []
 
-
+[2]
 Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
  []
@@ -743,7 +743,7 @@ Overfull \hbox (19.30487pt too wide) in paragraph at lines 169--179
  []|  [] 
  []
 
-<../../images/industry_revcost_plot.png, id=172, 602.25pt x 401.5pt>
+<../../images/industry_revcost_plot.png, id=163, 602.25pt x 401.5pt>
 File: ../../images/industry_revcost_plot.png Graphic file (type png)
 <use ../../images/industry_revcost_plot.png>
 Package pdftex.def Info: ../../images/industry_revcost_plot.png  used on input 
@@ -754,7 +754,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 195--196
 
  []
 
-[6 <../../images/industry_revcost_plot.png (PNG copy)>]
+[6 <../../images/industry_revcost_plot.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
@@ -814,13 +814,13 @@ D[]\OT1/ztmcm/m/n/12 ))\OML/ztmcm/m/it/12 S[]$\OT1/ptm/m/n/12 , we estimate equ
 ation []13[] by constrained ridge regression,
  []
 
-<../../images/risk_fit_plot.png, id=247, 401.5pt x 401.5pt>
+<../../images/risk_fit_plot.png, id=238, 401.5pt x 401.5pt>
 File: ../../images/risk_fit_plot.png Graphic file (type png)
 <use ../../images/risk_fit_plot.png>
 Package pdftex.def Info: ../../images/risk_fit_plot.png  used on input line 301
 .
 (pdftex.def)             Requested size: 281.85587pt x 281.87514pt.
-<../../images/debris_lom_fit_plot.png, id=248, 401.5pt x 401.5pt>
+<../../images/debris_lom_fit_plot.png, id=239, 401.5pt x 401.5pt>
 File: ../../images/debris_lom_fit_plot.png Graphic file (type png)
 <use ../../images/debris_lom_fit_plot.png>
 Package pdftex.def Info: ../../images/debris_lom_fit_plot.png  used on input li
@@ -833,7 +833,7 @@ Overfull \hbox (55.83765pt too wide) in paragraph at lines 300--306
 
 [10] [11 <../../images/risk_fit_plot.png (PNG copy)> <../../images/debris_lom_f
 it_plot.png (PNG copy)>]
-<../../images/risk_return_plot.png, id=279, 501.875pt x 401.5pt>
+<../../images/risk_return_plot.png, id=270, 501.875pt x 401.5pt>
 File: ../../images/risk_return_plot.png Graphic file (type png)
 <use ../../images/risk_return_plot.png>
 Package pdftex.def Info: ../../images/risk_return_plot.png  used on input line 
@@ -912,115 +912,131 @@ Underfull \hbox (badness 10000) in paragraph at lines 501--502
 
  []
 
-<../../images/simulated_projected_series.png, id=377, 501.875pt x 501.875pt>
+<../../images/simulated_projected_series.png, id=368, 501.875pt x 501.875pt>
 File: ../../images/simulated_projected_series.png Graphic file (type png)
 <use ../../images/simulated_projected_series.png>
 Package pdftex.def Info: ../../images/simulated_projected_series.png  used on i
 nput line 517.
 (pdftex.def)             Requested size: 375.80544pt x 375.8233pt.
 [18 <../../images/simulated_projected_series.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 530--531
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 539--540
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 541--542
 
  []
 
 [19]
-Underfull \hbox (badness 10000) in paragraph at lines 549--550
+<../../images/7_starts_welfare_and_tax_optstart_2006_remfrac_0_remstart_2030.pn
+g, id=391, 501.875pt x 702.625pt>
+File: ../../images/7_starts_welfare_and_tax_optstart_2006_remfrac_0_remstart_20
+30.png Graphic file (type png)
+<use ../../images/7_starts_welfare_and_tax_optstart_2006_remfrac_0_remstart_203
+0.png>
+Package pdftex.def Info: ../../images/7_starts_welfare_and_tax_optstart_2006_re
+mfrac_0_remstart_2030.png  used on input line 569.
+(pdftex.def)             Requested size: 399.29463pt x 559.04523pt.
+ [20]
+Overfull \vbox (26.61522pt too high) has occurred while \output is active []
 
- []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 562--563
-
- []
-
-<../../images/manystarts_welfare_and_tax_optstart_2006_remfrac_0_remstart_2025.
-png, id=411, 451.6875pt x 602.25pt>
-File: ../../images/manystarts_welfare_and_tax_optstart_2006_remfrac_0_remstart_
-2025.png Graphic file (type png)
-<use ../../images/manystarts_welfare_and_tax_optstart_2006_remfrac_0_remstart_2
-025.png>
-Package pdftex.def Info: ../../images/manystarts_welfare_and_tax_optstart_2006_
-remfrac_0_remstart_2025.png  used on input line 571.
-(pdftex.def)             Requested size: 399.29463pt x 532.42606pt.
-[20] [21 <../../images/manystarts_welfare_and_tax_optstart_2006_remfrac_0_remst
-art_2025.png (PNG copy)>]
-<../../images/costs_of_inaction_2006_remfrac_0_remstart_2025.png, id=431, 853.1
-875pt x 451.6875pt>
-File: ../../images/costs_of_inaction_2006_remfrac_0_remstart_2025.png Graphic f
-ile (type png)
-<use ../../images/costs_of_inaction_2006_remfrac_0_remstart_2025.png>
-Package pdftex.def Info: ../../images/costs_of_inaction_2006_remfrac_0_remstart
-_2025.png  used on input line 585.
-(pdftex.def)             Requested size: 399.29463pt x 211.39716pt.
- [22 <../../images/costs_of_inaction_2006_remfrac_0_remstart_2025.png (PNG copy
-)>] (calibration.bbl
+[21 <../../images/7_starts_welfare_and_tax_optstart_2006_remfrac_0_remstart_203
+0.png (PNG copy)>]
+<../../images/7_costs_of_inaction_2006_remfrac_0_remstart_2030.png, id=402, 953
+.5625pt x 451.6875pt>
+File: ../../images/7_costs_of_inaction_2006_remfrac_0_remstart_2030.png Graphic
+ file (type png)
+<use ../../images/7_costs_of_inaction_2006_remfrac_0_remstart_2030.png>
+Package pdftex.def Info: ../../images/7_costs_of_inaction_2006_remfrac_0_remsta
+rt_2030.png  used on input line 583.
+(pdftex.def)             Requested size: 469.75502pt x 222.52115pt.
+ [22 <../../images/7_costs_of_inaction_2006_remfrac_0_remstart_2030.png (PNG co
+py)>] (calibration.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 38--45
 \OT1/cmtt/m/n/12 mediahandler / media / 106686 / Space _ %20Investment % 20Impl
 ications % 20of % 20the %
  []
 
 [23]) [24]
+Underfull \hbox (badness 10000) in paragraph at lines 609--610
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 611--612
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 613--614
-
- []
-
-
 Package natbib Warning: Citation `ketz2018' on page 25 undefined on input line 
-615.
+613.
 
 
-Overfull \hbox (13.47792pt too wide) in paragraph at lines 615--616
+Overfull \hbox (13.47792pt too wide) in paragraph at lines 613--614
 \OT1/ptm/m/n/12 constraint on the collision probability parameters ($\OML/ztmcm
 /m/it/12 []$ \OT1/ptm/m/n/12 and $\OML/ztmcm/m/it/12 []$\OT1/ptm/m/n/12 ) to 
 bind in some bootstrap replications.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 619--620
+Underfull \hbox (badness 10000) in paragraph at lines 617--618
 
  []
 
 
-Overfull \hbox (1.84843pt too wide) in paragraph at lines 621--622
+Overfull \hbox (1.84843pt too wide) in paragraph at lines 619--620
 []\OT1/ptm/m/n/12 The misspecification causes two problems with simulation and 
 inference. First, underestimation
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 630--631
+Underfull \hbox (badness 10000) in paragraph at lines 628--629
 
  []
 
 [25]
-<../../images/GEO_satellite_productivity.png, id=472, 602.25pt x 602.25pt>
+<../../images/GEO_satellite_productivity.png, id=448, 602.25pt x 602.25pt>
 File: ../../images/GEO_satellite_productivity.png Graphic file (type png)
 <use ../../images/GEO_satellite_productivity.png>
 Package pdftex.def Info: ../../images/GEO_satellite_productivity.png  used on i
-nput line 636.
+nput line 634.
 (pdftex.def)             Requested size: 328.82707pt x 328.84004pt.
 
-Overfull \hbox (11.87178pt too wide) in paragraph at lines 651--652
+Overfull \hbox (11.87178pt too wide) in paragraph at lines 649--650
 \OT1/ptm/m/n/12 constraint forward with a linear time trend and an intercept. T
 able []S8[] shows the estimated coefficients,
  []
 
 [26 <../../images/GEO_satellite_productivity.png>]
-<../../images/linear_trend_launch_constraint.png, id=481, 301.125pt x 301.125pt
+<../../images/linear_trend_launch_constraint.png, id=457, 301.125pt x 301.125pt
 >
 File: ../../images/linear_trend_launch_constraint.png Graphic file (type png)
 <use ../../images/linear_trend_launch_constraint.png>
 Package pdftex.def Info: ../../images/linear_trend_launch_constraint.png  used 
-on input line 667.
+on input line 665.
 (pdftex.def)             Requested size: 328.82707pt x 328.8584pt.
 
-Overfull \hbox (4.31178pt too wide) in paragraph at lines 678--679
+Overfull \hbox (4.31178pt too wide) in paragraph at lines 676--677
 \OT1/ptm/m/n/12 To study the sensitivity of our conclusions to estimated physic
 al parameters, we conduct a sensitivity
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 676--677
+
+ []
+
+[27 <../../images/linear_trend_launch_constraint.png (PNG copy)>]
+Overfull \hbox (5.89366pt too wide) in paragraph at lines 678--679
+[]\OT1/ptm/m/n/12 First, we estimate equations []12[] and []13[] as described a
+bove. Then, we sample from the distribution
  []
 
 
@@ -1028,87 +1044,73 @@ Underfull \hbox (badness 10000) in paragraph at lines 678--679
 
  []
 
-[27 <../../images/linear_trend_launch_constraint.png (PNG copy)>]
-Overfull \hbox (5.89366pt too wide) in paragraph at lines 680--681
-[]\OT1/ptm/m/n/12 First, we estimate equations []12[] and []13[] as described a
-bove. Then, we sample from the distribution
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 680--681
-
- []
-
-<../../images/collision_rate_bootstrap_prediction_plot.png, id=491, 451.6875pt 
+<../../images/collision_rate_bootstrap_prediction_plot.png, id=467, 451.6875pt 
 x 401.5pt>
 File: ../../images/collision_rate_bootstrap_prediction_plot.png Graphic file (t
 ype png)
 <use ../../images/collision_rate_bootstrap_prediction_plot.png>
 Package pdftex.def Info: ../../images/collision_rate_bootstrap_prediction_plot.
-png  used on input line 686.
+png  used on input line 684.
 (pdftex.def)             Requested size: 328.82707pt x 292.30838pt.
 [28]
-<../../images/debris_bootstrap_prediction_plot.png, id=498, 401.5pt x 401.5pt>
+<../../images/debris_bootstrap_prediction_plot.png, id=474, 401.5pt x 401.5pt>
 File: ../../images/debris_bootstrap_prediction_plot.png Graphic file (type png)
 
 <use ../../images/debris_bootstrap_prediction_plot.png>
 Package pdftex.def Info: ../../images/debris_bootstrap_prediction_plot.png  use
-d on input line 696.
+d on input line 694.
 (pdftex.def)             Requested size: 328.82707pt x 328.84616pt.
  [29 <../../images/collision_rate_bootstrap_prediction_plot.png (PNG copy)>]
-<../../images/bootstrapped_openaccess_simulation_plot.png, id=506, 602.25pt x 6
+<../../images/bootstrapped_openaccess_simulation_plot.png, id=482, 602.25pt x 6
 02.25pt>
 File: ../../images/bootstrapped_openaccess_simulation_plot.png Graphic file (ty
 pe png)
 <use ../../images/bootstrapped_openaccess_simulation_plot.png>
 Package pdftex.def Info: ../../images/bootstrapped_openaccess_simulation_plot.p
-ng  used on input line 706.
+ng  used on input line 704.
 (pdftex.def)             Requested size: 328.82707pt x 328.84004pt.
  [30 <../../images/debris_bootstrap_prediction_plot.png (PNG copy)>]
-<../../images/bootstrapped_optimal_simulation_plot.png, id=512, 602.25pt x 602.
+<../../images/bootstrapped_optimal_simulation_plot.png, id=488, 602.25pt x 602.
 25pt>
 File: ../../images/bootstrapped_optimal_simulation_plot.png Graphic file (type 
 png)
 <use ../../images/bootstrapped_optimal_simulation_plot.png>
 Package pdftex.def Info: ../../images/bootstrapped_optimal_simulation_plot.png 
- used on input line 716.
+ used on input line 714.
 (pdftex.def)             Requested size: 328.82707pt x 328.84004pt.
  [31 <../../images/bootstrapped_openaccess_simulation_plot.png>]
-<../../images/bootstrapped_optimal_sattax_projection.png, id=520, 301.125pt x 3
+<../../images/bootstrapped_optimal_sattax_projection.png, id=496, 301.125pt x 3
 01.125pt>
 File: ../../images/bootstrapped_optimal_sattax_projection.png Graphic file (typ
 e png)
 <use ../../images/bootstrapped_optimal_sattax_projection.png>
 Package pdftex.def Info: ../../images/bootstrapped_optimal_sattax_projection.pn
-g  used on input line 726.
+g  used on input line 724.
 (pdftex.def)             Requested size: 328.82707pt x 328.8584pt.
  [32 <../../images/bootstrapped_optimal_simulation_plot.png>]
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 736.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 734.
 [33 <../../images/bootstrapped_optimal_sattax_projection.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 736.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 734.
  (calibration.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 736.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 736.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 734.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 734.
 Package rerunfilecheck Info: File `calibration.out' has not changed.
-(rerunfilecheck)             Checksum: 70A7ACD40B919C0811FB416C298D2EB1;1942.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 736.
+(rerunfilecheck)             Checksum: 0F7CE3981CF76917884E3D5677585B96;1757.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 734.
  ) 
 Here is how much of TeX's memory you used:
- 11987 strings out of 494865
- 194485 string characters out of 3178318
- 296677 words of memory out of 3000000
- 15288 multiletter control sequences out of 15000+200000
+ 11980 strings out of 494865
+ 194387 string characters out of 3178318
+ 296686 words of memory out of 3000000
+ 15286 multiletter control sequences out of 15000+200000
  61845 words of font info for 141 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
  36i,25n,39p,1975b,650s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.12} has been referenced but does not ex
+pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not ex
 ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exis
-t, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.10} has been referenced but does not exis
 t, replaced by a fixed one
@@ -1146,14 +1148,14 @@ ktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/akhil/.mik
 tex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/akhil/.mikte
 x/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/akhil/.miktex
 /texmfs/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/akhil/.miktex/
-texmfs/install/fonts/type1/public/rsfs/rsfs10.pfb></home/akhil/.miktex/texmfs/i
-nstall/fonts/type1/urw/symbol/usyr.pfb></home/akhil/.miktex/texmfs/install/font
-s/type1/urw/symbol/usyr.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw
-/times/utmb8a.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw/times/utm
-r8a.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw/times/utmri8a.pfb>
-Output written on calibration.pdf (33 pages, 812469 bytes).
+texmfs/install/fonts/type1/urw/symbol/usyr.pfb></home/akhil/.miktex/texmfs/inst
+all/fonts/type1/urw/symbol/usyr.pfb></home/akhil/.miktex/texmfs/install/fonts/t
+ype1/urw/times/utmb8a.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw/t
+imes/utmr8a.pfb></home/akhil/.miktex/texmfs/install/fonts/type1/urw/times/utmri
+8a.pfb>
+Output written on calibration.pdf (33 pages, 809558 bytes).
 PDF statistics:
- 604 PDF objects out of 1000 (max. 8388607)
- 158 named destinations out of 1000 (max. 500000)
- 247 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 576 PDF objects out of 1000 (max. 8388607)
+ 153 named destinations out of 1000 (max. 500000)
+ 231 words of extra memory for PDF output out of 10000 (max. 10000000)
 

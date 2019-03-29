@@ -31,17 +31,17 @@ fitplot <- function(xvars,coefs,year,truth,title,ylabel) {
 							geom_line(aes(y=fit),size=0.9,linetype="dashed", color="blue") +
 							theme_minimal() + ggtitle(paste(title)) +
 							ylab(paste0(ylabel))	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15) )
+				theme(text=element_text(family="Helvetica",size=15),
+					axis.text.x=element_text(family="Helvetica",size=15),
+					axis.text.y=element_text(family="Helvetica",size=15),
+					plot.title=element_text(family="Helvetica",size=15) )
 	plot_error <- plot_base + geom_line(aes(y=error),size=0.9) +
 						geom_hline(yintercept=0,linetype="dashed") +
 						theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15) )
+				theme(text=element_text(family="Helvetica",size=15),
+					axis.text.x=element_text(family="Helvetica",size=15),
+					axis.text.y=element_text(family="Helvetica",size=15),
+					plot.title=element_text(family="Helvetica",size=15) )
 
 	grid.arrange(plot_fitplot,plot_error,nrow=2)
 }
@@ -55,17 +55,17 @@ nls_fitplot <- function(xvars,coefs,year,truth,title,ylabel) {
 							geom_line(aes(y=fit),size=0.9,linetype="dashed", color="blue") +
 							theme_minimal() + ggtitle(paste(title)) +
 							ylab(paste0(ylabel))	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15) )
+				theme(text=element_text(family="Helvetica",size=15),
+					axis.text.x=element_text(family="Helvetica",size=15),
+					axis.text.y=element_text(family="Helvetica",size=15),
+					plot.title=element_text(family="Helvetica",size=15) )
 	plot_error <- plot_base + geom_line(aes(y=error),size=0.9) +
 						geom_hline(yintercept=0,linetype="dashed") +
 						theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15) )
+				theme(text=element_text(family="Helvetica",size=15),
+					axis.text.x=element_text(family="Helvetica",size=15),
+					axis.text.y=element_text(family="Helvetica",size=15),
+					plot.title=element_text(family="Helvetica",size=15) )
 
 	grid.arrange(plot_fitplot,plot_error,nrow=2)
 }
