@@ -22,32 +22,50 @@ dfrm <- read.csv("ST_stock_series.csv")
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]
 
 ##### define plotting functions
-fitplot <- function(xvars,coefs,year,truth,title) {
+fitplot <- function(xvars,coefs,year,truth,title,ylabel) {
 	fitline <- xvars%*%coefs
 	fit <- data.frame(year=year,fit=fitline,truth=truth,error=(fitline-truth))
 
 	plot_base <- ggplot(data=fit, aes(x=year))
 	plot_fitplot <- plot_base + geom_point(aes(y=truth),size=1.1) +
 							geom_line(aes(y=fit),size=0.9,linetype="dashed", color="blue") +
-							theme_minimal() + ggtitle(paste(title))
+							theme_minimal() + ggtitle(paste(title)) +
+							ylab(paste0(ylabel))	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15) )
 	plot_error <- plot_base + geom_line(aes(y=error),size=0.9) +
 						geom_hline(yintercept=0,linetype="dashed") +
-						theme_minimal()
+						theme_minimal()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15) )
 
 	grid.arrange(plot_fitplot,plot_error,nrow=2)
 }
 
-nls_fitplot <- function(xvars,coefs,year,truth,title) {
+nls_fitplot <- function(xvars,coefs,year,truth,title,ylabel) {
 	fitline <- xvars[,1]*(1 - exp(-coefs[1]*xvars[,1] -coefs[2]*xvars[,2]))
 	fit <- data.frame(year=year,fit=fitline,truth=truth,error=(fitline-truth))
 
 	plot_base <- ggplot(data=fit, aes(x=year))
 	plot_fitplot <- plot_base + geom_point(aes(y=truth),size=1.1) +
 							geom_line(aes(y=fit),size=0.9,linetype="dashed", color="blue") +
-							theme_minimal() + ggtitle(paste(title))
+							theme_minimal() + ggtitle(paste(title)) +
+							ylab(paste0(ylabel))	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15) )
 	plot_error <- plot_base + geom_line(aes(y=error),size=0.9) +
 						geom_hline(yintercept=0,linetype="dashed") +
-						theme_minimal()
+						theme_minimal()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15) )
 
 	grid.arrange(plot_fitplot,plot_error,nrow=2)
 }
@@ -124,7 +142,7 @@ sat_parms <- coef(sat_ols)
 # plot fit
 sat_xvars <- as.matrix(cbind(subset(series,select=colnames(sfit_mat))))
 sat_coefs <- sat_parms
-fitplot(sat_xvars,sat_coefs,series$year,S_next,"Satellite accounting model")
+fitplot(sat_xvars,sat_coefs,series$year,S_next,"Satellite accounting model","satellites")
 dev.off()
 
 ### satellite equation calibration. this is the statistical equation: calculating decay rate implied by including collisions. Produces a positive, large, and insignificant coefficient on risk, in addition to about 0.5 and significant coefficient on launch_successes. Implied satellite time on-orbit is close to 30 years, though, which seems reasonable.
@@ -138,10 +156,10 @@ sat_parms <- coef(sat_ols)
 # plot fit
 sat_xvars <- as.matrix(cbind(subset(sfit_dfrm,select=colnames(sfit_dfrm))))
 sat_coefs <- c(sat_parms[1],-1*sat_parms[1],1)
-fitplot(sat_xvars,sat_coefs,series$year,S_next,"Satellite statistical model (adjusted coefficients)")
+fitplot(sat_xvars,sat_coefs,series$year,S_next,"Satellite statistical model (adjusted coefficients)","satellites")
 dev.off()
 
-fitplot(sat_xvars,sat_parms,series$year,S_next,"Satellite statistical model (unadjusted coefficients)")
+fitplot(sat_xvars,sat_parms,series$year,S_next,"Satellite statistical model (unadjusted coefficients)","satellites")
 dev.off()
 
 write.csv(sat_parms[1],file="calibrated_satellite_lom_coefs.csv")
@@ -194,7 +212,7 @@ if(find_best_nls_parms == 0) {
 }
 
 png(width=400,height=400,filename="../images/risk_fit_plot.png")
-nls_fitplot(nls_risk_xvars,c(nls_coefs[1],nls_coefs[2]),series$year,risk,"Collision rate equation calibration")
+nls_fitplot(nls_risk_xvars,c(nls_coefs[1],nls_coefs[2]),series$year,risk,"Collision rate equation calibration","collision rate")
 dev.off()
 
 nls_coefs <- data.frame(S2=nls_coefs[1],SD=nls_coefs[2])
@@ -332,12 +350,12 @@ coef(m2)
 m2xvars <- as.matrix(cbind(subset(series,select=colnames(dfit_mat_elnet))))
 m2coefs <- coef(m2)[-1]
 names(m2coefs) <- colnames(dfit_mat_elnet)
-fitplot(m2xvars,m2coefs,series$year,D_next,"Debris law of motion calibration")
+fitplot(m2xvars,m2coefs,series$year,D_next,"Debris law of motion calibration","debris")
 dev.off()
 
 # plot fit
 png(width=400,height=400,filename="../images/debris_lom_fit_plot.png")
-fitplot(m2xvars,m2coefs,series$year,D_next,"Debris law of motion calibration")
+fitplot(m2xvars,m2coefs,series$year,D_next,"Debris law of motion calibration","debris")
 dev.off()
 
 write.csv(m2coefs,file="calibrated_debris_lom_coefs.csv")

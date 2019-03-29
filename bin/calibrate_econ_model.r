@@ -10,7 +10,7 @@ library(plyr)
 library(gridExtra)
 
 # function to plot estimated objects
-fitplot <- function(xvars,coefs,year,truth,title) {
+fitplot <- function(xvars,coefs,year,truth,title,ylabel) {
 	fitline <- xvars%*%coefs
 	colnames(fitline)=NULL
 	fit <- data.frame(year=year,fit=fitline,truth=truth,error=(fitline-truth))
@@ -18,10 +18,19 @@ fitplot <- function(xvars,coefs,year,truth,title) {
 	plot_base <- ggplot(data=fit, aes(x=year))
 	plot_fitplot <- plot_base + geom_line(aes(y=truth),size=1.1) +
 							geom_line(aes(y=fit),size=0.9,linetype="dashed", color="blue") +
-							theme_minimal() + ggtitle(paste(title))
+							theme_minimal() + ggtitle(paste(title)) +
+							ylab(paste0(ylabel))	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15) )
 	plot_error <- plot_base + geom_line(aes(y=error),size=0.9) +
 						geom_hline(yintercept=0,linetype="dashed") +
-						theme_minimal()
+						theme_minimal()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15) )
 
 	grid.arrange(plot_fitplot,plot_error,nrow=2)
 
@@ -78,7 +87,7 @@ summary(riskmodel)
 
 riskparms <- coef(riskmodel)
 riskxvars <- matrix(c(rep(1,length=dim(dfrm)[1]), dfrm$r_s, dfrm$Ft_Ft), ncol=3, byrow=FALSE )
-fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision rate as a function of returns and costs")
+fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision rate as a function of returns and costs","collision rate")
 dev.off()
 
 write.csv(riskparms,file="econ_series_coefs.csv")
@@ -95,8 +104,8 @@ write.csv(round(printed_table_of_costs_and_returns,digits=2),file="implied_costs
 
 ##### plot objects of interest
 
-png(width=400,height=400,filename="../images/risk_return_plot.png")
-fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision probability as a function of returns and costs")
+png(width=500,height=400,filename="../images/risk_return_plot.png")
+fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision probability as a function of returns and costs","collision probability")
 dev.off()
 
 

@@ -36,7 +36,7 @@ G_S <- function(S,D,...) {
 
 # average new fragments function D derivative
 G_D <- function(S,D,...) {
-	aSD*bSD*S*exp(-aSD*S)
+	aSD*bSD*S*exp(-aSD*D)
 }
 
 # Satellite law of motion 
@@ -90,13 +90,6 @@ W_D <- function(S,D,t,p,F,...) {
 	ifelse(identical(F[t],numeric(0)), F_prev <- 0, F_prev <- F[t-1])
 	ifelse(is.na(F[t-1]), F_prev <- 0, F_prev <- F[t-1])
 	ifelse(is.na(F[t]), F_prev <- 0, F_prev <- F[t-1])
-	# if(t==36){
-	# 		print(F_prev/discount_fac)
-	# 		print(alpha_1(S,D,t,p,F))
-	# 		print(Gamma_1(S,D)/Gamma_2(S,D))
-	# 		print(alpha_2(S,D,t,F))
-	# 		print(Gamma_1(S,D)/Gamma_2(S,D) + m)
-	# 	}
 	(F_prev/discount_fac - alpha_1(S,D,t,p,F) + (Gamma_1(S,D)/Gamma_2(S,D))*alpha_2(S,D,t,F))/(Gamma_1(S,D)/Gamma_2(S,D) + m)
 }
 

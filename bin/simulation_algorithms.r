@@ -522,33 +522,33 @@ tps_path_gen <- function(S0,D0,t0,R_start,R_start_year,R_frac,p,F,policy_path,as
 	profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 	discounted_profit_seq[1] <- one_p_return(X[1],sat_seq[1],1,p,F)
 	fleet_npv_path[1] <- predict(vfn_spline_list[[1]],x=cbind(sat_seq[1],deb_seq[1]*(1 - (1>=R_start)*R_frac)))
-	ifelse(G(sat_seq[1],deb_seq[1])>d*deb_seq[1]*(1 - (1>=R_start)*R_frac), runaway[1] <- "yes", runaway[1] <- "no")
-	ifelse(G(0,deb_seq[1])>d*deb_seq[1]*(1 - (1>=R_start)*R_frac), kessler[1] <- "yes", kessler[1] <- "no")
+	ifelse(G(sat_seq[1],deb_seq[1])>d*deb_seq[1]*(1 - (1>=(R_start-t0))*R_frac), runaway[1] <- "yes", runaway[1] <- "no")
+	ifelse(G(0,deb_seq[1])>d*deb_seq[1]*(1 - (1>=(R_start-t0))*R_frac), kessler[1] <- "yes", kessler[1] <- "no")
 
 	for(k in 2:(T-t0)) {
 		current_clock_time <- t0 + k # need to calculate what the time is in the outside world for asats and launch constraint
 		## if-else block for Kessler Syndrome, D=1e+6 is an upper bound. If the orbit is unusable (L(0,D)=1), then don't go through this computation and set the launch rate to zero. This is reasonable unless satellites make more than 100% of their total cost to build+launch every period, in which case you would still launch satellites then.
 		if(deb_seq[(k-1)]<=1e+15){ 
-			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)]*(1 - ((k-1)>=R_start)*R_frac))
-			deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)]*(1 - ((k-1)>=R_start)*R_frac),asats_seq[(current_clock_time-1)]) 
-			X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]*(1 - (k>=R_start)*R_frac)))
+			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
+			deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)])*(1 - (k>=(R_start-t0))*R_frac)
+			X[k] <- predict(spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
 			X[k] <- ifelse(X[k]<0,0,X[k])
 			X[k] <- ifelse(X[k]>launchcon_seq[current_clock_time],X[k]<-launchcon_seq[current_clock_time],X[k]<-X[k])
 			profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
 			discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
-			fleet_npv_path[k] <- predict(vfn_spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]*(1 - (k>=R_start)*R_frac)))
-			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k]*(1 - (k>=R_start)*R_frac), runaway[k] <- "yes", runaway[k] <- "no")
-			ifelse(G(0,deb_seq[k])>d*deb_seq[k]*(1 - (k>=R_start)*R_frac), kessler[k] <- "yes", kessler[k] <- "no")
+			fleet_npv_path[k] <- predict(vfn_spline_list[[k]],x=cbind(sat_seq[k],deb_seq[k]))
+			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k]*(1 - (k>=(R_start-t0))*R_frac), runaway[k] <- "yes", runaway[k] <- "no")
+			ifelse(G(0,deb_seq[k])>d*deb_seq[k]*(1 - (k>=(R_start-t0))*R_frac), kessler[k] <- "yes", kessler[k] <- "no")
 		}
 		if(deb_seq[(k-1)]>1e+15){
-			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)]*(1 - ((k-1)>=R_start)*R_frac))
-			ifelse(deb_seq[(k-1)]>=1e+154, deb_seq[k] <- deb_seq[(k-1)], deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)])) # prevent NAs if the debris stock grows uncontrollably
+			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
+			ifelse(deb_seq[(k-1)]>=1e+154, deb_seq[k] <- deb_seq[(k-1)], deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)]) ) # prevent NAs if the debris stock grows uncontrollably
 			X[k] <- 0
 			profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
 			discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
 			fleet_npv_path[k] <- 0
-			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k]*(1 - (k>=R_start)*R_frac), runaway[k] <- "yes", runaway[k] <- "no")
-			ifelse(G(0,deb_seq[k])>d*deb_seq[k]*(1 - (k>=R_start)*R_frac), kessler[k] <- "yes", kessler[k] <- "no")
+			ifelse(G(sat_seq[k],deb_seq[k])>d*deb_seq[k]*(1 - (k>=(R_start-t0))*R_frac), runaway[k] <- "yes", runaway[k] <- "no")
+			ifelse(G(0,deb_seq[k])>d*deb_seq[k]*(1 - (k>=(R_start-t0))*R_frac), kessler[k] <- "yes", kessler[k] <- "no")
 		} 
 	}
 	cat(paste0("\n Done. Total time taken: ",round(proc.time()[3] - s.tm,3)," seconds"))

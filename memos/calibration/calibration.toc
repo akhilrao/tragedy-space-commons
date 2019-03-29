@@ -1,23 +1,23 @@
-\contentsline {paragraph}{}{1}{section*.1}% 
-\contentsline {section}{\numberline {1}Data}{3}{section.1}% 
-\contentsline {subsection}{\numberline {1.1}Satellite and debris counts, 1958---2015}{3}{subsection.1.1}% 
+\contentsline {paragraph}{}{2}{section*.1}% 
+\contentsline {section}{\numberline {1}Data}{4}{section.1}% 
+\contentsline {subsection}{\numberline {1.1}Satellite and debris counts, 1957---2015}{4}{subsection.1.1}% 
 \contentsline {subsection}{\numberline {1.2}Aggregate satellite industry returns and costs, 2006---2015}{4}{subsection.1.2}% 
-\contentsline {section}{\numberline {2}Models}{5}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}Orbital mechanics with limited lifespans, missile tests, and certainty}{5}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}Open access orbit use with time-varying aggregate returns and costs}{7}{subsection.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Optimal orbit use with time-varying aggregate returns and costs}{8}{subsection.2.3}% 
-\contentsline {section}{\numberline {3}Calibration and simulation}{9}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}Physical parameters: deorbit, decay, collisions, and fragments}{9}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}Economic parameters: returns, costs, and discounting}{11}{subsection.3.2}% 
-\contentsline {subsection}{\numberline {3.3}Algorithms for open access and optimal policy functions}{13}{subsection.3.3}% 
+\contentsline {section}{\numberline {2}Models}{6}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Orbital mechanics with limited lifespans, missile tests, and certainty}{6}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Open access orbit use with time-varying aggregate returns and costs}{8}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Optimal orbit use with time-varying aggregate returns and costs}{9}{subsection.2.3}% 
+\contentsline {section}{\numberline {3}Calibration and simulation}{10}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Physical parameters: deorbit, decay, collisions, and fragments}{10}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Economic parameters: returns, costs, and discounting}{12}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Algorithms for open access and optimal policy functions}{14}{subsection.3.3}% 
 \contentsline {subsection}{\numberline {3.4}Projected time paths}{15}{subsection.3.4}% 
 \contentsline {section}{\numberline {4}Optimal satellite taxes and the Price of Anarchy in space}{19}{section.4}% 
-\contentsline {subsection}{\numberline {4.1}An optimal satellite tax path}{20}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.1}An optimal satellite tax path}{19}{subsection.4.1}% 
 \contentsline {subsection}{\numberline {4.2}Efficiency loss and the Price of Anarchy}{20}{subsection.4.2}% 
-\contentsline {section}{\numberline {5}Appendix}{26}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}Measurement error in satellite and debris counts}{26}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}Collision probability model misspecification}{26}{subsection.5.2}% 
-\contentsline {subsection}{\numberline {5.3}Measurement error in returns and costs}{26}{subsection.5.3}% 
-\contentsline {subsection}{\numberline {5.4}Returns to scale and economic misspecification}{27}{subsection.5.4}% 
-\contentsline {subsection}{\numberline {5.5}Projecting the launch constraint}{28}{subsection.5.5}% 
-\contentsline {subsection}{\numberline {5.6}Sensitivity analyses of physical equation calibration}{29}{subsection.5.6}% 
+\contentsline {section}{\numberline {5}Appendix}{25}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}Measurement error in satellite and debris counts}{25}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Collision probability model misspecification}{25}{subsection.5.2}% 
+\contentsline {subsection}{\numberline {5.3}Measurement error in returns and costs}{25}{subsection.5.3}% 
+\contentsline {subsection}{\numberline {5.4}Returns to scale and economic misspecification}{26}{subsection.5.4}% 
+\contentsline {subsection}{\numberline {5.5}Projecting the launch constraint}{27}{subsection.5.5}% 
+\contentsline {subsection}{\numberline {5.6}Sensitivity analyses of physical equation calibration}{28}{subsection.5.6}% 

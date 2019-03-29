@@ -1,4 +1,4 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{19}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -20,6 +20,12 @@ Gairing, Martin, Thomas L{\"u}cking, Marios Mavronicolas, and Burkhard Monien.
   2006.
 \newblock \enquote{The price of anarchy for polynomial social cost.}
 \newblock \emph{Theoretical Computer Science} 369~(1-3):116--135.
+
+\bibitem[{Gordon(1954)}]{gordon1954}
+Gordon, H.~Scott. 1954.
+\newblock \enquote{The Economic Theory of a Common-Property Resource: The
+  Fishery.}
+\newblock \emph{Journal of Political Economy} 62.
 
 \bibitem[{IADC(2007)}]{IADCdmg}
 IADC. 2007.

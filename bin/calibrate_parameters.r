@@ -79,6 +79,31 @@ econ_proj[,c(2,3,4)] <- econ_proj[,c(2,3,4)]/1000
 p <- c(p,econ_proj$Revenues)
 F <- c(F,econ_proj$Costs)
 
+econ_data_plot_series_orig <- econ_series[,1:3]
+colnames(econ_data_plot_series_orig) <- c("Year","Revenues","Costs")
+econ_data_plot_series_proj <- econ_proj[,c(1,2,4)]
+econ_data_plot_series <- rbind(econ_data_plot_series_orig, econ_data_plot_series_proj)
+econ_data_plot_series_long <- reshape(data=econ_data_plot_series, idvar="Year", varying=c("Revenues","Costs"), v.name=c("value"), times=c("Total industry revenues","Total industry costs"), direction="long", new.row.names=1:1000)
+colnames(econ_data_plot_series_long) <- c("Year","Variable","Value")
+
+revcost_plot <- ggplot(data=econ_data_plot_series_long, aes(x=Year, y=Value)) + 
+				geom_line(aes(group=as.factor(Variable),color=as.factor(Variable)),size=1) +
+				ggtitle("Satellite industry costs and revenues") +
+				labs(color="Legend") +
+				xlab("Year") +
+				ylab("Billion USD")	+
+				geom_vline(xintercept=econ_proj$Year[1],linetype="dashed",size=1) +
+				theme_minimal() +
+				scale_color_hue(labels=c("\nTotal\nindustry\ncosts\n","Total\nindustry\nrevenues"))	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15) )
+
+png(width=600,height=400,filename="../images/industry_revcost_plot.png")
+revcost_plot
+dev.off()
+
 # Normalize pi_1 := 1. This helps convergence to a fixed tolerance because the numbers are smaller to begin with. In the end, we undo the normalization to get things back into the right units.
 norm_const <- p[1]
 p <- p/norm_const
