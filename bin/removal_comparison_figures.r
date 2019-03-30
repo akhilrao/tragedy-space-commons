@@ -205,11 +205,10 @@ npv_oa_welf_paths <- risk_proj +
 	ylab("Effect of debris removal on open access social NPV (nominal $1b)") + xlab("Year") + theme_minimal() +
 	ggtitle("NPV effect of debris removal on open access:")
 
-
 coi_plot.deltarem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal)) +
 	geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 	labs(fill="Optimal mgmt\nstart year") +
-	ggtitle("Change in lost LEO value for space industry in 2040\ndue to free removal beginning in 2030") +
+	ggtitle(paste0("Change in lost LEO value for space industry in 2040\ndue to free removal beginning in ",R_start_year)) +
 	ylab("Change in forgone social NPV (nominal $1b)") +
 	xlab("Year") +
 	theme_bw() +
@@ -258,7 +257,7 @@ dev.off()
 
 # technology benefits
 png(width=450,height=450,filename=paste0("../images/remcomp_",length(opt_start_year),"_starts_tech_benefits_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-plot_grid(coi_plot.deltarem,npv_oa_welf_paths, align="h", axis="1", nrow=2,rel_heights=c(2,1))
+#plot_grid(coi_plot.deltarem,npv_oa_welf_paths, align="h", axis="1", nrow=2,rel_heights=c(2,1))
 plot_grid(npv_poa_oa_remvnorem_path,npv_poa_opt_remvnorem_path,align="v",axis="1",nrow=2,rel_heights=c(1,1))
 dev.off()
 
@@ -266,11 +265,6 @@ dev.off()
 png(width=850,height=450,filename=paste0("../images/remcomp",length(opt_start_year),"_starts_costs_of_inaction_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
 plot_grid(npv_welf_paths,coi_plot.norem,coi_plot.rem,npv_oa_welf_paths,NULL,NULL,align="h",axis="1",nrow=2,ncol=3,rel_widths=c(3/5,1/5,1/5),rel_heights=c(1/2,1/2))
 dev.off()
-
-# plot_grid(npv_welf_paths,npv_oa_welf_paths,align="h",axis="1",nrow=2,rel_heights=c(1/2,1/2))
-# grid.arrange(npv_welf_paths,npv_oa_welf_paths,p,p, layout_matrix = cbind(c(1,1,1), c(2,3,4)))
-
-# grid.arrange(npv_welf_paths, arrangeGrob(coi_plot.norem, coi_plot.rem,ncol=2), npv_oa_welf_paths, ncol=2, widths=c(1.5,1))
 
 # projected fit panel
 png(width=600,height=600,filename=paste0("../images/remcomp",length(opt_start_year),"_starts_simulated_projected_series_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))

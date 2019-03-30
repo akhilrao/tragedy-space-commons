@@ -9,6 +9,7 @@
 # 1.  Read in main model results, make additional outcome variables
 #############################################################################
 
+#OA_OPT <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))
 OA_OPT <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",0,"_remstart_",R_start_year,"_main_simulation.csv"))
 
 # Price of Anarchy in terms of collision risk. 1 represents no loss to anarchy, larger numbers show larger losses from anarchy.
@@ -269,7 +270,7 @@ npv_poa_path <- risk_proj +
 	geom_hline(yintercept=1,linetype="dashed",color="blue") +
 	ylab("Fleet NPV\nimprovement factor") + xlab("year") + theme_minimal() +
 	ggtitle("Improvement in global satellite fleet NPV\nfrom optimal management") +
-	scale_color_viridis(discrete=TRUE,labels=NULL,)	+
+	scale_color_viridis(discrete=TRUE) +
 	theme(text=element_text(family="Helvetica",size=15),
 		axis.text.x=element_text(family="Helvetica",size=15),
 		axis.text.y=element_text(family="Helvetica",size=15),
@@ -299,9 +300,7 @@ boa_plot <- ggplot(data=boa_base_dfrm,aes(as.factor(year),npv_welfare_gain)) +
 			ylab("Gained fleet NPV") +
 			xlab("Year") +
 			theme_bw()			
-
-#vp <- viewport(width=0.25,height=0.25,x=0.8,y=0.2) # this is used to make an inset plot
-
+			
 coi_base_dfrm <- boa_base_dfrm[which(boa_base_dfrm$start_year>2010),]
 coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss=(npv_welfare_gain[which(start_year==2015)]-npv_welfare_gain) )
 
@@ -326,7 +325,6 @@ npv_welf_paths <- risk_proj +
 	geom_line(aes(y=npv_opt_welfare,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size,linetype="dashed") +
 	labs(color="Optimal mgmt\nstart year") +
 	ylab("Fleet NPV (nominal $1b)") + xlab("Year") + theme_minimal() +
-	#ggtitle("Gains from shifting to optimal management\nrelative to open access BAU path (red line) and always-optimal path (black line)") +
 	ggtitle("NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
 	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
 				theme(text=element_text(family="Helvetica",size=15),
@@ -342,7 +340,6 @@ npv_welf_paths <- risk_proj +
 
 # policy benefits
 png(width=500,height=700,filename=paste0("../images/",length(opt_start_year),"_starts_welfare_and_tax_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-#grid.arrange(, ncol=1)
 plot_grid(opt_tax_path, risk_poa_path, npv_poa_path,align="v",axis="2",nrow=3,rel_widths=c(1/3,1/3,1/3))
 dev.off()
 

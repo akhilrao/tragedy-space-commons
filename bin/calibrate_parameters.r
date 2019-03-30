@@ -187,3 +187,5 @@ plot_grid(revcost_plot,csg_plot,align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
 png(width=800,height=600,filename="../images/commercial_space_growth.png")
 plot_grid(revcost_plot,csg_plot,align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
 dev.off()
+
+dev.off()

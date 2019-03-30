@@ -18,8 +18,8 @@ L_S <- function(S,D,...) {
 	#ifelse(L_prob(S,D)==1, 0, aS + 2*aSS*S + aSD*D)
 }
 
-L_D <- function(S,D,...) {
-	aSD*exp(- aSS*S - aSD*D)
+L_D <- function(S,D,t,...) {
+	aSD*exp(- aSS*S - aSD*D)*(1-R_frac*(t>=R_start))
 	#ifelse(L_prob(S,D)==1, 0, aD + 2*aDD*D + aSD*S)
 }
 
@@ -35,8 +35,8 @@ G_S <- function(S,D,...) {
 }
 
 # average new fragments function D derivative
-G_D <- function(S,D,...) {
-	aSD*bSD*S*exp(-aSD*D)
+G_D <- function(S,D,t,...) {
+	aSD*bSD*S*exp(-aSD*D)*(1-R_frac*(t>=R_start))
 }
 
 # Satellite law of motion 
@@ -71,7 +71,7 @@ alpha_1 <- function(S,D,t,p,F,...) {
 alpha_2 <- function(S,D,t,F,...) {
 	ifelse(identical(F[t],numeric(0)), F_curr <- 0, F_curr <- F[t])
 	ifelse(is.na(F[t]), F_curr <- 0, F_curr <- F[t])
-	0-S*L_D(S,D)*avg_sat_decay*F_curr
+	0-S*L_D(S,D,t)*avg_sat_decay*F_curr
 }
 
 # function for "growth-launch fragment balance" (\Gamma_1)
@@ -80,8 +80,8 @@ Gamma_1 <- function(S,D,...) {
 }
 
 # function for "new fragments from current stock" (\Gamma_2)
-Gamma_2 <- function(S,D,...) {
-	1 - d + G_D(S,D) + m*S*L_D(S,D)
+Gamma_2 <- function(S,D,t,...) {
+	1 - d + G_D(S,D,t) + m*S*L_D(S,D,t)
 }
 
 # fleet planner's marginal value of debris (should be exact?)
@@ -90,7 +90,7 @@ W_D <- function(S,D,t,p,F,...) {
 	ifelse(identical(F[t],numeric(0)), F_prev <- 0, F_prev <- F[t-1])
 	ifelse(is.na(F[t-1]), F_prev <- 0, F_prev <- F[t-1])
 	ifelse(is.na(F[t]), F_prev <- 0, F_prev <- F[t-1])
-	(F_prev/discount_fac - alpha_1(S,D,t,p,F) + (Gamma_1(S,D)/Gamma_2(S,D))*alpha_2(S,D,t,F))/(Gamma_1(S,D)/Gamma_2(S,D) + m)
+	(F_prev/discount_fac - alpha_1(S,D,t,p,F) + (Gamma_1(S,D)/Gamma_2(S,D,t))*alpha_2(S,D,t,F))/(Gamma_1(S,D)/Gamma_2(S,D,t) + m)
 }
 
 # marginal external cost approximation
@@ -111,7 +111,7 @@ optcond_approx <- function(X,S,D,fe_eqm,t,F,asats,...) {
 
 # fleet planner's exact(?) optimality condition: needs d < 1 to be well-defined
 optcond_exact <- function(X,S,D,clock_time,p,F,asats,...) {
-	result <- W_D(S,D,clock_time,p,F) - alpha_2(S,D,clock_time,F) - discount_fac*Gamma_2(S,D)*W_D(S_(X,S,D),D_(X,S,D,asats[clock_time]),(clock_time+1),p,F)
+	result <- W_D(S,D,clock_time,p,F) - alpha_2(S,D,clock_time,F) - discount_fac*Gamma_2(S,D,clock_time)*W_D(S_(X,S,D),D_(X,S,D,asats[clock_time]),(clock_time+1),p,F)
 	return(result)
 }
 
