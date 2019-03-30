@@ -100,6 +100,7 @@ source("calibrate_parameters.r")
 
 R_frac <- 0 # leave off for baseline
 R_start_year <- D_removal_start_year
+R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year)
 source("main_model_estimation.r")
 
 #############################################################################
@@ -118,7 +119,6 @@ source("main_model_figures.r")
 
 if(removal_comparison==1){
 	R_frac <- D_fraction_to_remove
-	R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year)
 	source("main_model_projection.r")
 	source("removal_comparison_figures.r")
 }
