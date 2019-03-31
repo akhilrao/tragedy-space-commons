@@ -58,9 +58,9 @@ for(i in 1:nrow(OA_OPT)){
 one_period_sat_deviation <- S_(one_period_launch_deviation,OA_OPT$satellites.opt,OA_OPT$debris.opt)
 one_period_deb_deviation <- D_(one_period_launch_deviation,OA_OPT$satellites.opt,OA_OPT$debris.opt,OA_OPT$num_destr_asat)
 one_period_loss_deviation <- L(one_period_sat_deviation,one_period_deb_deviation)/one_period_sat_deviation
-one_period_loss_deviation[which(OA_OPT$start_year==OA_OPT$year)] <- 0
 
 OA_OPT$opt_dev_tax_path <- (one_period_loss_deviation - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*(F_over_horizon*norm_const/OA_OPT$satellites.opt)*1e+9
+#OA_OPT$opt_dev_tax_path[which(OA_OPT$start_year==OA_OPT$year)] <- 0
 # this is the tax that would deter a one-period open access deviation from a given path
 
 # 1e+9 scales to units of billion (nominal) dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience. We divide by the number of satellites to get the rate into a probability. The final division by the number of open access satellites converts the cost (F_over_horizon*norm_const*1e+9) from total dollars paid by industry into dollars per open-access satellite.
