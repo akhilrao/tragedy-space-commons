@@ -249,7 +249,6 @@ if(physics_bootstrap==1){
 	# generate bootstrap resamples of residuals 
 	resample_order <- replicate(B,sample(c(1:length(nls_risk_resids)),length(nls_risk_resids),replace = TRUE))	
 	nls_risk_resids_resamples <- matrix(nls_risk_resids[resample_order],ncol=B,byrow=FALSE)
-	#replicate(B,sample(nls_risk_resids,length(nls_risk_resids),replace = TRUE))
 	nls_risk_model_output <- nls_risk_xvars[,1]*(1 - exp(-nls_coefs[1,1]*nls_risk_xvars[,1] -nls_coefs[1,2]*nls_risk_xvars[,2]))
 	nls_risk_bootstrap_dv <- nls_risk_model_output + nls_risk_resids_resamples
 
@@ -281,29 +280,42 @@ if(physics_bootstrap==1){
 
 	# write out bootstrapped coefficients
 	write.csv(nls_risk_bootstrap_coefs,file="bootstrapped_risk_eqn_coefs.csv")
+	nls_risk_bootstrap_coefs <- read.csv("bootstrapped_risk_eqn_coefs.csv")
+	positive_SDs <- which(nls_risk_bootstrap_coefs$SD>0)
+	effective_B <- length(positive_SDs)
 
 	# plot bootstrapped coefficient distribution
-
-	S2_hist <- ggplot(data=nls_risk_bootstrap_coefs, aes(x=S2)) + 
-				geom_histogram(aes(y=..density..), binwidth=2e-8, colour="gray", fill="white") +
+	risk_hist_data <- nls_risk_bootstrap_coefs[positive_SDs,]
+	S2_hist <- ggplot(data=risk_hist_data, aes(x=S2)) + 
+				geom_histogram(aes(y=..density..), bins=effective_B/3, colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666", colour="dark gray") +
 				xlab("Satellite-satellite collision parameter") +
 				geom_vline(xintercept=nls_coefs[1,1], linetype="dashed", color="blue") +
-				geom_vline(xintercept=mean(nls_risk_bootstrap_coefs$S2), linetype="dashed") +
-				ggtitle(paste0("Distribution of bootstrapped satellite collision parameters: ",B, " draws\n(blue: original estimate, black: mean of bootstrap estimates)")) +
-				theme_bw()
-	SD_hist <- ggplot(data=nls_risk_bootstrap_coefs, aes(x=SD)) + 
-				geom_histogram(aes(y=..density..), binwidth=5e-9, colour="gray", fill="white") +
+				geom_vline(xintercept=mean(risk_hist_data$S2), linetype="dashed") +
+				ggtitle(paste0("Distribution of bootstrapped satellite collision parameters: ",effective_B, " draws\n(blue: original estimate, black: mean of bootstrap estimates)")) +
+				theme_bw()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15) )
+	SD_hist <- ggplot(data=risk_hist_data, aes(x=SD)) + 
+				geom_histogram(aes(y=..density..), bins=effective_B/3, colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666", colour="dark gray") +
 				xlab("Satellite-debris collision parameter") +
 				geom_vline(xintercept=nls_coefs[1,2], linetype="dashed", color="blue") +
-				geom_vline(xintercept=mean(nls_risk_bootstrap_coefs$SD), linetype="dashed") +
+				geom_vline(xintercept=mean(risk_hist_data$SD), linetype="dashed") +
 				ggtitle("\n") +
-				theme_bw()
+				theme_bw()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15) )
 	grid.arrange(S2_hist,SD_hist,ncol=2)
 
-	png(width=600,height=600,filename="../images/collision_rate_parameter_bootstrap_plot.png")
-	grid.arrange(S2_hist,SD_hist,ncol=2)
+	png(width=525,height=550,filename="../images/collision_rate_parameter_bootstrap_plot.png")
+	grid.arrange(S2_hist,SD_hist,ncol=1)
 	dev.off()
 
 	nls_risk_bootstrap_dv_dfrm <- data.frame(nls_risk_bootstrap_dv)
@@ -396,49 +408,78 @@ if(physics_bootstrap==1) {
 
 	# write out bootstrapped coefficients
 	write.csv(ridge_debris_bootstrap_coefs,file="bootstrapped_debris_lom_coefs.csv")
+	ridge_debris_bootstrap_coefs <- read.csv("bootstrapped_debris_lom_coefs.csv")
+
+	# condition on risk estimates both being positive
+	ridge_debris_bootstrap_coefs <- ridge_debris_bootstrap_coefs[positive_SDs,]
 
 	# draw histogram of coefficient distributions.
 	title_hist <- ggtitle("\n")
 	d_hist <- ggplot(data=ridge_debris_bootstrap_coefs, aes(x=(1-debris))) + 
-				geom_histogram(aes(y=..density..), bins=floor(B/3), colour="gray", fill="white") +
+				geom_histogram(aes(y=..density..), bins=floor(effective_B/3), colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666",colour="dark gray") +
 				xlab("Debris decay") +
 				geom_vline(xintercept=(1-m2coefs[1]), linetype="dashed", color="blue") +
 				geom_vline(xintercept=(1-mean(ridge_debris_bootstrap_coefs$debris)), linetype="dashed") +
-				ggtitle(paste0("Distribution of bootstrapped debris law of motion parameters: ", B, " draws\n(blue: original estimate, black: mean of bootstrap estimates)")) +
-				theme_bw()
+				ggtitle(paste0("Distribution of bootstrapped debris law of motion parameters: ", effective_B, " draws\n(blue: original estimate, black: mean of bootstrap estimates)")) +
+				theme_bw()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15) )
 	m_hist <- ggplot(data=ridge_debris_bootstrap_coefs, aes(x=launch_successes)) + 
-				geom_histogram(aes(y=..density..), bins=floor(B/3), colour="gray", fill="white") +
+				geom_histogram(aes(y=..density..), bins=floor(effective_B/3), colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666",colour="dark gray") +
 				xlab("Launch debris") +
 				geom_vline(xintercept=m2coefs[2], linetype="dashed", color="blue") +
 				geom_vline(xintercept=mean(ridge_debris_bootstrap_coefs$launch_successes), linetype="dashed") +
 				ggtitle("\n") +
-				theme_bw()
+				theme_bw()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15) )
 	gamma_hist <- ggplot(data=ridge_debris_bootstrap_coefs, aes(x=num_destr_asat)) + 
-				geom_histogram(aes(y=..density..), bins=floor(B/3), colour="gray", fill="white") +
+				geom_histogram(aes(y=..density..), bins=floor(effective_B/3), colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666",colour="dark gray") +
 				xlab(paste0("Fragments from \nanti-satellite missile tests")) +
 				geom_vline(xintercept=m2coefs[3], linetype="dashed", color="blue") +
 				geom_vline(xintercept=mean(ridge_debris_bootstrap_coefs$num_destr_asat), linetype="dashed") +
 				ggtitle("\n") +
-				theme_bw()
+				theme_bw()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15) )
 	beta_SS_hist <- ggplot(data=ridge_debris_bootstrap_coefs, aes(x=SSfrags)) + 
-				geom_histogram(aes(y=..density..), bins=floor(B/3), colour="gray", fill="white") +
+				geom_histogram(aes(y=..density..), bins=floor(effective_B/3), colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666",colour="dark gray") +
 				xlab(paste0("Fragments from \nsatellite-satellite collisions")) +
 				geom_vline(xintercept=m2coefs[4], linetype="dashed", color="blue") +
 				geom_vline(xintercept=mean(ridge_debris_bootstrap_coefs$SSfrags), linetype="dashed") +
 				ggtitle("\n") +
-				theme_bw()
+				theme_bw()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15) )
 	beta_SD_hist <- ggplot(data=ridge_debris_bootstrap_coefs, aes(x=SDfrags)) + 
-				geom_histogram(aes(y=..density..), bins=floor(B/3), colour="gray", fill="white") +
+				geom_histogram(aes(y=..density..), bins=floor(effective_B/3), colour="gray", fill="white") +
 				geom_density(alpha=.2, fill="#FF6666",colour="dark gray") +
 				xlab(paste0("Fragments from \nsatellite-debris collisions")) +
 				geom_vline(xintercept=m2coefs[5], linetype="dashed", color="blue") +
 				geom_vline(xintercept=mean(ridge_debris_bootstrap_coefs$SDfrags), linetype="dashed") +
 				ggtitle("\n") +
-				theme_bw()
+				theme_bw()	+
+				theme(text=element_text(size=15),
+					axis.text.x=element_text(size=15),
+					axis.text.y=element_text(size=15),
+					plot.title=element_text(size=15),
+					legend.text=element_text(size=15) )
 
 	# plot coefficient distributions
 	multiplot(title_hist, d_hist, m_hist, gamma_hist, beta_SS_hist, beta_SD_hist, 

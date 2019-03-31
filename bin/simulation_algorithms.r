@@ -1,23 +1,5 @@
 ##### algorithms to be used in deterministic satellite-debris model dynamic programming simulation script
 
-# fleet planner time series generator -- numerically solves a joint maximization
-fp_tsgen_numerical <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
-	ctm <- proc.time()[3]
-	parms <- c(rep(15,length=T),S,D)
-	launch_path <- optim(par=parms[1:T],fn=fhvf, S=parms[(T+1)], D=parms[(T+2)], asats_seq=asats_seq, launch_con=launch_con, T=T,p=p,F=F, control=list(fnscale=-1, pgtol=1e-2),method="L-BFGS-B",lower=0,upper=1e+14)$par
-	launch_path_clock <- proc.time()[3] - ctm
-
-	ctm <- proc.time()[3]
-	time_series <- seriesgen_ts(launch_path,S,D,T,asats_seq,p,F)
-	propagation_clock <- proc.time()[3] - ctm
-
-	print("Fleet planner time series generated.") 
-	print(paste0("Time to compute launch path: ", launch_path_clock, " seconds."))
-	print(paste0("Time to propagate stocks: ", propagation_clock, " seconds."))
-
-	return(time_series)
-}
-
 # fleet planner time series generator
 fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 	ctm <- proc.time()[3]
@@ -47,6 +29,18 @@ fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 	print(paste0("Time to compute launch path and propagate stocks: ", clock, " seconds."))
 
 	return(time_series)
+}
+
+# calculate the open access launch rate and next-period risk from a given initial condition and launch constraint
+oa_deviation <- function(S,D,fe_eqm,launch_con,asats,...) {
+	X <- optim(par=1e+5,eqmcond_squared,lower=0,upper=1e+6,S=S,D=D,fe_eqm=fe_eqm,asats=asats, method=c("L-BFGS-B"))$par
+	#X <- optim(par=launch_con,eqmcond_squared,S=S,D=D,fe_eqm=fe_eqm,asats=asats, method=c("Nelder-Mead"))$par
+	print(X)
+	if(length(X)==0) { X <- 0 }	
+	if(length(X)>0) { X <- max(X) }
+	if(X>=launch_con) { X <- launch_con }
+	if(X<0) { X <- 0 }
+	return(X)
 }
 
 # open access time series generator

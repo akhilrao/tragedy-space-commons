@@ -1,4 +1,4 @@
-\begin{thebibliography}{19}
+\begin{thebibliography}{14}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -13,13 +13,6 @@
 {European Space Agency}. 2018.
 \newblock \enquote{DISCOS database.}
 \newblock From ESA at \url{https://discosweb.esoc.esa.int/web/guest/home}.
-
-\bibitem[{Gairing et~al.(2006)Gairing, L{\"u}cking, Mavronicolas, and
-  Monien}]{gairingetal2006}
-Gairing, Martin, Thomas L{\"u}cking, Marios Mavronicolas, and Burkhard Monien.
-  2006.
-\newblock \enquote{The price of anarchy for polynomial social cost.}
-\newblock \emph{Theoretical Computer Science} 369~(1-3):116--135.
 
 \bibitem[{Gordon(1954)}]{gordon1954}
 Gordon, H.~Scott. 1954.
@@ -49,12 +42,6 @@ Kelly, David~L and Charles~D Kolstad. 1999.
 \newblock \emph{International yearbook of environmental and resource economics}
   2000:171--197.
 
-\bibitem[{Koutsoupias and Papadimitriou(2009)}]{poaFirst}
-Koutsoupias, Elias and Christos Papadimitriou. 2009.
-\newblock \enquote{Worst-case Equilibria.}
-\newblock \emph{Comput. Sci. Rev.} 3~(2):65--69.
-\newblock \urlprefix\url{http://dx.doi.org/10.1016/j.cosrev.2009.04.003}.
-
 \bibitem[{Letizia, Lemmens, and Krag(2018)}]{ECOBdata}
 Letizia, F., S.~Lemmens, and H.~Krag. 2018.
 \newblock \enquote{Application of a debris index for global evaluation of
@@ -79,23 +66,6 @@ Rao, Akhil and Giacomo Rondina. 2018.
   Commons.}
 \newblock Latest draft available at
   \url{https://akhilrao.github.io/assets/working_papers/Cost_in_Space.pdf}.
-
-\bibitem[{Robinson(2004)}]{robinson2004}
-Robinson, Sara. 2004.
-\newblock \enquote{The price of anarchy.}
-\newblock \emph{SIAM News} 37~(5):1--4.
-
-\bibitem[{Roughgarden(2005)}]{roughgarden2005selfish}
-Roughgarden, Tim. 2005.
-\newblock \emph{Selfish routing and the price of anarchy}, vol. 174.
-\newblock MIT press Cambridge.
-
-\bibitem[{Roughgarden(2009)}]{roughgarden2009}
----{}---{}---. 2009.
-\newblock \enquote{Intrinsic Robustness of the Price of Anarchy.}
-\newblock In \emph{Proceedings of the Forty-first Annual ACM Symposium on
-  Theory of Computing}, STOC '09. New York, NY, USA: ACM, 513--522.
-\newblock \urlprefix\url{http://doi.acm.org/10.1145/1536414.1536485}.
 
 \bibitem[{{TelAstra, Inc.}(2017)}]{ta17data}
 {TelAstra, Inc.} 2017.

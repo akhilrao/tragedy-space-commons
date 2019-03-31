@@ -27,19 +27,10 @@ OA_OPT$npv_opt_welfare_test <- (OA_OPT$fleet_vfn_path.opt)*norm_const
 OA_OPT$npv_welfare_loss <- (OA_OPT$npv_oa_welfare - OA_OPT$npv_opt_welfare)
 OA_OPT$npv_welfare_gain <- (OA_OPT$npv_opt_welfare - OA_OPT$npv_oa_welfare)
 
+# A tax which prevents returning to BAU from optimal path
 F_over_horizon <- OA_OPT$costs.opt
-OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*F_over_horizon*norm_const*1e+9 
-
-# 1e+9 scales to units of billion (nominal) dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience. We divide by the number of satellites to get the rate into a probability. The final division by the number of open access satellites converts the cost (F_over_horizon*norm_const*1e+9) from total dollars paid by industry into dollars per open-access satellite.
-
-#############################################################################
-# 2.  Generate individual figures
-#############################################################################
-
-OA_fit_color <- "red"
-OPT_fit_color <- "blue"
-OA_OPT_fit_size <- 0.8
-data_size <- 1
+OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*(F_over_horizon*norm_const/OA_OPT$satellites.opt)*1e+9 
+OA_OPT$num_destr_asat[is.na(OA_OPT$num_destr_asat)] <- 0
 
 ss_rows <- which(OA_OPT$start_time.opt==-1)
 
@@ -54,6 +45,34 @@ for(s in 1:length(unique(OA_OPT$start_time.opt))){
 
 OA_OPT <- merge(OA_OPT,OA_OPT_SS,by=c("year"))
 
+# A tax which prevents OA jump off of an optimal path
+F_over_horizon <- OA_OPT$costs.opt
+fe_eqm_next_ts <- data.frame(year=unique(OA_OPT$year),fe_eqm_next=fe_eqm[2:(length(unique(OA_OPT$year))+1)],launch_con=launch_constraint[2:(length(unique(OA_OPT$year))+1)])
+OA_OPT <- merge(OA_OPT,fe_eqm_next_ts)
+
+one_period_launch_deviation <- rep(-1,length=nrow(OA_OPT))
+for(i in 1:nrow(OA_OPT)){
+	one_period_launch_deviation[i] <- oa_deviation(OA_OPT$satellites.opt[i], OA_OPT$debris.opt[i], OA_OPT$fe_eqm_next[i], OA_OPT$launch_con[i], OA_OPT$num_destr_asat[i])
+}
+
+one_period_sat_deviation <- S_(one_period_launch_deviation,OA_OPT$satellites.opt,OA_OPT$debris.opt)
+one_period_deb_deviation <- D_(one_period_launch_deviation,OA_OPT$satellites.opt,OA_OPT$debris.opt,OA_OPT$num_destr_asat)
+one_period_loss_deviation <- L(one_period_sat_deviation,one_period_deb_deviation)/one_period_sat_deviation
+one_period_loss_deviation[which(OA_OPT$start_year==OA_OPT$year)] <- 0
+
+OA_OPT$opt_dev_tax_path <- (one_period_loss_deviation - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*(F_over_horizon*norm_const/OA_OPT$satellites.opt)*1e+9
+# this is the tax that would deter a one-period open access deviation from a given path
+
+# 1e+9 scales to units of billion (nominal) dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience. We divide by the number of satellites to get the rate into a probability. The final division by the number of open access satellites converts the cost (F_over_horizon*norm_const*1e+9) from total dollars paid by industry into dollars per open-access satellite.
+
+#############################################################################
+# 2.  Generate individual figures
+#############################################################################
+
+OA_fit_color <- "red"
+OPT_fit_color <- "blue"
+OA_OPT_fit_size <- 0.8
+data_size <- 1
 
 # Historical fit figures
 OA_OPT_base_hist <- ggplot(data=OA_OPT[intersect(which(OA_OPT$year<=2015),which(OA_OPT$start_time.opt==0)),],aes(x=year))
@@ -111,11 +130,11 @@ OA_OPT_launch_proj <- OA_OPT_base_proj +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ylab("Satellites launched") + xlab("Year") + theme_minimal() +
 	ggtitle("Simulated historical and projected series\nLaunches")	+
-				theme(text=element_text(family="Helvetica",size=10),
-					axis.text.x=element_text(family="Helvetica",size=10),
-					axis.text.y=element_text(family="Helvetica",size=10),
-					plot.title=element_text(family="Helvetica",size=10),
-					legend.text=element_text(family="Helvetica",size=10) )
+				theme(text=element_text(family="Helvetica",size=12),
+					axis.text.x=element_text(family="Helvetica",size=12),
+					axis.text.y=element_text(family="Helvetica",size=12),
+					plot.title=element_text(family="Helvetica",size=12),
+					legend.text=element_text(family="Helvetica",size=12) )
 OA_OPT_sat_proj <- OA_OPT_base_proj + 
 	geom_line(aes(y=satellites.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
@@ -123,11 +142,11 @@ OA_OPT_sat_proj <- OA_OPT_base_proj +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle(" \n Satellites") +
 	ylab("LEO satellite stock") + xlab("Year") + theme_minimal() +
-	theme(text=element_text(family="Helvetica",size=10),
-		axis.text.x=element_text(family="Helvetica",size=10),
-		axis.text.y=element_text(family="Helvetica",size=10),
-		plot.title=element_text(family="Helvetica",size=10),
-		legend.text=element_text(family="Helvetica",size=10) ) + 
+	theme(text=element_text(family="Helvetica",size=12),
+		axis.text.x=element_text(family="Helvetica",size=12),
+		axis.text.y=element_text(family="Helvetica",size=12),
+		plot.title=element_text(family="Helvetica",size=12),
+		legend.text=element_text(family="Helvetica",size=12) ) + 
 	ylim(limits = c(0, max(OA_OPT$satellites.oa)))
 OA_OPT_deb_proj <- OA_OPT_base_proj + 
 	geom_line(aes(y=debris.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
@@ -136,11 +155,11 @@ OA_OPT_deb_proj <- OA_OPT_base_proj +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Debris") +
 	ylab("LEO debris stock") + xlab("Year") + theme_minimal()	+
-				theme(text=element_text(family="Helvetica",size=10),
-					axis.text.x=element_text(family="Helvetica",size=10),
-					axis.text.y=element_text(family="Helvetica",size=10),
-					plot.title=element_text(family="Helvetica",size=10),
-					legend.text=element_text(family="Helvetica",size=10) )
+				theme(text=element_text(family="Helvetica",size=12),
+					axis.text.x=element_text(family="Helvetica",size=12),
+					axis.text.y=element_text(family="Helvetica",size=12),
+					plot.title=element_text(family="Helvetica",size=12),
+					legend.text=element_text(family="Helvetica",size=12) )
 OA_OPT_risk_proj <- OA_OPT_base_proj + 
 	geom_line(aes(y=collision_rate.opt/satellites.opt),linetype="dashed",color=OPT_fit_color, size=OA_OPT_fit_size) +
 	geom_line(aes(y=collision_rate.oa/satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
@@ -148,11 +167,11 @@ OA_OPT_risk_proj <- OA_OPT_base_proj +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Collision probability") +
 	ylab("LEO collision risk") + xlab("Year") + theme_minimal()	+
-	theme(text=element_text(family="Helvetica",size=10),
-		axis.text.x=element_text(family="Helvetica",size=10),
-		axis.text.y=element_text(family="Helvetica",size=10),
-		plot.title=element_text(family="Helvetica",size=10),
-		legend.text=element_text(family="Helvetica",size=10) ) + 
+	theme(text=element_text(family="Helvetica",size=12),
+		axis.text.x=element_text(family="Helvetica",size=12),
+		axis.text.y=element_text(family="Helvetica",size=12),
+		plot.title=element_text(family="Helvetica",size=12),
+		legend.text=element_text(family="Helvetica",size=12) ) + 
 	ylim(limits = c(0, max(OA_OPT$collision_rate.oa/OA_OPT$satellites.oa)))
 
 # Projection figures: starting in all years
@@ -252,10 +271,10 @@ npv_welf_loss <- risk_proj +
 					plot.title=element_text(family="Helvetica",size=10),
 					legend.text=element_text(family="Helvetica",size=10) )
 opt_tax_path <- risk_proj + 
-	geom_line(aes(y=opt_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
+	geom_line(aes(y=opt_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) + theme_minimal() +
 	guides(color=FALSE) +
 	labs(color="") +
-	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_minimal() +
+	ylab("Optimal satellite tax ($/sat)") + xlab("year") +
 	ggtitle("Optimal satellite tax path") +
 	scale_color_viridis(discrete=TRUE)	+
 	theme(text=element_text(family="Helvetica",size=15),
@@ -282,7 +301,7 @@ risk_poa_path <- risk_proj +
 	ylab("Collision risk\nimprovement factor") + xlab("year") + theme_minimal() +
 	ggtitle("Improvement in satellite safety\nfrom optimal management") +
 	labs(color="Optimal mgmt\nstart year") +
-	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
+	scale_color_viridis(discrete=TRUE,labels=c("LRSS",paste(opt_start_year,sep=",")))	+
 				theme(text=element_text(family="Helvetica",size=15),
 					axis.text.x=element_text(family="Helvetica",size=15),
 					axis.text.y=element_text(family="Helvetica",size=15),
@@ -322,7 +341,7 @@ coi_plot <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2
 npv_welf_paths <- risk_proj + 
 	geom_line(aes(y=npv_oa_welfare),size=data_size) +
 	geom_line(aes(y=ss_npv_opt_welfare),size=data_size,color=OPT_fit_color) +
-	geom_line(aes(y=npv_opt_welfare,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size,linetype="dashed") +
+	geom_line(aes(y=npv_opt_welfare,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	labs(color="Optimal mgmt\nstart year") +
 	ylab("Fleet NPV (nominal $1b)") + xlab("Year") + theme_minimal() +
 	ggtitle("NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
@@ -333,10 +352,99 @@ npv_welf_paths <- risk_proj +
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) )
 
+risk_proj_nolt <- ggplot(data=OA_OPT[which(OA_OPT$start_time.opt==14),],aes(x=year))
+opt_tax_path_solo <- risk_proj_nolt + 
+	geom_line(aes(y=opt_tax_path),size=data_size) +
+	labs(color="Optimal mgmt\nstart year") +
+	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_bw() +
+	ggtitle("Optimal satellite tax path") +
+	#scale_color_viridis(discrete=TRUE,labels=c(2020))	+
+	theme(text=element_text(family="Helvetica",size=15),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) 
+opt_tax_path_solo
+
+opt_dev_tax_path_solo <- risk_proj_nolt + 
+	geom_line(aes(y=opt_dev_tax_path),size=data_size) +
+	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_bw() +
+	ggtitle("Optimal satellite tax path") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
+	theme(text=element_text(family="Helvetica",size=15),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) + 
+	ylim(limits = c(0, max(OA_OPT$opt_dev_tax_path[which(OA_OPT$start_time.opt==14)])))
+opt_dev_tax_path_solo
+
+opt_dev_tax_path_all <- risk_proj + 
+	geom_line(aes(y=opt_dev_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
+	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_bw() +
+	labs(color="Optimal mgmt\nstart year") +
+	ggtitle("Optimal satellite tax path") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
+	theme(text=element_text(family="Helvetica",size=15),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) + 
+	ylim(limits = c(0, max(OA_OPT$opt_dev_tax_path)))
+opt_dev_tax_path_all
+
+opt_dev_tax_path_comp <- risk_proj_nolt + 
+	geom_line(aes(y=opt_tax_path),size=data_size, color="dark gray") +
+	geom_line(aes(y=opt_dev_tax_path),size=data_size) +
+	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_bw() +
+	ggtitle("Optimal satellite tax path comparison") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
+	theme(text=element_text(family="Helvetica",size=15),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) )
+opt_dev_tax_path_comp
+
+opt_dev_tax_path_comp_all <- risk_proj + 
+	geom_line(aes(y=opt_dev_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
+	geom_line(aes(y=opt_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size,linetype="dashed") +
+	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_gray() +
+	labs(color="Optimal mgmt\nstart year") +
+	ggtitle("Optimal satellite tax paths") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
+	theme(text=element_text(family="Helvetica",size=15),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) + 
+	ylim(limits = c(0, max(OA_OPT$opt_tax_path)))
+opt_dev_tax_path_comp_all
 
 #############################################################################
 # 3.  Generate figure panels
 #############################################################################
+
+# tax paths
+png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_tax_only_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
+opt_tax_path_solo
+dev.off()
+
+png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_dev_tax_all_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
+opt_dev_tax_path_all
+dev.off()
+
+png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_dev_tax_2020_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
+opt_dev_tax_path_solo
+dev.off()
+
+png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_taxes_comp_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
+opt_dev_tax_path_comp
+dev.off()
+
+png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_taxes_allcomp_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
+opt_dev_tax_path_comp_all
+dev.off()
 
 # policy benefits
 png(width=500,height=700,filename=paste0("../images/",length(opt_start_year),"_starts_welfare_and_tax_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))

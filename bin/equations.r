@@ -3,7 +3,6 @@
 # Collision rate 
 L <- function(S,D,...) {
 	S*(1-exp( -(aSS*S) -(aSD*D) ))
-	#pmax(pmin(aSS*S^2 + aSD*(S*D),S),0)		#1 statmech rate -- treat as total number of collisions rather than P(arbitrary single collision)
 }
 
 # Collision probability
@@ -101,7 +100,11 @@ xi <- function(S,D,t,F,...) {
 # open access equilibrium condition
 eqmcond <- function(X,S,D,fe_eqm,asats,...) {
 	L(S_(X,S,D),D_(X,S,D,asats)) - fe_eqm*S_(X,S,D)
-	#L(S_(X,S,D),D_(X,S,D,asats)) - fe_eqm
+}
+
+# squared open access equilibrium condition
+eqmcond_squared <- function(X,S,D,fe_eqm,asats,...) {
+	sum((L(S_(X,S,D),D_(X,S,D,asats)) - fe_eqm*S_(X,S,D))^2)
 }
 
 # fleet planner's approximate optimality condition

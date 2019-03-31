@@ -66,11 +66,11 @@ args <- commandArgs(trailingOnly=TRUE)
 # 1c. Set computation hyperparameters
 #############################################################################
 
-upper <- 1e15 # upper limit for some rootfinders - only requirement is that it should never bind
-ncores <- 20 # number of cores to use for parallel computations
-oa_gridsize <- 45
-S_gridsize_opt <- 45
-D_gridsize_opt <- 45
+upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
+ncores <- 3 # number of cores to use for parallel computations
+oa_gridsize <- 20
+S_gridsize_opt <- 20
+D_gridsize_opt <- 20
 S_grid_upper_oa <- 8000
 S_grid_upper_opt <- 8000
 D_grid_upper_oa <- 250000
@@ -107,7 +107,6 @@ source("main_model_estimation.r")
 # 3. Generate open access and optimal time paths
 #############################################################################
 
-R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year)
 opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
 source("main_model_projection.r")
 
