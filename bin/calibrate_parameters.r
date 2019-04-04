@@ -21,6 +21,20 @@ MS_proj_rev <- read.csv("../data/avg_econ_return.csv")
 MS_proj_total <- read.csv("../data/avg_econ_total.csv")
 commercial_sector_growth <- read.csv("../data/commercial_sector_growth.csv")
 
+png(width=500,height=400,filename=paste0("../images/implied_v_observed_costs.png"))
+ggplot(data=implied_econ_series, aes(x=year)) + 
+	geom_line(aes(y=F_t),size=1) +
+	geom_line(aes(y=F_hat),size=1, linetype="dashed") +
+	ylab("Billion USD") + xlab("Year") + theme_bw() +
+	ggtitle("Observed vs. implied aggregate launch costs") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
+	theme(text=element_text(family="Helvetica",size=20),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) 
+dev.off()
+
 projection_start <- MS_proj_rev$Year[nrow(MS_proj_rev)]+1
 
 revenue_mean_CAGR <- mean((MS_proj_rev[-1,2]/MS_proj_rev[-nrow(MS_proj_rev),2] - 1))

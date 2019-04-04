@@ -28,6 +28,7 @@ library(compiler)
 library(stargazer)
 library(cowplot)
 library(tidyr)
+library(plyr)
 library(extrafont)
 font_import(prompt=FALSE)
 
@@ -67,10 +68,10 @@ args <- commandArgs(trailingOnly=TRUE)
 #############################################################################
 
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
-ncores <- 30 # number of cores to use for parallel computations
-oa_gridsize <- 48
-S_gridsize_opt <- 48
-D_gridsize_opt <- 48
+ncores <- 3 # number of cores to use for parallel computations
+oa_gridsize <- 20
+S_gridsize_opt <- 20
+D_gridsize_opt <- 20
 S_grid_upper_oa <- 8000
 S_grid_upper_opt <- 8000
 D_grid_upper_oa <- 250000
