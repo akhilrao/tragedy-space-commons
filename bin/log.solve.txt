@@ -2,1981 +2,1803 @@
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7366.944 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67599.962 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.074 seconds.
-Total grid time: 171.393 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.064 seconds 
 
- Policy delta is 0.272264095861116
- Finished period 44 iteration 1, distance is 36849.475948259
+ Finished period 44 iteration 1, distance is 36849.469448086
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7419.803 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67603.583 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.344 seconds 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.721 seconds 
 
- Policy delta is 508.125390194669
- Finished period 44 iteration 2, distance is 21830.6972499514
+ Finished period 44 iteration 2, distance is 21428.6431730945
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7422.052 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67607.105 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.958 seconds 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.834 seconds 
 
- Policy delta is 125.130892150563
- Finished period 44 iteration 3, distance is 16132.8445315375
+ Finished period 44 iteration 3, distance is 15541.6011751602
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7424.562 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67610.635 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.026 seconds.
-Total grid time: 59.664 seconds 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.742 seconds 
 
- Policy delta is 58.410559742562
- Finished period 44 iteration 4, distance is 12861.4446935051
+ Finished period 44 iteration 4, distance is 12976.8785174253
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7428.199 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67614.159 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.033 seconds 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.836 seconds 
 
- Policy delta is 50.8280451008274
- Finished period 44 iteration 5, distance is 10953.1633487247
+ Finished period 44 iteration 5, distance is 10752.1461566081
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7430.322 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67617.722 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.742 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.056 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 6, distance is 9352.10513167437
+ Finished period 44 iteration 6, distance is 8832.66371720079
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7432.377 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67621.416 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.106 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.02 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 7, distance is 8477.6942965819
+ Finished period 44 iteration 7, distance is 8097.70967336725
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7434.592 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67625.003 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.44 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.062 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 8, distance is 7497.38297414529
+ Finished period 44 iteration 8, distance is 7417.15393007595
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7436.795 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67628.622 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.723 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.028 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 9, distance is 6741.09803458391
+ Finished period 44 iteration 9, distance is 6553.66983243191
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7438.922 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67632.277 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.178 seconds 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.797 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 10, distance is 6055.36844023425
+ Finished period 44 iteration 10, distance is 5885.40287436081
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7441.226 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67635.81 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.049 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 7.964 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 11, distance is 5514.77141543927
+ Finished period 44 iteration 11, distance is 5375.67855057515
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7443.312 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67639.442 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.638 seconds 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.909 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 12, distance is 5056.35435368927
+ Finished period 44 iteration 12, distance is 4919.50430673164
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7445.958 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67643.028 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.807 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.112 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 13, distance is 4639.88500675358
+ Finished period 44 iteration 13, distance is 4508.98164321878
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7448.096 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67646.658 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.249 seconds 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.845 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 14, distance is 4260.68739190076
+ Finished period 44 iteration 14, distance is 4135.3110109652
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7450.279 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67650.204 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.208 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.594 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 15, distance is 3916.09758773615
+ Finished period 44 iteration 15, distance is 3797.54350860725
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7452.385 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67654.023 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.529 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.316 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 16, distance is 3603.4130499048
+ Finished period 44 iteration 16, distance is 3492.28079437453
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7454.644 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67657.828 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.517 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.127 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 17, distance is 3320.14997522466
+ Finished period 44 iteration 17, distance is 3216.12122631946
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7456.827 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67661.485 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.255 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.427 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 18, distance is 3063.95588436729
+ Finished period 44 iteration 18, distance is 2966.28086146276
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7459.103 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67665.228 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.846 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.222 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 19, distance is 2832.54181152186
+ Finished period 44 iteration 19, distance is 2740.37466449614
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7461.388 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67668.911 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.563 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.118 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 20, distance is 2623.6961192106
+ Finished period 44 iteration 20, distance is 2536.36636173935
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7463.636 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67672.548 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.525 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.263 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 21, distance is 2435.30032750714
+ Finished period 44 iteration 21, distance is 2352.67426734028
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7465.947 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67676.298 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.312 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.316 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 22, distance is 2265.31949725628
+ Finished period 44 iteration 22, distance is 2198.44151363627
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7468.244 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67679.994 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.019 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.386 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 23, distance is 2111.80891304318
+ Finished period 44 iteration 23, distance is 2059.05347898102
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7470.642 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67683.761 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.416 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.529 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 24, distance is 1972.95011007576
+ Finished period 44 iteration 24, distance is 1932.26097313524
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7472.911 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67687.585 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.946 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.42 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 25, distance is 1847.07813734864
+ Finished period 44 iteration 25, distance is 1816.44904467952
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7475.281 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67691.334 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.665 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.674 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 26, distance is 1732.68571178106
+ Finished period 44 iteration 26, distance is 1710.29817959457
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7477.582 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67695.137 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.997 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.676 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 27, distance is 1628.41891306022
+ Finished period 44 iteration 27, distance is 1612.68926739719
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7479.835 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67698.966 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.547 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.713 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 28, distance is 1533.07212202763
+ Finished period 44 iteration 28, distance is 1522.65094945446
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7481.894 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67702.826 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.351 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.303 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 29, distance is 1445.58132300919
+ Finished period 44 iteration 29, distance is 1439.33690375014
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7483.913 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67706.573 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.911 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.664 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 30, distance is 1365.01501322628
+ Finished period 44 iteration 30, distance is 1362.011271544
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7486.034 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67710.556 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.724 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.484 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 31, distance is 1290.56325765178
+ Finished period 44 iteration 31, distance is 1290.03588578801
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7488.219 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67714.352 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 24.01 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.052 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 32, distance is 1221.52572029328
+ Finished period 44 iteration 32, distance is 1222.85831368828
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7490.284 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67718.328 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.868 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.887 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 33, distance is 1157.29939977499
+ Finished period 44 iteration 33, distance is 1160.00073962289
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7492.424 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67722.262 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.98 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.669 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 34, distance is 1097.36662663947
+ Finished period 44 iteration 34, distance is 1101.04979870853
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7494.498 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67726.108 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.935 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.209 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 35, distance is 1041.2837142749
+ Finished period 44 iteration 35, distance is 1045.64745025968
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7496.7 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67730.021 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.283 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.74 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 36, distance is 989.376861597324
+ Finished period 44 iteration 36, distance is 993.482931422128
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7498.8 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67733.887 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.582 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.573 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 37, distance is 940.742578197242
+ Finished period 44 iteration 37, distance is 944.285750326206
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7500.99 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67738.089 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.396 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.289 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 38, distance is 894.752310457581
+ Finished period 44 iteration 38, distance is 897.819626030483
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7503.195 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67742.207 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.135 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.65 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 39, distance is 851.20998724777
+ Finished period 44 iteration 39, distance is 853.877277025196
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7505.448 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67746.433 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.04 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.587 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 40, distance is 809.943428961473
+ Finished period 44 iteration 40, distance is 812.275969084585
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7507.644 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67750.784 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.566 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.398 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 41, distance is 770.800358043838
+ Finished period 44 iteration 41, distance is 772.853738411155
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7509.919 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67754.551 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.063 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.25 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 42, distance is 733.645105308737
+ Finished period 44 iteration 42, distance is 735.466208078229
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7512.225 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67758.228 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.308 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.202 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 43, distance is 698.355905205419
+ Finished period 44 iteration 43, distance is 699.98391871748
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7514.441 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67761.912 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.294 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.376 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 44, distance is 664.822684064478
+ Finished period 44 iteration 44, distance is 666.29009954803
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7516.718 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67765.629 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.069 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.733 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 45, distance is 632.945257008832
+ Finished period 44 iteration 45, distance is 634.278812700126
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7518.98 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67769.465 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.029 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.631 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 46, distance is 602.63186079482
+ Finished period 44 iteration 46, distance is 603.853411439253
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7521.238 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67773.297 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.605 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.015 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 47, distance is 573.797960791475
+ Finished period 44 iteration 47, distance is 574.925260615157
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7523.563 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67777.234 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.379 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.015 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 48, distance is 546.36528027762
+ Finished period 44 iteration 48, distance is 547.425729993498
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7525.882 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67781.302 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.805 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.811 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 49, distance is 520.261009087932
+ Finished period 44 iteration 49, distance is 521.314773336519
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7528.419 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67785.204 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.031 seconds 
+
+ Finished period 44 iteration 50, distance is 496.456977469352
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67789.19 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.861 seconds 
+
+ Finished period 44 iteration 51, distance is 472.790470371867
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67793.081 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.007 seconds 
+
+ Finished period 44 iteration 52, distance is 450.256813647429
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67797.053 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.594 seconds 
+
+ Finished period 44 iteration 53, distance is 428.800732654432
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67800.857 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.718 seconds 
+
+ Finished period 44 iteration 54, distance is 408.369882248371
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67804.696 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.053 seconds 
+
+ Finished period 44 iteration 55, distance is 388.914641692711
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67808.717 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.576 seconds 
+
+ Finished period 44 iteration 56, distance is 370.387933554361
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67812.543 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.956 seconds 
+
+ Finished period 44 iteration 57, distance is 352.7450624271
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67816.499 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.654 seconds 
+
+ Finished period 44 iteration 58, distance is 335.943570142001
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67820.41 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.273 seconds 
+
+ Finished period 44 iteration 59, distance is 319.943104786274
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67824.153 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.889 seconds 
+
+ Finished period 44 iteration 60, distance is 304.705301374779
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67828.133 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.695 seconds 
+
+ Finished period 44 iteration 61, distance is 290.193672437192
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67832.014 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.791 seconds 
+
+ Finished period 44 iteration 62, distance is 276.373507125681
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67835.937 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.101 seconds 
+
+ Finished period 44 iteration 63, distance is 263.211777702061
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67839.969 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.054 seconds 
+
+ Finished period 44 iteration 64, distance is 250.677052488463
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67843.942 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.986 seconds 
+
+ Finished period 44 iteration 65, distance is 238.739414522279
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67847.868 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.841 seconds 
+
+ Finished period 44 iteration 66, distance is 227.370385297865
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67851.83 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.8 seconds 
+
+ Finished period 44 iteration 67, distance is 216.542853079736
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67855.804 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.897 seconds 
+
+ Finished period 44 iteration 68, distance is 206.231005357782
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67859.781 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.891 seconds 
+
+ Finished period 44 iteration 69, distance is 196.410265082464
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67863.715 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.621 seconds 
+
+ Finished period 44 iteration 70, distance is 187.057230372768
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67867.59 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.832 seconds 
+
+ Finished period 44 iteration 71, distance is 178.149617431074
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67871.612 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.053 seconds 
+
+ Finished period 44 iteration 72, distance is 169.666206436901
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67875.644 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.99 seconds 
+
+ Finished period 44 iteration 73, distance is 161.586790216621
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67879.655 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.817 seconds 
+
+ Finished period 44 iteration 74, distance is 153.89212551224
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67883.612 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.993 seconds 
+
+ Finished period 44 iteration 75, distance is 146.563886689051
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67887.631 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.468 seconds 
+
+ Finished period 44 iteration 76, distance is 139.584621739166
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67891.728 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.015 seconds 
+
+ Finished period 44 iteration 77, distance is 132.937710450293
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67895.709 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.085 seconds 
+
+ Finished period 44 iteration 78, distance is 126.607324619778
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67899.752 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.095 seconds 
+
+ Finished period 44 iteration 79, distance is 120.578390205454
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67903.759 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.038 seconds 
+
+ Finished period 44 iteration 80, distance is 114.836551309767
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67907.724 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.927 seconds 
+
+ Finished period 44 iteration 81, distance is 109.368135903875
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67911.729 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.705 seconds 
+
+ Finished period 44 iteration 82, distance is 104.160123201553
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67915.636 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.85 seconds 
+
+ Finished period 44 iteration 83, distance is 99.2001126021205
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67919.615 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.138 seconds 
+
+ Finished period 44 iteration 84, distance is 94.4762941223453
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67923.712 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.467 seconds 
+
+ Finished period 44 iteration 85, distance is 89.9774202452099
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67927.935 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.62 seconds 
+
+ Finished period 44 iteration 86, distance is 85.6927791149355
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67932.12 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.129 seconds 
+
+ Finished period 44 iteration 87, distance is 81.6121690141445
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 67936.543 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
  Average cell time: 0.009 seconds.
-Total grid time: 21.582 seconds 
+Total grid time: 10.671 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 50, distance is 495.417156320793
+ Finished period 44 iteration 88, distance is 77.7258740593097
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7530.427 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67941.063 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.255 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.38 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 51, distance is 471.770018377574
+ Finished period 44 iteration 89, distance is 74.0246410568361
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7532.504 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67945.452 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.298 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.429 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 52, distance is 449.25973911109
+ Finished period 44 iteration 90, distance is 70.4996574636316
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7534.589 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67949.603 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.027 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.966 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 53, distance is 427.829943439923
+ Finished period 44 iteration 91, distance is 67.1425303976866
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7536.701 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67953.936 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.831 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.703 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 54, distance is 407.427429539326
+ Finished period 44 iteration 92, distance is 63.9452666512807
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7538.862 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67958.151 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 24.021 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.518 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 55, distance is 388.001907781087
+ Finished period 44 iteration 93, distance is 60.900253654836
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7540.982 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67962.349 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.191 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.963 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 56, distance is 369.505777059443
+ Finished period 44 iteration 94, distance is 58.0002413495968
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7543.217 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67966.351 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.124 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.201 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 57, distance is 351.893931118655
+ Finished period 44 iteration 95, distance is 55.2383249233535
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7545.375 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67970.408 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.22 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.255 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 58, distance is 335.123589071794
+ Finished period 44 iteration 96, distance is 52.6079283685249
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7547.605 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67974.496 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.847 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.97 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 59, distance is 319.154145544395
+ Finished period 44 iteration 97, distance is 50.1027888239769
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7549.747 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67978.521 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.429 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.87 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 60, distance is 303.94703686249
+ Finished period 44 iteration 98, distance is 47.7169416625984
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7551.969 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67982.495 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.418 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.174 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 61, distance is 289.465620467585
+ Finished period 44 iteration 99, distance is 45.4447062888939
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7554.269 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67986.546 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.821 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.153 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 62, distance is 275.675065351243
+ Finished period 44 iteration 100, distance is 43.2806726133858
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7556.457 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67990.612 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.96 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.682 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 63, distance is 262.542251762701
+ Finished period 44 iteration 101, distance is 41.2196881708514
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7558.722 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67994.862 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.582 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.456 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 64, distance is 250.035678815999
+ Finished period 44 iteration 102, distance is 39.2568458525348
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7560.923 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.212 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 65, distance is 238.125378897588
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7563.172 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.33 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 66, distance is 226.78283800339
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7565.48 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.085 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 67, distance is 215.980921298004
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7567.756 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.206 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 68, distance is 205.693803324248
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7570.091 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.417 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 69, distance is 195.896902395209
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7572.362 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.769 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 70, distance is 186.566818775842
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7574.957 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.19 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 71, distance is 177.681524117303
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7577.269 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.027 seconds.
-Total grid time: 63.342 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 72, distance is 169.219625621103
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7580.91 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.775 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 73, distance is 161.160804601648
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7582.991 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.791 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 74, distance is 153.48584733755
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7585.01 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.413 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 75, distance is 146.176458051807
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7587.113 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 67999.056 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
  Average cell time: 0.009 seconds.
-Total grid time: 21.814 seconds 
+Total grid time: 10.532 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 76, distance is 139.21521472247
+ Finished period 44 iteration 103, distance is 37.3874722220353
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7589.234 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68003.518 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 24.012 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.034 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 77, distance is 132.585527076386
+ Finished period 44 iteration 104, distance is 35.6071163879242
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7591.354 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68007.908 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.236 seconds 
+
+ Finished period 44 iteration 105, distance is 33.9115394064283
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68012.285 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.009 seconds.
+Total grid time: 10.903 seconds 
+
+ Finished period 44 iteration 106, distance is 32.2967041885713
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68016.881 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.164 seconds 
+
+ Finished period 44 iteration 107, distance is 30.7587658878474
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68021.321 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.842 seconds 
+
+ Finished period 44 iteration 108, distance is 29.2940627456992
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68025.614 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.051 seconds 
+
+ Finished period 44 iteration 109, distance is 27.899107373436
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68030.129 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.375 seconds 
+
+ Finished period 44 iteration 110, distance is 26.5705784482707
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68033.926 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.391 seconds 
+
+ Finished period 44 iteration 111, distance is 25.3053128058382
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68037.73 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.442 seconds 
+
+ Finished period 44 iteration 112, distance is 24.1002979088516
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68041.543 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.533 seconds 
+
+ Finished period 44 iteration 113, distance is 22.9526646740269
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68045.384 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.197 seconds 
+
+ Finished period 44 iteration 114, distance is 21.859680641006
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68049.404 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.548 seconds 
+
+ Finished period 44 iteration 115, distance is 20.8187434670108
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68053.216 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.621 seconds 
+
+ Finished period 44 iteration 116, distance is 19.8273747299972
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68057.074 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.917 seconds 
+
+ Finished period 44 iteration 117, distance is 18.8832140282029
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68061.002 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.514 seconds 
+
+ Finished period 44 iteration 118, distance is 17.9840133599064
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68064.773 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.617 seconds 
+
+ Finished period 44 iteration 119, distance is 17.1276317711454
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68068.605 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.629 seconds 
+
+ Finished period 44 iteration 120, distance is 16.3120302580646
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68072.439 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.451 seconds 
+
+ Finished period 44 iteration 121, distance is 15.5352669123095
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68076.255 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.449 seconds 
+
+ Finished period 44 iteration 122, distance is 14.7954922973586
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68080.06 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.445 seconds 
+
+ Finished period 44 iteration 123, distance is 14.0909450450272
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68083.886 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.65 seconds 
+
+ Finished period 44 iteration 124, distance is 13.419947661896
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68087.835 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.136 seconds 
+
+ Finished period 44 iteration 125, distance is 12.7809025351016
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68091.821 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.99 seconds 
+
+ Finished period 44 iteration 126, distance is 12.1722881286405
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 68095.971 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
  Average cell time: 0.011 seconds.
-Total grid time: 26.305 seconds 
+Total grid time: 13.888 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 78, distance is 126.271596650768
+ Finished period 44 iteration 127, distance is 11.5926553605823
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7593.513 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.443 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 79, distance is 120.258378809143
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7595.597 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.001 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 80, distance is 114.531546612649
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7597.842 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.814 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 81, distance is 109.077456446452
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7600 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.266 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 82, distance is 103.883115316276
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7602.191 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.29 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 83, distance is 98.9361497263599
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7604.381 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.374 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 84, distance is 94.2247760616301
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7606.682 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.499 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 85, distance is 89.7377723983373
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7608.847 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.202 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 86, distance is 85.4644516723638
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7611.019 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68101.665 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
  Average cell time: 0.013 seconds.
-Total grid time: 30.042 seconds 
+Total grid time: 15.371 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 87, distance is 81.3946361375565
+ Finished period 44 iteration 128, distance is 11.0406241529272
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7613.34 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68108.071 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.554 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.879 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 88, distance is 77.5186330518336
+ Finished period 44 iteration 129, distance is 10.514880145638
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7615.557 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68112.382 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.268 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.255 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 89, distance is 73.8272115296568
+ Finished period 44 iteration 130, distance is 10.0141715673089
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7617.871 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68116.478 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.078 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.772 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 90, distance is 70.3115805052221
+ Finished period 44 iteration 131, distance is 9.53730625455501
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7620.185 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68120.734 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.38 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.09 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 91, distance is 66.9633677507518
+ Finished period 44 iteration 132, distance is 9.08314881386468
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7622.505 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68125.002 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.113 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.585 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 92, distance is 63.7745999000035
+ Finished period 44 iteration 133, distance is 8.65061791794142
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7624.722 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68128.879 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.65 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.951 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 93, distance is 60.7376834281313
+ Finished period 44 iteration 134, distance is 8.23868373139703
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7627.042 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68132.82 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 28.932 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.011 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 94, distance is 57.8453865402262
+ Finished period 44 iteration 135, distance is 7.84636545847752
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7629.369 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68136.804 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.379 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.962 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 95, distance is 55.0908219268895
+ Finished period 44 iteration 136, distance is 7.47272900806274
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7631.521 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68140.769 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.112 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.863 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 96, distance is 52.4674303432112
+ Finished period 44 iteration 137, distance is 7.1168847696099
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7633.644 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68144.722 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.48 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.782 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 97, distance is 49.9689649720676
+ Finished period 44 iteration 138, distance is 6.77798549484578
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7635.721 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68148.687 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.564 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.765 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 98, distance is 47.5894765347184
+ Finished period 44 iteration 139, distance is 6.45522428082768
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7637.804 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68152.611 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.239 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.658 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 99, distance is 45.3232991120603
+ Finished period 44 iteration 140, distance is 6.14783264839207
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7640.006 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68156.495 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.944 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.272 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 100, distance is 43.1650366416434
+ Finished period 44 iteration 141, distance is 5.85507871274604
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7642.089 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68160.563 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.517 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.998 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 101, distance is 41.1095500609954
+ Finished period 44 iteration 142, distance is 5.57626544072991
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7644.223 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68164.552 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.524 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.901 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 102, distance is 39.151945061778
+ Finished period 44 iteration 143, distance is 5.31072899117135
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7646.42 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68168.548 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.167 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.692 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 103, distance is 37.2875604305882
+ Finished period 44 iteration 144, distance is 5.05783713443088
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7648.642 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68172.486 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.858 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.734 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 104, distance is 35.511956943199
+ Finished period 44 iteration 145, distance is 4.81698774709366
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7650.874 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68176.411 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.089 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.178 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 105, distance is 33.8209067907883
+ Finished period 44 iteration 146, distance is 4.5876073781983
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7653.026 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68180.46 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.258 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.968 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 106, distance is 32.2103835084999
+ Finished period 44 iteration 147, distance is 4.36914988399076
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7655.312 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68184.407 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.022 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.907 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 107, distance is 30.6765523848298
+ Finished period 44 iteration 148, distance is 4.16109512760886
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7657.559 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68188.337 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.49 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.066 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 108, distance is 29.2157613280287
+ Finished period 44 iteration 149, distance is 3.96294774056878
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7659.711 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68192.379 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.032 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.629 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 109, distance is 27.8245321678696
+ Finished period 44 iteration 150, distance is 3.77423594344873
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7661.951 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68196.3 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.007 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.763 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 110, distance is 26.4995523717953
+ Finished period 44 iteration 151, distance is 3.59451042229193
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7664.222 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68200.251 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 28.957 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.051 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 111, distance is 25.2376671559177
+ Finished period 44 iteration 152, distance is 3.42334325934644
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7666.523 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68204.284 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.929 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.876 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 112, distance is 24.0358719718351
+ Finished period 44 iteration 153, distance is 3.26032691367436
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7668.767 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68208.257 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.148 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.845 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 113, distance is 22.8913053512515
+ Finished period 44 iteration 154, distance is 3.10507325112121
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7670.98 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68212.217 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.117 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.802 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 114, distance is 21.8012420921877
+ Finished period 44 iteration 155, distance is 2.95721262012376
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7673.331 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68216.202 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.19 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.731 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 115, distance is 20.7630867685657
+ Finished period 44 iteration 156, distance is 2.81639297152287
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7675.644 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68220.136 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.456 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.821 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 116, distance is 19.7743675504171
+ Finished period 44 iteration 157, distance is 2.68227902051876
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7677.923 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68224.123 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 39.799 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.94 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 117, distance is 18.83273031711
+ Finished period 44 iteration 158, distance is 2.55455144810549
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7681.029 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68228.129 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.586 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.902 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 118, distance is 17.9359330524749
+ Finished period 44 iteration 159, distance is 2.43290614103898
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7683.06 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68232.108 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.643 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.947 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 119, distance is 17.081840504834
+ Finished period 44 iteration 160, distance is 2.31705346767558
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7685.16 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68236.126 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.229 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.139 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 120, distance is 16.2684191039007
+ Finished period 44 iteration 161, distance is 2.20671758826938
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7687.237 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68240.187 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.97 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.446 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 121, distance is 15.4937321176985
+ Finished period 44 iteration 162, distance is 2.10163579837536
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7689.399 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68244.338 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.183 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.109 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 122, distance is 14.7559350410884
+ Finished period 44 iteration 163, distance is 2.00155790320423
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7691.532 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68248.36 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.29 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.23 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 123, distance is 14.0532712039421
+ Finished period 44 iteration 164, distance is 1.90624562208541
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7693.676 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68252.421 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.677 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.073 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 124, distance is 13.3840675881656
+ Finished period 44 iteration 165, distance is 1.81547202102956
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7695.834 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68256.424 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.908 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.191 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 125, distance is 12.7467308443156
+ Finished period 44 iteration 166, distance is 1.72902097244514
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7698.074 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68260.498 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.326 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.017 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 126, distance is 12.1397434973624
+ Finished period 44 iteration 167, distance is 1.64668664040801
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7700.246 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68264.508 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.368 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.183 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 127, distance is 11.5616603338276
+ Finished period 44 iteration 168, distance is 1.56827299087308
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7702.474 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68268.555 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.476 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.298 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 128, distance is 11.0111049604893
+ Finished period 44 iteration 169, distance is 1.49359332464519
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7704.663 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68272.656 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.341 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.221 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 129, distance is 10.486766527174
+ Finished period 44 iteration 170, distance is 1.42246983299265
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7706.839 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68276.699 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.088 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.416 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 130, distance is 9.98739660569117
+ Finished period 44 iteration 171, distance is 1.35473317427386
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7709.07 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68280.853 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.79 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.989 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 131, distance is 9.51180621696403
+ Finished period 44 iteration 172, distance is 1.29022207073285
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7711.237 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68284.885 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.738 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.667 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 132, distance is 9.05886300059501
+ Finished period 44 iteration 173, distance is 1.22878292453242
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7713.53 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68289.174 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.654 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.003 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 133, distance is 8.62748851790093
+ Finished period 44 iteration 174, distance is 1.17026945193356
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7715.837 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68293.207 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.539 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.935 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 134, distance is 8.21665568527533
+ Finished period 44 iteration 175, distance is 1.11454233518452
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7718.025 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68297.583 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.344 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.779 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 135, distance is 7.82538632763317
+ Finished period 44 iteration 176, distance is 1.0614688906644
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7720.321 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68301.863 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.014 seconds.
-Total grid time: 31.215 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.579 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 136, distance is 7.45274884992978
+ Finished period 44 iteration 177, distance is 1.01092275301926
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7722.715 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68306.103 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 28.804 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.622 seconds 
 
- Policy delta is 0
- Finished period 44 iteration 137, distance is 7.09785601886688
+ Finished period 44 iteration 178, distance is 0.96278357427218
  Stopping criteria: distance < 1
 
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7724.993 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.844 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 138, distance is 6.75986285074032
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7727.244 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.768 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 139, distance is 6.43796459885198
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7729.605 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.027 seconds.
-Total grid time: 62.566 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 140, distance is 6.13139483830309
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7733.253 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.538 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 141, distance is 5.8394236403401
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7735.334 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.583 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 142, distance is 5.56135583494324
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7737.385 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.27 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 143, distance is 5.29652935563354
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7739.46 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.364 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 144, distance is 5.04431366256904
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7741.554 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.653 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 145, distance is 4.80410824203864
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7743.751 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 24.067 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 146, distance is 4.57534117600881
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7745.864 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.512 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 147, distance is 4.35746778082103
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7748.007 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.541 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 148, distance is 4.14996931009227
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7750.167 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.749 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 149, distance is 3.95235171963577
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7752.355 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 24.13 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 150, distance is 3.76414449122967
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7754.547 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.514 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 151, distance is 3.58489951235242
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7756.785 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.019 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 152, distance is 3.41419000909082
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7758.995 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.205 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 153, distance is 3.25160953024169
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7761.282 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.541 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 154, distance is 3.09677097923122
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7763.48 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.556 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 155, distance is 2.94930569289136
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7765.731 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.209 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 156, distance is 2.80886256325175
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7768.057 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.58 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 157, distance is 2.67510720191058
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7770.306 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.884 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 158, distance is 2.54772114363732
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7772.572 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.302 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 159, distance is 2.42640108830528
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7774.95 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.129 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 160, distance is 2.31085817859275
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7777.217 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.204 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 161, distance is 2.20081731234677
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7779.475 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.283 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 162, distance is 2.09601648733951
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7781.997 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.111 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 163, distance is 1.99620617798064
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7784.067 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 24.091 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 164, distance is 1.90114874055143
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7786.192 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.05 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 165, distance is 1.81061784783378
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7788.255 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.958 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 166, distance is 1.72439794999082
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7790.365 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.329 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 167, distance is 1.64228376167011
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7792.468 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.338 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 168, distance is 1.56407977285562
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7794.673 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.776 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 169, distance is 1.48959978346829
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7796.833 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.142 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 170, distance is 1.41866646028939
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7799.13 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.334 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 171, distance is 1.35111091443105
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7801.296 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.482 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 172, distance is 1.2867722993542
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7803.569 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.684 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 173, distance is 1.22549742786214
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7805.802 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.955 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 174, distance is 1.16714040740044
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7808.012 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.607 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 175, distance is 1.11156229270273
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7810.307 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.954 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 176, distance is 1.05863075490925
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7812.483 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.575 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 177, distance is 1.00821976651787
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7814.638 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.272 seconds 
-
- Policy delta is 0
- Finished period 44 iteration 178, distance is 0.960209301410941
- Stopping criteria: distance < 1
-
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7816.942 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68310.557 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.823 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.489 seconds 
 
- Finished period 43 iteration 1, distance is 339.905194982461
+ Finished period 43 iteration 1, distance is 277.676369233695
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7819.239 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68314.369 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.379 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.496 seconds 
 
  Finished period 43 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -1984,21 +1806,21 @@ Total grid time: 26.379 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7821.45 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68318.19 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.146 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.782 seconds 
 
- Finished period 42 iteration 1, distance is 58.4106749128245
+ Finished period 42 iteration 1, distance is 51.9933992989241
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7823.788 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68322.054 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 28.827 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.808 seconds 
 
  Finished period 42 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2006,91 +1828,81 @@ Total grid time: 28.827 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7826.129 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68325.947 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.433 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.597 seconds 
 
- Finished period 41 iteration 1, distance is 0.12886900685686
+ Finished period 41 iteration 1, distance is 0.124921440556491
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7828.459 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68329.745 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.016 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.617 seconds 
 
- Finished period 40 iteration 1, distance is 0.129465045182059
+ Finished period 40 iteration 1, distance is 0.125499665857234
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7830.772 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68333.572 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.028 seconds.
-Total grid time: 63.691 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.596 seconds 
 
- Finished period 39 iteration 1, distance is 58.4106748851288
- Stopping criteria: distance < 1
-
-Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7834.5 seconds
- Starting maximization step, grid size = 2304: 
-.Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.56 seconds 
-
- Finished period 39 iteration 2, distance is 0
+ Finished period 39 iteration 1, distance is 0.126081141928879
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7836.572 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68337.404 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.198 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.764 seconds 
 
- Finished period 38 iteration 1, distance is 0.130638953054444
+ Finished period 38 iteration 1, distance is 0.126665891707361
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7838.689 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68341.277 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.56 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.815 seconds 
 
- Finished period 37 iteration 1, distance is 0.13127340697821
+ Finished period 37 iteration 1, distance is 0.127253938377564
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7840.801 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68345.211 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.586 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.591 seconds 
 
- Finished period 36 iteration 1, distance is 165.81613184876
+ Finished period 36 iteration 1, distance is 48.069752320412
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7842.888 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68349.064 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.982 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.556 seconds 
 
  Finished period 36 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2098,21 +1910,21 @@ Total grid time: 24.982 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7845.06 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68352.939 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.651 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.565 seconds 
 
- Finished period 35 iteration 1, distance is 132.104368021753
+ Finished period 35 iteration 1, distance is 165.017035251015
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7847.164 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68356.846 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.861 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.385 seconds 
 
  Finished period 35 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2120,21 +1932,21 @@ Total grid time: 25.861 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7849.346 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68360.963 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.568 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.768 seconds 
 
- Finished period 34 iteration 1, distance is 214.01637673706
+ Finished period 34 iteration 1, distance is 132.38910625535
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7851.596 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68364.864 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.1 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.999 seconds 
 
  Finished period 34 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2142,21 +1954,21 @@ Total grid time: 25.1 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7853.734 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68368.828 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.272 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.758 seconds 
 
- Finished period 33 iteration 1, distance is 123.374109391489
+ Finished period 33 iteration 1, distance is 78.1046413339838
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7855.968 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68372.755 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.627 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.861 seconds 
 
  Finished period 33 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2164,21 +1976,21 @@ Total grid time: 28.627 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7858.236 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68376.688 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.853 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.941 seconds 
 
- Finished period 32 iteration 1, distance is 249.937718115187
+ Finished period 32 iteration 1, distance is 159.556324037094
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7860.422 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68380.625 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.391 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.112 seconds 
 
  Finished period 32 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2186,21 +1998,21 @@ Total grid time: 27.391 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7862.715 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68384.62 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.561 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.924 seconds 
 
- Finished period 31 iteration 1, distance is 236.35073874064
+ Finished period 31 iteration 1, distance is 159.556324037094
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7864.988 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68388.581 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.313 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.761 seconds 
 
  Finished period 31 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2208,21 +2020,21 @@ Total grid time: 28.313 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7867.315 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68392.489 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.895 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.781 seconds 
 
- Finished period 30 iteration 1, distance is 58.4105460621392
+ Finished period 30 iteration 1, distance is 51.9935653909447
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7869.601 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68396.412 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.565 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.996 seconds 
 
  Finished period 30 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2230,21 +2042,21 @@ Total grid time: 28.565 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7871.961 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68400.419 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.132 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.621 seconds 
 
- Finished period 29 iteration 1, distance is 146.62901665663
+ Finished period 29 iteration 1, distance is 81.0204982574102
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7874.853 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68404.288 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 28.889 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.597 seconds 
 
  Finished period 29 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2252,21 +2064,21 @@ Total grid time: 28.889 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7878.007 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68408.163 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.317 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.625 seconds 
 
- Finished period 28 iteration 1, distance is 100.813482758135
+ Finished period 28 iteration 1, distance is 177.731612842033
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7880.292 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68412.071 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.808 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.643 seconds 
 
  Finished period 28 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2274,21 +2086,21 @@ Total grid time: 26.808 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7882.552 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68415.943 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.026 seconds.
-Total grid time: 60.381 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.551 seconds 
 
- Finished period 27 iteration 1, distance is 102.319923935129
+ Finished period 27 iteration 1, distance is 155.678875533771
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7886.248 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68420.121 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.352 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.011 seconds 
 
  Finished period 27 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2296,21 +2108,21 @@ Total grid time: 23.352 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7888.31 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68424.134 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.384 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.657 seconds 
 
- Finished period 26 iteration 1, distance is 100.069410176069
+ Finished period 26 iteration 1, distance is 153.055539247832
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7890.402 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68428.019 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.798 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.56 seconds 
 
  Finished period 26 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2318,21 +2130,21 @@ Total grid time: 22.798 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7892.471 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68432.166 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.814 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.14 seconds 
 
- Finished period 25 iteration 1, distance is 287.849735685749
+ Finished period 25 iteration 1, distance is 278.256450488066
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7894.639 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68436.221 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.53 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.331 seconds 
 
  Finished period 25 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2340,21 +2152,21 @@ Total grid time: 24.53 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7896.793 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68440.36 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.044 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.427 seconds 
 
- Finished period 24 iteration 1, distance is 387.777374630885
+ Finished period 24 iteration 1, distance is 282.361390611051
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7898.934 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68444.331 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.474 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.596 seconds 
 
  Finished period 24 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2362,21 +2174,21 @@ Total grid time: 24.474 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7901.105 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68448.472 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.56 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.466 seconds 
 
- Finished period 23 iteration 1, distance is 77.5332987981648
+ Finished period 23 iteration 1, distance is 107.225867421408
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7903.267 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68452.652 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.246 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.362 seconds 
 
  Finished period 23 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2384,21 +2196,21 @@ Total grid time: 27.246 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7905.521 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68456.727 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.849 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.002 seconds 
 
- Finished period 22 iteration 1, distance is 21.769945658686
+ Finished period 22 iteration 1, distance is 107.225867421408
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7907.708 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68460.692 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.499 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.971 seconds 
 
  Finished period 22 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2406,21 +2218,21 @@ Total grid time: 25.499 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7909.938 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68464.658 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.03 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.775 seconds 
 
- Finished period 21 iteration 1, distance is 58.4106994902875
+ Finished period 21 iteration 1, distance is 107.225988880746
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7912.139 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68468.572 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.228 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.845 seconds 
 
  Finished period 21 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2428,21 +2240,21 @@ Total grid time: 28.228 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7914.384 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68472.493 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.29 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.307 seconds 
 
- Finished period 20 iteration 1, distance is 58.4105530445797
+ Finished period 20 iteration 1, distance is 107.225988880746
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7916.632 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68476.601 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.586 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.282 seconds 
 
  Finished period 20 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2450,21 +2262,21 @@ Total grid time: 28.586 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7918.937 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68480.691 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.775 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.653 seconds 
 
- Finished period 19 iteration 1, distance is 308.48318338319
+ Finished period 19 iteration 1, distance is 210.048141297112
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7921.244 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68484.907 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.674 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.529 seconds 
 
  Finished period 19 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2472,21 +2284,21 @@ Total grid time: 27.674 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7923.529 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68489.102 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.144 seconds 
+ Average cell time: 0.009 seconds.
+Total grid time: 10.91 seconds 
 
- Finished period 18 iteration 1, distance is 308.48318338319
+ Finished period 18 iteration 1, distance is 210.048141297112
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7925.859 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68493.651 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.757 seconds 
+ Average cell time: 0.009 seconds.
+Total grid time: 11.159 seconds 
 
  Finished period 18 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2494,21 +2306,21 @@ Total grid time: 28.757 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7928.181 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68498.264 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.632 seconds 
+ Average cell time: 0.009 seconds.
+Total grid time: 10.916 seconds 
 
- Finished period 17 iteration 1, distance is 379.718095228667
+ Finished period 17 iteration 1, distance is 275.040020196131
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7930.471 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68502.712 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 28.868 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.929 seconds 
 
  Finished period 17 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2516,21 +2328,21 @@ Total grid time: 28.868 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7932.795 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68506.696 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.027 seconds.
-Total grid time: 62.763 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.944 seconds 
 
- Finished period 16 iteration 1, distance is 117.473291902553
+ Finished period 16 iteration 1, distance is 119.783299011898
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7936.519 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68510.644 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.492 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.961 seconds 
 
  Finished period 16 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2538,21 +2350,21 @@ Total grid time: 23.492 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7938.637 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68514.602 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.957 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.855 seconds 
 
- Finished period 15 iteration 1, distance is 120.308696958292
+ Finished period 15 iteration 1, distance is 122.671672832941
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7940.761 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68518.542 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.976 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.906 seconds 
 
  Finished period 15 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2560,21 +2372,21 @@ Total grid time: 23.976 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7942.837 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68522.486 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.288 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.257 seconds 
 
- Finished period 14 iteration 1, distance is 77.5333344540277
+ Finished period 14 iteration 1, distance is 60.5137157420152
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7945.026 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68526.547 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.225 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.159 seconds 
 
  Finished period 14 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2582,21 +2394,21 @@ Total grid time: 25.225 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7947.196 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68530.581 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 24.76 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.352 seconds 
 
- Finished period 13 iteration 1, distance is 81.285053512761
+ Finished period 13 iteration 1, distance is 79.0605115934583
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7949.327 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68534.698 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.449 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.798 seconds 
 
  Finished period 13 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2604,21 +2416,21 @@ Total grid time: 26.449 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7951.523 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68538.968 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 27.571 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.436 seconds 
 
- Finished period 12 iteration 1, distance is 58.4105533627776
+ Finished period 12 iteration 1, distance is 47.9086887131422
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7953.757 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68543.056 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.539 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.933 seconds 
 
  Finished period 12 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2626,21 +2438,21 @@ Total grid time: 25.539 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7955.904 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68547.041 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.905 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.34 seconds 
 
- Finished period 11 iteration 1, distance is 352.862500931354
+ Finished period 11 iteration 1, distance is 248.84973452943
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7958.168 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68551.148 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.417 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.471 seconds 
 
  Finished period 11 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2648,21 +2460,21 @@ Total grid time: 26.417 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7960.414 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68555.353 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.836 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.58 seconds 
 
- Finished period 10 iteration 1, distance is 358.062663165279
+ Finished period 10 iteration 1, distance is 295.39894043465
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7962.557 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68559.242 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.208 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.704 seconds 
 
  Finished period 10 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2670,21 +2482,21 @@ Total grid time: 25.208 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7964.715 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68563.162 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.581 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.58 seconds 
 
- Finished period 9 iteration 1, distance is 517.192280729489
+ Finished period 9 iteration 1, distance is 521.093197309029
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7967.014 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68567.529 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.385 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.242 seconds 
 
  Finished period 9 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2692,21 +2504,21 @@ Total grid time: 30.385 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7969.454 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68572.046 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 28.927 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.131 seconds 
 
- Finished period 8 iteration 1, distance is 515.654401447916
+ Finished period 8 iteration 1, distance is 479.427399758399
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7972.549 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68576.433 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.274 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.753 seconds 
 
  Finished period 8 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2714,21 +2526,21 @@ Total grid time: 29.274 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7974.835 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68580.729 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 28.335 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.715 seconds 
 
- Finished period 7 iteration 1, distance is 359.813005923205
+ Finished period 7 iteration 1, distance is 138.31529460352
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7977.322 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68585.217 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 28.873 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.662 seconds 
 
  Finished period 7 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2736,21 +2548,21 @@ Total grid time: 28.873 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7979.711 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68589.102 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 29.138 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.747 seconds 
 
- Finished period 6 iteration 1, distance is 435.157215746408
+ Finished period 6 iteration 1, distance is 327.348630895398
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7982.036 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68593.03 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.013 seconds.
-Total grid time: 30.241 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.729 seconds 
 
  Finished period 6 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2758,21 +2570,21 @@ Total grid time: 30.241 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7984.421 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68597.015 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.029 seconds.
-Total grid time: 66.336 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.006 seconds 
 
- Finished period 5 iteration 1, distance is 262.565888047405
+ Finished period 5 iteration 1, distance is 318.795236759041
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7988.151 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68600.959 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 22.089 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.682 seconds 
 
  Finished period 5 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2780,21 +2592,21 @@ Total grid time: 22.089 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7990.214 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68604.809 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.534 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.715 seconds 
 
- Finished period 4 iteration 1, distance is 1187.76853424648
+ Finished period 4 iteration 1, distance is 1128.43038839346
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7992.321 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68608.674 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.881 seconds 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.25 seconds 
 
  Finished period 4 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2802,21 +2614,21 @@ Total grid time: 23.881 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7994.409 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68612.971 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.012 seconds.
-Total grid time: 26.862 seconds 
+ Average cell time: 0.009 seconds.
+Total grid time: 10.553 seconds 
 
- Finished period 3 iteration 1, distance is 1025.93320913686
+ Finished period 3 iteration 1, distance is 995.451073452826
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7996.668 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68617.266 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 26.134 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.735 seconds 
 
  Finished period 3 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2824,21 +2636,21 @@ Total grid time: 26.134 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 7998.877 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68621.191 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.011 seconds.
-Total grid time: 25.525 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.815 seconds 
 
- Finished period 2 iteration 1, distance is 449.590756133582
+ Finished period 2 iteration 1, distance is 230.069248112571
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 8001.05 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68625.111 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 23.463 seconds 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.704 seconds 
 
  Finished period 2 iteration 2, distance is 0
  Stopping criteria: distance < 1
@@ -2846,71 +2658,71 @@ Total grid time: 23.463 seconds
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 8003.188 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68628.993 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.007 seconds.
-Total grid time: 16.047 seconds 
+ Average cell time: 0.005 seconds.
+Total grid time: 5.597 seconds 
 
- Finished period 1 iteration 1, distance is 504.865829734074
+ Finished period 1 iteration 1, distance is 507.328524963254
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 8005.258 seconds
- Starting maximization step, grid size = 2304: 
+ Done. Time to estimate interpolant: 68631.734 seconds
+ Starting maximization step, grid size = 1225: 
 .Finished. 
- Average cell time: 0.006 seconds.
-Total grid time: 14.73 seconds 
+ Average cell time: 0.005 seconds.
+Total grid time: 5.985 seconds 
 
  Finished period 1 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
- Done. Total grid compute time taken: 640.388 seconds[1] "Total time taken for open access policy in period 44: 0.0289 minutes"
+ Done. Total grid compute time taken: 1034.706 seconds[1] "Total time taken for open access policy in period 44: 0.0211 minutes"
 
-Total time taken for backwards induction: 11.25 minutes.
- Average time per period: 0.005 minutes.
-[1] "Total time taken for open access policy in period 43: 0.0261 minutes"
-[1] "Total time taken for open access policy in period 42: 0.0316 minutes"
-[1] "Total time taken for open access policy in period 41: 0.0306 minutes"
-[1] "Total time taken for open access policy in period 40: 0.0313 minutes"
-[1] "Total time taken for open access policy in period 39: 0.0331 minutes"
-[1] "Total time taken for open access policy in period 38: 0.0343 minutes"
-[1] "Total time taken for open access policy in period 37: 0.0324 minutes"
-[1] "Total time taken for open access policy in period 36: 0.0305 minutes"
-[1] "Total time taken for open access policy in period 35: 0.0325 minutes"
-[1] "Total time taken for open access policy in period 34: 0.0341 minutes"
-[1] "Total time taken for open access policy in period 33: 0.0342 minutes"
-[1] "Total time taken for open access policy in period 32: 0.0297 minutes"
-[1] "Total time taken for open access policy in period 31: 0.0313 minutes"
-[1] "Total time taken for open access policy in period 30: 0.0327 minutes"
-[1] "Total time taken for open access policy in period 29: 0.0334 minutes"
-[1] "Total time taken for open access policy in period 28: 0.0252 minutes"
-[1] "Total time taken for open access policy in period 27: 0.0297 minutes"
-[1] "Total time taken for open access policy in period 26: 0.0306 minutes"
-[1] "Total time taken for open access policy in period 25: 0.0323 minutes"
-[1] "Total time taken for open access policy in period 24: 0.031 minutes"
-[1] "Total time taken for open access policy in period 23: 0.0283 minutes"
-[1] "Total time taken for open access policy in period 22: 0.0291 minutes"
-[1] "Total time taken for open access policy in period 21: 0.0297 minutes"
-[1] "Total time taken for open access policy in period 20: 0.0318 minutes"
-[1] "Total time taken for open access policy in period 19: 0.0232 minutes"
-[1] "Total time taken for open access policy in period 18: 0.0283 minutes"
-[1] "Total time taken for open access policy in period 17: 0.03 minutes"
-[1] "Total time taken for open access policy in period 16: 0.0307 minutes"
-[1] "Total time taken for open access policy in period 15: 0.0313 minutes"
-[1] "Total time taken for open access policy in period 14: 0.0274 minutes"
-[1] "Total time taken for open access policy in period 13: 0.0286 minutes"
-[1] "Total time taken for open access policy in period 12: 0.0295 minutes"
-[1] "Total time taken for open access policy in period 11: 0.0318 minutes"
-[1] "Total time taken for open access policy in period 10: 0.0285 minutes"
-[1] "Total time taken for open access policy in period 9: 0.027 minutes"
-[1] "Total time taken for open access policy in period 8: 0.0262 minutes"
-[1] "Total time taken for open access policy in period 7: 0.0293 minutes"
-[1] "Total time taken for open access policy in period 6: 0.0274 minutes"
-[1] "Total time taken for open access policy in period 5: 0.0249 minutes"
-[1] "Total time taken for open access policy in period 4: 0.0263 minutes"
-[1] "Total time taken for open access policy in period 3: 0.0325 minutes"
-[1] "Total time taken for open access policy in period 2: 0.0216 minutes"
-[1] "Total time taken for open access policy in period 1: 0.0231 minutes"
+Total time taken for backwards induction: 12.142 minutes.
+ Average time per period: 0.01 minutes.
+[1] "Total time taken for open access policy in period 43: 0.0192 minutes"
+[1] "Total time taken for open access policy in period 42: 0.0198 minutes"
+[1] "Total time taken for open access policy in period 41: 0.0209 minutes"
+[1] "Total time taken for open access policy in period 40: 0.0201 minutes"
+[1] "Total time taken for open access policy in period 39: 0.0193 minutes"
+[1] "Total time taken for open access policy in period 38: 0.0191 minutes"
+[1] "Total time taken for open access policy in period 37: 0.0194 minutes"
+[1] "Total time taken for open access policy in period 36: 0.02 minutes"
+[1] "Total time taken for open access policy in period 35: 0.0202 minutes"
+[1] "Total time taken for open access policy in period 34: 0.0197 minutes"
+[1] "Total time taken for open access policy in period 33: 0.0196 minutes"
+[1] "Total time taken for open access policy in period 32: 0.0199 minutes"
+[1] "Total time taken for open access policy in period 31: 0.0202 minutes"
+[1] "Total time taken for open access policy in period 30: 0.0196 minutes"
+[1] "Total time taken for open access policy in period 29: 0.0229 minutes"
+[1] "Total time taken for open access policy in period 28: 0.0178 minutes"
+[1] "Total time taken for open access policy in period 27: 0.0177 minutes"
+[1] "Total time taken for open access policy in period 26: 0.0181 minutes"
+[1] "Total time taken for open access policy in period 25: 0.0188 minutes"
+[1] "Total time taken for open access policy in period 24: 0.0186 minutes"
+[1] "Total time taken for open access policy in period 23: 0.0186 minutes"
+[1] "Total time taken for open access policy in period 22: 0.0195 minutes"
+[1] "Total time taken for open access policy in period 21: 0.0186 minutes"
+[1] "Total time taken for open access policy in period 20: 0.0191 minutes"
+[1] "Total time taken for open access policy in period 19: 0.018 minutes"
+[1] "Total time taken for open access policy in period 18: 0.0182 minutes"
+[1] "Total time taken for open access policy in period 17: 0.0183 minutes"
+[1] "Total time taken for open access policy in period 16: 0.019 minutes"
+[1] "Total time taken for open access policy in period 15: 0.0184 minutes"
+[1] "Total time taken for open access policy in period 14: 0.0189 minutes"
+[1] "Total time taken for open access policy in period 13: 0.0189 minutes"
+[1] "Total time taken for open access policy in period 12: 0.0189 minutes"
+[1] "Total time taken for open access policy in period 11: 0.0199 minutes"
+[1] "Total time taken for open access policy in period 10: 0.024 minutes"
+[1] "Total time taken for open access policy in period 9: 0.0159 minutes"
+[1] "Total time taken for open access policy in period 8: 0.0155 minutes"
+[1] "Total time taken for open access policy in period 7: 0.0167 minutes"
+[1] "Total time taken for open access policy in period 6: 0.0158 minutes"
+[1] "Total time taken for open access policy in period 5: 0.0159 minutes"
+[1] "Total time taken for open access policy in period 4: 0.0162 minutes"
+[1] "Total time taken for open access policy in period 3: 0.0169 minutes"
+[1] "Total time taken for open access policy in period 2: 0.0193 minutes"
+[1] "Total time taken for open access policy in period 1: 0.0159 minutes"
 
- Done. Total grid compute time taken: 898.352 seconds
+ Done. Total grid compute time taken: 834.138 seconds

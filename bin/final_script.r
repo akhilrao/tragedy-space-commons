@@ -30,7 +30,7 @@ library(cowplot)
 library(tidyr)
 library(plyr)
 library(extrafont)
-font_import(prompt=FALSE)
+#font_import(prompt=FALSE)
 
 #############################################################################
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
@@ -69,16 +69,16 @@ args <- commandArgs(trailingOnly=TRUE)
 
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
 ncores <- 3 # number of cores to use for parallel computations
-oa_gridsize <- 20
-S_gridsize_opt <- 20
-D_gridsize_opt <- 20
+oa_gridsize <- 35
+S_gridsize_opt <- 35
+D_gridsize_opt <- 35
 S_grid_upper_oa <- 8000
 S_grid_upper_opt <- 8000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 25000
 
 D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. have no removal, set D_fraction_to_remove to 0.
-D_removal_start_year <- 2030 # pick a year within the projection time frame.
+D_removal_start_year <- 2022#as.numeric(args[1]) # pick a year within the projection time frame.
 
 bootstrap <- 0 # 1: run sensitivity analysis for tax path
 removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will (re)generate paths with R_frac <- 0.
@@ -93,6 +93,7 @@ total_time <- proc.time()[3]
 start_year <- 2006 # beginning of simulation
 end_year <- 2040 # final year for plots
 projection_end <- 2050 # final year for calculation
+opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
 source("calibrate_parameters.r")
 
 #############################################################################
@@ -108,7 +109,6 @@ source("main_model_estimation.r")
 # 3. Generate open access and optimal time paths
 #############################################################################
 
-opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
 source("main_model_projection.r")
 
 #############################################################################
@@ -116,11 +116,13 @@ source("main_model_projection.r")
 #############################################################################
 
 source("main_model_figures.r")
-
-if(removal_comparison==1){
-	R_frac <- D_fraction_to_remove
-	source("main_model_projection.r")
-	source("removal_comparison_figures.r")
+for(rs_year in 2022:2034) {
+	D_removal_start_year <- rs_year
+	if(removal_comparison==1){
+		R_frac <- D_fraction_to_remove
+		source("main_model_projection.r")
+		source("removal_comparison_figures.r")
+	}
 }
 #############################################################################
 # 5. Load bootstrapped data and generate projection uncertainty plot

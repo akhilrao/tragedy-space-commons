@@ -328,11 +328,6 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		policy_mat <- matrix(panel$X,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 		loss_vec <- L(S_(panel$X,panel$S,panel$D),D_(panel$X,panel$S,panel$D,asats[t]))
 		loss_mat <- matrix(loss_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
-		
-		# TODO: replace this with call to # plot_pfn_vfn
-		#image2D(z=spline_vfn_int_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("value function interpolation"))
-		# image2D(z=loss_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("satellites lost in collisions"))
-		# image2D(z=policy_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("policy function"))
 
 		# plot S_t+1 and D_t+1 given X_t
 		S_next_vec <- S_(panel$X,panel$S,panel$D)
@@ -391,10 +386,6 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 
 		## calculate distance (|V-newV| or |X-newX|) and update policy or value  
 		if(t==T) {
-			policy_delta <- max(abs((panel$X-newX)))
-			#ifelse(count==0, newV <- policy_eval_BI(igrid,newX,newV,T=75,tps_model,p[T],F[T],asats[T]), newV <- newV)
-			#ifelse(policy_delta<0.01, newV <- policy_eval_BI(igrid,newX,newV,T=min(count+1,75),tps_model,p[T],F[T],asats[T]), newV <- newV)
-			cat(paste("\n Policy delta is ", policy_delta, sep=""))
 			delta <- max(abs((panel$V-newV)))
 			panel$V <- newV
 			panel$X <- newX
@@ -536,7 +527,7 @@ tps_path_gen <- function(S0,D0,t0,R_start,R_start_year,R_frac,p,F,policy_path,as
 		}
 		if(deb_seq[(k-1)]>1e+15){
 			sat_seq[k] <- S_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)])
-			ifelse(deb_seq[(k-1)]>=1e+154, deb_seq[k] <- deb_seq[(k-1)], deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)]) ) # prevent NAs if the debris stock grows uncontrollably
+			ifelse(deb_seq[(k-1)]>=1e+154, deb_seq[k] <- deb_seq[(k-1)], deb_seq[k] <- D_(X[(k-1)],sat_seq[(k-1)],deb_seq[(k-1)],asats_seq[(current_clock_time-1)])*(1 - (k>=(R_start-t0))*R_frac) ) # prevent NAs if the debris stock grows uncontrollably
 			X[k] <- 0
 			profit_seq[k] <- one_p_return(X[k],sat_seq[k],k,p,F)
 			discounted_profit_seq[k] <- profit_seq[k]*(discount_fac^(times[(k-1)]))
@@ -551,6 +542,5 @@ tps_path_gen <- function(S0,D0,t0,R_start,R_start_year,R_frac,p,F,policy_path,as
 	losses <- L(sat_seq,deb_seq)
 	values <- data.frame(time=times,launches=X,satellites=sat_seq,debris=deb_seq ,runaway=runaway,kessler=kessler,fleet_flowv=profit_seq,fleet_pv=discounted_profit_seq,fleet_vfn_path=fleet_npv_path,collision_rate=losses,returns=p[(t0+1):T],costs=F[(t0+1):T],start_time=t0,R_frac=R_frac,R_start_year=R_start_year, stringsAsFactors=FALSE)
 
-#	colnames(values) <- c("time","launches","satellites","debris","runaway","kessler","fleet_flowv","fleet_pv","fleet_vfn_path","collision_rate","returns","costs")
 	return(values)
 }

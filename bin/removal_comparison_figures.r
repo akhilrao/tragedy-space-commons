@@ -74,46 +74,48 @@ OA_OPT <- merge(OA_OPT,OA_OPT_SS,by=c("year"))
 
 
 # Projection figures: starting in all years
-OA_OPT_base_proj_all <- ggplot(data=OA_OPT, aes(x=year))
+OA_OPT_base_proj_all <- ggplot(data=OA_OPT[which(OA_OPT$start_year==2006),], aes(x=year))
 OA_OPT_launch_proj_all <- OA_OPT_base_proj_all + 
-	geom_line(aes(y=launches.opt.rem, group=as.factor(start_year), color=as.factor(start_year)),linetype="dotted",size=(OA_OPT_fit_size*2)) +
-	geom_line(aes(y=launches.oa.rem),color="dark gray",linetype="dashed",size=OA_OPT_fit_size) +
-	geom_line(aes(y=launches.opt.norem, group=as.factor(start_year), color=as.factor(start_year)),linetype="dashed",size=OA_OPT_fit_size) +
+	geom_line(aes(y=launches.opt.rem), color="blue",linetype="dashed",size=(OA_OPT_fit_size*2)) +
+	geom_line(aes(y=launches.oa.rem),linetype="dashed",size=OA_OPT_fit_size*2) +
+	geom_line(aes(y=launches.opt.norem), color="blue",size=OA_OPT_fit_size) +
 	geom_line(aes(y=launches.oa.norem),size=OA_OPT_fit_size) +
-	geom_line(aes(y=launch_successes),color="gray",size=data_size) +					
+	geom_line(aes(y=launch_successes),color="dark gray",linetype="dotted",size=data_size*2) +					
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	scale_colour_hue(guide=FALSE) +
 	labs(fill="Optimal mgmt\nstart year") +
 	ylab("Satellites launched") + theme_minimal() +
 	ggtitle("Simulated historical and projected series\nLaunches")
+
 OA_OPT_sat_proj_all <- OA_OPT_base_proj_all + 
-	geom_line(aes(y=satellites.opt.rem, group=as.factor(start_year), color=as.factor(start_year)),linetype="dotted",size=OA_OPT_fit_size*2) +
-	geom_line(aes(y=satellites.opt.norem, group=as.factor(start_year), color=as.factor(start_year)),linetype="dashed",size=OA_OPT_fit_size) +
-	geom_line(aes(y=satellites.oa.rem),color="dark gray",size=OA_OPT_fit_size*2) +
+	geom_line(aes(y=satellites.opt.rem), color="blue",linetype="dashed",size=OA_OPT_fit_size*2) +
+	geom_line(aes(y=satellites.opt.norem), color="blue",size=OA_OPT_fit_size) +
+	geom_line(aes(y=satellites.oa.rem),size=OA_OPT_fit_size*2,linetype="dashed") +
 	geom_line(aes(y=satellites.oa.norem),size=OA_OPT_fit_size) +
-	geom_line(aes(y=payloads_in_orbit),size=data_size) +
+	geom_line(aes(y=payloads_in_orbit),color="dark gray",linetype="dotted",size=data_size*2) +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	scale_colour_hue(guide=FALSE) +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle(" \n Satellites") +
 	ylab("LEO satellite stock") + theme_minimal()
+
 OA_OPT_deb_proj_all <- OA_OPT_base_proj_all + 
-	geom_line(aes(y=debris.opt.rem, group=as.factor(start_year), color=as.factor(start_year)),linetype="dotted",size=OA_OPT_fit_size*2) +
-	geom_line(aes(y=debris.opt.norem, group=as.factor(start_year), color=as.factor(start_year)),linetype="dashed",size=OA_OPT_fit_size) +
-	geom_line(aes(y=debris.oa.rem),color="dark gray",size=OA_OPT_fit_size*2) +
+	geom_line(aes(y=debris.opt.rem, group=as.factor(start_year)), color="blue",linetype="dashed",size=OA_OPT_fit_size*2) +
+	geom_line(aes(y=debris.opt.norem, group=as.factor(start_year)), color="blue",size=OA_OPT_fit_size) +
+	geom_line(aes(y=debris.oa.rem),size=OA_OPT_fit_size*2,linetype="dashed") +
 	geom_line(aes(y=debris.oa.norem),size=OA_OPT_fit_size) +
-	geom_line(aes(y=debris),size=data_size) +
+	geom_line(aes(y=debris),color="dark gray",linetype="dotted",size=data_size*2) +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	scale_colour_hue(guide=FALSE) +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle("Debris") +
 	ylab("LEO debris stock") + xlab("year") + theme_minimal()
 OA_OPT_risk_proj_all <- OA_OPT_base_proj_all + 
-	geom_line(aes(y=collision_rate.opt.rem/satellites.opt.rem, group=as.factor(start_year), color=as.factor(start_year)),linetype="dotted",size=OA_OPT_fit_size*2) +
-	geom_line(aes(y=collision_rate.opt.norem/satellites.opt.norem, group=as.factor(start_year), color=as.factor(start_year)),linetype="dashed",size=OA_OPT_fit_size) +
-	geom_line(aes(y=collision_rate.oa.rem/satellites.oa.rem),color="dark gray",size=OA_OPT_fit_size*2) +
+	geom_line(aes(y=collision_rate.opt.rem/satellites.opt.rem), color="blue",linetype="dashed",size=OA_OPT_fit_size*2) +
+	geom_line(aes(y=collision_rate.opt.norem/satellites.opt.norem), color="blue",size=OA_OPT_fit_size) +
+	geom_line(aes(y=collision_rate.oa.rem/satellites.oa.rem),size=OA_OPT_fit_size*2,linetype="dashed") +
 	geom_line(aes(y=collision_rate.oa.norem/satellites.oa.norem),size=OA_OPT_fit_size) +
-	geom_line(aes(y=risk.x/payloads_in_orbit),size=data_size) +
+	geom_line(aes(y=risk.x/payloads_in_orbit),color="dark gray",linetype="dotted",size=data_size*2) +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	scale_colour_hue(guide=FALSE) +
 	labs(fill="Optimal mgmt\nstart year") +
@@ -126,7 +128,7 @@ risk_comps <- risk_proj +
 	geom_line(aes(y=riskPoA.norem,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	geom_line(aes(y=riskPoA.rem,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),linetype="dashed",size=(data_size*2)) +
 	guides(color=FALSE) +
-	geom_hline(yintercept=1,linetype="dashed",color="blue") +
+	geom_hline(yintercept=1,linetype="dashed") +
 	ylab("Collision risk Price of Anarchy") + xlab("year") + theme_minimal() +
 	ggtitle("Improvement in satellite safety from optimal management") +
 	scale_color_viridis(discrete=TRUE)
@@ -214,6 +216,22 @@ coi_plot.deltarem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$sta
 	theme_bw() +
 	scale_fill_viridis(discrete=TRUE) +
 	theme(legend.text=element_text(size=15))
+coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, coi_effect_of_removal_pc=(coi_effect_of_removal/npv_welfare_gain.rem[which(start_year==2015)])*100 )
+coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal_pc)) +
+			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
+			labs(fill="Optimal mgmt\nstart year") +
+			ggtitle(paste0("Change in permanent orbit use value loss in 2040\ndue to removal beginning in ",R_start_year)) +
+			ylab("Forgone fleet NPV (percentage of 2015 optimal mgmt NPV)") +
+			xlab("Year") +
+			theme_bw() +
+			scale_discrete_manual(values=coi_plot_cols, aesthetics = c("fill")) +
+				theme(text=element_text(family="Helvetica",size=15),
+					axis.text.x=element_text(family="Helvetica",size=15),
+					axis.text.y=element_text(family="Helvetica",size=15),
+					plot.title=element_text(family="Helvetica",size=15),
+					legend.text=element_text(family="Helvetica",size=15) )
+min(coi_base_dfrm$coi_effect_of_removal_pc)
+min(coi_base_dfrm$coi_effect_of_removal_pc[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040))])
 
 npv_poa_oa_remvnorem_path <- risk_proj + 
 	geom_line(aes(y=NPVPoA.oaremvnorem,group=as.factor(start_year),color=as.factor(start_year)),size=data_size) +
@@ -241,12 +259,16 @@ npv_poa_oaremvoptnorem_path <- risk_proj +
 #############################################################################
 # 3.  Generate figure panels
 #############################################################################
-dev.off()
+
+write.csv(coi_base_dfrm,file=paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_coi_base_dfrm.csv"))
 
 png(width=500,height=500,filename=paste0("../images/remcomp_",length(opt_start_year),"_starts_change_in_welf_loss_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
 coi_plot.deltarem
 dev.off()
 
+png(width=500,height=500,filename=paste0("../images/remcomp_",length(opt_start_year),"_starts_percent_change_in_welf_loss_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
+coi_plot_pc
+dev.off()
 
 # policy benefits
 png(width=600,height=750,filename=paste0("../images/remcomp_",length(opt_start_year),"_starts_welfare_and_tax_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))

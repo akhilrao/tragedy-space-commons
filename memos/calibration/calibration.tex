@@ -589,6 +589,75 @@ Figure \ref{costs_of_inaction} shows the NPV gains in beginning optimal manageme
 	\label{costs_of_inaction}
 \end{figure}
 
+\section{Projecting the effects of active debris removal under open access}
+
+% Brief description of the thought experiments
+Finally, we consider the effects of active debris removal technologies on the welfare losses due to open access. We assume that debris removal is available for zero cost, and that 50\% of all debris  once the technology is available. For example, in a scenario where removal begins in 2030, we assume that 50\% of all debris in orbit is removed every year beginning in 2030. We assume debris is removed before it collides with any other orbiting object, and that implementing the removal technology does not require any additional satellites. \\
+
+These assumptions help us bound a ``best case'' removal scenario. In reality, removal will cost more than \$0 per unit removed, will require some additional satellites on orbit to implement, and will not be guaranteed to be successful in all cases. Since debris removal in LEO is not commercially available yet, we experiment with different removal start years between 2021---2034.\\
+
+% Show the changes to laws of motion, open access condition, and planner's condition
+The laws of motion with debris removal are
+\begin{align}
+\label{satelliteLoM_rem}
+S_{t+1} &= S_t(1 - L(S_t,D_t(1-R_t)))\mu + X_t \\
+\label{debrisLoM_rem}
+D_{t+1} &= D_t(1-R_t)(1-\delta) + G(S_t,D_t(1-R_t)) + \gamma A_t + mX_t,
+\end{align}
+
+where $R_t = 0.5$ if removal technologies are available and $0$ otherwise.  \\
+
+The open access equilibrium condition is unchanged from the condition without (equation \ref{OAeqm_ch3_2}). The planner's optimality condition with freely-provided debris removal is similar to the condition without (equation \ref{plannersFOC}), but with $(1-R_t)$ terms scaling the debris variable and all derivatives with respect to debris:
+\begin{align}
+\hspace{-1.25cm}	W_{D,t}(S_t,D_t(1-R_t)) =& - S_t L_D(S_t,D_t(1-R_t))(1-R_t) F_t + \nonumber \\
+& \beta [1 - \delta + G_D(S_t,D_t(1-R_t))(1-R_t) + \nonumber \\
+& m S_tL_D(S_t,D_t(1-R_t))(1-R_t)] W_{D,t+1}(S_{t+1},D_{t+1}(1-R_{t+1})),
+\end{align}
+where
+\begin{align}
+\hspace{-1.75cm}	W_{D,t}(S_t,D_t(1-R_t)) =& \bigg[ \frac{F_{t-1}}{\beta} - \pi_t - (1 - L(S_t,D_t(1-R_t)) - S_t L_S(S_t,D_t(1-R_t)))F_t - \nonumber \\
+& \left( \frac{G_S(S_t,D_t(1-R_t)) - m(1 - L(S_t,D_t(1-R_t)) - S_tL_S(S_t,D_t(1-R_t)))}{1 - \delta + G_D(S_t,D_t(1-R_t))(1-R_t) + m L_D(S_t,D_t(1-R_t))(1-R_t)} \right) \cdot \nonumber \\
+& L_D(S_t,D_t(1-R_t))(1-R_t) S_t F_t  \bigg] \cdot \nonumber \\
+& \left[ \frac{G_S(S_t,D_t(1-R_t)) - m(1 - L(S_t,D_t(1-R_t)) - S_tL_S(S_t,D_t(1-R_t)))}{1 - \delta + G_D(S_t,D_t(1-R_t))(1-R_t) + m L_D(S_t,D_t(1-R_t))(1-R_t)} + m \right]^{-1}.
+\end{align}
+With removal of the type we described the planner's decision rule is no longer stationary, leading us to place time subscripts on the variables and value function derivatives. \\
+
+The introduction of debris removal makes both open access firms and the planner launch additional satellites. However, the planner launches fewer additional satellites than open access firms. The immediate decrease in debris when removal becomes available induces new launches until the collision risk is once again equated with the excess return on a satellite. Figure \ref{removal_intro} shows the effects of debris removal beginning in 2021 on satellite and debris accumulation under open access and a range of optimal management paths. The removal-induced additional launching leads to a higher steady-state satellite stock a lower steady-state debris stock under both open access and optimal management. The magnitude of the change due to removal is larger under open access than the optimal plan, as there is more debris in orbit under open access.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../../images/remcomp7_starts_simulated_projected_series_optstart_2006_remfrac_05_remstart_2021.png}
+	\captionsetup{format=hang}
+	\caption[Satellite and debris paths with debris removal in 2021]{\textit{Time paths of launches, satellites, debris, and collision risk with debris removal beginning in 2021.} \\
+		The solid lines show time paths without debris removal. The dashed lines show time paths with 50\% of debris in orbit being removed at the start of every year, beginning in 2021. The black lines show simulated open access paths, and the blue lines show simulated optimal paths. The dotted gray lines show the observed levels. \\
+	}
+	\label{removal_intro}
+\end{figure}
+
+Though debris removal allows open access to sustain more satellites in orbit, generating additional social welfare. Due to the launch constraint binding, there is some time while the collision risk remains below the equilibrium level. The costs of additional launches erodes some of the gains due to reduced risk. Figure \ref{coi_removal} shows the percentage change in open access welfare loss due to the introduction of debris removal in 2023. When optimal management begins ahead of debris removal, the welfare losses are reduced (negative changes). When optimal management begins after debris removal, the welfare losses are increased (positive changes). The increase in welfare losses is driven by the costs of additional launching under open access and the transition path from high to low collision risk.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../../images/remcomp_7_starts_percent_change_in_welf_loss_2006_remfrac_05_remstart_2023.png}
+	\captionsetup{format=hang}
+	\caption[Change in open access welfare loss due to debris removal in 2023]{\textit{Percentage change in permanent orbit use value loss due to open access with debris removal beginning in 2023.}
+	}
+	\label{coi_removal}
+\end{figure}
+
+Table \ref{coi_removal_sum} summarizes the minimum, mean, and maximum changes in social welfare losses due to open access with removal beginning in each year in 2021---2034.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textit{Minimum \% change} & \textit{Mean \% change} & \textit{Maximum \% change} \\ \hline
+		&                         &                            \\ \hline
+	\end{tabular}
+	\caption[Minimum, mean, and maximum changes from debris removal on open access losses]{Minimum, mean, and maximum changes in social welfare losses under open access. Negative values indicate that debris removal technologies reduced the open access losses. Results are calculated for debris removal beginning in each year from 2021---2034, with optimal management beginning in 2020, 2025, 2030, and 2035.}
+	\label{coi_removal_sum}
+\end{table}
+
 \newpage
 
 {

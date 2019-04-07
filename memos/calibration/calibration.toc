@@ -1,4 +1,4 @@
-\contentsline {paragraph}{}{1}{section*.1}% 
+\contentsline {paragraph}{}{2}{section*.1}% 
 \contentsline {section}{\numberline {1}Data}{4}{section.1}% 
 \contentsline {subsection}{\numberline {1.1}Satellite and debris counts, 1957---2015}{4}{subsection.1.1}% 
 \contentsline {subsection}{\numberline {1.2}Aggregate satellite industry returns and costs, 2006---2015}{4}{subsection.1.2}% 
@@ -12,10 +12,11 @@
 \contentsline {subsection}{\numberline {3.3}Algorithms for open access and optimal policy functions}{14}{subsection.3.3}% 
 \contentsline {subsection}{\numberline {3.4}Projected time paths}{15}{subsection.3.4}% 
 \contentsline {section}{\numberline {4}Projecting the optimal satellite tax path}{19}{section.4}% 
-\contentsline {section}{\numberline {5}Appendix}{24}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}Measurement error in satellite and debris counts}{24}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}Collision probability model misspecification}{24}{subsection.5.2}% 
-\contentsline {subsection}{\numberline {5.3}Measurement error in returns and costs}{24}{subsection.5.3}% 
-\contentsline {subsection}{\numberline {5.4}Returns to scale and economic misspecification}{25}{subsection.5.4}% 
-\contentsline {subsection}{\numberline {5.5}Projecting the launch constraint}{26}{subsection.5.5}% 
-\contentsline {subsection}{\numberline {5.6}Sensitivity analyses of physical equation calibration}{27}{subsection.5.6}% 
+\contentsline {section}{\numberline {5}Projecting the effects of active debris removal under open access}{22}{section.5}% 
+\contentsline {section}{\numberline {6}Appendix}{28}{section.6}% 
+\contentsline {subsection}{\numberline {6.1}Measurement error in satellite and debris counts}{28}{subsection.6.1}% 
+\contentsline {subsection}{\numberline {6.2}Collision probability model misspecification}{28}{subsection.6.2}% 
+\contentsline {subsection}{\numberline {6.3}Measurement error in returns and costs}{28}{subsection.6.3}% 
+\contentsline {subsection}{\numberline {6.4}Returns to scale and economic misspecification}{29}{subsection.6.4}% 
+\contentsline {subsection}{\numberline {6.5}Projecting the launch constraint}{30}{subsection.6.5}% 
+\contentsline {subsection}{\numberline {6.6}Sensitivity analyses of physical equation calibration}{31}{subsection.6.6}% 

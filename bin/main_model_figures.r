@@ -69,8 +69,6 @@ deviation_dfrm <- data.frame(year=OA_OPT$year, start_year=OA_OPT$start_year,
 					optL=OA_OPT$collision_rate.opt/OA_OPT$satellites.opt, 
 					F_over_horizon=OA_OPT$costs.opt)
 
-View(deviation_dfrm[which(deviation_dfrm$start_year==2020),])
-
 OA_OPT$collision_rate.opt[which(deviation_dfrm$start_year==2020)]/OA_OPT$satellites.opt[which(deviation_dfrm$start_year==2020)]
 
 deviation_dfrm <- ddply(deviation_dfrm, ~start_year, transform, sats = shift_up(sats_orig,optS), debs = shift_up(debs_orig,optD))
@@ -82,14 +80,9 @@ deviation_dfrm$excess_L[which(deviation_dfrm$excess_L<1e-16)] <- 0
 deviation_dfrm$opt_dev_tax_path <- (deviation_dfrm$excess_L*deviation_dfrm$F_over_horizon*norm_const*1e+9)/deviation_dfrm$optS
 # this is the tax that would deter a one-period open access deviation from a given path
 
-dev.new()
-plot(deviation_dfrm$opt_dev_tax_path[which(deviation_dfrm$start_year==2020)], type="l")
-
 # 1e+9 scales to units of dollars from units of billion dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience. We divide by the number of satellites to get the rate into a probability. The final division by the number of open access satellites converts the cost (F_over_horizon*norm_const*1e+9) from total dollars paid by industry into dollars per open-access satellite.
 
 OA_OPT <- merge(OA_OPT,deviation_dfrm[,c("year","start_year","excess_L","opt_dev_tax_path")],by=c("year","start_year"))
-dev.new()
-plot(OA_OPT$opt_dev_tax_path[which(OA_OPT$start_year==2020)], type="l")
 
 #############################################################################
 # 2.  Generate individual figures
@@ -366,6 +359,21 @@ coi_plot <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) )
 
+coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss_pc=(npv_welfare_loss/npv_welfare_gain[which(start_year==2015)])*100 )
+coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss_pc)) +
+			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
+			labs(fill="Optimal mgmt\nstart year") +
+			ggtitle("Permanent orbit\nuse value\nloss in 2040") +
+			ylab("Forgone fleet NPV (percentage of 2015 optimal mgmt NPV)") +
+			xlab("Year") +
+			theme_bw() +
+			scale_discrete_manual(values=coi_plot_cols, aesthetics = c("fill")) +
+				theme(text=element_text(family="Helvetica",size=15),
+					axis.text.x=element_text(family="Helvetica",size=15),
+					axis.text.y=element_text(family="Helvetica",size=15),
+					plot.title=element_text(family="Helvetica",size=15),
+					legend.text=element_text(family="Helvetica",size=15) )
+
 npv_welf_paths <- risk_proj + 
 	geom_line(aes(y=npv_oa_welfare),size=data_size) +
 	geom_line(aes(y=ss_npv_opt_welfare),size=data_size,color=OPT_fit_color) +
@@ -405,8 +413,7 @@ opt_dev_tax_path_solo <- risk_proj_nolt +
 		axis.text.y=element_text(family="Helvetica",size=20),
 		plot.title=element_text(family="Helvetica",size=20),
 		legend.text=element_text(family="Helvetica",size=20) ) + 
-	ylim(limits = c(min(OA_OPT$opt_dev_tax_path[which(OA_OPT$start_time.opt==14)], max(OA_OPT$opt_dev_tax_path[which(OA_OPT$start_time.opt==14)])))
-opt_dev_tax_path_solo
+	ylim(limits = c(min(OA_OPT$opt_dev_tax_path[which(OA_OPT$start_time.opt==14)]), max(OA_OPT$opt_dev_tax_path[which(OA_OPT$start_time.opt==14)])))
 
 opt_dev_tax_path_all <- risk_proj + 
 	geom_line(aes(y=opt_dev_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
@@ -420,7 +427,6 @@ opt_dev_tax_path_all <- risk_proj +
 		plot.title=element_text(family="Helvetica",size=20),
 		legend.text=element_text(family="Helvetica",size=20) ) + 
 	ylim(limits = c(min(OA_OPT$opt_dev_tax_path), max(OA_OPT$opt_dev_tax_path)))
-opt_dev_tax_path_all
 
 risk_proj_20xx <- ggplot(data=OA_OPT[which(OA_OPT$start_year==2010|OA_OPT$start_year==2020|OA_OPT$start_year==2035),],aes(x=year))
 
@@ -435,7 +441,6 @@ opt_dev_tax_path_comp <- risk_proj_nolt +
 		axis.text.y=element_text(family="Helvetica",size=20),
 		plot.title=element_text(family="Helvetica",size=20),
 		legend.text=element_text(family="Helvetica",size=20) )
-opt_dev_tax_path_comp
 
 opt_dev_tax_path_comp_all <- risk_proj_20xx + 
 	geom_line(aes(y=opt_dev_tax_path,group=as.factor(start_year),linetype=as.factor(start_year)),size=data_size) +
@@ -451,7 +456,6 @@ opt_dev_tax_path_comp_all <- risk_proj_20xx +
 		plot.title=element_text(family="Helvetica",size=20),
 		legend.text=element_text(family="Helvetica",size=20) ) + 
 	ylim(limits = c(0, max(OA_OPT$opt_tax_path)))
-opt_dev_tax_path_comp_all
 
 
 #############################################################################
