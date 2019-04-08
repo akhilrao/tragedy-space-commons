@@ -116,9 +116,10 @@ source("main_model_projection.r")
 #############################################################################
 
 source("main_model_figures.r")
-for(rs_year in 2021:2034) {
-	R_start_year <- rs_year
-	if(removal_comparison==1){
+
+if(removal_comparison==1){
+	for(rs_year in 2021:2034) {
+		R_start_year <- rs_year
 		R_frac <- D_fraction_to_remove
 		source("main_model_projection.r")
 		source("removal_comparison_figures.r")

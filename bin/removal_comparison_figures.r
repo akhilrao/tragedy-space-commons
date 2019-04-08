@@ -168,10 +168,10 @@ boa_plot <- ggplot(data=boa_base_dfrm,aes(as.factor(year),npv_welfare_gain.rem))
 			theme_bw()			
 
 coi_base_dfrm <- boa_base_dfrm[which(boa_base_dfrm$start_year>2010),]
-coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss.norem=(npv_welfare_gain.norem[which(start_year==2015)]-npv_welfare_gain.norem), npv_welfare_loss.rem=(npv_welfare_gain.rem[which(start_year==2015)]-npv_welfare_gain.rem) )
+coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss.norem=(npv_welfare_gain.norem[which(start_year==2020)]-npv_welfare_gain.norem), npv_welfare_loss.rem=(npv_welfare_gain.rem[which(start_year==2020)]-npv_welfare_gain.rem) )
 coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, coi_effect_of_removal=npv_welfare_loss.rem-npv_welfare_loss.norem)
 
-coi_plot.norem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss.norem)) +
+coi_plot.norem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss.norem)) +
 	geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle("Lost LEO\nuse value\nin 2040\n(no removal)") +
@@ -180,7 +180,7 @@ coi_plot.norem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_
 	theme_bw() +
 	scale_fill_viridis(discrete=TRUE) +
 	theme(legend.text=element_text(size=15))
-coi_plot.rem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss.rem)) +
+coi_plot.rem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss.rem)) +
 	geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle("Lost LEO\nuse value\n in 2040\n(removal starting in 2030)") +
@@ -207,7 +207,7 @@ npv_oa_welf_paths <- risk_proj +
 	ylab("Effect of debris removal on open access social NPV (nominal $1b)") + xlab("Year") + theme_minimal() +
 	ggtitle("NPV effect of debris removal on open access:")
 
-coi_plot.deltarem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal)) +
+coi_plot.deltarem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal)) +
 	geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle(paste0("Change in lost LEO value for space industry in 2040\ndue to free removal beginning in ",R_start_year)) +
@@ -216,12 +216,12 @@ coi_plot.deltarem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$sta
 	theme_bw() +
 	scale_fill_viridis(discrete=TRUE) +
 	theme(legend.text=element_text(size=15))
-coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, coi_effect_of_removal_pc=(coi_effect_of_removal/npv_welfare_gain.rem[which(start_year==2015)])*100 )
-coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal_pc)) +
+coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, coi_effect_of_removal_pc=(coi_effect_of_removal/npv_welfare_gain.rem[which(start_year==2020)])*100 )
+coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal_pc)) +
 			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 			labs(fill="Optimal mgmt\nstart year") +
 			ggtitle(paste0("Change in permanent orbit use value loss in 2040\ndue to removal beginning in ",R_start_year)) +
-			ylab("Forgone fleet NPV (percentage of 2015 optimal mgmt NPV)") +
+			ylab("Forgone fleet NPV (percentage of 2020 optimal mgmt NPV)") +
 			xlab("Year") +
 			theme_bw() +
 			scale_discrete_manual(values=coi_plot_cols, aesthetics = c("fill")) +
@@ -231,7 +231,7 @@ coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_yea
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) )
 min(coi_base_dfrm$coi_effect_of_removal_pc)
-min(coi_base_dfrm$coi_effect_of_removal_pc[intersect(which(coi_base_dfrm$start_year>2015),which(coi_base_dfrm$year==2040))])
+min(coi_base_dfrm$coi_effect_of_removal_pc[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040))])
 
 npv_poa_oa_remvnorem_path <- risk_proj + 
 	geom_line(aes(y=NPVPoA.oaremvnorem,group=as.factor(start_year),color=as.factor(start_year)),size=data_size) +
