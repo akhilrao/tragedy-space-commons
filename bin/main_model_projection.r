@@ -51,6 +51,4 @@ OA_OPT_full <- merge(OA_OPT_full,econ_series,by=c("year"),all=TRUE)
 selected_years <- intersect(which(OA_OPT_full$year>=start_year),which(OA_OPT_full$year<=end_year))
 OA_OPT <- OA_OPT_full[selected_years,]
 
-cat(paste0("\n Done. Total script wall time: ",round(proc.time()[3] - total_time,3)/60," minutes"))
-
 write.csv(OA_OPT, file=paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))

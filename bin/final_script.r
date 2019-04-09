@@ -117,14 +117,28 @@ source("main_model_projection.r")
 
 source("main_model_figures.r")
 
+cat(paste0("\n Done. Total wall time for main model: ",round(proc.time()[3] - total_time,3)/60," minutes"))
+
+
+total_time <- proc.time()[3]
+
 if(removal_comparison==1){
 	for(rs_year in 2021:2034) {
 		R_start_year <- rs_year
 		R_frac <- D_fraction_to_remove
 		source("main_model_projection.r")
+		# if the appropriate no-removal file exists, continue to generate figures. else, generate the file.
+		if(file.exists(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_0_remstart_",R_start_year,"_main_simulation.csv"))==FALSE) {
+			R_frac <- 0
+			source("main_model_projection.r")
+			R_frac <- D_fraction_to_remove
+		}
 		source("removal_comparison_figures.r")
 	}
 }
+
+cat(paste0("\n Done. Total wall time for removal models: ",round(proc.time()[3] - total_time,3)/60," minutes"))
+
 #############################################################################
 # 5. Load bootstrapped data and generate projection uncertainty plot
 #############################################################################
