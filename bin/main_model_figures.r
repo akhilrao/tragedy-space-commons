@@ -9,8 +9,7 @@
 # 1.  Read in main model results, make additional outcome variables
 #############################################################################
 
-#OA_OPT <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))
-OA_OPT <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",0,"_remstart_",R_start_year,"_main_simulation.csv"))
+OA_OPT <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_0_remstart_",R_start_year,"_main_simulation.csv"))
 
 # Price of Anarchy in terms of collision risk. 1 represents no loss to anarchy, larger numbers show larger losses from anarchy.
 OA_OPT$riskPoA <- (OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt)*(OA_OPT$satellites.opt/OA_OPT$satellites.oa)
@@ -291,7 +290,7 @@ npv_welf_loss <- risk_proj +
 					plot.title=element_text(family="Helvetica",size=10),
 					legend.text=element_text(family="Helvetica",size=10) )
 opt_tax_path <- risk_proj + 
-	geom_line(aes(y=opt_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) + theme_bw() +
+	geom_line(aes(y=opt_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) + theme_minimal() +
 	#guides(color=FALSE) +
 	labs(color="") +
 	ylab("Optimal satellite tax ($/sat)") + xlab("year") +
@@ -318,10 +317,12 @@ npv_poa_path <- risk_proj +
 		legend.text=element_text(family="Helvetica",size=15) )
 risk_poa_path <- risk_proj + 
 	geom_line(aes(y=riskPoA,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
+	guides(color=FALSE) +
 	geom_hline(yintercept=1,linetype="dashed",color="blue") +
 	ylab("Collision risk\nimprovement factor") + xlab("year") + theme_minimal() +
 	ggtitle("Improvement in satellite safety\nfrom optimal management") +
-	labs(color="Optimal mgmt\nstart year") +
+	#labs(color="Optimal mgmt\nstart year") +
+	labs(color="") +
 	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
 				theme(text=element_text(family="Helvetica",size=15),
 					axis.text.x=element_text(family="Helvetica",size=15),
@@ -342,22 +343,23 @@ boa_plot <- ggplot(data=boa_base_dfrm,aes(as.factor(year),npv_welfare_gain)) +
 			theme_bw()			
 			
 coi_base_dfrm <- boa_base_dfrm[which(boa_base_dfrm$start_year>2010),]
-coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss=(npv_welfare_gain[which(start_year==2020)]-npv_welfare_gain) )
+coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss=(npv_welfare_gain[which(start_year==2020)]-npv_welfare_gain)/1000 )
 
 coi_plot_cols <- c("2020" = paste0(viridis(7)[4]), "2025" = paste0(viridis(7)[5]), "2030" = paste0(viridis(7)[6]), "2035" = paste0(viridis(7)[7]))
+
 coi_plot <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss)) +
 			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 			labs(fill="Optimal mgmt\nstart year") +
-			ggtitle("Permanent orbit\nuse value\nloss in 2040") +
-			ylab("Forgone fleet NPV (nominal $1b)") +
+			ggtitle("(B) Permanent orbit\nuse value\nloss in 2040") +
+			ylab("Forgone fleet NPV (nominal $1t)") +
 			xlab("Year") +
 			theme_bw() +
 			scale_discrete_manual(values=coi_plot_cols, aesthetics = c("fill")) +
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=20),
+					axis.text.x=element_text(family="Helvetica",size=20),
+					axis.text.y=element_text(family="Helvetica",size=20),
+					plot.title=element_text(family="Helvetica",size=20),
+					legend.text=element_text(family="Helvetica",size=20) )
 
 coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss_pc=(npv_welfare_loss/npv_welfare_gain[which(start_year==2020)])*100 )
 coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss_pc)) +
@@ -375,18 +377,18 @@ coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_yea
 					legend.text=element_text(family="Helvetica",size=15) )
 
 npv_welf_paths <- risk_proj + 
-	geom_line(aes(y=npv_oa_welfare),size=data_size) +
-	geom_line(aes(y=ss_npv_opt_welfare),size=data_size,color=OPT_fit_color) +
-	geom_line(aes(y=npv_opt_welfare,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
+	geom_line(aes(y=npv_oa_welfare/1000),size=data_size) +
+	#geom_line(aes(y=ss_npv_opt_welfare/1000),size=data_size,color=OPT_fit_color) +
+	geom_line(aes(y=npv_opt_welfare/1000,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	labs(color="Optimal mgmt\nstart year") +
-	ylab("Fleet NPV (nominal $1b)") + xlab("Year") + theme_minimal() +
-	ggtitle("NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
+	ylab("Fleet NPV (nominal $1t)") + xlab("Year") + theme_minimal() +
+	ggtitle("(A) NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
 	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=20),
+					axis.text.x=element_text(family="Helvetica",size=20),
+					axis.text.y=element_text(family="Helvetica",size=20),
+					plot.title=element_text(family="Helvetica",size=20),
+					legend.text=element_text(family="Helvetica",size=20) )
 
 risk_proj_nolt <- ggplot(data=OA_OPT[which(OA_OPT$start_year==2020),],aes(x=year))
 
@@ -401,7 +403,6 @@ opt_tax_path_solo <- risk_proj_nolt +
 		axis.text.y=element_text(family="Helvetica",size=20),
 		plot.title=element_text(family="Helvetica",size=20),
 		legend.text=element_text(family="Helvetica",size=20) ) 
-opt_tax_path_solo
 
 opt_dev_tax_path_solo <- risk_proj_nolt + 
 	geom_line(aes(y=opt_dev_tax_path),size=data_size) +
@@ -456,7 +457,6 @@ opt_dev_tax_path_comp_all <- risk_proj_20xx +
 		plot.title=element_text(family="Helvetica",size=20),
 		legend.text=element_text(family="Helvetica",size=20) ) + 
 	ylim(limits = c(0, max(OA_OPT$opt_tax_path)))
-
 
 #############################################################################
 # 3.  Generate figure panels

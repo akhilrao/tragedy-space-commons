@@ -1,4 +1,4 @@
-\begin{thebibliography}{14}
+\begin{thebibliography}{16}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -42,6 +42,12 @@ Kelly, David~L and Charles~D Kolstad. 1999.
 \newblock \emph{International yearbook of environmental and resource economics}
   2000:171--197.
 
+\bibitem[{Ketz(2018)}]{ketz2018}
+Ketz, Philipp. 2018.
+\newblock \enquote{Subvector inference when the true parameter vector may be
+  near or at the boundary.}
+\newblock \emph{Journal of Econometrics} 207:285--306.
+
 \bibitem[{Letizia, Lemmens, and Krag(2018)}]{ECOBdata}
 Letizia, F., S.~Lemmens, and H.~Krag. 2018.
 \newblock \enquote{Application of a debris index for global evaluation of
@@ -53,6 +59,16 @@ Letizia, F., S.~Lemmens, and H.~Krag. 2018.
 Letizia, Francesca, Camilla Colombo, Hugh Lewis, and Holger Krag. 2017.
 \newblock \enquote{Extending the ECOB space debris index with fragmentation
   risk estimation.} .
+
+\bibitem[{Nordhaus(2013)}]{nordhaus2013}
+Nordhaus, William. 2013.
+\newblock \enquote{Chapter 16 - Integrated Economic and Climate Modeling.}
+\newblock In \emph{Handbook of Computable General Equilibrium Modeling SET,
+  Vols. 1A and 1B}, \emph{Handbook of Computable General Equilibrium Modeling},
+  vol.~1, edited by Peter~B. Dixon and Dale~W. Jorgenson. Elsevier, 1069 --
+  1131.
+\newblock
+  \urlprefix\url{http://www.sciencedirect.com/science/article/pii/B978044459568300016X}.
 
 \bibitem[{Rao(2018)}]{raoJMP}
 Rao, Akhil. 2018.

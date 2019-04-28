@@ -12,6 +12,18 @@
 OA_OPT_removal <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))
 OA_OPT_no_removal <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_0_remstart_",R_start_year,"_main_simulation.csv"))
 
+coi_list <- list()
+for(coi_rs_year in 2021:2034) {
+	coi_list[[(coi_rs_year-2020)]] <- read.csv(paste0("../data/2006_7_starts_remfrac_0.5_remstart_",coi_rs_year,"_coi_base_dfrm.csv"))
+}
+coi_total_dfrm <- rbindlist(coi_list)
+coi_total_summary <- data.frame(
+	best_change=as.numeric(summary(coi_total_dfrm$coi_effect_of_removal_pc)[1]), 
+	avg_change=as.numeric(summary(coi_total_dfrm$coi_effect_of_removal_pc)[4]), 
+	worst_change=as.numeric(summary(coi_total_dfrm$coi_effect_of_removal_pc)[6]))
+
+write.csv(coi_total_summary, file="pc_effect_of_removal_summary.csv")
+
 keep_cols <- c("year","launches.oa","launches.opt","satellites.oa","satellites.opt","debris.oa","debris.opt","fleet_vfn_path.oa","fleet_vfn_path.opt","collision_rate.oa","collision_rate.opt","start_time.opt","R_frac.opt","payloads_in_orbit","launch_successes","debris","risk.x","costs.opt")
 
 OA_OPT_removal <- OA_OPT_removal[,keep_cols]
@@ -216,6 +228,7 @@ coi_plot.deltarem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$sta
 	theme_bw() +
 	scale_fill_viridis(discrete=TRUE) +
 	theme(legend.text=element_text(size=15))
+
 coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, coi_effect_of_removal_pc=(coi_effect_of_removal/npv_welfare_gain.rem[which(start_year==2020)])*100 )
 coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal_pc)) +
 			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
@@ -230,8 +243,6 @@ coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_yea
 					axis.text.y=element_text(family="Helvetica",size=15),
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) )
-min(coi_base_dfrm$coi_effect_of_removal_pc)
-min(coi_base_dfrm$coi_effect_of_removal_pc[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040))])
 
 npv_poa_oa_remvnorem_path <- risk_proj + 
 	geom_line(aes(y=NPVPoA.oaremvnorem,group=as.factor(start_year),color=as.factor(start_year)),size=data_size) +

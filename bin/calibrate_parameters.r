@@ -158,18 +158,18 @@ econ_data_plot_series_long <- reshape(data=econ_data_plot_series, idvar="Year", 
 colnames(econ_data_plot_series_long) <- c("Year","Variable","Value")
 revcost_plot <- ggplot(data=econ_data_plot_series_long, aes(x=Year, y=Value)) + 
 				geom_line(aes(group=as.factor(Variable),linetype=as.factor(Variable)),size=1) +
-				ggtitle("Aggregate commercial satellite costs and revenues") +
+				ggtitle("(A) Aggregate commercial satellite costs and revenues") +
 				labs(linetype="") +
 				xlab("Year") +
 				ylab("Billion USD")	+
 				geom_vline(xintercept=econ_proj$Year[1],linetype="dashed",size=1,color="darkgray") +
 				theme_minimal() +
 				scale_linetype_discrete(labels=c("\n\nCosts:\nlaunch,\nmanufacturing,\nsupport\n","Revenues:\ntelecom,\nimaging"))	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15))
+				theme(text=element_text(family="Helvetica",size=17),
+					axis.text.x=element_text(family="Helvetica",size=17),
+					axis.text.y=element_text(family="Helvetica",size=17),
+					plot.title=element_text(family="Helvetica",size=17),
+					legend.text=element_text(family="Helvetica",size=17))
 
 png(width=600,height=400,filename="../images/industry_revcost_plot.png")
 revcost_plot
@@ -183,16 +183,16 @@ csg_base <- ggplot(data=csg_long[union(which(csg_long$Year==2005),which(csg_long
 csg_plot <-	csg_base +
 			geom_bar(aes(fill=variable), position="dodge", stat="identity" ) +
 			labs(fill="") +
-			ggtitle("Commercial space revenues and government space budgets") +
+			ggtitle("(B) Commercial space revenues and government space budgets") +
 			ylab("Billion USD") +
 			xlab("Year") +
 			theme_minimal() +
 			scale_fill_viridis(discrete=TRUE, labels=c("Commercial Infrastructure\n& Support Industries\nRevenues\n", "Commercial Space\nProducts & Services\nRevenues\n","US Govt\nSpace Budgets\n","Non-US Govt\nSpace Budgets")) +
-			theme(text=element_text(family="Helvetica",size=15),
-				axis.text.x=element_text(family="Helvetica",size=15),
-				axis.text.y=element_text(family="Helvetica",size=15),
-				plot.title=element_text(family="Helvetica",size=15),
-				legend.text=element_text(family="Helvetica",size=15))
+			theme(text=element_text(family="Helvetica",size=17),
+				axis.text.x=element_text(family="Helvetica",size=17),
+				axis.text.y=element_text(family="Helvetica",size=17),
+				plot.title=element_text(family="Helvetica",size=17),
+				legend.text=element_text(family="Helvetica",size=17))
 
 plot_grid(revcost_plot,csg_plot,align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
 
