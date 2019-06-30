@@ -78,10 +78,10 @@ D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 25000
 
 D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. have no removal, set D_fraction_to_remove to 0.
-D_removal_start_year <- 2030#as.numeric(args[1]) # pick a year within the projection time frame.
+D_removal_start_year <- 2030 # pick a year within the projection time frame.
 
 bootstrap <- 0 # 1: run sensitivity analysis for tax path
-removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will (re)generate paths with R_frac <- 0.
+removal_comparison <- 0 # 1: compare baseline model to model with debris removal. will (re)generate paths with R_frac <- 0.
 
 total_time <- proc.time()[3]
 

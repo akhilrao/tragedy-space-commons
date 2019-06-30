@@ -144,7 +144,7 @@ lc_path <- lc_path_base + geom_line(aes(y=projected_constraint),linetype="dashed
 		ylab("Cumulative maximum launch attempts") + theme_minimal() +
 		ggtitle("Observed and projected launch constraint")
 
-lc_path
+
 png(width=300,height=300,filename="../images/linear_trend_launch_constraint.png")
 lc_path
 dev.off()
@@ -156,9 +156,13 @@ econ_data_plot_series_proj <- econ_proj[,c(1,2,4)]
 econ_data_plot_series <- rbind(econ_data_plot_series_orig, econ_data_plot_series_proj)
 econ_data_plot_series_long <- reshape(data=econ_data_plot_series, idvar="Year", varying=c("Revenues","Costs"), v.name=c("value"), times=c("Total industry revenues","Total industry costs"), direction="long", new.row.names=1:1000)
 colnames(econ_data_plot_series_long) <- c("Year","Variable","Value")
+
+### adjust earlier: remove duplicated keys
+econ_data_plot_series_long <- econ_data_plot_series_long[-which(duplicated(econ_data_plot_series_long[,c(1,2)])==TRUE),]
+
 revcost_plot <- ggplot(data=econ_data_plot_series_long, aes(x=Year, y=Value)) + 
 				geom_line(aes(group=as.factor(Variable),linetype=as.factor(Variable)),size=1) +
-				ggtitle("(A) Aggregate commercial satellite costs and revenues") +
+				ggtitle("(a) Aggregate commercial satellite costs and revenues") +
 				labs(linetype="") +
 				xlab("Year") +
 				ylab("Billion USD")	+
@@ -183,7 +187,7 @@ csg_base <- ggplot(data=csg_long[union(which(csg_long$Year==2005),which(csg_long
 csg_plot <-	csg_base +
 			geom_bar(aes(fill=variable), position="dodge", stat="identity" ) +
 			labs(fill="") +
-			ggtitle("(B) Commercial space revenues and government space budgets") +
+			ggtitle("(b) Commercial space revenues and government space budgets") +
 			ylab("Billion USD") +
 			xlab("Year") +
 			theme_minimal() +
@@ -194,10 +198,6 @@ csg_plot <-	csg_base +
 				plot.title=element_text(family="Helvetica",size=17),
 				legend.text=element_text(family="Helvetica",size=17))
 
-plot_grid(revcost_plot,csg_plot,align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
-
 png(width=800,height=600,filename="../images/commercial_space_growth.png")
 plot_grid(revcost_plot,csg_plot,align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
-dev.off()
-
 dev.off()

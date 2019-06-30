@@ -331,7 +331,6 @@ risk_poa_path <- risk_proj +
 					legend.text=element_text(family="Helvetica",size=15) )
 
 boa_base_dfrm <- OA_OPT[union(union(which(OA_OPT$year==2030),which(OA_OPT$year==2035)),which(OA_OPT$year==2040)),c("npv_welfare_gain","start_year","year")]
-#colnames(boa_base_dfrm)[2] <- "start_time"
 
 boa_plot <- ggplot(data=boa_base_dfrm,aes(as.factor(year),npv_welfare_gain)) +
 			geom_bar(aes(fill=as.factor(start_year), color=as.factor(start_year)), position="dodge", stat="identity" ) +
@@ -350,7 +349,7 @@ coi_plot_cols <- c("2020" = paste0(viridis(7)[4]), "2025" = paste0(viridis(7)[5]
 coi_plot <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss)) +
 			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 			labs(fill="Optimal mgmt\nstart year") +
-			ggtitle("(B) Permanent orbit\nuse value\nloss in 2040") +
+			ggtitle("(b) Permanent orbit\nuse value\nloss in 2040") +
 			ylab("Forgone fleet NPV (nominal $1t)") +
 			xlab("Year") +
 			theme_bw() +
@@ -382,7 +381,7 @@ npv_welf_paths <- risk_proj +
 	geom_line(aes(y=npv_opt_welfare/1000,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	labs(color="Optimal mgmt\nstart year") +
 	ylab("Fleet NPV (nominal $1t)") + xlab("Year") + theme_minimal() +
-	ggtitle("(A) NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
+	ggtitle("(a) NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
 	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
 				theme(text=element_text(family="Helvetica",size=20),
 					axis.text.x=element_text(family="Helvetica",size=20),
