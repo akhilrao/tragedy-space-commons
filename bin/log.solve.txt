@@ -2,389 +2,306 @@
  Stopping criteria: distance < 1
 
 Estimating spline interpolant of value function...
- Done. Time to estimate interpolant: 4.186 seconds
+ Done. Time to estimate interpolant: 82281.41 seconds
  Starting maximization step, grid size = 1225: 
-.[1] 1654.538
-[1] 1879.277
-[1] 2635.713
-[1] 2553.921
-[1] 2327.635
-[1] 2113.239
-[1] 2218.598
-[1] 2004.277
-[1] 2696.105
-[1] 2906.674
-[1] 2179.858
-[1] 2383.851
-[1] 2784.354
-[1] 2421.26
-[1] 3696.935
-[1] 3375.831
-[1] 2924.102
-[1] 3263.208
-[1] 2802.454
-[1] 3573.549
-[1] 3153.32
-[1] 2693.85
-[1] 3442.239
-[1] 3247.095
-[1] 2795.807
-[1] 3511.22
-[1] 3496.298
-[1] 3214.645
-[1] 2616.287
-[1] 3329.18
-[1] 3575.251
-[1] 2739.749
-[1] 1776.025
-[1] 3467.082
-[1] 3676.762
-[1] 1883.101
-[1] 2899.565
-[1] 3761.754
-[1] 3591.097
-[1] 2007.819
-[1] 3050.459
-[1] 2004.873
-[1] 3121.815
-[1] 3760.775
-[1] 3627.695
-[1] 2024.892
-[1] 3596.588
-[1] 3042.495
-[1] 3699.093
-[1] 3120.027
-[1] 3627.79
-[1] 100.8806
-[1] 3706.5
-[1] 2133.732
-[1] 3215.089
-[1] 0
-[1] 3670.116
-[1] 2273.39
-[1] 3727.599
-[1] 0
-[1] 3250.97
-[1] 3649.189
-[1] 2363.35
-[1] 3691.908
-[1] 22.06054
-[1] 3810.867
-[1] 2642.687
-[1] 3470.327
-[1] 3842.537
-[1] 3879.076
-[1] 3901.056
-[1] 2566.615
-[1] 3594.655
-[1] 152.4853
-[1] 0
-[1] 3913.846
-[1] 3669.218
-[1] 3898
-[1] 2684.464
-[1] 301.5224
-[1] 3718.221
-[1] 0
-[1] 2792.415
-[1] 3900.456
-[1] 487.6204
-[1] 3912.116
-[1] 3898.154
-[1] 3038.496
-[1] 850.5947
-[1] 4047.344
-[1] 4038.107
-[1] 0
-[1] 3181.457
-[1] 4071.796
-[1] 1139.641
-[1] 0
-[1] 4078.449
-[1] 3964.513
-[1] 4119.939
-[1] 1460.93
-[1] 4126.977
-[1] 3337.328
-[1] 4041.246
-[1] 170.0023
-[1] 4133.14
-[1] 4139.534
-[1] 1751.592
-[1] 0
-[1] 3452.55
-[1] 4075.21
-[1] 518.3181
-[1] 4255.534
-[1] 994.0843
-[1] 3670.198
-[1] 2127.869
-[1] 167.7122
-[1] 4211.942
-[1] 4259.258
-[1] 4277.877
-[1] 3783.293
-[1] 1376.239
-[1] 4280.985
-[1] 2396.726
-[1] 460.993
-[1] 4246.694
-[1] 4284.63
-[1] 4312.195
-[1] 4308.995
-[1] 3892.832
-[1] 798.9977
-[1] 1758.204
-[1] 2670.238
-[1] 3032.369
-[1] 4446.033
-[1] 4101.506
-[1] 1264.908
-[1] 2229.215
-[1] 4426.251
-[1] 4446.25
-[1] 4480.841
-[1] 4480.346
-[1] 2575.078
-[1] 1637.002
-[1] 4465.393
-[1] 3273.285
-[1] 4205.266
- [1] 0.004844848 0.004859378 0.004815275 0.004820338 0.004703771 0.004546582
- [7] 0.004358349 0.004148590 0.003926161 0.004092614 0.003928417 0.003746865
-[13] 0.003555348 0.003360240 0.003166745 0.002978863 0.002799458 0.002630385
-[19] 0.002480055 0.002342453 0.002211660
-null device 
-          1 
-null device 
-          1 
-null device 
-          1 
-X11cairo 
-       2 
-X11cairo 
-       2 
-X11cairo 
-       2 
- [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
-[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
-[61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-Help on topic ‘duplicated’ was found in the following packages:
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.205 seconds 
 
-  Package               Library
-  base                  /usr/lib/R/library
-  data.table            /usr/local/lib/R/site-library
+ Finished period 44 iteration 1, distance is 36849.469448086
+ Stopping criteria: distance < 1
 
- [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-Help on topic ‘duplicated’ was found in the following packages:
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82285.542 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 7.984 seconds 
 
-  Package               Library
-  base                  /usr/lib/R/library
-  data.table            /usr/local/lib/R/site-library
+ Finished period 44 iteration 2, distance is 21428.6431730945
+ Stopping criteria: distance < 1
 
-   Year                Variable    Value
-1  2006 Total industry revenues  70.4400
-2  2007 Total industry revenues  73.8680
-3  2008 Total industry revenues  85.5040
-4  2009 Total industry revenues  93.0550
-5  2010 Total industry revenues 101.5070
-6  2011 Total industry revenues 108.8390
-7  2012 Total industry revenues 114.5450
-8  2013 Total industry revenues 120.2490
-9  2014 Total industry revenues 123.1830
-10 2015 Total industry revenues 126.5510
-11 2015 Total industry revenues 120.7860
-12 2016 Total industry revenues 120.7870
-13 2017 Total industry revenues 120.7870
-14 2018 Total industry revenues 120.7870
-15 2019 Total industry revenues 126.4040
-16 2020 Total industry revenues 129.2130
-17 2021 Total industry revenues 134.8310
-18 2022 Total industry revenues 143.2580
-19 2023 Total industry revenues 148.8760
-20 2024 Total industry revenues 154.4940
-21 2025 Total industry revenues 160.1120
-22 2026 Total industry revenues 165.7300
-23 2027 Total industry revenues 171.3480
-24 2028 Total industry revenues 174.1570
-25 2029 Total industry revenues 185.3930
-26 2030 Total industry revenues 188.2020
-27 2031 Total industry revenues 193.8200
-28 2032 Total industry revenues 199.4380
-29 2033 Total industry revenues 210.6740
-30 2034 Total industry revenues 216.2920
-31 2035 Total industry revenues 224.7190
-32 2036 Total industry revenues 230.3370
-33 2037 Total industry revenues 241.5730
-34 2038 Total industry revenues 250.0000
-35 2039 Total industry revenues 255.6180
-36 2040 Total industry revenues 266.8540
-37 2041 Total industry revenues 275.2810
-38 2042 Total industry revenues 284.1805
-39 2043 Total industry revenues 293.3678
-40 2044 Total industry revenues 302.8521
-41 2045 Total industry revenues 312.6429
-42 2046 Total industry revenues 322.7503
-43 2047 Total industry revenues 333.1845
-44 2048 Total industry revenues 343.9560
-45 2049 Total industry revenues 355.0757
-46 2050 Total industry revenues 366.5549
-47 2006    Total industry costs 161.0190
-48 2007    Total industry costs 185.5030
-49 2008    Total industry costs 169.9960
-50 2009    Total industry costs 137.8150
-51 2010    Total industry costs 136.1620
-52 2011    Total industry costs 166.9850
-53 2012    Total industry costs 186.8850
-54 2013    Total industry costs 215.8970
-55 2014    Total industry costs 254.3870
-56 2015    Total industry costs 239.1090
-57 2015    Total industry costs 210.6740
-58 2016    Total industry costs 213.4830
-59 2017    Total industry costs 227.5280
-60 2018    Total industry costs 244.3820
-61 2019    Total industry costs 252.8090
-62 2020    Total industry costs 264.0450
-63 2021    Total industry costs 269.6630
-64 2022    Total industry costs 278.0900
-65 2023    Total industry costs 280.8990
-66 2024    Total industry costs 292.1350
-67 2025    Total industry costs 311.7980
-68 2026    Total industry costs 323.0340
-69 2027    Total industry costs 331.4610
-70 2028    Total industry costs 342.6970
-71 2029    Total industry costs 345.5060
-72 2030    Total industry costs 342.6970
-73 2031    Total industry costs 351.1240
-74 2032    Total industry costs 362.3600
-75 2033    Total industry costs 365.1690
-76 2034    Total industry costs 370.7870
-77 2035    Total industry costs 379.2140
-78 2036    Total industry costs 387.6410
-79 2037    Total industry costs 390.4490
-80 2038    Total industry costs 401.6850
-81 2039    Total industry costs 407.3030
-82 2040    Total industry costs 407.3030
-83 2041    Total industry costs 415.7300
-84 2042    Total industry costs 426.6806
-85 2043    Total industry costs 437.9137
-86 2044    Total industry costs 449.4363
-87 2045    Total industry costs 461.2558
-88 2046    Total industry costs 473.3796
-89 2047    Total industry costs 485.8152
-90 2048    Total industry costs 498.5704
-91 2049    Total industry costs 511.6533
-92 2050    Total industry costs 525.0719
-   Year                Variable    Value
-1  2006 Total industry revenues  70.4400
-2  2007 Total industry revenues  73.8680
-3  2008 Total industry revenues  85.5040
-4  2009 Total industry revenues  93.0550
-5  2010 Total industry revenues 101.5070
-6  2011 Total industry revenues 108.8390
-7  2012 Total industry revenues 114.5450
-8  2013 Total industry revenues 120.2490
-9  2014 Total industry revenues 123.1830
-10 2015 Total industry revenues 126.5510
-11 2015 Total industry revenues 120.7860
-12 2016 Total industry revenues 120.7870
-13 2017 Total industry revenues 120.7870
-14 2018 Total industry revenues 120.7870
-15 2019 Total industry revenues 126.4040
-16 2020 Total industry revenues 129.2130
-17 2021 Total industry revenues 134.8310
-18 2022 Total industry revenues 143.2580
-19 2023 Total industry revenues 148.8760
-20 2024 Total industry revenues 154.4940
-21 2025 Total industry revenues 160.1120
-22 2026 Total industry revenues 165.7300
-23 2027 Total industry revenues 171.3480
-24 2028 Total industry revenues 174.1570
-25 2029 Total industry revenues 185.3930
-26 2030 Total industry revenues 188.2020
-27 2031 Total industry revenues 193.8200
-28 2032 Total industry revenues 199.4380
-29 2033 Total industry revenues 210.6740
-30 2034 Total industry revenues 216.2920
-31 2035 Total industry revenues 224.7190
-32 2036 Total industry revenues 230.3370
-33 2037 Total industry revenues 241.5730
-34 2038 Total industry revenues 250.0000
-35 2039 Total industry revenues 255.6180
-36 2040 Total industry revenues 266.8540
-37 2041 Total industry revenues 275.2810
-38 2042 Total industry revenues 284.1805
-39 2043 Total industry revenues 293.3678
-40 2044 Total industry revenues 302.8521
-41 2045 Total industry revenues 312.6429
-42 2046 Total industry revenues 322.7503
-43 2047 Total industry revenues 333.1845
-44 2048 Total industry revenues 343.9560
-45 2049 Total industry revenues 355.0757
-46 2050 Total industry revenues 366.5549
-47 2006    Total industry costs 161.0190
-48 2007    Total industry costs 185.5030
-49 2008    Total industry costs 169.9960
-50 2009    Total industry costs 137.8150
-51 2010    Total industry costs 136.1620
-52 2011    Total industry costs 166.9850
-53 2012    Total industry costs 186.8850
-54 2013    Total industry costs 215.8970
-55 2014    Total industry costs 254.3870
-56 2015    Total industry costs 239.1090
-57 2015    Total industry costs 210.6740
-58 2016    Total industry costs 213.4830
-59 2017    Total industry costs 227.5280
-60 2018    Total industry costs 244.3820
-61 2019    Total industry costs 252.8090
-62 2020    Total industry costs 264.0450
-63 2021    Total industry costs 269.6630
-64 2022    Total industry costs 278.0900
-65 2023    Total industry costs 280.8990
-66 2024    Total industry costs 292.1350
-67 2025    Total industry costs 311.7980
-68 2026    Total industry costs 323.0340
-69 2027    Total industry costs 331.4610
-70 2028    Total industry costs 342.6970
-71 2029    Total industry costs 345.5060
-72 2030    Total industry costs 342.6970
-73 2031    Total industry costs 351.1240
-74 2032    Total industry costs 362.3600
-75 2033    Total industry costs 365.1690
-76 2034    Total industry costs 370.7870
-77 2035    Total industry costs 379.2140
-78 2036    Total industry costs 387.6410
-79 2037    Total industry costs 390.4490
-80 2038    Total industry costs 401.6850
-81 2039    Total industry costs 407.3030
-82 2040    Total industry costs 407.3030
-83 2041    Total industry costs 415.7300
-84 2042    Total industry costs 426.6806
-85 2043    Total industry costs 437.9137
-86 2044    Total industry costs 449.4363
-87 2045    Total industry costs 461.2558
-88 2046    Total industry costs 473.3796
-89 2047    Total industry costs 485.8152
-90 2048    Total industry costs 498.5704
-91 2049    Total industry costs 511.6533
-92 2050    Total industry costs 525.0719
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82289.223 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.914 seconds 
+
+ Finished period 44 iteration 3, distance is 15541.6011751602
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82292.706 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.909 seconds 
+
+ Finished period 44 iteration 4, distance is 12976.8785174253
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82296.2 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.586 seconds 
+
+ Finished period 44 iteration 5, distance is 10752.1461566081
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82299.737 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.521 seconds 
+
+ Finished period 44 iteration 6, distance is 8832.66371720079
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82303.414 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.122 seconds 
+
+ Finished period 44 iteration 7, distance is 8097.70967336725
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82306.953 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.13 seconds 
+
+ Finished period 44 iteration 8, distance is 7417.15393007595
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82310.486 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.205 seconds 
+
+ Finished period 44 iteration 9, distance is 6553.66983243191
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82314.046 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.11 seconds 
+
+ Finished period 44 iteration 10, distance is 5885.40287436081
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82317.56 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.866 seconds 
+
+ Finished period 44 iteration 11, distance is 5375.67855057515
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82321 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.006 seconds.
+Total grid time: 7.846 seconds 
+
+ Finished period 44 iteration 12, distance is 4919.50430673164
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82324.467 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.756 seconds 
+
+ Finished period 44 iteration 13, distance is 4508.98164321878
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82328.469 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.257 seconds 
+
+ Finished period 44 iteration 14, distance is 4135.3110109652
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82332.093 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.271 seconds 
+
+ Finished period 44 iteration 15, distance is 3797.54350860725
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82335.722 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.856 seconds 
+
+ Finished period 44 iteration 16, distance is 3492.28079437453
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82339.55 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.171 seconds 
+
+ Finished period 44 iteration 17, distance is 3216.12122631946
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82343.156 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.122 seconds 
+
+ Finished period 44 iteration 18, distance is 2966.28086146276
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82347.014 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.366 seconds 
+
+ Finished period 44 iteration 19, distance is 2740.37466449614
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82350.646 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.871 seconds 
+
+ Finished period 44 iteration 20, distance is 2536.36636173935
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82354.544 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.01 seconds.
+Total grid time: 11.757 seconds 
+
+ Finished period 44 iteration 21, distance is 2352.67426734028
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82359.35 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.01 seconds.
+Total grid time: 12.451 seconds 
+
+ Finished period 44 iteration 22, distance is 2198.44151363627
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82364.34 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.011 seconds.
+Total grid time: 13.223 seconds 
+
+ Finished period 44 iteration 23, distance is 2059.05347898102
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82369.57 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.862 seconds 
+
+ Finished period 44 iteration 24, distance is 1932.26097313524
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82373.429 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.542 seconds 
+
+ Finished period 44 iteration 25, distance is 1816.44904467952
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82377.441 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 9.525 seconds 
+
+ Finished period 44 iteration 26, distance is 1710.29817959457
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82381.419 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.867 seconds 
+
+ Finished period 44 iteration 27, distance is 1612.68926739719
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82385.298 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 8.94 seconds 
+
+ Finished period 44 iteration 28, distance is 1522.65094945446
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82389.097 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.007 seconds.
+Total grid time: 9.176 seconds 
+
+ Finished period 44 iteration 29, distance is 1439.33690375014
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82393.04 seconds
+ Starting maximization step, grid size = 1225: 
+.Finished. 
+ Average cell time: 0.008 seconds.
+Total grid time: 10.066 seconds 
+
+ Finished period 44 iteration 30, distance is 1362.011271544
+ Stopping criteria: distance < 1
+
+Estimating spline interpolant of value function...
+ Done. Time to estimate interpolant: 82396.999 seconds
+ Starting maximization step, grid size = 1225: 
+.

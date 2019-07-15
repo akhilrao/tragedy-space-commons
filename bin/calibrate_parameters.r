@@ -83,7 +83,7 @@ comb_econ_series <- merge(econ_series,implied_econ_series,by=c("year"))
 
 # Merge the economic and physical data. The final period gets truncated because the theory-adjustment formula uses up one year.
 #One option is to pad the final observation with the last value in the series. For p, this value is observed. For F, this value is just a copy of the newly-penultimate value. This carries some implications for the measurement errors in the final period.
-physecon <- merge(observed_time_series,comb_econ_series,by=c("year","risk"))
+physecon <- merge(observed_time_series,comb_econ_series,by=c("year"))
 p <- physecon$pi_t
 F <- physecon$F_hat
 
@@ -141,7 +141,7 @@ lc_path_base <- ggplot(data=lc_dfrm,aes(x=year))
 lc_path <- lc_path_base + geom_line(aes(y=projected_constraint),linetype="dashed",color="blue",size=0.8) +
 		geom_line(aes(y=observed_constraint),size=1.2) +							
 		geom_vline(xintercept=2015,size=1.2,linetype="dashed") +
-		ylab("Cumulative maximum launch attempts") + theme_minimal() +
+		ylab("Cumulative maximum possible launches") + theme_minimal() +
 		ggtitle("Observed and projected launch constraint")
 
 
@@ -157,12 +157,9 @@ econ_data_plot_series <- rbind(econ_data_plot_series_orig, econ_data_plot_series
 econ_data_plot_series_long <- reshape(data=econ_data_plot_series, idvar="Year", varying=c("Revenues","Costs"), v.name=c("value"), times=c("Total industry revenues","Total industry costs"), direction="long", new.row.names=1:1000)
 colnames(econ_data_plot_series_long) <- c("Year","Variable","Value")
 
-### adjust earlier: remove duplicated keys
-econ_data_plot_series_long <- econ_data_plot_series_long[-which(duplicated(econ_data_plot_series_long[,c(1,2)])==TRUE),]
-
 revcost_plot <- ggplot(data=econ_data_plot_series_long, aes(x=Year, y=Value)) + 
 				geom_line(aes(group=as.factor(Variable),linetype=as.factor(Variable)),size=1) +
-				ggtitle("(a) Aggregate commercial satellite costs and revenues") +
+				ggtitle("Aggregate commercial satellite costs and revenues") +
 				labs(linetype="") +
 				xlab("Year") +
 				ylab("Billion USD")	+
@@ -187,7 +184,7 @@ csg_base <- ggplot(data=csg_long[union(which(csg_long$Year==2005),which(csg_long
 csg_plot <-	csg_base +
 			geom_bar(aes(fill=variable), position="dodge", stat="identity" ) +
 			labs(fill="") +
-			ggtitle("(b) Commercial space revenues and government space budgets") +
+			ggtitle("Commercial space revenues and government space budgets") +
 			ylab("Billion USD") +
 			xlab("Year") +
 			theme_minimal() +
@@ -198,6 +195,24 @@ csg_plot <-	csg_base +
 				plot.title=element_text(family="Helvetica",size=17),
 				legend.text=element_text(family="Helvetica",size=17))
 
+#####
+# Main text and Extended Data figures
+#####
+
+# Main text figure 1
 png(width=800,height=600,filename="../images/commercial_space_growth.png")
-plot_grid(revcost_plot,csg_plot,align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
+plot_grid(revcost_plot,csg_plot,labels=c("a","b"),align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
+dev.off()
+
+# Extended Data Figure 6
+lc_coef_table <- summary(lc_model)$coefficients[,1:2]
+
+rownames(lc_coef_table) <- c("Intercept","Time trend")
+lc_coef_table <- round(lc_coef_table,2)
+
+lc_coef_table_plot <- ggtexttable(lc_coef_table, 
+                        theme = ttheme("mOrange"))
+
+png(width=450,height=400,filename=paste0("../images/extended_data_figure_6.png"))
+plot_grid(lc_path, lc_coef_table_plot, align="h",labels=c("a","b"),axis="1",nrow=2,ncol=1,rel_heights=c(0.75,0.25))
 dev.off()

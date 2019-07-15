@@ -2,39 +2,7 @@
 # Script to take a series of satellite costs and returns data and calibrate an economic model of satellite excess returns
 #####################################################################
 
-rm(list=ls())
-
-library(ggplot2)
-library(glmnet)
-library(plyr)
-library(gridExtra)
-
-# function to plot estimated objects
-fitplot <- function(xvars,coefs,year,truth,title,ylabel) {
-	fitline <- xvars%*%coefs
-	colnames(fitline)=NULL
-	fit <- data.frame(year=year,fit=fitline,truth=truth,error=(fitline-truth))
-
-	plot_base <- ggplot(data=fit, aes(x=year))
-	plot_fitplot <- plot_base + geom_line(aes(y=truth),size=1.1) +
-							geom_line(aes(y=fit),size=0.9,linetype="dashed", color="blue") +
-							theme_minimal() + ggtitle(paste(title)) +
-							ylab(paste0(ylabel))	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15) )
-	plot_error <- plot_base + geom_line(aes(y=error),size=0.9) +
-						geom_hline(yintercept=0,linetype="dashed") +
-						theme_minimal()	+
-				theme(text=element_text(size=15),
-					axis.text.x=element_text(size=15),
-					axis.text.y=element_text(size=15),
-					plot.title=element_text(size=15) )
-
-	grid.arrange(plot_fitplot,plot_error,nrow=2)
-
-}
+source("plotting_functions.r")
 
 # function to calculate sequence of economic launch costs recursively
 F_calc <- function(a_1,a_2,a_3,F_1,pi_t,risk,...) {
@@ -76,7 +44,7 @@ dfrm <- subset(dfrm,select=c(year,tot_rev,tot_cost,r_s,r_s_raw,risk,share_in_LEO
 dfrm$implied_r <- dfrm$r_s - dfrm$risk
 
 ### write out econ series dfrm
-write.csv(dfrm,file="econ_series.csv",row.names=FALSE)
+write.csv(dfrm,file="../data/econ_series.csv",row.names=FALSE)
 
 ##### model risk as a function of the return
 dfrm_mat <- as.matrix(subset(dfrm,select=-c(risk,year,implied_r,tot_rev,tot_cost,r_s_raw,share_in_LEO)))
@@ -90,7 +58,7 @@ riskxvars <- matrix(c(rep(1,length=dim(dfrm)[1]), dfrm$r_s, dfrm$Ft_Ft), ncol=3,
 fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision rate as a function of returns and costs","collision rate")
 dev.off()
 
-write.csv(riskparms,file="econ_series_coefs.csv")
+write.csv(riskparms,file="../data/econ_series_coefs.csv")
 
 ##### calculate implied launch costs
 
@@ -107,160 +75,3 @@ write.csv(round(printed_table_of_costs_and_returns,digits=2),file="implied_costs
 png(width=500,height=400,filename="../images/risk_return_plot.png")
 fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision probability as a function of returns and costs","collision probability")
 dev.off()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # use NLS to estimate implied path of stock constraint shadow price
-# launch_path <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
-
-# sp_NLS <- as.data.frame(launch_path)
-# sp_NLS <- merge(dfrm,sp_NLS,by=c("year","risk"))
-
-# SP_NLS <- function(parms,pi_t,F_t,risk) {
-# 	T <- length(risk)
-# 	momcon <- rep(1,length=T)
-# 	shadow_price <- parms[2:(T+1)]
-# 	momcon[1] <- risk[1] - pi_t[1]/(F_t[1]) + parms[1]- shadow_price[t]
-# 	for(t in 1:(T-1)){
-# 		momcon[t+1] <- risk[t+1] - pi_t[t+1]/(F_t[t+1]) + parms[1]*F_t[t]/(F_t[t+1]) - shadow_price[t+1]
-# 	}
-# 	# print("Shadow prices are: ")
-# 	# print(paste0(shadow_price))
-
-# 	#print(paste0("Discount rate is: ", format( (parms[1]-1),digits=3)))
-# 	parms[2:(T+1)] <- shadow_price
-# 	objective <- sum(momcon^2) #t(momcon)%*%momcon
-# 	#print(paste0("Objective value is: ", format(objective,digits=7)))
-# 	return(objective)
-# }
-
-# parms <- c(1,rep(1,length=length(sp_NLS$risk)))
-# #SP_NLS(parms,pi_t=sp_NLS$tot_rev,F_t=sp_NLS$tot_cost,risk=sp_NLS$risk)
-# sp_res <- optim(par=parms,fn=SP_NLS,lower=0,pi_t=sp_NLS$tot_rev,F_t=sp_NLS$tot_cost,risk=sp_NLS$risk,method="L-BFGS-B")
-
-# shadow_price <- sp_res$par[-1]
-# imp_avg_r <- sp_res$par[1] - 1
-# print("Shadow prices are: ")
-# print(paste0(shadow_price))
-# print(paste0("Discount rate is: ", format( imp_avg_r,digits=3) ))
-# print(paste0("Objective value is: ", format(sp_res$value,digits=7)))
-	
-# sp_NLS <- cbind(sp_NLS,shadow_price)
-
-# launches <- ggplot(sp_NLS,aes(x=year)) + geom_line(aes(y=(launch_successes+launch_failures)),size=1.1) +
-# geom_line(aes(y=launch_successes),color="blue",size=1.1) +
-# 							theme_minimal() + ggtitle("Total launches (attempts/year)")
-# shadow_prices <- ggplot(sp_NLS,aes(x=year)) + geom_line(aes(y=shadow_price),size=1.1) +
-# 							theme_minimal() + ggtitle("Price of implied stock control ($100m/year)")
-# revs_costs <- ggplot(sp_NLS,aes(x=year)) + geom_line(aes(y=tot_rev),size=1.1,color="blue") +
-# geom_line(aes(y=tot_cost),size=1.1,color="red") +
-# 							theme_minimal() + ggtitle("Revenues and costs ($100m/year)")
-# risk <- ggplot(sp_NLS,aes(x=year)) + geom_line(aes(y=risk),size=1.1) +
-# 							theme_minimal() + ggtitle("Risk (inst. prob.)")
-# grid.arrange(launches,revs_costs,risk,shadow_prices,ncol=1)
-
-
-
-# # use NLS to estimate implied path of launch constraint shadow price
-# launch_path <- read.csv("/home/akhil/Documents/git-repos/tragedy-space-commons/data/ST_stock_series.csv")
-
-# lp_NLS <- as.data.frame(launch_path)
-# lp_NLS <- merge(dfrm,lp_NLS,by=c("year","risk"))
-
-# P_NLS <- function(parms,pi_t,F_t,risk) {
-# 	T <- length(risk)
-# 	momcon <- rep(1,length=T)
-# 	shadow_price <- parms[2:(T+1)]
-# 	#momcon[1] <- risk - (1 - F_t[1]/F_t[2]+shadow_price[2])) - pi_t[2]/(F_t[2]+shadow_price[2]) + parms[1]*F_t[1]/(F_t[2]+shadow_price[2])
-# 	for(t in 1:(T-1)){
-# 		#momcon[t+1] <- risk[t+1] - (1 - shadow_price[t]/(F_t[t+1]+shadow_price[t+1])) - pi_t[t+1]/(F_t[t+1]+shadow_price[t+1]) + parms[1]*F_t[t]/(F_t[t+1]+shadow_price[t+1])
-# 		momcon[t+1] <- risk[t+1] - (1/(F_t[t+1])) - pi_t[t+1]/(F_t[t+1]) + parms[1]*F_t[t]/(F_t[t+1])
-# 	}
-# 	# print("Shadow prices are: ")
-# 	# print(paste0(shadow_price))
-
-# 	#print(paste0("Discount rate is: ", format( (parms[1]-1),digits=3)))
-# 	parms[2:(T+1)] <- shadow_price
-# 	objective <- sum(momcon^2) #t(momcon)%*%momcon
-# 	#print(paste0("Objective value is: ", format(objective,digits=7)))
-# 	return(objective)
-# }
-
-# parms <- c(1,rep(1,length=length(lp_NLS$risk)))
-# #P_NLS(parms,pi_t=lp_NLS$tot_rev,F_t=lp_NLS$tot_cost,risk=lp_NLS$risk)
-# res <- optim(par=parms,fn=P_NLS,lower=0,pi_t=lp_NLS$tot_rev,F_t=lp_NLS$tot_cost,risk=lp_NLS$risk,method="L-BFGS-B")
-
-# shadow_price <- res$par[-1]
-# imp_avg_r <- res$par[1] - 1
-# print("Shadow prices are: ")
-# print(paste0(shadow_price))
-# print(paste0("Discount rate is: ", format( imp_avg_r,digits=3) ))
-# print(paste0("Objective value is: ", format(res$value,digits=7)))
-	
-# lp_NLS <- cbind(lp_NLS,shadow_price)
-
-# launches <- ggplot(lp_NLS,aes(x=year)) + geom_line(aes(y=(launch_successes+launch_failures)),size=1.1) +
-# geom_line(aes(y=launch_successes),color="blue",size=1.1) +
-# 							theme_minimal() + ggtitle("Total launches (attempts/year)")
-# shadow_prices <- ggplot(lp_NLS,aes(x=year)) + geom_line(aes(y=shadow_price),size=1.1) +
-# 							theme_minimal() + ggtitle("Implied price of launch constraint ($100m/year)")
-# revs_costs <- ggplot(lp_NLS,aes(x=year)) + geom_line(aes(y=tot_rev),size=1.1,color="blue") +
-# geom_line(aes(y=tot_cost),size=1.1,color="red") +
-# 							theme_minimal() + ggtitle("Revenues and costs ($100m/year)")
-# risk <- ggplot(lp_NLS,aes(x=year)) + geom_line(aes(y=risk),size=1.1) +
-# 							theme_minimal() + ggtitle("Risk (inst. prob.)")
-# grid.arrange(launches,revs_costs,risk,shadow_prices,ncol=1)
-
-
-# ### random initial condition draws
-
-# shadow_price_dist <- matrix(0,nrow=300,ncol=length(lp_NLS$risk))
-# imp_avg_r_dist <- rep(0,length.out=300)
-# objective_dist <- rep(0,length.out=300)
-
-# for(i in 1:300) {
-# 	#parms <- rep(runif(min=0,max=100,n=1),length=(length(lp_NLS$risk)+1) )
-# 	parms <- runif(min=0,max=1,n=(length(lp_NLS$risk)+1) )
-# 	res <- optim(par=parms,fn=P_NLS,lower=0,pi_t=lp_NLS$tot_rev,F_t=lp_NLS$tot_cost,risk=lp_NLS$risk,method="L-BFGS-B")
-# 	shadow_price_dist[i,] <- res$par[-1]
-# 	imp_avg_r_dist[i] <- res$par[1] - 1
-# 	objective_dist[i] <- res$value
-# }
-
-# distns <- cbind(shadow_price_dist,imp_avg_r_dist,objective_dist)
-
-# summary(distns)
-
-# best_parms <- distns[which.min(distns[,12]),]
-# best_sp <- best_parms[1:length(lp_NLS$risk)]
-
-# best_fit <- cbind(lp_NLS,best_sp)
-
-# launches <- ggplot(lp_NLS,aes(x=year)) + geom_line(aes(y=(launch_successes+launch_failures)),size=1.1) +
-# geom_line(aes(y=launch_successes),color="blue",size=1.1) +
-# 							theme_minimal() + ggtitle("Total launches (attempts/year)")
-# best_shadow_prices <- ggplot(lp_NLS,aes(x=year)) + geom_line(aes(y=best_sp),size=1.1,color="blue") +
-# 							geom_line(aes(y=shadow_price),size=1.1) +
-# 							theme_minimal() + ggtitle("Implied price of launch constraint ($100m/year)")
-# revs_costs <- ggplot(lp_NLS,aes(x=year)) + geom_line(aes(y=tot_rev),size=1.1,color="blue") +
-# geom_line(aes(y=tot_cost),size=1.1,color="red") +
-# 							theme_minimal() + ggtitle("Revenues and costs ($100m/year)")
-# risk <- ggplot(lp_NLS,aes(x=year)) + geom_line(aes(y=risk),size=1.1) +
-# 							theme_minimal() + ggtitle("Risk (inst. prob.)")
-# grid.arrange(launches,revs_costs,risk,best_shadow_prices,ncol=1)
-
-
-

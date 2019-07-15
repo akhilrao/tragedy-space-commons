@@ -16,6 +16,7 @@ rm(list=ls())
 library(pracma)
 library(data.table)
 library(rootSolve)
+library(grid)
 library(gridExtra)
 library(ggplot2)
 library(viridis)
@@ -30,20 +31,24 @@ library(cowplot)
 library(tidyr)
 library(plyr)
 library(extrafont)
+library(glmnet)
+library(reshape2)
+library(BB)
+
 #font_import(prompt=FALSE)
 
 #############################################################################
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
 #############################################################################
 
-find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS
-physics_bootstrap <- 0 # 1: run the physics sensitivity analysis
+find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time, so is set to 0+start from prior solve results by default.
+physics_bootstrap <- 1 # 1: run the physics sensitivity analysis.
+source("plotting_functions.r")
+# these scripts calibrate the parameters of the physical and economic models, and write the parameters out to separate files. they do not construct the data series' necessary for the value function iteration.
 source("calibrate_physical_model.r")
-
-setwd("../bin/")
 source("calibrate_econ_model.r")
 
-rm(list=ls())
+rm(list=ls()) # clear workspace again, now that the models are calibrated
 enableJIT(3) # turn on JIT compilation for all functions
 system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
 
@@ -78,10 +83,10 @@ D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 25000
 
 D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. have no removal, set D_fraction_to_remove to 0.
-D_removal_start_year <- 2030 # pick a year within the projection time frame.
+D_removal_start_year <- 2023 # pick a year within the projection time frame.
 
-bootstrap <- 0 # 1: run sensitivity analysis for tax path
-removal_comparison <- 0 # 1: compare baseline model to model with debris removal. will (re)generate paths with R_frac <- 0.
+bootstrap <- 1 # 1: run sensitivity analysis for tax path
+removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will (re)generate paths with R_frac <- 0.
 
 total_time <- proc.time()[3]
 
@@ -94,7 +99,7 @@ start_year <- 2006 # beginning of simulation
 end_year <- 2040 # final year for plots
 projection_end <- 2050 # final year for calculation
 opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
-source("calibrate_parameters.r")
+source("calibrate_parameters.r") # reads in all calibrated parameter values, estimates the launch constraint, constructs the necessary data series, and generates main text figure 1.
 
 #############################################################################
 # 2. Compute sequences of open access and optimal policies
@@ -118,7 +123,6 @@ source("main_model_projection.r")
 source("main_model_figures.r")
 
 cat(paste0("\n Done. Total wall time for main model: ",round(proc.time()[3] - total_time,3)/60," minutes"))
-
 
 total_time <- proc.time()[3]
 
