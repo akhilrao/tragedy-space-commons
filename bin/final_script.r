@@ -74,7 +74,7 @@ args <- commandArgs(trailingOnly=TRUE)
 #############################################################################
 
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
-ncores <- 3 # number of cores to use for parallel computations
+ncores <- 25 # number of cores to use for parallel computations
 oa_gridsize <- 35
 S_gridsize_opt <- 35
 D_gridsize_opt <- 35
@@ -86,7 +86,9 @@ D_grid_upper_opt <- 25000
 D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. have no removal, set D_fraction_to_remove to 0.
 D_removal_start_year <- 2023 # pick a year within the projection time frame.
 
-bootstrap <- 1 # 1: run sensitivity analysis for tax path
+bootstrap <- 1 # 1: run sensitivity analysis for tax path. set to 1 by default.
+n_path_sim_bootstrap_draws <- 125 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
+
 removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will (re)generate paths with R_frac <- 0.
 
 total_time <- proc.time()[3]
@@ -106,7 +108,7 @@ source("calibrate_parameters.r") # reads in all calibrated parameter values, est
 # 2. Compute sequences of open access and optimal policies
 #############################################################################
 
-R_frac <- 0 # leave off for baseline
+R_frac <- 0.5 # leave off for baseline
 R_start_year <- D_removal_start_year
 R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year)
 source("main_model_estimation.r")
@@ -132,13 +134,15 @@ if(removal_comparison==1){
 		R_start_year <- rs_year
 		R_frac <- D_fraction_to_remove
 		source("main_model_projection.r")
-		# if the appropriate no-removal file exists, continue to generate figures. else, generate the file.
+		# if the appropriate no-removal file exists, continue to generate figures. else, generate the appropriate no-removal file.
 		if(file.exists(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_0_remstart_",R_start_year,"_main_simulation.csv"))==FALSE) {
 			R_frac <- 0
 			source("main_model_projection.r")
 			R_frac <- D_fraction_to_remove
 		}
-		source("removal_comparison_figures.r")
+		#source("removal_comparison_figures.r") # 071519: FIX THIS SCRIPT, IT'S CAUSING FAILS OF THE TYPE 
+		# Error in data.frame(list(npv_welfare_gain.rem = c(2472.32389737803, 1547.56435677332,  :   arguments imply differing number of rows: 5, 0
+
 	}
 }
 
@@ -149,5 +153,6 @@ cat(paste0("\n Done. Total wall time for removal models: ",round(proc.time()[3] 
 #############################################################################
 
 if(bootstrap == 1){
+	R_frac <- 0 # 0 disables debris removal for the bootstrapped models
 	source("main_model_bootstrap.r")
 }

@@ -1,12 +1,12 @@
 ##### Script to generate main model bootstrap sensitivity analysis for "Tragedy of the Space Commons" paper.
 ###
 
-source("final_script_bootstrap_calculations.r") # this actually calculates the bootstrap analysis. defaults to 24x24 grid, 125 bootstrap samples
+source("final_script_bootstrap_calculations.r") # this actually calculates the bootstrap analysis. uses the same grid settings as the main model.
 
-main_sim <- read.csv("../data/main_simulation.csv")
+main_sim <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))
 bootstrap_sims <- read.csv("../data/bootstrapped_simulation.csv")
 
-main_sim <- main_sim[which(main_sim$start_time.opt==0),] # select only main_sim rows where optimal management begins in 2006, to be comparable to the bootstrap draws. 7/8/19: NEED TO VERIFY BOOTSTRAP_SIMS OPTIMAL MANAGEMENT STARTS IN 2006.
+main_sim <- main_sim[which(main_sim$start_time.opt==0),] # select only main_sim rows where optimal management begins in 2006, to be comparable to the bootstrap draws.
 
 main_small <- data.frame(year=main_sim$year, 
 						launches.oa=main_sim$launches.oa,
@@ -139,34 +139,4 @@ png(width=800,height=400,filename="../images/extended_data_figure_10.png")
 plot_grid(m_bs_small_long_bootstrap_opttax_plot,m_bs_small_long_bootstrap_oavalue_plot,m_bs_small_long_bootstrap_optvalue_plot
 ,align="h",labels=c("a","b","c"),axis="1",nrow=1,rel_widths=c(1/3,1/3,1/3))
 dev.off()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

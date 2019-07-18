@@ -21,18 +21,7 @@ set.seed(501)
 start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-B)),size=1)
 risk_cal_set_B <- accepted_risk_cal_set[start_loc:(start_loc+B),-1]
 deblom_cal_set_B <- deblom_cal_set[start_loc:(start_loc+B),-1]
-# bootstrap_grid <- matrix(-1,nrow=B*B,ncol=sum(ncol(risk_cal_set_B),ncol(deblom_cal_set_B)))
-# for(i in 1:B) {
-# 	for(j in 1:B) {
-# 		bootstrap_grid[(j+(i-1)*B),1] <- risk_cal_set_B[j,1]
-# 		bootstrap_grid[(j+(i-1)*B),2] <- risk_cal_set_B[j,2]
-# 		bootstrap_grid[(j+(i-1)*B),3] <- deblom_cal_set_B[i,1]
-# 		bootstrap_grid[(j+(i-1)*B),4] <- deblom_cal_set_B[i,2]
-# 		bootstrap_grid[(j+(i-1)*B),5] <- deblom_cal_set_B[i,3]
-# 		bootstrap_grid[(j+(i-1)*B),6] <- deblom_cal_set_B[i,4]
-# 		bootstrap_grid[(j+(i-1)*B),7] <- deblom_cal_set_B[i,5]
-# 	}
-# }
+
 
 bootstrap_grid <- cbind(risk_cal_set_B,deblom_cal_set_B)
 bootstrap_grid <- data.frame(bootstrap_grid)

@@ -7,79 +7,24 @@
 # 4. Draw figures, write output
 
 #############################################################################
-# 0. Load packages
+# 0. Begin loop
 #############################################################################
-
-rm(list=ls())
-library(pracma)
-library(data.table)
-library(rootSolve)
-library(gridExtra)
-library(ggplot2)
-library(viridis)
-library(doParallel)
-library(progress)
-library(plot3D)
-library(reshape2)
-library(fields)
-library(compiler)
-
-#############################################################################
-# 1a. Enable JIT compilation, adjust affinity mask, load functions and algorithms
-############
-
-enableJIT(3) # turn on JIT compilation for all functions
-system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
-
-source("simulation_functions.r")
-source("equations.r")
-source("simulation_algorithms.r")
-
-#############################################################################
-# 1b. Read in command args
-#############################################################################
-
-args <- commandArgs(trailingOnly=TRUE)
-
-#############################################################################
-# 1c. Set computation hyperparameters and number of bootstrap samples
-#############################################################################
-
-upper <- 1e15 # upper limit for some rootfinders - should never bind
-ncores <- 3#as.numeric(args[1]) # number of cores to use for parallel computations
-oa_gridsize <- 24#as.numeric(args[2]) 
-# what's the right size?
-S_gridsize_opt <- 24#as.numeric(args[2]) 
-D_gridsize_opt <- 24#as.numeric(args[2]) 
-S_grid_upper_oa <- 8000
-S_grid_upper_opt <- 8000
-D_grid_upper_oa <- 250000
-D_grid_upper_opt <- 50000
-B <- 125#as.numeric(args[3])
-
-set.seed(501)
-
-quiet <- function(x) { 
-  sink(tempfile()) 
-  on.exit(sink()) 
-  quiet(force(x)) 
-} 
 
 # BEGIN BOOTSTRAP LOOP
 
-for(b in 1:B) {
+for(b in 1:n_path_sim_bootstrap_draws) {
 
 total_time <- proc.time()[3]
 
 cat(paste0("\n\nBeginning bootstrap draw ",b))
 	#############################################################################
-	# 1d. Calibration
+	# 1. Calibration
 	#############################################################################
 
 	source("calibrate_parameters_bootstrap.r")
 
 	#############################################################################
-	# 2b. Optimal policies and values
+	# 2a. Optimal policies and values
 	#############################################################################
 
 	opt_gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_opt, Dgridmax=D_grid_upper_opt, Sgridlength=S_gridsize_opt, Dgridlength=D_gridsize_opt, cheby=1) # gridmax=25000 seems to work well for the data
@@ -106,7 +51,7 @@ sink()
 	opt_pvfn_path <- rbindlist(opt_dvs_output)
 
 	#############################################################################
-	# 2a. Open access policies and values
+	# 2b. Open access policies and values
 	#############################################################################
 
 	# build grid
@@ -142,7 +87,7 @@ sink()
 	oa_grid_lookup <- data.frame(sats=oa_pvfn_path$satellites,debs=oa_pvfn_path$debris,F=oa_pvfn_path$F)
 cat(paste0("\nGenerating open access path for draw ",b,"..."))
 sink("log.solve.txt", append=TRUE)
-	oa_tps_path <- tps_path_gen(S0,D0,0,p,F,oa_pvfn_path,asats,launch_constraint,oa_grid_lookup,ncores=ncores,OPT=0,linear_policy_interp=0)
+	oa_tps_path <- tps_path_gen(S0,D0,0,R_start,R_start_year,R_frac,p,F,oa_pvfn_path,asats,launch_constraint,oa_grid_lookup,ncores=ncores,OPT=0,linear_policy_interp=0)
 sink()
 	oa_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(oa_tps_path)),oa_tps_path)
 
@@ -150,7 +95,7 @@ sink()
 	opt_grid_lookup <- data.frame(sats=opt_pvfn_path$satellites,debs=opt_pvfn_path$debris,F=opt_pvfn_path$F)
 cat(paste0("\nGenerating optimal path for draw ",b,"..."))
 sink("log.solve.txt", append=TRUE)
-	opt_tps_path <- tps_path_gen(S0,D0,0,p,F,opt_pvfn_path,asats,launch_constraint,opt_grid_lookup,ncores=ncores,OPT=1,linear_policy_interp=0)
+	opt_tps_path <- tps_path_gen(S0,D0,0,R_start,R_start_year,R_frac,p,F,opt_pvfn_path,asats,launch_constraint,opt_grid_lookup,ncores=ncores,OPT=1,linear_policy_interp=0)
 sink()
 	opt_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(opt_tps_path)),opt_tps_path)
 
