@@ -22,14 +22,13 @@ start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-B)),size=1)
 risk_cal_set_B <- accepted_risk_cal_set[start_loc:(start_loc+B),-1]
 deblom_cal_set_B <- deblom_cal_set[start_loc:(start_loc+B),-1]
 
-
 bootstrap_grid <- cbind(risk_cal_set_B,deblom_cal_set_B)
 bootstrap_grid <- data.frame(bootstrap_grid)
 colnames(bootstrap_grid) <- c(colnames(risk_cal_set_B),colnames(deblom_cal_set_B))
 
 # select bootstrap parameters
-risk_cal <- bootstrap_grid[b,1:2]#accepted_risk_cal_set[b,]
-deblom_cal <- bootstrap_grid[b,3:7]#deblom_cal_set[b,]
+risk_cal <- bootstrap_grid[b,1:2]
+deblom_cal <- bootstrap_grid[b,3:7]
 
 # Extend Morgan Stanley revenue and total value projections an additional 5 years, to avoid any end-of-horizon effects for a forecast out to 2040 (e.g. numerical distortions in steady-state value functions). The idea is to "project" out to 2050 using the mean annual growth rate of the Morgan Stanley projections, then truncate back to 2040 to avoid any end-of-horizon effects.
 projection_start <- MS_proj_rev$Year[nrow(MS_proj_rev)]+1

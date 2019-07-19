@@ -349,7 +349,7 @@ coi_plot_cols <- c("2020" = paste0(viridis(7)[4]), "2025" = paste0(viridis(7)[5]
 coi_plot <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss)) +
 			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 			labs(fill="Optimal mgmt\nstart year") +
-			ggtitle("(b) Permanent orbit\nuse value\nloss in 2040") +
+			ggtitle("Permanent orbit\nuse value\nloss in 2040") +
 			ylab("Forgone fleet NPV (nominal $1t)") +
 			xlab("Year") +
 			theme_bw() +
@@ -381,7 +381,7 @@ npv_welf_paths <- risk_proj +
 	geom_line(aes(y=npv_opt_welfare/1000,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	labs(color="Optimal mgmt\nstart year") +
 	ylab("Fleet NPV (nominal $1t)") + xlab("Year") + theme_bw() +
-	ggtitle("(a) NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
+	ggtitle("NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
 	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
 				theme(text=element_text(family="Helvetica",size=20),
 					axis.text.x=element_text(family="Helvetica",size=20),
@@ -491,11 +491,6 @@ png(width=550,height=600,filename=paste0("../images/",length(opt_start_year),"_s
 plot_grid(risk_poa_path, npv_poa_path,align="v",axis="2",nrow=2,rel_widths=c(1,1))
 dev.off()
 
-# costs of inaction
-png(width=950,height=450,filename=paste0("../images/",length(opt_start_year),"_costs_of_inaction_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-plot_grid(npv_welf_paths,coi_plot,align="h",axis="1",nrow=1,rel_widths=c(3.7/5,1.3/5))
-dev.off()
-
 # historical fit path panel
 png(width=500,height=500,filename=paste0("../images/",length(opt_start_year),"_simulated_historical_series_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
 grid.arrange(OA_OPT_launch_hist,OA_OPT_sat_hist,OA_OPT_risk_hist,OA_OPT_deb_hist,ncol=2)
@@ -505,10 +500,15 @@ png(width=800,height=500,filename=paste0("../images/",length(opt_start_year),"_s
 plot_grid(OA_OPT_launch_proj_all,OA_OPT_sat_proj_all,OA_OPT_risk_proj_all,OA_OPT_deb_proj_all,align="h",axis="1",nrow=2,rel_widths=c(1/2,1/2))
 dev.off()
 
+
 #####
-# Extended Data figures
+# Main text and Extended Data figures
 #####
 
+# Main text figure 2
+png(width=950,height=450,filename=paste0("../images/main_text_figure_2.png"))
+plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3.7/5,1.3/5))
+dev.off()
 
 # Extended data figure 4
 png(width=800,height=500,filename=paste0("../images/extended_data_figure_4.png"))
