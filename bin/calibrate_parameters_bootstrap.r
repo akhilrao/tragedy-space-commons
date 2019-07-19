@@ -18,9 +18,9 @@ accepted_risk_cal_set <- risk_cal_set[which(risk_cal_set$SD>0),]
 
 # the physical parameters are draws from the bootstrap world's conditional distribution, parameters(risk) and parameters(debris|risk)
 set.seed(501)
-start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-B)),size=1)
-risk_cal_set_B <- accepted_risk_cal_set[start_loc:(start_loc+B),-1]
-deblom_cal_set_B <- deblom_cal_set[start_loc:(start_loc+B),-1]
+start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-n_path_sim_bootstrap_draws)),size=1)
+risk_cal_set_B <- accepted_risk_cal_set[start_loc:(start_loc+n_path_sim_bootstrap_draws),-1]
+deblom_cal_set_B <- deblom_cal_set[start_loc:(start_loc+n_path_sim_bootstrap_draws),-1]
 
 bootstrap_grid <- cbind(risk_cal_set_B,deblom_cal_set_B)
 bootstrap_grid <- data.frame(bootstrap_grid)

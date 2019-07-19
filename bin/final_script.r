@@ -42,10 +42,12 @@ library(ggpubr)
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
 #############################################################################
 
-find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time, so is set to 0+start from prior solve results by default.
+ncores <- 30 # number of cores to use for parallel computations
+find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time, so is set to 0 and starts from prior solve results by default.
 physics_bootstrap <- 1 # 1: run the physics sensitivity analysis.
 source("plotting_functions.r")
 # these scripts calibrate the parameters of the physical and economic models, and write the parameters out to separate files. they do not construct the data series' necessary for the value function iteration.
+system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
 source("calibrate_physical_model.r")
 source("calibrate_econ_model.r")
 
@@ -64,7 +66,7 @@ quiet <- function(x) {
 } 
 
 #############################################################################
-# 1b. Read in command args
+# 1b. Read in command args --- 071719: DEPRECATED, SCRIPT DOES NOT ACCEPT COMMAND ARGS
 #############################################################################
 
 args <- commandArgs(trailingOnly=TRUE)
@@ -73,8 +75,8 @@ args <- commandArgs(trailingOnly=TRUE)
 # 1c. Set computation hyperparameters
 #############################################################################
 
+ncores <- 30 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
-ncores <- 25 # number of cores to use for parallel computations
 oa_gridsize <- 35
 S_gridsize_opt <- 35
 D_gridsize_opt <- 35
@@ -84,7 +86,7 @@ D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 25000
 
 D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. have no removal, set D_fraction_to_remove to 0.
-D_removal_start_year <- 2023 # pick a year within the projection time frame.
+D_removal_start_year <- 2022 # pick a year within the projection time frame.
 
 bootstrap <- 1 # 1: run sensitivity analysis for tax path. set to 1 by default.
 n_path_sim_bootstrap_draws <- 125 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
