@@ -10,6 +10,10 @@
 # 0. Begin loop
 #############################################################################
 
+oa_gridsize <- 24
+S_gridsize_opt <- 24
+D_gridsize_opt <- 24
+
 # BEGIN BOOTSTRAP LOOP
 
 for(b in 1:n_path_sim_bootstrap_draws) {
@@ -61,7 +65,7 @@ sink()
 	# generate value and policy guesses - use final period
 	S_T_1 <- oa_gridlist$igrid$sats
 	D_T_1 <- oa_gridlist$igrid$debs
-	S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay #guess for BW parameterization
+	S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay
 	V_T <- p[T]*S_T
 	vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
 	lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)

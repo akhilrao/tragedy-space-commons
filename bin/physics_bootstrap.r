@@ -1,7 +1,7 @@
 B <- 1000 # number of bootstrap resamples	
 
 #####
-# residual (semi-parametric) bootstrap for estimated nls parameters. grid searches same interval as original model estimate. 
+# residual (semi-parametric) bootstrap for estimated nls parameters of physical collision risk model. grid searches same interval as original model estimate. 
 #####
 nls_risk_resids <- risk - nls_risk_xvars[,1]*(1 - exp(-nls_coefs[1,1]*nls_risk_xvars[,1] -nls_coefs[1,2]*nls_risk_xvars[,2]))
 
@@ -13,21 +13,26 @@ nls_risk_bootstrap_dv <- nls_risk_model_output + nls_risk_resids_resamples
 
 nls_risk_bootstrap_coefs <- matrix(-1,nrow=B,ncol=2)
 
-registerDoParallel(cores=3)
+# since the main-world estimates are the result of trying to find the best starting points for NLS, each set of bootstrap-world estimates should be too.
+registerDoParallel(cores=ncores)
 for(b in 1:B) {
 	# search over a grid of initial points and select the best one
+	message(paste0("Collision risk bootstrap loop ",b))
+	## generate the grid
 	init_risk_bootstrap_cond_element <- seq(from=1e-9,to=1e-6,length.out=10)
 	init_risk_bootstrap_cond_grid <- expand.grid(init_risk_bootstrap_cond_element,init_risk_bootstrap_cond_element)
 	nls_risk_bootstrap_values <- as.data.frame(matrix(1e+25,nrow=nrow(init_risk_bootstrap_cond_grid),ncol=4))
 	colnames(nls_risk_bootstrap_values) <- c("obj_fn","SS_parm","SD_parm","conv")
 
+	## run the search: estimate NLS at each starting point, choose the estimate which minimizes the objective
 	nls_risk_bootstrap_values <- foreach(i=1:nrow(init_risk_bootstrap_cond_grid), .export=ls(), .inorder=TRUE, .combine=rbind) %dopar% {
-		nls_risk_bootstrap_result <- invisible(spg(par=c(init_risk_bootstrap_cond_grid[i,1],init_risk_bootstrap_cond_grid[i,2]), fn=objective, rate=nls_risk_bootstrap_dv[,b], S=nls_risk_xvars$sats, D=nls_risk_xvars$debs, lower=0, upper=0.5,control=list(ftol=1e-15), quiet=TRUE))
+		nls_risk_bootstrap_result <- invisible(spg(par=c(init_risk_bootstrap_cond_grid[i,1],init_risk_bootstrap_cond_grid[i,2]), fn=objective, rate=nls_risk_bootstrap_dv[,b], S=nls_risk_xvars$sats, D=nls_risk_xvars$debs, lower=0, upper=0.5,control=list(ftol=1e-15), quiet=TRUE)) # both invisible() and the quiet=TRUE option were supposed to make this not print output... yet it does.
 		c(nls_risk_bootstrap_result$value, nls_risk_bootstrap_result$par[1], nls_risk_bootstrap_result$par[2], nls_risk_bootstrap_result$convergence)
 	}
 	colnames(nls_risk_bootstrap_values) <- c("obj_fn","SS_parm","SD_parm","conv")
 	nls_risk_bootstrap_values <- data.frame(nls_risk_bootstrap_values)
 
+	## select the best one
 	best_init <- which.min(nls_risk_bootstrap_values$obj_fn)
 	nls_risk_bootstrap_result <- nls_risk_bootstrap_values[best_init,2:3]
 	nls_risk_bootstrap_coefs[b,] <- c(nls_risk_bootstrap_result[1,1],nls_risk_bootstrap_result[1,2])
@@ -38,7 +43,7 @@ nls_risk_bootstrap_coefs <- data.frame(nls_risk_bootstrap_coefs)
 colnames(nls_risk_bootstrap_coefs) <- c("S2","SD")
 
 # write out bootstrapped coefficients
-write.csv(nls_risk_bootstrap_coefs,file="bootstrapped_risk_eqn_coefs.csv")
+write.csv(nls_risk_bootstrap_coefs,file="../data/bootstrapped_risk_eqn_coefs.csv")
 
 #####
 # residual (semi-parametric) bootstrap for estimated debris model parameters
@@ -47,15 +52,14 @@ ridge_debris_resids <- D_next - m2xvars%*%m2coefs
 
 # generate bootstrap resamples of residuals 
 ridge_debris_resids_resamples <-  matrix(ridge_debris_resids[resample_order],ncol=B,byrow=FALSE)
-#replicate(B,sample(ridge_debris_resids,length(ridge_debris_resids),replace = TRUE))
 ridge_debris_model_output <- m2xvars%*%m2coefs
 ridge_debris_bootstrap_dv <- ridge_debris_model_output%*%matrix(1,ncol=B,nrow=1) + ridge_debris_resids_resamples
 
 ridge_debris_bootstrap_coefs <- matrix(-1,nrow=B,ncol=ncol(m2xvars))
 
-registerDoParallel(cores=3)
+registerDoParallel(cores=ncores)
 ridge_debris_bootstrap_coefs <- foreach(b=1:B, .export=ls(), .inorder=TRUE, .combine=rbind) %dopar% {
-	bootstrap_dfrm <- dfrm
+	bootstrap_dfrm <- dfrm #dfrm is the design matrix of physical variables from calibrate_physical_model.r
 	Sfrac <- 1 - exp(-nls_risk_bootstrap_coefs[b,1]*bootstrap_dfrm$payloads_in_orbit)
 	Dfrac <- 1 - exp(-nls_risk_bootstrap_coefs[b,2]*bootstrap_dfrm$debris)
 	bootstrap_dfrm$SSfrags <- Sfrac*bootstrap_dfrm$payloads_in_orbit
@@ -73,7 +77,7 @@ colnames(ridge_debris_bootstrap_coefs) <- colnames(m2xvars)
 rownames(ridge_debris_bootstrap_coefs) <- NULL
 
 # write out bootstrapped coefficients
-write.csv(ridge_debris_bootstrap_coefs,file="bootstrapped_debris_lom_coefs.csv")
+write.csv(ridge_debris_bootstrap_coefs,file="../data/bootstrapped_debris_lom_coefs.csv")
 
 #####
 # Coefficient plots

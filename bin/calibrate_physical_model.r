@@ -1,10 +1,6 @@
 #####################################################################
 # Script to take a series of orbital stock levels and calibrate a physical model of debris evolution and collision risk
 #####################################################################
-#rm(list=ls())
-
-system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
-
 
 setwd("../data/")
 set.seed(501) # for bootstrap samples
@@ -98,7 +94,7 @@ if(find_best_nls_parms == 1) {
 if(find_best_nls_parms == 0) {
 	nls_init <- read.csv("best_risk_negexp_nls_inits.csv")
 	nls_result <- invisible(spg(par=c(nls_init[1,2],nls_init[2,2]), fn=objective, rate=risk, S=nls_risk_xvars$sats, D=nls_risk_xvars$debs, lower=0, upper=0.5,control=list(ftol=1e-15), quiet=TRUE))
-	 nls_coefs <- c(nls_result$par[1],nls_result$par[2])
+	nls_coefs <- c(nls_result$par[1],nls_result$par[2])
 }
 
 nls_coefs <- data.frame(S2=nls_coefs[1],SD=nls_coefs[2])

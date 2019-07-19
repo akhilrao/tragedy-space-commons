@@ -300,7 +300,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	cat(paste("\n Stopping criteria: distance < ", epsilon, "\n", sep=""))
 
 	# set starting point for policy
-	ifelse(t==T, panel$X <- panel$X, panel$X <- panel$X) #rnorm(length(panel$X),mean=10,sd=1))
+	ifelse(t==T, panel$X <- panel$X, panel$X <- panel$X) 
 
 	# solver loop
 	while(delta > epsilon) {
@@ -313,7 +313,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		cat(paste0("\nEstimating spline interpolant of value function..."))
 		tps_x <- as.matrix(cbind(panel$S,panel$D))
 		tps_y <- as.matrix(panel$V)
-		## TODO: test with lambda free
+		## TODO: test with lambda free. 071519: doesn't seem to matter.
 		tps_model <- fastTps(x=tps_x, Y=tps_y, m=NULL, lambda=0, theta=ceiling(0.5*sqrt(n_grid_points)))
 		#tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
 		vspline.time <- (proc.time() - vspline.tm)[3]

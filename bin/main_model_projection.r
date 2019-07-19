@@ -52,3 +52,5 @@ selected_years <- intersect(which(OA_OPT_full$year>=start_year),which(OA_OPT_ful
 OA_OPT <- OA_OPT_full[selected_years,]
 
 write.csv(OA_OPT, file=paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))
+
+setwd("../bin")

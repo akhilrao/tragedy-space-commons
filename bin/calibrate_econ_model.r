@@ -75,3 +75,95 @@ write.csv(round(printed_table_of_costs_and_returns,digits=2),file="implied_costs
 png(width=500,height=400,filename="../images/risk_return_plot.png")
 fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision probability as a function of returns and costs","collision probability")
 dev.off()
+
+
+########## RECALCULATE ECONOMIC PARAMETERS IN PHYSICAL BOOTSTRAP WORLDS IF PHYSICS_BOOTSTRAP==1 ##########
+
+if(physics_bootstrap==1){
+#####
+# residual (semi-parametric) bootstrap for economic collision risk model given bootstrap-world collision risk timepaths
+#####
+ols_econrisk_bootstrap_coefs <- matrix(-1,nrow=B,ncol=ncol(riskxvars))
+
+econrisk_bootstrap_years_idx <- which(series$year%in%dfrm$year) #dfrm is same as above in this script. series is a matrix of years and physical variables from calibrate_physical_model.r
+nls_risk_bootstrap_dv_in_econ_sample <- nls_risk_bootstrap_dv[econrisk_bootstrap_years_idx,]
+econrisk_dfrm <- cbind(nls_risk_bootstrap_dv_in_econ_sample,dfrm)
+
+registerDoParallel(cores=ncores)
+ols_econrisk_bootstrap_coefs <- foreach(b=1:B, .export=ls(), .inorder=TRUE, .combine=rbind) %dopar% {
+
+	bootstrap_riskmodel <- lm( nls_risk_bootstrap_dv_in_econ_sample[,b] ~ r_s + Ft_Ft, data=dfrm[which(dfrm$year%in%series$year),])
+	summary(riskmodel)
+
+	coef(bootstrap_riskmodel)
+}
+stopImplicitCluster()
+
+ols_econrisk_bootstrap_coefs <- data.frame(ols_econrisk_bootstrap_coefs)
+colnames(ols_econrisk_bootstrap_coefs) <- c("intercept","r_s","Ft_Ft")
+rownames(ols_econrisk_bootstrap_coefs) <- NULL
+
+# write out bootstrapped coefficients
+write.csv(ols_econrisk_bootstrap_coefs,file="../data/bootstrapped_econ_risk_coefs.csv")
+
+#####
+# Coefficient plots
+#####
+
+##### Collision risk equation
+nls_risk_bootstrap_coefs <- read.csv("../data/bootstrapped_risk_eqn_coefs.csv")
+positive_SDs <- which(nls_risk_bootstrap_coefs$SD>0)
+effective_B <- length(positive_SDs)
+
+# plot bootstrapped coefficient distribution
+econrisk_hist_data <- ols_econrisk_bootstrap_coefs[positive_SDs,]
+intercept_hist <- ggplot(data=econrisk_hist_data, aes(x=intercept)) + 
+			geom_histogram(aes(y=..density..), bins=effective_B/3, colour="gray", fill="white") +
+			geom_density(alpha=.2, fill="#FF6666", colour="dark gray") +
+			xlab("Intercept") +
+			geom_vline(xintercept=riskparms[[1]], linetype="dashed", color="blue") +
+			geom_vline(xintercept=mean(econrisk_hist_data$intercept), linetype="dashed") +
+			ggtitle(paste0("Distribution of bootstrapped economic risk parameters: ",effective_B, " draws\n(blue: original estimate, black: mean of bootstrap estimates)")) +
+			theme_bw()	+
+			theme(text=element_text(size=15),
+				axis.text.x=element_text(size=15),
+				axis.text.y=element_text(size=15),
+				plot.title=element_text(size=15),
+				legend.text=element_text(size=15) )
+rs_hist <- ggplot(data=econrisk_hist_data, aes(x=r_s)) + 
+			geom_histogram(aes(y=..density..), bins=effective_B/3, colour="gray", fill="white") +
+			geom_density(alpha=.2, fill="#FF6666", colour="dark gray") +
+			xlab("Rate of return parameter") +
+			geom_vline(xintercept=riskparms[[2]], linetype="dashed", color="blue") +
+			geom_vline(xintercept=mean(econrisk_hist_data$r_s), linetype="dashed") +
+			ggtitle("\n") +
+			theme_bw()	+
+			theme(text=element_text(size=15),
+				axis.text.x=element_text(size=15),
+				axis.text.y=element_text(size=15),
+				plot.title=element_text(size=15),
+				legend.text=element_text(size=15) )
+FtFt_hist <- ggplot(data=econrisk_hist_data, aes(x=Ft_Ft)) + 
+			geom_histogram(aes(y=..density..), bins=effective_B/3, colour="gray", fill="white") +
+			geom_density(alpha=.2, fill="#FF6666", colour="dark gray") +
+			xlab("Cost growth parameter") +
+			geom_vline(xintercept=riskparms[[2]], linetype="dashed", color="blue") +
+			geom_vline(xintercept=mean(econrisk_hist_data$Ft_Ft), linetype="dashed") +
+			ggtitle("\n") +
+			theme_bw()	+
+			theme(text=element_text(size=15),
+				axis.text.x=element_text(size=15),
+				axis.text.y=element_text(size=15),
+				plot.title=element_text(size=15),
+				legend.text=element_text(size=15) )
+
+grid.arrange(intercept_hist,rs_hist,FtFt_hist,ncol=3)
+
+png(width=525,height=550,filename="../images/econ_risk_parameter_bootstrap_plot.png")
+grid.arrange(S2_hist,SD_hist,ncol=1)
+dev.off()
+
+
+
+
+}
