@@ -1,4 +1,4 @@
-B <- 1000 # number of bootstrap resamples	
+B <- n_physical_bootstrap_draws # number of bootstrap resamples	
 
 #####
 # residual (semi-parametric) bootstrap for estimated nls parameters of physical collision risk model. grid searches same interval as original model estimate. 
@@ -26,7 +26,7 @@ for(b in 1:B) {
 
 	## run the search: estimate NLS at each starting point, choose the estimate which minimizes the objective
 	nls_risk_bootstrap_values <- foreach(i=1:nrow(init_risk_bootstrap_cond_grid), .export=ls(), .inorder=TRUE, .combine=rbind) %dopar% {
-		nls_risk_bootstrap_result <- invisible(spg(par=c(init_risk_bootstrap_cond_grid[i,1],init_risk_bootstrap_cond_grid[i,2]), fn=objective, rate=nls_risk_bootstrap_dv[,b], S=nls_risk_xvars$sats, D=nls_risk_xvars$debs, lower=0, upper=0.5,control=list(ftol=1e-15), quiet=TRUE)) # both invisible() and the quiet=TRUE option were supposed to make this not print output... yet it does.
+		nls_risk_bootstrap_result <- invisible(spg(par=c(init_risk_bootstrap_cond_grid[i,1],init_risk_bootstrap_cond_grid[i,2]), fn=objective, rate=nls_risk_bootstrap_dv[,b], S=nls_risk_xvars$sats, D=nls_risk_xvars$debs, lower=0, upper=0.5,control=list(ftol=1e-15, trace=FALSE), quiet=TRUE)) 
 		c(nls_risk_bootstrap_result$value, nls_risk_bootstrap_result$par[1], nls_risk_bootstrap_result$par[2], nls_risk_bootstrap_result$convergence)
 	}
 	colnames(nls_risk_bootstrap_values) <- c("obj_fn","SS_parm","SD_parm","conv")

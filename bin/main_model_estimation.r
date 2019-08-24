@@ -1,4 +1,4 @@
-##### Script to generate main model results for "Tragedy of the Space Commons" paper.
+##### Script to generate main model results for "Tragedy of the Space Commons" paper. This script estimates the policy sequences given the calibrated parameters.
 ###
 # Script flow:
 # 1. Compute sequences of open access policies
@@ -13,7 +13,7 @@ opt_gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_opt, Dgridmax=D_grid
 # generate value and policy guesses - use terminal period. keep this separate from the open access guesses to allow for different gridsizes.
 S_T_1 <- opt_gridlist$igrid$sats
 D_T_1 <- opt_gridlist$igrid$debs
-S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay #guess for BW parameterization
+S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay # in the final period, the launch rate is zero
 V_T <- p[T]*S_T
 vguess <- matrix(V_T,nrow=S_gridsize_opt,ncol=D_gridsize_opt)
 lpguess <- matrix(0,nrow=S_gridsize_opt,ncol=D_gridsize_opt)
@@ -23,7 +23,7 @@ gridpanel <- grid_to_panel(opt_gridlist,lpguess,vguess)
 opt_dvs_output <- list()
 
 # run path solver
-print("Generating optimal models...")
+message("\nCalculating optimal models...")
 sink("log.solve.txt", append=FALSE)
 opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel,S_gridsize_opt,D_gridsize_opt,opt_gridlist,asats,T,p,F,ncores=ncores))
 sink()
@@ -42,7 +42,7 @@ oa_gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_oa, Dgridmax=D_grid_u
 # generate value and policy guesses - use final period
 S_T_1 <- oa_gridlist$igrid$sats
 D_T_1 <- oa_gridlist$igrid$debs
-S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay #guess for BW parameterization
+S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay # guess for final period value
 V_T <- p[T]*S_T
 vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
 lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)
@@ -52,7 +52,7 @@ gridpanel <- grid_to_panel(oa_gridlist,lpguess,vguess)
 oa_dvs_output <- list()
 
 # run path solver
-print("Calculating open access models...")
+message("\nCalculating open access models...")
 sink("log.solve.txt", append=TRUE)
 oa_dvs_output <- suppressWarnings(oa_pvfn_path_solver(oa_dvs_output,gridpanel,oa_gridlist,asats,T,p,F,fe_eqm,ncores=ncores))
 sink()

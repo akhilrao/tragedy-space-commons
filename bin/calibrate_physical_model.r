@@ -36,8 +36,8 @@ sat_parms <- coef(sat_ols)
 # plot fit
 sat_xvars <- as.matrix(cbind(subset(series,select=colnames(sfit_mat))))
 sat_coefs <- sat_parms
-fitplot(sat_xvars,sat_coefs,series$year,S_next,"Satellite accounting model","satellites")
-dev.off()
+# fitplot(sat_xvars,sat_coefs,series$year,S_next,"Satellite accounting model","satellites")
+# dev.off()
 
 ### Satellite equation calibration. this is the statistical equation: calculating decay rate implied by including collisions. Produces a positive, large, and insignificant coefficient on risk, in addition to about 0.5 and significant coefficient on launch_successes. Implied satellite time on-orbit is close to 30 years, though, which seems reasonable.
 # Approach: Fit model to estimate decay coefficient, then set other coefficients to (-decay_coefficient, 1). The fit from this is not much worse than the fit with the estimated coefficients.
@@ -127,7 +127,7 @@ write.csv(m2coefs,file="calibrated_debris_lom_coefs.csv")
 setwd("../bin/") # set working directory back to bin for the next stage of the main analysis
 
 if(physics_bootstrap==1){
-	source("physics_bootstrap.r")
+	source("physics_bootstrap.r") # this regenerates Extended Data figure 7
 }
 
 

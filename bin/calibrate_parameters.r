@@ -35,8 +35,8 @@ ggplot(data=implied_econ_series, aes(x=year)) +
 		legend.text=element_text(family="Helvetica",size=20) ) 
 dev.off()
 
+# construct the satellite sector growth projections. projection_end is set in final_script.r.
 projection_start <- MS_proj_rev$Year[nrow(MS_proj_rev)]+1
-
 revenue_mean_CAGR <- mean((MS_proj_rev[-1,2]/MS_proj_rev[-nrow(MS_proj_rev),2] - 1))
 revenue_growth <- cumprod(rep(1+revenue_mean_CAGR,length=length(c(projection_start:projection_end))))
 revenue_projection <- data.frame(Year=c(projection_start:projection_end),Revenues=(MS_proj_rev[nrow(MS_proj_rev),2]*revenue_growth))
@@ -58,22 +58,32 @@ colnames(satlom_cal) <- satlom_cal_names
 avg_sat_decay <- satlom_cal$payloads_in_orbit # corresponds to just over 30 years on orbit: on average 5 year mission time + 25 year post-mission disposal compliance. Value estimated from statistical model for satellite law of motion. 
 # decay coefficient is currently represented as survival rate rather than decay rate.
 
-risk_cal_names <- as.character(risk_cal[,1])
-risk_cal <- data.frame(parameters=t(c(risk_cal[,2])))
+risk_cal_names <- names(risk_cal)[2:3]
+risk_cal <- data.frame(parameters=c(risk_cal[,2:3]))
 colnames(risk_cal) <- risk_cal_names
-aSS <- mean(risk_cal_accepted$S2)#risk_cal$S2
-aSD <- mean(risk_cal_accepted$SD)#risk_cal$SD
+aSS <- risk_cal$S2
+aSD <- risk_cal$SD
+
+# risk_cal_names <- as.character(risk_cal[,1])
+# risk_cal <- data.frame(parameters=t(c(risk_cal[,2])))
+# colnames(risk_cal) <- risk_cal_names
+# aSS <- mean(risk_cal_accepted$S2)
+# aSD <- mean(risk_cal_accepted$SD)
 
 deblom_cal_names <- as.character(deblom_cal[,1])
 deblom_cal <- data.frame(parameters=t(c(deblom_cal[,2])))
 colnames(deblom_cal) <- deblom_cal_names
-aDDbDD <- 0#deblom_cal$D2
-bSS <- mean(deblom_cal_accepted$SSfrags)#deblom_cal$SSfrags
-bSD <- mean(deblom_cal_accepted$SDfrags)#deblom_cal$SDfrags
-d <- 1-mean(deblom_cal_accepted$debris) #1-deblom_cal$debris
-#Z_coef <- deblom_cal[1,2]
-m <- mean(deblom_cal_accepted$launch_successes)#deblom_cal$launch_successes
-asat_coef <- mean(deblom_cal_accepted$num_destr_asat)#deblom_cal$num_destr_asat
+aDDbDD <- 0 # this should be zero, to be consistent with "no Kessler Syndrome allowed". the estimated parameter is small so it's unlikely that setting it to zero messes with the fit within the sample support. setting to zero is convenient because it prevents any numerical instabilities from causing a blowup in debris.
+# bSS <- mean(deblom_cal_accepted$SSfrags)#deblom_cal$SSfrags
+# bSD <- mean(deblom_cal_accepted$SDfrags)#deblom_cal$SDfrags
+# d <- 1-mean(deblom_cal_accepted$debris) #1-deblom_cal$debris
+# m <- mean(deblom_cal_accepted$launch_successes)#deblom_cal$launch_successes
+# asat_coef <- mean(deblom_cal_accepted$num_destr_asat)#deblom_cal$num_destr_asat
+bSS <- deblom_cal$SSfrags
+bSD <- deblom_cal$SDfrags
+d <- 1-deblom_cal$debris
+m <- deblom_cal$launch_successes
+asat_coef <- deblom_cal$num_destr_asat
 
 discount_rate <- 0.05
 discount_fac <- 1/(1+discount_rate)
@@ -99,13 +109,12 @@ norm_const <- p[1]
 p <- p/norm_const
 F <- F/norm_const
 
-##### Which method of generating the fe_eqm path is better? fe_eqm is used to generate the open access policy functions.
+##### fe_eqm is used to generate the open access policy functions.
 
 # Regression: This is what was estimated. It adjusts for measurement error.
 fe_eqm <- econ_coefs[1,2] + econ_coefs[2,2]*econ_series$r_s + econ_coefs[3,2]*econ_series$Ft_Ft # calculate the path of the OA eqm condition from the calibrated regression
 
-# Observed: this is what was observed. it does not adjust for measurement error, but may fit the observed data better.
-fe_eqm_proj <- econ_coefs[1,2] + econ_coefs[2,2]*(p[-length(p)]/F[-length(F)]) + econ_coefs[3,2]*(F[-1]/F[-length(F)])
+fe_eqm_proj <- econ_coefs[1,2] + econ_coefs[2,2]*(p[-length(p)]/F[-length(F)]) + econ_coefs[3,2]*(F[-1]/F[-length(F)]) # the final period, assume underlying econ parameters are constant
 
 p <- p[-length(p)]
 F <- F[-length(F)]
@@ -113,7 +122,6 @@ F <- F[-length(F)]
 fe_eqm <- c(fe_eqm,fe_eqm_proj[-(1:length(fe_eqm))])
 
 #####
-
 # Set time-related values
 T <- length(p)
 asats <- observed_time_series$num_destr_asat[which(observed_time_series$year>=start_year)]

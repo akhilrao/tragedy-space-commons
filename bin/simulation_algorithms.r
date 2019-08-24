@@ -10,7 +10,7 @@ fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 	discounted_profit_seq <- rep(0,length=(T+1))
 	for(t in 1:T ) {
 		X <- uniroot.all(optcond_exact,c(0,800),S=sat_path[t],D=deb_path[t],p=p,F=F,clock_time=t,asats=asats[t])
-		print(X)
+		message(X)
 		if(length(X)==0) { launch_path[t] <- 0 }	
 		if(length(X)>1) { launch_path[t] <- X[1] }
 		if(length(X)==1) { launch_path[t] <- X }
@@ -21,20 +21,20 @@ fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 		discounted_profit_seq[t] <- profit_seq[t]*discount_fac^(t-1)
 	}
 	clock <- proc.time()[3] - ctm
-	print(uniroot.all(optcond_exact,c(0,1e+6),S=sat_path[T+1],D=deb_path[T+1],p=p,F=F,clock_time=(T+1),asats=asats[T+1]))
+	message(uniroot.all(optcond_exact,c(0,1e+6),S=sat_path[T+1],D=deb_path[T+1],p=p,F=F,clock_time=(T+1),asats=asats[T+1]))
 
 	time_series <- data.frame(time=seq(0,T),launches=launch_path,satellites=sat_path,debris=deb_path,fleet_flowv=profit_seq,fleet_pv=discounted_profit_seq,collision_rate=L(sat_path,deb_path))
 
-	print("Open access time series generated.") 
-	print(paste0("Time to compute launch path and propagate stocks: ", clock, " seconds."))
+	message("Open access time series generated.") 
+	message(paste0("Time to compute launch path and propagate stocks: ", clock, " seconds."))
 
 	return(time_series)
 }
 
 # calculate the open access launch rate and next-period risk from a given initial condition and launch constraint
 oa_deviation <- function(S,D,fe_eqm,launch_con,asats,...) {
-	X <- optim(par=1e+5,eqmcond_squared,lower=0,upper=1e+6,S=S,D=D,fe_eqm=fe_eqm,asats=asats, method=c("L-BFGS-B"))$par
-	print(X)
+	X <- optim(par=999,eqmcond_squared,lower=0,upper=1000,S=S,D=D,fe_eqm=fe_eqm,asats=asats, method=c("L-BFGS-B"))$par
+	#message(X)
 	if(length(X)==0) { X <- 0 }	
 	if(length(X)>0) { X <- max(X) }
 	if(X>=launch_con) { X <- launch_con }
@@ -62,12 +62,12 @@ oa_tsgen <- function(S,D,T,fe_eqm,launch_con,asats,...) {
 	}
 	clock <- proc.time()[3] - ctm
 	#launch_path[T+1] <- uniroot.all(eqmcond,c(0,1e+6),S=sat_path[T+1],D=deb_path[T+1],fe_eqm=fe_eqm[T+1],asats=asats[T+1])
-	print(uniroot.all(eqmcond,c(0,1e+6),S=sat_path[T+1],D=deb_path[T+1],fe_eqm=fe_eqm[T+1],asats=asats[T+1]))
+	message(uniroot.all(eqmcond,c(0,1e+6),S=sat_path[T+1],D=deb_path[T+1],fe_eqm=fe_eqm[T+1],asats=asats[T+1]))
 
 	time_series <- data.frame(time=seq(0,T),launches=launch_path,satellites=sat_path,debris=deb_path,fleet_flowv=profit_seq,fleet_pv=discounted_profit_seq,collision_rate=L(sat_path,deb_path))
 
-	print("Open access time series generated.") 
-	print(paste0("Time to compute launch path and propagate stocks: ", clock, " seconds."))
+	message("Open access time series generated.") 
+	message(paste0("Time to compute launch path and propagate stocks: ", clock, " seconds."))
 
 	return(time_series)
 }
@@ -90,7 +90,7 @@ ptm <- proc.time()
 	loss <- L(S_(launches,igrid$sats,igrid$debs),D_(launches,igrid$sats,igrid$debs,asats))
 	results <- as.data.frame(cbind(igrid,launches,fleet_size,loss,fe_eqm_vec,p_vec,F_vec))
 	colnames(results) <- c("satellites","debris","oa_launch_pfn","oa_fleet_size","loss_next","fe_eqm","p","F")
-	print(paste("Total time taken for open access policy in period ",t,": ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
+	#message(paste("Total time taken for open access policy in period ",t,": ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
 	return(results)
 }
 
@@ -113,7 +113,7 @@ ptm <- proc.time()
 	loss <- L(S_(launches,igrid$sats,igrid$debs),D_(launches,igrid$sats,igrid$debs,asats[clock_time]))
 	results <- as.data.frame(cbind(igrid,launches,fleet_size,loss,fe_eqm_vec,p_vec,F_vec))
 	colnames(results) <- c("satellites","debris","opt_launch_pfn","opt_fleet_size","loss_next","fe_eqm","p","F")
-	print(paste("Total time taken for optimal policy in period ",clock_time,": ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
+	message(paste("Total time taken for optimal policy in period ",clock_time,": ",round(((proc.time() - ptm)[3])/60,4)," minutes",sep=""))
 	return(results)
 }
 
@@ -129,7 +129,7 @@ opt_exact_pvfn_path_solver <- function(dvs_output,gridpanel,gridlist,asats,T,p,F
 	p_padded <- c(p,p[T])
 	F_padded <- c(F,F[T])
 	for(i in T:1){
-		print(i)
+		message(i)
 		dvs_output[[i]] <- optpolicy_exact(igrid=gridlist$igrid,fe_eqm=fe_eqm,clock_time=i,asats=asats,p=p_padded,F=F_padded)
 		#View(dvs_output[[i]])
 		if(i==T) {
@@ -258,7 +258,6 @@ policy_eval_BI <- function(igrid,launch_policy,value_fn,T,tps_model,p_t,F_t,asat
 	BIpb$tick(0)
 	while(count<=T) {
 		value_fn <- foreach(i=1:length(launch_policy), .export=ls(), .combine=rbind, .inorder=TRUE) %dopar% {
-			#result <- fleet_preval_spline(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
 			result <- fleet_preval_basic(X=launch_policy[i],S=igrid$sats[i],D=igrid$debs[i],value_fn=value_fn,asats=asats_vec,t=T,p=p_vec,F=F_vec,igrid=igrid,tps_model=tps_model)
 			result
 		}
@@ -291,7 +290,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
 	#ifelse(t==T, epsilon <- max(n_grid_points*1e-5,1e-3), epsilon <- max(n_grid_points*2e-5,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
-	ifelse(t==T, epsilon <- 1, epsilon <- 1) # for testing
+	ifelse(t==T, epsilon <- 1, epsilon <- 1) # seems to be a reasonable convergence tolerance, given dollar value normalization from norm_const and grid values
 	delta_old <- 0
 	delta <- epsilon + 10
 	delta2 <- 25
@@ -367,7 +366,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 			best_val <- which.max(soln_dfrm$value)
 			launch_rate <- soln_dfrm[best_val,1]
 			vfn <- soln_dfrm[best_val,2]
-			#print(launch_rate,panel$S[k],panel$D[k])
+			#message(launch_rate,panel$S[k],panel$D[k])
 
 			clock <- proc.time()[3] - ctm
 			result <- c(launch_rate,vfn,clock)

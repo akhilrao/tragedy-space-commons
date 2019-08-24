@@ -15,14 +15,14 @@ OA_OPT <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year
 OA_OPT$riskPoA <- (OA_OPT$collision_rate.oa/OA_OPT$collision_rate.opt)*(OA_OPT$satellites.opt/OA_OPT$satellites.oa)
 # Price of Anarchy in terms of flow welfare. 1 : no present gains or losses to anarchy, >1 : present losses to anarchy, <1 : present gains to anarchy.
 OA_OPT$flowWelfPoA <- OA_OPT$fleet_flowv.opt/OA_OPT$fleet_flowv.oa 
-# Price of Anarchy in terms of NPV of welfare. 1 : no permanent gains or losses to anarchy, >1 : permanent losses to anarchy, <1 : permanent gains to anarchy.
-OA_OPT$NPVPoA <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa)*(OA_OPT$satellites.oa/OA_OPT$satellites.opt)
+# Price of Anarchy in terms of NPV of welfare from the fleet and then per-satellite. 1 : no permanent gains or losses to anarchy, >1 : permanent losses to anarchy, <1 : permanent gains to anarchy.
+OA_OPT$NPVPoA <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa)
+OA_OPT$NPVPoA_sat <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa)*(OA_OPT$satellites.oa/OA_OPT$satellites.opt)
 
-# Since we're using aggregate data we need to divide by the number of satellites to get the dollar values into per-satellite units. Otherwise, the rfleet values are scaled by 2x the number of satellites rather than 1x.
+# Since we're using aggregate data we need to divide by the number of satellites to get the dollar values into per-fleet units. Otherwise, the dollar values are scaled by 2x the number of satellites rather than 1x -- 1x from the form of the pre-value function used in computation, and 1x from the aggregate dollar amounts used for calibration. These dollar amounts are in units of billion USD.
 OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa/OA_OPT$satellites.oa - OA_OPT$fleet_flowv.opt/OA_OPT$satellites.opt)*norm_const
 OA_OPT$npv_oa_welfare <- (OA_OPT$fleet_vfn_path.oa/OA_OPT$satellites.oa)*norm_const
 OA_OPT$npv_opt_welfare <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$satellites.opt)*norm_const
-OA_OPT$npv_opt_welfare_test <- (OA_OPT$fleet_vfn_path.opt)*norm_const
 OA_OPT$npv_welfare_loss <- (OA_OPT$npv_oa_welfare - OA_OPT$npv_opt_welfare)
 OA_OPT$npv_welfare_gain <- (OA_OPT$npv_opt_welfare - OA_OPT$npv_oa_welfare)
 
@@ -38,6 +38,7 @@ OA_OPT_SS <- OA_OPT[ss_rows,c("year","npv_opt_welfare")]
 colnames(OA_OPT_SS)[2] <- "ss_npv_opt_welfare"
 OA_OPT <- OA_OPT[-ss_rows,]
 
+# Loop to convert start_time.opt codes into start_year with year-labels
 for(s in 1:length(unique(OA_OPT$start_time.opt))){
 	OA_OPT$start_year[OA_OPT$start_time.opt==sort(unique(OA_OPT$start_time.opt),decreasing=FALSE)[s]] <- unique(OA_OPT$year)[sort(unique(OA_OPT$start_time.opt),decreasing=FALSE)[s]+1]
 }
@@ -165,7 +166,7 @@ OA_OPT_sat_proj <- OA_OPT_base_proj +
 		axis.text.y=element_text(family="Helvetica",size=15),
 		plot.title=element_text(family="Helvetica",size=15),
 		legend.text=element_text(family="Helvetica",size=15) ) + 
-	ylim(limits = c(0, max(OA_OPT$satellites.oa)))
+	ylim(limits = c(0, max(OA_OPT$satellites.oa,OA_OPT$payloads_in_orbit)))
 OA_OPT_deb_proj <- OA_OPT_base_proj + 
 	geom_line(aes(y=debris.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=debris.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
@@ -330,17 +331,7 @@ risk_poa_path <- risk_proj +
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) )
 
-boa_base_dfrm <- OA_OPT[union(union(which(OA_OPT$year==2030),which(OA_OPT$year==2035)),which(OA_OPT$year==2040)),c("npv_welfare_gain","start_year","year")]
-
-boa_plot <- ggplot(data=boa_base_dfrm,aes(as.factor(year),npv_welfare_gain)) +
-			geom_bar(aes(fill=as.factor(start_year), color=as.factor(start_year)), position="dodge", stat="identity" ) +
-			scale_colour_hue(guide=FALSE) +
-			labs(fill="Optimal mgmt\nstart year") +
-			ggtitle("Benefits of action:\nValue achieved by starting optimal mgmt early") +
-			ylab("Gained fleet NPV") +
-			xlab("Year") +
-			theme_bw()			
-			
+boa_base_dfrm <- OA_OPT[union(union(which(OA_OPT$year==2030),which(OA_OPT$year==2035)),which(OA_OPT$year==2040)),c("npv_welfare_gain","start_year","year")]		
 coi_base_dfrm <- boa_base_dfrm[which(boa_base_dfrm$start_year>2010),]
 coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss=(npv_welfare_gain[which(start_year==2020)]-npv_welfare_gain)/1000 )
 
@@ -367,6 +358,7 @@ coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_yea
 			ggtitle("Permanent orbit\nuse value\nloss in 2040") +
 			ylab("Forgone fleet NPV (percentage of 2020 optimal mgmt NPV)") +
 			xlab("Year") +
+			theme(plot.margin = unit(c(0, 0, 0.5, 0), "cm")) +
 			theme_bw() +
 			scale_discrete_manual(values=coi_plot_cols, aesthetics = c("fill")) +
 				theme(text=element_text(family="Helvetica",size=15),
@@ -375,14 +367,39 @@ coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_yea
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) )
 
-npv_welf_paths <- risk_proj + 
-	geom_line(aes(y=npv_oa_welfare/1000),size=data_size) +
-	#geom_line(aes(y=ss_npv_opt_welfare/1000),size=data_size,color=OPT_fit_color) +
-	geom_line(aes(y=npv_opt_welfare/1000,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
+boa_fin_dfrm <- OA_OPT[which(OA_OPT$year==2040),c("NPVPoA","start_year","year")]
+row.names(boa_fin_dfrm) <- NULL
+boa_plot_pc <- ggplot(data=boa_fin_dfrm[which(boa_fin_dfrm$start_year>=2020),],aes(start_year,NPVPoA)) +
+				geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
+				ylab("Value of the space industry with optimal management\n(multiple of BAU NPV in 2040)") +
+				xlab("\nOptimal mgmt\nstart year") +
+				theme_bw() +
+				coord_flip() +
+				guides(fill=FALSE) +
+				theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) +
+				scale_discrete_manual(values=coi_plot_cols, aesthetics = c("fill")) +
+				theme(text=element_text(family="Helvetica",size=20),
+					axis.text.x=element_text(family="Helvetica",size=15),
+					axis.text.y=element_text(family="Helvetica",size=15),
+					plot.title=element_text(family="Helvetica",size=15),
+					legend.text=element_text(family="Helvetica",size=15) )
+
+# divide by 1000 to get units of trillion USD
+npvwelfpaths_long <- reshape2::melt(data=OA_OPT[,c("year","npv_oa_welfare","npv_opt_welfare","start_time.opt")], value.name="value", id=c("year","start_time.opt")) # recasts OA_OPT into a long dataframe for visualization in Main Text fig 2
+npvwelfpaths_long <- npvwelfpaths_long[!duplicated(npvwelfpaths_long[,c("year","variable","value")]),] # removes open-access path rows which are duplicates but for different start_time.opt values
+npvwelfpaths_long$start_time.opt[which(npvwelfpaths_long$variable=="npv_oa_welfare")] <- Inf
+npvwelfpaths_long <- npvwelfpaths_long[which(npvwelfpaths_long$start_time.opt>=14),] # removes paths where optimal management begins before 2020
+npv_welf_paths_plotbase <- ggplot(data=npvwelfpaths_long[npvwelfpaths_long$year>=2015,],aes(x=year)) # base for the plot
+npvwelfpath_labs <- c(paste(c(opt_start_year[opt_start_year>=2020],"BAU (never)"),sep=",")) # label names
+#npvwelfpath_cols <- c("0" = paste0(viridis(7)[1]), "4" = paste0(viridis(7)[2]), "9" = paste0(viridis(7)[3]), "14" = paste0(viridis(7)[4]), "19" = paste0(viridis(7)[5]), "24" = paste0(viridis(7)[6]), "29" = paste0(viridis(7)[7]), "Inf" = "black") # label colors
+npvwelfpath_cols <- c("14" = paste0(viridis(7)[4]), "19" = paste0(viridis(7)[5]), "24" = paste0(viridis(7)[6]), "29" = paste0(viridis(7)[7]), "Inf" = "black") # label colors
+npv_welf_paths <- npv_welf_paths_plotbase + 
+	geom_line(aes(y=value/1000,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	labs(color="Optimal mgmt\nstart year") +
+	theme(plot.margin = unit(c(0, 0, 0.5, 0), "cm")) +
 	ylab("Fleet NPV (nominal $1t)") + xlab("Year") + theme_bw() +
-	ggtitle("NPV gains of orbit recovery:\nshifting to optimal management from BAU open access") +
-	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
+	ggtitle("NPV under optimal management and BAU open access") +
+	scale_discrete_manual(aesthetics=c("color"), labels=npvwelfpath_labs,values=npvwelfpath_cols)	+
 				theme(text=element_text(family="Helvetica",size=20),
 					axis.text.x=element_text(family="Helvetica",size=20),
 					axis.text.y=element_text(family="Helvetica",size=20),
@@ -458,59 +475,17 @@ opt_dev_tax_path_comp_all <- risk_proj_20xx +
 	ylim(limits = c(0, max(OA_OPT$opt_tax_path)))
 
 #############################################################################
-# 3.  Generate figure panels
+# 3.  Main text and Extended Data figures
 #############################################################################
 
-# tax paths
-png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_tax_only_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-opt_tax_path
-dev.off()
-
-png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_dev_tax_all_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-opt_dev_tax_path_all
-dev.off()
-
-png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_dev_tax_2020_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-opt_dev_tax_path_solo
-dev.off()
-
-png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_taxes_comp_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-opt_dev_tax_path_comp
-dev.off()
-
-png(width=600,height=400,filename=paste0("../images/",length(opt_start_year),"_starts_opt_taxes_allcomp_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-opt_dev_tax_path_comp_all
-dev.off()
-
-# policy benefits
-png(width=500,height=700,filename=paste0("../images/",length(opt_start_year),"_starts_welfare_and_tax_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-plot_grid(opt_tax_path, risk_poa_path, npv_poa_path,align="v",axis="2",nrow=3,rel_widths=c(1/3,1/3,1/3))
-dev.off()
-
-png(width=550,height=600,filename=paste0("../images/",length(opt_start_year),"_starts_welfare_and_safetyimp_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-plot_grid(risk_poa_path, npv_poa_path,align="v",axis="2",nrow=2,rel_widths=c(1,1))
-dev.off()
-
-# historical fit path panel
-png(width=500,height=500,filename=paste0("../images/",length(opt_start_year),"_simulated_historical_series_optstart_",opt_start_year[1],"_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-grid.arrange(OA_OPT_launch_hist,OA_OPT_sat_hist,OA_OPT_risk_hist,OA_OPT_deb_hist,ncol=2)
-dev.off()
-
-png(width=800,height=500,filename=paste0("../images/",length(opt_start_year),"_simulated_projected_series_optstart_all_remfrac_",R_frac,"_remstart_",R_start_year,".png"))
-plot_grid(OA_OPT_launch_proj_all,OA_OPT_sat_proj_all,OA_OPT_risk_proj_all,OA_OPT_deb_proj_all,align="h",axis="1",nrow=2,rel_widths=c(1/2,1/2))
-dev.off()
-
-
-#####
-# Main text and Extended Data figures
-#####
-
 # Main text figure 2
-png(width=950,height=450,filename=paste0("../images/main_text_figure_2.png"))
-plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3.7/5,1.3/5))
+png(width=850,height=450,filename=paste0("../images/main_text_figure_2.png"))
+#mtf2_upperrow <- 
+plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3.5/5,1.5/5))
+#plot_grid(mtf2_upperrow,boa_plot_pc,labels=c("","c"),align="h",axis="1",nrow=2,rel_heights=c(3.8/5,1.2/5))
 dev.off()
 
 # Extended data figure 4
-png(width=800,height=500,filename=paste0("../images/extended_data_figure_4.png"))
+png(width=800,height=600,filename=paste0("../images/extended_data_figure_4.png"))
 plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2))
 dev.off()

@@ -5,6 +5,7 @@
 risk_cal_set <- read.csv("../data/bootstrapped_risk_eqn_coefs.csv")
 deblom_cal_set <- read.csv("../data/bootstrapped_debris_lom_coefs.csv")
 ## non-bootstrapped values
+#econ_coefs <- read.csv("../data/bootstrapped_econ_risk_coefs.csv")  #is this bootstrap portion necessary?
 econ_coefs <- read.csv("../data/econ_series_coefs.csv")
 implied_econ_series <- read.csv("../data/implied_costs.csv")
 satlom_cal <- read.csv("../data/calibrated_satellite_lom_coefs.csv")
@@ -13,14 +14,16 @@ observed_time_series <- read.csv("../data/ST_ESA_series.csv")
 MS_proj_rev <- read.csv("../data/avg_econ_return.csv")
 MS_proj_total <- read.csv("../data/avg_econ_total.csv")
 
-# restrict risk_cal parameters to values where SD > 0 (both collision risk couplings active)
+# restrict risk_cal parameters to values where SD > 0 (both collision risk couplings active). using all values creates a bimodal distribution of paths, with the second mode (where SD = 0) not matching the main model.
 accepted_risk_cal_set <- risk_cal_set[which(risk_cal_set$SD>0),]
 
 # the physical parameters are draws from the bootstrap world's conditional distribution, parameters(risk) and parameters(debris|risk)
 set.seed(501)
-start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-n_path_sim_bootstrap_draws)),size=1)
-risk_cal_set_B <- accepted_risk_cal_set[start_loc:(start_loc+n_path_sim_bootstrap_draws),-1]
-deblom_cal_set_B <- deblom_cal_set[start_loc:(start_loc+n_path_sim_bootstrap_draws),-1]
+start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-n_path_sim_bootstrap_draws)),size=1) # generate a random starting location which is at least n_path_sim_bootstrap_draws-many observations away from the tail
+# bs_draw_select_idx <- start_loc:(start_loc+n_path_sim_bootstrap_draws) # this selects a contiguous sequence of n_path_sim_bootstrap_draws-many parameters from a random starting location
+bs_draw_select_idx <- sample(1:nrow(accepted_risk_cal_set),size=n_path_sim_bootstrap_draws) # this selects a random sequence of n_path_sim_bootstrap_draws-many parameters
+risk_cal_set_B <- accepted_risk_cal_set[bs_draw_select_idx,-1]
+deblom_cal_set_B <- deblom_cal_set[bs_draw_select_idx,-1]
 
 bootstrap_grid <- cbind(risk_cal_set_B,deblom_cal_set_B)
 bootstrap_grid <- data.frame(bootstrap_grid)
@@ -29,16 +32,17 @@ colnames(bootstrap_grid) <- c(colnames(risk_cal_set_B),colnames(deblom_cal_set_B
 # select bootstrap parameters
 risk_cal <- bootstrap_grid[b,1:2]
 deblom_cal <- bootstrap_grid[b,3:7]
+#econ_coefs <- econ_coefs_set_B[b,] #is this bootstrap portion necessary?
 
-# Extend Morgan Stanley revenue and total value projections an additional 5 years, to avoid any end-of-horizon effects for a forecast out to 2040 (e.g. numerical distortions in steady-state value functions). The idea is to "project" out to 2050 using the mean annual growth rate of the Morgan Stanley projections, then truncate back to 2040 to avoid any end-of-horizon effects.
+# Extend Morgan Stanley revenue and total value projections an additional 10 years, to avoid any end-of-horizon effects for a forecast out to 2040 (e.g. numerical distortions in steady-state value functions). The idea is to "project" out to 2050 using the mean annual growth rate of the Morgan Stanley projections, then truncate back to 2040 to avoid any end-of-horizon effects.
 projection_start <- MS_proj_rev$Year[nrow(MS_proj_rev)]+1
 projection_end <- 2050
 revenue_mean_CAGR <- mean((MS_proj_rev[-1,2]/MS_proj_rev[-nrow(MS_proj_rev),2] - 1))
 revenue_growth <- cumprod(rep(1+revenue_mean_CAGR,length=length(c(projection_start:projection_end))))
-revenue_projection <- data.frame(Year=c(projection_start:projection_end),Revenues=(MS_proj_rev[nrow(MS_proj_rev),2]*revenue_growth))
+revenue_projection <- data.frame(Year=c(projection_start:projection_end),Revenues=(MS_proj_rev[nrow(MS_proj_rev),2]*revenue_growth)) # project revenue growth
 total_mean_CAGR <- mean((MS_proj_total[-1,2]/MS_proj_total[-nrow(MS_proj_total),2] - 1))
 total_growth <- cumprod(rep(1+total_mean_CAGR,length=length(c(projection_start:projection_end))))
-total_projection <- data.frame(Year=c(projection_start:projection_end),Total=(MS_proj_total[nrow(MS_proj_total),2]*total_growth))
+total_projection <- data.frame(Year=c(projection_start:projection_end),Total=(MS_proj_total[nrow(MS_proj_total),2]*total_growth)) # project total dollar value growth
 MS_proj_rev <- rbind(MS_proj_rev,revenue_projection)
 MS_proj_total<- rbind(MS_proj_total,total_projection)
 
@@ -59,11 +63,10 @@ avg_sat_decay <- satlom_cal$payloads_in_orbit # corresponds to just over 30 year
 aSS <- risk_cal$S2
 aSD <- risk_cal$SD
 
-aDDbDD <- 0#deblom_cal$D2
+aDDbDD <- 0 #0: debris-debris collisions are disabled
 bSS <- deblom_cal$SSfrags
 bSD <- deblom_cal$SDfrags
 d <- 1-deblom_cal$debris
-#Z_coef <- deblom_cal[1,2]
 m <- deblom_cal$launch_successes
 asat_coef <- deblom_cal$num_destr_asat
 
@@ -75,7 +78,7 @@ comb_econ_series <- merge(econ_series,implied_econ_series,by=c("year"))
 
 # Merge the economic and physical data. The final period gets truncated because the theory-adjustment formula uses up one year.
 #One option is to pad the final observation with the last value in the series. For p, this value is observed. For F, this value is just a copy of the newly-penultimate value. This carries some implications for the measurement errors in the final period.
-physecon <- merge(observed_time_series,comb_econ_series,by=c("year","risk"))
+physecon <- merge(observed_time_series,comb_econ_series,by=c("year"))
 p <- physecon$pi_t
 F <- physecon$F_hat
 
@@ -91,7 +94,7 @@ norm_const <- p[1]
 p <- p/norm_const
 F <- F/norm_const
 
-##### Which method of generating the fe_eqm path is better? fe_eqm is used to generate the open access policy functions.
+##### fe_eqm is used to generate the open access policy functions.
 
 # Regression: This is what was estimated. It adjusts for measurement error.
 fe_eqm <- econ_coefs[1,2] + econ_coefs[2,2]*econ_series$r_s + econ_coefs[3,2]*econ_series$Ft_Ft # calculate the path of the OA eqm condition from the calibrated regression
@@ -122,15 +125,3 @@ lc_design <- as.matrix(data.frame(intercept=rep(1,length=(length(F)-length(obs_l
 lc_proj <- lc_design%*%lc_coef
 
 launch_constraint <- c(obs_launch_constraint,floor(lc_proj))
-
-lc_dfrm <- data.frame(year=seq(from=start_year,length.out=length(launch_constraint)),observed_constraint=c(obs_launch_constraint, rep(NA,length=(length(launch_constraint)-length(obs_launch_constraint)))),projected_constraint=launch_constraint)
-
-lc_path_base <- ggplot(data=lc_dfrm,aes(x=year))
-lc_path <- lc_path_base + geom_line(aes(y=projected_constraint),linetype="dashed",color="blue",size=0.8) +
-		geom_line(aes(y=observed_constraint),size=0.85) +							
-		geom_vline(xintercept=2015,size=1,linetype="dashed") +
-		ylab("Cumulative maximum launch attempts") + theme_minimal() +
-		ggtitle("Observed and projected launch constraint")
-
-lc_path
-
