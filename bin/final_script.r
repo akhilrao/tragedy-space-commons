@@ -51,7 +51,7 @@ source("plotting_functions.r")
 system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
 
 # these scripts estimate the parameters of the physical and economic models, and write the parameters out to csv files for calibration later on. they do not construct the data series' necessary for the value function iteration.
-source("calibrate_physical_model.r")
+source("calibrate_physical_model.r", print.eval=TRUE)
 source("calibrate_econ_model.r")
 
 rm(list=ls()) # clear workspace again, now that the model parameters are estimated
@@ -74,16 +74,15 @@ quiet <- function(x) {
 
 ncores <- 3 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
-oa_gridsize <- 28#35
-S_gridsize_opt <- 28#35
-D_gridsize_opt <- 28#35
-##### 072219: try shrinking these to remove the "jump at 2020" launch rate artifact
+oa_gridsize <- 28 #35 # 35 is a nice size for machines with 16GB of RAM, 28 is reasonable with 8GB RAM. memory cost scales roughly as the square of the gridsize.
+S_gridsize_opt <- 28 #35
+D_gridsize_opt <- 28 #35
 S_grid_upper_oa <- 8000 
-S_grid_upper_opt <- 3000 #8000
+S_grid_upper_opt <- 3000
 D_grid_upper_oa <- 250000
-D_grid_upper_opt <- 10000 #25000
+D_grid_upper_opt <- 10000
 
-bootstrap <- 0 # 1: run sensitivity analysis for model outputs. set to 1 by default.
+bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 0 by default, as bootstrap runs are costly in time and compute resources. however, must be set to 1 to regenerate main text figure 2c.
 n_path_sim_bootstrap_draws <- 50 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
 
 removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
@@ -96,7 +95,7 @@ total_time <- proc.time()[3]
 
 # Setting the end_year different from the projection_end extends the Morgan Stanley revenue and total value projections an additional 5 years, to avoid any end-of-horizon effects for a forecast out to end_year (e.g. numerical distortions in steady-state value functions). The idea is to "project" out to projection_end using the mean annual growth rate of the Morgan Stanley projections, then truncate back to end_year to avoid any end-of-horizon numerical artifacts.
 start_year <- 2006 # beginning of simulation
-end_year <- 2040 # final year for plots
+end_year <- 2041 # final year for plots
 projection_end <- 2050 # final year for calculation. should be weakly greater than end_year.
 opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
 opt_start_year_bs <- c(2006,2020,2035) # optimal management start years for bootstrap draws. WARNING: each entry here will add a lot (n_path_sim_bootstrap_draws*(time to compute a single optimal model)) to runtime! expand list with caution! (or with abundant cheap compute.) default is 2020 and 2035, to generate histogram of npv_welfare_gains comparable to the headline numbers.
@@ -107,9 +106,9 @@ source("calibrate_parameters.r", print.eval=TRUE) # reads in all calibrated para
 #############################################################################
 
 D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. default is 0.5, for use inside removal_comparison loop. to have no removal, set to 0. this variable is the "master copy" which stays constant inside the removal_comparison loop. if removal_comparison==0, this is irrelevant.
-R_frac <- 0 # fraction of debris removed every period once removal is online. default is 0, so that main_model_projection generates no-removal projection bootstraps. this variable gets updated with removal_comparison inner loops, and reset to the value of D_fraction_to_remove. NOTE: set this to >0 if you want main model projections/bootstraps with removal.
+R_frac <- 0 # fraction of debris removed every period once removal is online in the main model. default is 0, so that main_model_projection generates no-removal projection bootstraps. this variable gets updated with removal_comparison inner loops, and reset to the value of D_fraction_to_remove. NOTE: set this to >0 if you want main model projections/bootstraps with removal.
 
-D_removal_start_year <- 2027 # pick a year within the projection time frame.
+D_removal_start_year <- 2029 # pick a year within the projection time frame.
 R_start_year <- D_removal_start_year # same deal as R_frac: this is the copy that gets updated in the removal_comparison inner loops.
 R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year) # this gets the correct integer label for the chosen R_start_year, which is used in the projection algorithm 
 source("main_model_estimation.r")
@@ -153,6 +152,7 @@ if(removal_comparison==1){
 	coi_list <- list()
 	for(coi_rs_year in 2021:2034) {
 		coi_list[[(coi_rs_year-2020)]] <- read.csv(paste0("../data/2006_7_starts_remfrac_0.5_remstart_",coi_rs_year,"_coi_base_dfrm.csv"))
+		coi_list[[(coi_rs_year-2020)]]$rem_start_year <- coi_rs_year
 	}
 	coi_total_dfrm <- rbindlist(coi_list)
 	coi_total_summary <- data.frame(

@@ -21,14 +21,18 @@ OA_OPT$NPVPoA_sat <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa)*(OA_OP
 
 # Since we're using aggregate data we need to divide by the number of satellites to get the dollar values into per-fleet units. Otherwise, the dollar values are scaled by 2x the number of satellites rather than 1x -- 1x from the form of the pre-value function used in computation, and 1x from the aggregate dollar amounts used for calibration. These dollar amounts are in units of billion USD.
 OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa/OA_OPT$satellites.oa - OA_OPT$fleet_flowv.opt/OA_OPT$satellites.opt)*norm_const
+#OA_OPT$npv_oa_welfare <- (OA_OPT$fleet_vfn_path.oa/OA_OPT$satellites.oa)*norm_const
+#OA_OPT$npv_opt_welfare <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$satellites.opt)*norm_const
 OA_OPT$npv_oa_welfare <- (OA_OPT$fleet_vfn_path.oa/OA_OPT$satellites.oa)*norm_const
-OA_OPT$npv_opt_welfare <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$satellites.opt)*norm_const
+OA_OPT$npv_opt_welfare <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$satellites.oa)*norm_const
 OA_OPT$npv_welfare_loss <- (OA_OPT$npv_oa_welfare - OA_OPT$npv_opt_welfare)
 OA_OPT$npv_welfare_gain <- (OA_OPT$npv_opt_welfare - OA_OPT$npv_oa_welfare)
 
 # A tax which prevents returning to BAU from optimal path
 F_over_horizon <- OA_OPT$costs.opt
-OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*(F_over_horizon*norm_const/OA_OPT$satellites.opt)*1e+9 
+#OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*(F_over_horizon*norm_const/OA_OPT$satellites.opt)*1e+9 
+OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*(F_over_horizon*norm_const/OA_OPT$satellites.oa)*1e+9 
+
 OA_OPT$num_destr_asat[is.na(OA_OPT$num_destr_asat)] <- 0
 
 ss_rows <- which(OA_OPT$start_time.opt==-1)
@@ -290,19 +294,24 @@ npv_welf_loss <- risk_proj +
 					axis.text.y=element_text(family="Helvetica",size=10),
 					plot.title=element_text(family="Helvetica",size=10),
 					legend.text=element_text(family="Helvetica",size=10) )
-opt_tax_path <- risk_proj + 
-	geom_line(aes(y=opt_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) + theme_bw() +
-	#guides(color=FALSE) +
+
+# An OUF implemented in t+1 alters launch decisions in t. So to change behavior in 2020, the regulator announces an OUF in 2021. We plot the OUF from the year it begins changing behavior, i.e. we show the fee paid in 2021 as the 2020 value. "shifted_tax" in "OA_OPT_tax_shift" accomplishes this.
+OA_OPT_tax_shift <- OA_OPT[which(OA_OPT$start_time.opt==14),]
+#OA_OPT_tax_shift <- OA_OPT_tax_shift[-nrow(OA_OPT_tax_shift),]
+OA_OPT_tax_shift$shifted_tax <- OA_OPT[which(OA_OPT$start_time.opt==14),]$opt_tax_path[-1]
+
+opt_tax_path <- ggplot(data=OA_OPT_tax_shift,aes(x=year)) + 
+	geom_line(aes(y=shifted_tax),size=data_size) + theme_bw() +
 	labs(color="") +
-	ylab("Optimal satellite tax ($/sat)") + xlab("year") +
-	ggtitle("Optimal satellite tax path") +
-	labs(color="Optimal mgmt\nstart year") +
-	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
-	theme(text=element_text(family="Helvetica",size=15),
-		axis.text.x=element_text(family="Helvetica",size=15),
-		axis.text.y=element_text(family="Helvetica",size=15),
-		plot.title=element_text(family="Helvetica",size=15),
-		legend.text=element_text(family="Helvetica",size=15) ) 
+	ylab("Optimal OUF ($/sat)") + xlab("Year") +
+	ggtitle("Optimal OUF path") +
+	expand_limits(y=0) +
+	theme(text=element_text(family="Helvetica",size=20),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) 
+
 npv_poa_path <- risk_proj + 
 	geom_line(aes(y=NPVPoA,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
 	guides(color=FALSE) +
@@ -340,8 +349,8 @@ coi_plot_cols <- c("2020" = paste0(viridis(7)[4]), "2025" = paste0(viridis(7)[5]
 coi_plot <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss)) +
 			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 			labs(fill="Optimal mgmt\nstart year") +
-			ggtitle("Permanent orbit\nuse value\nloss in 2040") +
-			ylab("Forgone fleet NPV (nominal $1t)") +
+			ggtitle("Permanent orbit use value loss in 2040") +
+			ylab("Forgone fleet NPV\n(nominal $1t)") +
 			xlab("Year") +
 			theme_bw() +
 			scale_discrete_manual(values=coi_plot_cols, aesthetics = c("fill")) +
@@ -391,7 +400,6 @@ npvwelfpaths_long$start_time.opt[which(npvwelfpaths_long$variable=="npv_oa_welfa
 npvwelfpaths_long <- npvwelfpaths_long[which(npvwelfpaths_long$start_time.opt>=14),] # removes paths where optimal management begins before 2020
 npv_welf_paths_plotbase <- ggplot(data=npvwelfpaths_long[npvwelfpaths_long$year>=2015,],aes(x=year)) # base for the plot
 npvwelfpath_labs <- c(paste(c(opt_start_year[opt_start_year>=2020],"BAU (never)"),sep=",")) # label names
-#npvwelfpath_cols <- c("0" = paste0(viridis(7)[1]), "4" = paste0(viridis(7)[2]), "9" = paste0(viridis(7)[3]), "14" = paste0(viridis(7)[4]), "19" = paste0(viridis(7)[5]), "24" = paste0(viridis(7)[6]), "29" = paste0(viridis(7)[7]), "Inf" = "black") # label colors
 npvwelfpath_cols <- c("14" = paste0(viridis(7)[4]), "19" = paste0(viridis(7)[5]), "24" = paste0(viridis(7)[6]), "29" = paste0(viridis(7)[7]), "Inf" = "black") # label colors
 npv_welf_paths <- npv_welf_paths_plotbase + 
 	geom_line(aes(y=value/1000,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
@@ -478,14 +486,12 @@ opt_dev_tax_path_comp_all <- risk_proj_20xx +
 # 3.  Main text and Extended Data figures
 #############################################################################
 
-# Main text figure 2
+# Main text figure 2 no longer made here, as it uses a bootstrap figure. produced in main_model_bootstrap.r instead.
 png(width=850,height=450,filename=paste0("../images/main_text_figure_2.png"))
-#mtf2_upperrow <- 
-plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3.5/5,1.5/5))
-#plot_grid(mtf2_upperrow,boa_plot_pc,labels=c("","c"),align="h",axis="1",nrow=2,rel_heights=c(3.8/5,1.2/5))
+plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3.5/5,1.5/5),label_size=20)
 dev.off()
 
 # Extended data figure 4
 png(width=800,height=600,filename=paste0("../images/extended_data_figure_4.png"))
-plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2))
+plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2),label_size=15)
 dev.off()

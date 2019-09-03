@@ -100,7 +100,7 @@ F <- physecon$F_hat
 # Append data with average case revenue projection from Morgan Stanley.
 econ_proj <- merge(MS_proj_rev,MS_proj_total,by=c("Year"))
 econ_proj$Costs <- econ_proj$Total - econ_proj$Revenues
-econ_proj[,c(2,3,4)] <- econ_proj[,c(2,3,4)]/1000
+econ_proj[,c(2,3,4)] <- econ_proj[,c(2,3,4)]/1000 #the raw data are in units of millions of dollars. this brings them to units of billions of dollars.
 p <- c(p,econ_proj$Revenues)
 F <- c(F,econ_proj$Costs)
 
@@ -208,8 +208,8 @@ csg_plot <-	csg_base +
 #####
 
 # Main text figure 1
-png(width=800,height=600,filename="../images/commercial_space_growth.png")
-plot_grid(revcost_plot,csg_plot,labels=c("a","b"),align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5))
+png(width=800,height=600,filename="../images/main_text_figure_1.png")
+plot_grid(revcost_plot,csg_plot,labels=c("a","b"),align="v",axis="2",nrow=2,rel_widths=c(3/5,2/5),label_size=20)
 dev.off()
 
 # Extended Data Figure 6

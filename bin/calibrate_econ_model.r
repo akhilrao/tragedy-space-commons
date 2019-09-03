@@ -18,7 +18,7 @@ F_calc <- function(a_1,a_2,a_3,F_1,pi_t,risk,...) {
 aggrc <- read.csv("../data/industry_revenues.csv")
 aggrc <- subset(aggrc, select=c(Category, Commercial.Infrastructure.and.Support.Industries,Ground.Stations.and.Equipment, Satellite.Manufacturing..Commercial., Satellite.Launch.Industry..Commercial., Insurance.Premiums, Commercial.Space.Products.and.Services)) 
 aggrc <- ddply(aggrc, ~Category, transform, tot_rev = Commercial.Space.Products.and.Services, tot_cost = (Commercial.Infrastructure.and.Support.Industries + Ground.Stations.and.Equipment + Satellite.Manufacturing..Commercial. + Satellite.Launch.Industry..Commercial.) )
-aggrc$r_s_raw <- aggrc$tot_rev/aggrc$tot_cost  #calculate the raw rate of return on a satellite - the number of satellites drops out of the formula 
+aggrc$r_s_raw <- aggrc$tot_rev/aggrc$tot_cost  #calculate the raw rate of return on a satellite - the number of satellites drops out of the formula. (the number of satellites is important for this calculation since we want p and F, not pS and FS, but the Morgan Stanley report doesn't state what fleet sizes they're assuming.)
 aggrc$Ft_Ft <- c(0,aggrc$tot_cost[-1]/aggrc$tot_cost[-length(aggrc$tot_cost)])
 colnames(aggrc)[1] <- "year"
 aggrc <- aggrc[-1,]
@@ -29,7 +29,6 @@ LEO_share <- ddply(satellites, ~Launch.Year, summarize, share_in_LEO=mean(LEO), 
 colnames(LEO_share)[1] <- c("year")
 
 aggrc <- merge(LEO_share,aggrc,by=c("year"))
-#aggrc$r_s <- aggrc$r_s_raw*aggrc$share_in_LEO # disabled because (1) I don't have the right measure of share; (2) it feels like data snooping to use the share of launches instead of share of satellites; (3) shouldn't OLS "learn" the share and embed it in the parameter estimates?
 aggrc$r_s <- aggrc$r_s_raw
 
 dfrm <- read.csv("../data/ST_stock_series.csv")

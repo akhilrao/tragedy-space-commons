@@ -140,5 +140,5 @@ ed_fig2_b <- fitplot_noerror(m2xvars,m2coefs,series$year,D_next,"Debris law of m
 ed_fig2_c <- nls_fitplot_noerror(nls_risk_xvars,c(nls_coefs[1,1],nls_coefs[1,2]),series$year,risk,"Collision rate physical equation calibration","collision rate")
 
 png(width=950,height=400,filename="../images/extended_data_figure_2.png")
-plot_grid(ed_fig2_a, ed_fig2_b, ed_fig2_c, labels=c("a", "b", "c"), align="h", ncol=3)
+plot_grid(ed_fig2_a, ed_fig2_b, ed_fig2_c, labels=c("a", "b", "c"), align="h", ncol=3, label_size=20)
 dev.off()

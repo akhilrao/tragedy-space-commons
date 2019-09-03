@@ -62,7 +62,7 @@ m_bs_small_long <- merge(m_small_long, bs_small_long, by=c("year","time","bootst
 rownames(m_bs_small_long) <- NULL
 head(m_bs_small_long)
 
-# only keep runs beginning in 2006 to be comparable to ED fig 4 -- 081319: FIX THIS, THE 2006 RUNS AREN'T BEING GENERATED; CURRENTLY SET TO 14 INSTEAD OF 0
+# only keep runs beginning in 2006 to be comparable to ED fig 4
 m_bs_small_long_06 <- m_bs_small_long[m_bs_small_long$start_time.opt==14,]
 # only keep runs beginning in 2020 to be comparable to headline numbers
 m_bs_small_long <- m_bs_small_long[m_bs_small_long$start_time.opt==14,]
@@ -84,7 +84,7 @@ bs_coihist_df <- ddply(bs_coihist_df, .(year,bootstrap_draw), transform, npv_wel
 bs_coihist_df <- bs_coihist_df[bs_coihist_df$start_time.opt==14,]
 ## combine them for use later
 coihist_df <- rbind(m_coihist_df,bs_coihist_df)
-message("The middle 95% of model-predicted welfare gains in 2040 to optimal OUF implementation in 2020 fall in between ",round(quantile(coihist_df$npv_welfare_loss,probs=c(0.025,0.975)),2)[[1]], " and ",round(quantile(coihist_df$npv_welfare_loss,probs=c(0.025,0.975)),2)[[2]], " trillion USD.")
+
 message("The middle 95% of model-predicted welfare gains in 2040 to optimal OUF implementation in 2020 fall in between ",round(quantile(coihist_df$NPV.PoA,probs=c(0.025,0.975)),2)[[1]], " and ",round(quantile(coihist_df$NPV.PoA,probs=c(0.025,0.975)),2)[[2]], " times the BAU NPV.")
 
 ##### Generate figures
@@ -94,14 +94,14 @@ m_bs_small_long_bootstrap_hist_plot <- ggplot(data=coihist_df) +
 						# geom_vline(xintercept=coihist_df$npv_welfare_loss[coihist_df$bootstrap_draw==0]) +
 						geom_histogram(aes(x=NPV.PoA),fill="gray",bins=20) +
 						geom_vline(xintercept=coihist_df$NPV.PoA[coihist_df$bootstrap_draw==0]) +
-						theme_bw() + ggtitle("Distribution of NPV gains from\nbeginning optimal mgmt in 2020") + 
+						theme_bw() + ggtitle("Distribution of NPV gains from beginning optimal mgmt in 2020") + 
 						#xlab("NPV gains in 2040 (nominal trillion USD)")	+
 						xlab("Ratio of optimal NPV in 2040 to BAU NPV in 2040")	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=20),
+					axis.text.x=element_text(family="Helvetica",size=20),
+					axis.text.y=element_text(family="Helvetica",size=20),
+					plot.title=element_text(family="Helvetica",size=20),
+					legend.text=element_text(family="Helvetica",size=20) )
 
 m_bs_small_long_bootstrap_oalaunch_plot <- ggplot(data=m_bs_small_long_06[which(m_bs_small_long$time=="launches.oa"),], aes(x=year)) + 
 						geom_line(aes(y=bs.value, group=as.factor(bootstrap_draw)), size=0.9, alpha=0.45, color="gray") + 
@@ -208,21 +208,34 @@ m_bs_small_long_bootstrap_optvalue_plot <- ggplot(data=m_bs_small_long[which(m_b
 						geom_line(aes(y=m.value, group=as.factor(bootstrap_draw)),size=1) +
 						theme_bw() + ggtitle("Optimal fleet NPV projections")
 
+##### Main Text Figure
+
+# MT figure 2
+png(width=1250,height=650,filename=paste0("../images/main_text_figure_2_v2.png"))
+upper_row <- plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3/5,2/5),label_size=20)
+lower_row <- plot_grid(opt_tax_path,m_bs_small_long_bootstrap_hist_plot,labels=c("c","d"),align="h",axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=20)
+plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
+dev.off()
+
 ##### Extended Data Figures
 
 # ED figure 8
 png(width=800,height=500,filename="../images/extended_data_figure_8.png")
-plot_grid(m_bs_small_long_bootstrap_oalaunch_plot, m_bs_small_long_bootstrap_oasats_plot, m_bs_small_long_bootstrap_oadebs_plot, m_bs_small_long_bootstrap_oacoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5))
+plot_grid(m_bs_small_long_bootstrap_oalaunch_plot, m_bs_small_long_bootstrap_oasats_plot, m_bs_small_long_bootstrap_oadebs_plot, m_bs_small_long_bootstrap_oacoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=15)
 dev.off()
 
 # ED figure 9
 png(width=800,height=500,filename="../images/extended_data_figure_9.png")
-plot_grid(m_bs_small_long_bootstrap_optlaunch_plot, m_bs_small_long_bootstrap_optsats_plot, m_bs_small_long_bootstrap_optdebs_plot, m_bs_small_long_bootstrap_optcoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5))
+plot_grid(m_bs_small_long_bootstrap_optlaunch_plot, m_bs_small_long_bootstrap_optsats_plot, m_bs_small_long_bootstrap_optdebs_plot, m_bs_small_long_bootstrap_optcoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=15)
 dev.off()
 
 # ED figure 10
 png(width=800,height=300,filename="../images/extended_data_figure_10.png")
 plot_grid(m_bs_small_long_bootstrap_opttax_plot,
 	m_bs_small_long_bootstrap_hist_plot
-,align="h",labels=c("a","b"),axis="1",nrow=1,rel_widths=c(1/2,1/2))
+,align="h",labels=c("a","b"),axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=15)
+dev.off()
+
+png(width=400,height=150,filename="../images/extended_data_figure_10_v2.png")
+m_bs_small_long_bootstrap_opttax_plot
 dev.off()

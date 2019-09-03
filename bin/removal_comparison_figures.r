@@ -32,14 +32,14 @@ OA_OPT$NPVPoA.oaremvnorem <- OA_OPT$fleet_vfn_path.oa.rem/OA_OPT$fleet_vfn_path.
 OA_OPT$NPVPoA.optremvnorem <- OA_OPT$fleet_vfn_path.opt.rem/OA_OPT$fleet_vfn_path.opt.norem
 OA_OPT$NPVPoA.oaremvoptnorem <- OA_OPT$fleet_vfn_path.oa.rem/OA_OPT$fleet_vfn_path.opt.norem
 
-# Since we're using aggregate data we need to divide by the number of satellites to get things into per-satellite units.
-OA_OPT$npv_oa_welfare.rem <- (OA_OPT$fleet_vfn_path.oa.rem/OA_OPT$satellites.oa.rem)*norm_const
-OA_OPT$npv_opt_welfare.rem <- (OA_OPT$fleet_vfn_path.opt.rem/OA_OPT$satellites.opt.rem)*norm_const
+# Since we're using aggregate data we need to divide by the number of satellites to get things into per-satellite units. To be consistent across scenarios, we use "satellites.oa.norem" as the division factor everywhere.
+OA_OPT$npv_oa_welfare.rem <- (OA_OPT$fleet_vfn_path.oa.rem/OA_OPT$satellites.oa.norem)*norm_const
+OA_OPT$npv_opt_welfare.rem <- (OA_OPT$fleet_vfn_path.opt.rem/OA_OPT$satellites.oa.norem)*norm_const
 OA_OPT$npv_welfare_loss.rem <- (OA_OPT$npv_oa_welfare.rem - OA_OPT$npv_opt_welfare.rem)
 OA_OPT$npv_welfare_gain.rem <- (OA_OPT$npv_opt_welfare.rem - OA_OPT$npv_oa_welfare.rem)
 
 OA_OPT$npv_oa_welfare.norem <- (OA_OPT$fleet_vfn_path.oa.norem/OA_OPT$satellites.oa.norem)*norm_const
-OA_OPT$npv_opt_welfare.norem <- (OA_OPT$fleet_vfn_path.opt.norem/OA_OPT$satellites.opt.norem)*norm_const
+OA_OPT$npv_opt_welfare.norem <- (OA_OPT$fleet_vfn_path.opt.norem/OA_OPT$satellites.oa.norem)*norm_const
 OA_OPT$npv_welfare_loss.norem <- (OA_OPT$npv_oa_welfare.norem - OA_OPT$npv_opt_welfare.norem)
 OA_OPT$npv_welfare_gain.norem <- (OA_OPT$npv_opt_welfare.norem - OA_OPT$npv_oa_welfare.norem)
 
@@ -169,23 +169,6 @@ coi_plot.rem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_ye
 	theme(legend.text=element_text(size=15))
 
 risk_proj <- ggplot(data=OA_OPT,aes(x=year))
-npv_welf_paths <- risk_proj + 
-	geom_line(aes(y=npv_oa_welfare.norem),size=data_size) +
-	geom_line(aes(y=npv_oa_welfare.rem),size=data_size) +
-	geom_line(aes(y=ss_npv_opt_welfare.norem),size=data_size,color=OPT_fit_color) +
-	geom_line(aes(y=ss_npv_opt_welfare.rem),size=data_size*2,color=OPT_fit_color,alpha=0.6) +
-	geom_line(aes(y=npv_opt_welfare.norem,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
-	geom_line(aes(y=npv_opt_welfare.rem,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size*2,linetype="dashed") +
-	labs(color="Optimal mgmt\nstart year") +
-	ylab("Social NPV (nominal $1b)") + xlab("Year") + theme_bw() +
-	#ggtitle("Gains from shifting to optimal management\nrelative to open access BAU path (red line) and always-optimal path (black line)") +
-	ggtitle("NPV gains of orbit recovery:\nshifting to optimal management from BAU open access\n(blue line: always-optimal, black line: BAU)") +
-	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))
-npv_oa_welf_paths <- risk_proj + 
-	geom_line(aes(y=npv_oa_welfare.rem-npv_oa_welfare.norem),size=data_size) +
-	labs(color="Optimal mgmt\nstart year") +
-	ylab("Effect of debris removal on open access social NPV (nominal $1b)") + xlab("Year") + theme_bw() +
-	ggtitle("NPV effect of debris removal on open access:")
 
 coi_plot.deltarem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal)) +
 	geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
