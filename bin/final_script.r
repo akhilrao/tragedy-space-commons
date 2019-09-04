@@ -82,7 +82,8 @@ S_grid_upper_opt <- 3000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 10000
 
-bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 0 by default, as bootstrap runs are costly in time and compute resources. however, must be set to 1 to regenerate main text figure 2c.
+bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
+force_bootstrap_recalculation <- 0 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
 n_path_sim_bootstrap_draws <- 50 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
 
 removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.

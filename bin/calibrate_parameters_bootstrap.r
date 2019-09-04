@@ -47,8 +47,8 @@ MS_proj_rev <- rbind(MS_proj_rev,revenue_projection)
 MS_proj_total<- rbind(MS_proj_total,total_projection)
 
 # Set parameters
-start_year <- 2006
-end_year <- 2040
+#start_year <- 2006
+#end_year <- 2040
 selected_years <- which(observed_time_series$year>=start_year)
 S0 <- observed_time_series$payloads_in_orbit[which(observed_time_series$year==start_year)]
 D0 <- observed_time_series$debris[which(observed_time_series$year==start_year)]

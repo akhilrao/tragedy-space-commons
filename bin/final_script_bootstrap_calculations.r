@@ -93,7 +93,7 @@ sink("log.solve.txt", append=TRUE)
 sink()
 	oa_path <- cbind(year=seq(from=start_year,by=1,length.out=nrow(oa_tps_path)),oa_tps_path)
 
-	### optimal paths -- 081319: FIX THIS, THE 2006 RUNS AREN'T BEING GENERATED
+	### optimal paths
 	opt_path_list <- list()
 for(o in 1:length(opt_start_year_bs)){
 	opt_S0 <- oa_path$satellites[which(oa_path$year==opt_start_year_bs[o])]
@@ -129,10 +129,10 @@ opt_path <- rbindlist(opt_path_list)
 	# Price of Anarchy in terms of NPV of welfare. 1 : no permanent gains or losses to anarchy, >1 : permanent losses to anarchy, <1 : permanent gains to anarchy.
 	OA_OPT$NPVPoA <- OA_OPT$fleet_vfn_path.opt/OA_OPT$fleet_vfn_path.oa 
 
-	# Since we're using aggregate data we need to divide by the number of satellites to get things into per-satellite units. Dividing by open access # of satellites puts everything relative to the "initial condition of open access".
-	OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa/OA_OPT$satellites.oa - OA_OPT$fleet_flowv.opt/OA_OPT$satellites.opt)*norm_const
+	# Since we're using aggregate data we need to divide by the number of satellites to get things into per-satellite units.
+	OA_OPT$flow_welfare_loss <- (OA_OPT$fleet_flowv.oa/OA_OPT$satellites.oa - OA_OPT$fleet_flowv.opt/OA_OPT$satellites.oa)*norm_const
 	OA_OPT$npv_oa_welfare <- (OA_OPT$fleet_vfn_path.oa/OA_OPT$satellites.oa)*norm_const
-	OA_OPT$npv_opt_welfare <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$satellites.opt)*norm_const
+	OA_OPT$npv_opt_welfare <- (OA_OPT$fleet_vfn_path.opt/OA_OPT$satellites.oa)*norm_const
 	OA_OPT$npv_welfare_loss <- (OA_OPT$npv_oa_welfare - OA_OPT$npv_opt_welfare)
 	OA_OPT$npv_welfare_gain <- (OA_OPT$npv_opt_welfare - OA_OPT$npv_oa_welfare)
 

@@ -1,7 +1,9 @@
 ##### Script to generate main model bootstrap sensitivity analysis for "Tragedy of the Space Commons" paper.
 ###
 
-#source("final_script_bootstrap_calculations.r") # this actually calculates the bootstrap analysis. uses the same grid settings as the main model.
+if((file.exists(paste0("../data/bootstrapped_simulation.csv"))==FALSE)||(force_bootstrap_recalculation==1)) {
+	source("final_script_bootstrap_calculations.r") # this actually calculates the bootstrap analysis. uses the same grid settings as the main model. won't run unless the file with bootstrap outputs doesn't exist, or unless forced to.
+}
 
 main_sim <- read.csv(paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))
 bootstrap_sims <- read.csv("../data/bootstrapped_simulation.csv")
@@ -19,7 +21,7 @@ main_small <- data.frame(year=main_sim$year,
 						collision_rate.opt=main_sim$collision_rate.opt,
 						costs=main_sim$costs.opt,
 						NPV.oa=(main_sim$fleet_vfn_path.oa/main_sim$satellites.oa)*norm_const,
-						NPV.opt=(main_sim$fleet_vfn_path.opt/main_sim$satellites.opt)*norm_const,
+						NPV.opt=(main_sim$fleet_vfn_path.opt/main_sim$satellites.oa)*norm_const,
 						start_time.opt=main_sim$start_time.opt,
 						bootstrap_draw=0)
 
@@ -34,7 +36,7 @@ bootstrap_small <- data.frame(year=bootstrap_sims$year,
 						collision_rate.opt=bootstrap_sims$collision_rate.opt,
 						costs=bootstrap_sims$costs.opt,
 						NPV.oa=(bootstrap_sims$fleet_vfn_path.oa/bootstrap_sims$satellites.oa)*norm_const,
-						NPV.opt=(bootstrap_sims$fleet_vfn_path.opt/bootstrap_sims$satellites.opt)*norm_const,
+						NPV.opt=(bootstrap_sims$fleet_vfn_path.opt/bootstrap_sims$satellites.oa)*norm_const,
 						start_time.opt=bootstrap_sims$start_time.opt,
 						bootstrap_draw=bootstrap_sims$bootstrap_draw)
 
@@ -43,8 +45,8 @@ main_small$NPV.welfare.gain <- main_small$NPV.opt-main_small$NPV.oa
 bootstrap_small$NPV.welfare.gain <- bootstrap_small$NPV.opt-bootstrap_small$NPV.oa
 
 # calculate the price of anarchy ratios (same thing as welfare gain, just as a ratio -- need to undo the "per-satellite" terms factored in at lines 21-22 and 36-37)
-main_small$NPV.PoA <- (main_small$NPV.opt/main_small$NPV.oa)*(main_small$satellites.opt/main_small$satellites.oa)
-bootstrap_small$NPV.PoA <- (bootstrap_small$NPV.opt/bootstrap_small$NPV.oa)*(bootstrap_small$satellites.opt/bootstrap_small$satellites.oa)
+main_small$NPV.PoA <- (main_small$NPV.opt/main_small$NPV.oa)#*(main_small$satellites.opt/main_small$satellites.oa)
+bootstrap_small$NPV.PoA <- (bootstrap_small$NPV.opt/bootstrap_small$NPV.oa)#*(bootstrap_small$satellites.opt/bootstrap_small$satellites.oa)
 
 # calculate optimal tax (OUF) paths
 main_small$opt_tax_path <- (main_small$collision_rate.oa/main_small$satellites.oa - main_small$collision_rate.opt/main_small$satellites.opt)*main_small$costs*norm_const*1e+9/main_small$satellites.oa
@@ -186,12 +188,19 @@ m_bs_small_long_bootstrap_optcoll_plot <- ggplot(data=m_bs_small_long_06[which(m
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) )
 
-# tax and value function time path plots
-m_bs_small_long_bootstrap_opttax_plot <- ggplot(data=m_bs_small_long[which(m_bs_small_long$time=="opt_tax_path"),], aes(x=year)) + 
+# tax and value function time path 
+# An OUF implemented in t+1 alters launch decisions in t. So to change behavior in 2020, the regulator announces an OUF in 2021. We plot the OUF from the year it begins changing behavior, i.e. we show the fee paid in 2021 as the 2020 value. "shifted_tax" accomplishes this.
+m_bs_tax_shift <- m_bs_small_long[which(m_bs_small_long$time=="opt_tax_path"),]
+ddply(m_bs_tax_shift, ~bootstrap_draw, transform, shifted_tax=opt_tax_path[-1] )
+
+#OA_OPT_tax_shift <- OA_OPT_tax_shift[-nrow(OA_OPT_tax_shift),]
+
+
+m_bs_small_long_bootstrap_opttax_plot <- ggplot(data=m_bs_tax_shift, aes(x=year)) + 
 						geom_line(aes(y=bs.value, group=as.factor(bootstrap_draw)), size=0.91, alpha=0.45, color="gray") + 
 						geom_line(aes(y=m.value, group=as.factor(bootstrap_draw)),size=1) +
 						theme_bw() + ggtitle("Optimal orbital-use fee projections") +
-						scale_y_continuous(name="Optimal orbital-use fee (nominal USD)", labels = scales::comma)+
+						scale_y_continuous(name="Optimal OUF (nominal USD/sat)", labels = scales::comma)+
 				theme(text=element_text(family="Helvetica",size=15),
 					axis.text.x=element_text(family="Helvetica",size=15),
 					axis.text.y=element_text(family="Helvetica",size=15),
