@@ -245,6 +245,6 @@ plot_grid(m_bs_small_long_bootstrap_opttax_plot,
 ,align="h",labels=c("a","b"),axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=15)
 dev.off()
 
-png(width=400,height=150,filename="../images/extended_data_figure_10_v2.png")
+png(width=400,height=300,filename="../images/extended_data_figure_10_v2.png")
 m_bs_small_long_bootstrap_opttax_plot
 dev.off()
