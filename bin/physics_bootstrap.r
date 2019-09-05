@@ -19,7 +19,7 @@ for(b in 1:B) {
 	# search over a grid of initial points and select the best one
 	message(paste0("Collision risk bootstrap loop ",b))
 	## generate the grid
-	init_risk_bootstrap_cond_element <- seq(from=1e-9,to=1e-6,length.out=10)
+	init_risk_bootstrap_cond_element <- seq(from=1e-9,to=1e-6,length.out=15)
 	init_risk_bootstrap_cond_grid <- expand.grid(init_risk_bootstrap_cond_element,init_risk_bootstrap_cond_element)
 	nls_risk_bootstrap_values <- as.data.frame(matrix(1e+25,nrow=nrow(init_risk_bootstrap_cond_grid),ncol=4))
 	colnames(nls_risk_bootstrap_values) <- c("obj_fn","SS_parm","SD_parm","conv")

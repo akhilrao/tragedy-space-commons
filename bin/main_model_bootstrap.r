@@ -188,17 +188,16 @@ m_bs_small_long_bootstrap_optcoll_plot <- ggplot(data=m_bs_small_long_06[which(m
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) )
 
-# tax and value function time path 
+# tax and value function time paths 
 # An OUF implemented in t+1 alters launch decisions in t. So to change behavior in 2020, the regulator announces an OUF in 2021. We plot the OUF from the year it begins changing behavior, i.e. we show the fee paid in 2021 as the 2020 value. "shifted_tax" accomplishes this.
 m_bs_tax_shift <- m_bs_small_long[which(m_bs_small_long$time=="opt_tax_path"),]
-ddply(m_bs_tax_shift, ~bootstrap_draw, transform, shifted_tax=opt_tax_path[-1] )
-
-#OA_OPT_tax_shift <- OA_OPT_tax_shift[-nrow(OA_OPT_tax_shift),]
-
+m_bs_tax_shift <- ddply(m_bs_tax_shift, ~bootstrap_draw, transform, m_shifted_tax=c(m.value[-1],NA) )
+m_bs_tax_shift <- ddply(m_bs_tax_shift, ~bootstrap_draw, transform, bs_shifted_tax=c(bs.value[-1],NA) )
+m_bs_tax_shift <- m_bs_tax_shift[-which(m_bs_tax_shift$year==2041),]
 
 m_bs_small_long_bootstrap_opttax_plot <- ggplot(data=m_bs_tax_shift, aes(x=year)) + 
-						geom_line(aes(y=bs.value, group=as.factor(bootstrap_draw)), size=0.91, alpha=0.45, color="gray") + 
-						geom_line(aes(y=m.value, group=as.factor(bootstrap_draw)),size=1) +
+						geom_line(aes(y=bs_shifted_tax, group=as.factor(bootstrap_draw)), size=0.91, alpha=0.45, color="gray") + 
+						geom_line(aes(y=m_shifted_tax, group=as.factor(bootstrap_draw)),size=1) +
 						theme_bw() + ggtitle("Optimal orbital-use fee projections") +
 						scale_y_continuous(name="Optimal OUF (nominal USD/sat)", labels = scales::comma)+
 				theme(text=element_text(family="Helvetica",size=15),
@@ -220,7 +219,7 @@ m_bs_small_long_bootstrap_optvalue_plot <- ggplot(data=m_bs_small_long[which(m_b
 ##### Main Text Figure
 
 # MT figure 2
-png(width=1250,height=650,filename=paste0("../images/main_text_figure_2_v2.png"))
+png(width=1250,height=650,filename=paste0("../images/main_text_figure_2.png"))
 upper_row <- plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3/5,2/5),label_size=20)
 lower_row <- plot_grid(opt_tax_path,m_bs_small_long_bootstrap_hist_plot,labels=c("c","d"),align="h",axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=20)
 plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
@@ -239,12 +238,6 @@ plot_grid(m_bs_small_long_bootstrap_optlaunch_plot, m_bs_small_long_bootstrap_op
 dev.off()
 
 # ED figure 10
-png(width=800,height=300,filename="../images/extended_data_figure_10.png")
-plot_grid(m_bs_small_long_bootstrap_opttax_plot,
-	m_bs_small_long_bootstrap_hist_plot
-,align="h",labels=c("a","b"),axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=15)
-dev.off()
-
-png(width=400,height=300,filename="../images/extended_data_figure_10_v2.png")
+png(width=400,height=300,filename="../images/extended_data_figure_10.png")
 m_bs_small_long_bootstrap_opttax_plot
 dev.off()

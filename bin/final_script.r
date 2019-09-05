@@ -44,8 +44,8 @@ library(ggpubr)
 
 ncores <- 32 # number of cores to use for parallel computations
 find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time; default is set to 0 and starts from prior solve results.
-physics_bootstrap <- 0 # 1: run the physical calibration sensitivity analysis again. only necessary if parameter sets are to be regenerated from scratch. takes some time; default is set to 0 and starts from prior solve results.
-n_physical_bootstrap_draws <- 1000 # number of draws for physical calibration sensitivity analysis. default is 1000.
+physics_bootstrap <- 1 # 1: run the physical calibration sensitivity analysis again. only necessary if parameter sets are to be regenerated from scratch. takes some time; default is set to 0 and starts from prior solve results.
+n_physical_bootstrap_draws <- 5000 # number of draws for physical calibration sensitivity analysis. default is 1000.
 
 source("plotting_functions.r")
 system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
@@ -82,9 +82,9 @@ S_grid_upper_opt <- 3000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 10000
 
-bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
+bootstrap <- 0 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
 force_bootstrap_recalculation <- 0 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
-n_path_sim_bootstrap_draws <- 50 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
+n_path_sim_bootstrap_draws <- 250 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
 
 removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
 

@@ -88,6 +88,9 @@ deviation_dfrm$opt_dev_tax_path <- (deviation_dfrm$excess_L*deviation_dfrm$F_ove
 
 OA_OPT <- merge(OA_OPT,deviation_dfrm[,c("year","start_year","excess_L","opt_dev_tax_path")],by=c("year","start_year"))
 
+OA_OPT_full <- OA_OPT
+OA_OPT <- OA_OPT[-which(OA_OPT_full$year>=2041),]
+
 #############################################################################
 # 2.  Generate individual figures
 #############################################################################
@@ -296,8 +299,8 @@ npv_welf_loss <- risk_proj +
 					legend.text=element_text(family="Helvetica",size=10) )
 
 # An OUF implemented in t+1 alters launch decisions in t. So to change behavior in 2020, the regulator announces an OUF in 2021. We plot the OUF from the year it begins changing behavior, i.e. we show the fee paid in 2021 as the 2020 value. "shifted_tax" in "OA_OPT_tax_shift" accomplishes this.
-OA_OPT_tax_shift <- OA_OPT[which(OA_OPT$start_time.opt==14),]
-shifted_tax <- OA_OPT[which(OA_OPT$start_time.opt==14),]$opt_tax_path[-1]
+OA_OPT_tax_shift <- OA_OPT_full[which(OA_OPT_full$start_time.opt==14),]
+shifted_tax <- OA_OPT_full[which(OA_OPT_full$start_time.opt==14),]$opt_tax_path[-1]
 OA_OPT_tax_shift <- OA_OPT_tax_shift[-nrow(OA_OPT_tax_shift),]
 OA_OPT_tax_shift$shifted_tax <- shifted_tax
 
@@ -489,9 +492,6 @@ opt_dev_tax_path_comp_all <- risk_proj_20xx +
 #############################################################################
 
 # Main text figure 2 no longer made here, as it uses a bootstrap figure. produced in main_model_bootstrap.r instead.
-png(width=850,height=450,filename=paste0("../images/main_text_figure_2.png"))
-plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3.5/5,1.5/5),label_size=20)
-dev.off()
 
 # Extended data figure 4
 png(width=800,height=600,filename=paste0("../images/extended_data_figure_4.png"))
