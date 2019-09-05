@@ -45,7 +45,7 @@ library(ggpubr)
 ncores <- 32 # number of cores to use for parallel computations
 find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time; default is set to 0 and starts from prior solve results.
 physics_bootstrap <- 1 # 1: run the physical calibration sensitivity analysis again. only necessary if parameter sets are to be regenerated from scratch. takes some time; default is set to 0 and starts from prior solve results.
-n_physical_bootstrap_draws <- 5000 # number of draws for physical calibration sensitivity analysis. default is 1000.
+n_physical_bootstrap_draws <- 10000 # number of draws for physical calibration sensitivity analysis. default is 1000.
 
 source("plotting_functions.r")
 system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.

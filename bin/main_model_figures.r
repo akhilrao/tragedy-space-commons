@@ -307,7 +307,7 @@ OA_OPT_tax_shift$shifted_tax <- shifted_tax
 opt_tax_path <- ggplot(data=OA_OPT_tax_shift,aes(x=year)) + 
 	geom_line(aes(y=shifted_tax),size=data_size) + theme_bw() +
 	labs(color="") +
-	scale_y_continuous(name="Optimal OUF (nominal USD/sat)", labels = scales::comma) +
+	scale_y_continuous(name="Optimal OUF (nominal $/sat)", labels = scales::comma) +
 	xlab("Year") +
 	ggtitle("Optimal OUF path") +
 	expand_limits(y=0) +

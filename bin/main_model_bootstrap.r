@@ -199,7 +199,7 @@ m_bs_small_long_bootstrap_opttax_plot <- ggplot(data=m_bs_tax_shift, aes(x=year)
 						geom_line(aes(y=bs_shifted_tax, group=as.factor(bootstrap_draw)), size=0.91, alpha=0.45, color="gray") + 
 						geom_line(aes(y=m_shifted_tax, group=as.factor(bootstrap_draw)),size=1) +
 						theme_bw() + ggtitle("Optimal orbital-use fee projections") +
-						scale_y_continuous(name="Optimal OUF (nominal USD/sat)", labels = scales::comma)+
+						scale_y_continuous(name="Optimal OUF (nominal $/sat)", labels = scales::comma)+
 				theme(text=element_text(family="Helvetica",size=15),
 					axis.text.x=element_text(family="Helvetica",size=15),
 					axis.text.y=element_text(family="Helvetica",size=15),
