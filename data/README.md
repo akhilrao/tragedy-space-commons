@@ -1,0 +1,1 @@
+This folder contains data used for the paper "Orbital-use fees could more than quadruple the value of the space industry". Instructions for how to replicate the analysis are available in the main folder (one level up from this one).
