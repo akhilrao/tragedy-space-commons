@@ -33,7 +33,7 @@ fp_tsgen <- function(S,D,T,fe_eqm,launch_con,asats_seq,p,F,...) {
 
 # calculate the open access launch rate and next-period risk from a given initial condition and launch constraint
 oa_deviation <- function(S,D,fe_eqm,launch_con,asats,...) {
-	X <- optim(par=999,eqmcond_squared,lower=0,upper=1000,S=S,D=D,fe_eqm=fe_eqm,asats=asats, method=c("L-BFGS-B"))$par
+	X <- optim(par=999,eqmcond,lower=0,upper=1000,S=S,D=D,fe_eqm=fe_eqm,asats=asats, method=c("L-BFGS-B"))$par
 	#message(X)
 	if(length(X)==0) { X <- 0 }	
 	if(length(X)>0) { X <- max(X) }
