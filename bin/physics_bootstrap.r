@@ -15,9 +15,13 @@ nls_risk_bootstrap_coefs <- matrix(-1,nrow=B,ncol=2)
 
 # since the main-world estimates are the result of trying to find the best starting points for NLS, each set of bootstrap-world estimates should be too.
 registerDoParallel(cores=ncores)
+bootstrap_times <- rep(-1,length=B)
 for(b in 1:B) {
 	# search over a grid of initial points and select the best one
 	message(paste0("Collision risk bootstrap loop ",b))
+	
+	bootstrap_clock_start <- proc.time()[3]
+	
 	## generate the grid
 	init_risk_bootstrap_cond_element <- seq(from=1e-9,to=1e-6,length.out=15)
 	init_risk_bootstrap_cond_grid <- expand.grid(init_risk_bootstrap_cond_element,init_risk_bootstrap_cond_element)
@@ -36,6 +40,15 @@ for(b in 1:B) {
 	best_init <- which.min(nls_risk_bootstrap_values$obj_fn)
 	nls_risk_bootstrap_result <- nls_risk_bootstrap_values[best_init,2:3]
 	nls_risk_bootstrap_coefs[b,] <- c(nls_risk_bootstrap_result[1,1],nls_risk_bootstrap_result[1,2])
+
+	bootstrap_clock_end <- proc.time()[3]
+	bootstrap_times[b] <- bootstrap_clock_end - bootstrap_clock_start
+
+	if(b%%100==0) {
+		avg_bootstrap_time <- round(mean(bootstrap_times[b:(b-99)]),3)
+		message("Average time per bootstrap loop: ",avg_bootstrap_time," seconds")
+	}
+
 }
 stopImplicitCluster()
 

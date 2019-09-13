@@ -19,7 +19,7 @@ accepted_risk_cal_set <- risk_cal_set[which(risk_cal_set$SD>0),]
 
 # the physical parameters are draws from the bootstrap world's conditional distribution, parameters(risk) and parameters(debris|risk)
 set.seed(501)
-start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-n_path_sim_bootstrap_draws)),size=1) # generate a random starting location which is at least n_path_sim_bootstrap_draws-many observations away from the tail
+#start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-n_path_sim_bootstrap_draws)),size=1) # generate a random starting location which is at least n_path_sim_bootstrap_draws-many observations away from the tail
 # bs_draw_select_idx <- start_loc:(start_loc+n_path_sim_bootstrap_draws) # this selects a contiguous sequence of n_path_sim_bootstrap_draws-many parameters from a random starting location
 bs_draw_select_idx <- sample(1:nrow(accepted_risk_cal_set),size=n_path_sim_bootstrap_draws) # this selects a random sequence of n_path_sim_bootstrap_draws-many parameters
 risk_cal_set_B <- accepted_risk_cal_set[bs_draw_select_idx,-1]

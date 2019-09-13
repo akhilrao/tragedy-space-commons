@@ -94,10 +94,23 @@ message("The middle 95% of model-predicted welfare gains in 2040 to optimal OUF 
 m_bs_small_long_bootstrap_hist_plot <- ggplot(data=coihist_df) + 
 						# geom_histogram(aes(x=npv_welfare_loss),fill="gray",bins=25) +
 						# geom_vline(xintercept=coihist_df$npv_welfare_loss[coihist_df$bootstrap_draw==0]) +
-						geom_histogram(aes(x=NPV.PoA),fill="gray",bins=20) +
+						geom_histogram(aes(x=NPV.PoA),fill="gray",bins=125) +
 						geom_vline(xintercept=coihist_df$NPV.PoA[coihist_df$bootstrap_draw==0]) +
 						theme_bw() + ggtitle("Distribution of NPV gains from beginning optimal mgmt in 2020") + 
 						#xlab("NPV gains in 2040 (nominal trillion USD)")	+
+						xlab("Ratio of optimal NPV in 2040 to BAU NPV in 2040")	+
+				theme(text=element_text(family="Helvetica",size=20),
+					axis.text.x=element_text(family="Helvetica",size=20),
+					axis.text.y=element_text(family="Helvetica",size=20),
+					plot.title=element_text(family="Helvetica",size=20),
+					legend.text=element_text(family="Helvetica",size=20) )
+
+middle_90 <- intersect(which(coihist_df$NPV.PoA<=quantile(coihist_df$NPV.PoA,probs=0.95)[[1]]),which(coihist_df$NPV.PoA>=quantile(coihist_df$NPV.PoA,probs=0.05)[[1]]))
+coihist_df_mid <- coihist_df[middle_90,]
+ggplot(data=coihist_df_mid) + 
+						geom_histogram(aes(x=NPV.PoA),fill="gray",bins=30) +
+						geom_vline(xintercept=coihist_df$NPV.PoA[coihist_df$bootstrap_draw==0]) +
+						theme_bw() + ggtitle("Distribution of NPV gains from beginning optimal mgmt in 2020") + 
 						xlab("Ratio of optimal NPV in 2040 to BAU NPV in 2040")	+
 				theme(text=element_text(family="Helvetica",size=20),
 					axis.text.x=element_text(family="Helvetica",size=20),

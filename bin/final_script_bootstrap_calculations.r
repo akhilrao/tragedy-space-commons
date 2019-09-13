@@ -11,7 +11,7 @@
 #############################################################################
 
 # BEGIN BOOTSTRAP LOOP
-
+path_sim_bootstrap_times <- data.frame(times=rep(-1,length=n_path_sim_bootstrap_draws),opt_props=rep(-1,length=n_path_sim_bootstrap_draws))
 for(b in 1:n_path_sim_bootstrap_draws) {
 
 total_time <- proc.time()[3]
@@ -179,6 +179,13 @@ opt_path <- rbindlist(opt_path_list)
 	opt_models_time_taken <- round((opt_end_time - opt_start_time)/60,3)
 	opt_models_time_proportion <- round(opt_models_time_taken/total_loop_wall_time,3)*100
 	message(paste0("\n Done. Total loop wall time: ",total_loop_wall_time," minutes. Proportion spent on calculating optimal models: ",opt_models_time_proportion,"%.\n"))
+
+	path_sim_bootstrap_times[b,] <- c(total_loop_wall_time,opt_models_time_proportion)
+
+	if(b%%10==0){
+		message("Average loop wall time:",round(mean(path_sim_bootstrap_times[b:(b-9),1]),3)," minutes. Average proportion spent on optimal model calculations:",round(mean(path_sim_bootstrap_times[b:(b-9),2]),3),"%.\n")
+	}
+	
 	if(b==1) {
 		OA_OPT_bootstrap <- OA_OPT
 	}
