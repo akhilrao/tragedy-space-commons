@@ -1,0 +1,26 @@
+\BOOKMARK [2][-]{subsection.0.1}{Data}{}% 1
+\BOOKMARK [3][-]{subsubsection.0.1.1}{Satellite and debris counts, 1957\2052015}{subsection.0.1}% 2
+\BOOKMARK [3][-]{subsubsection.0.1.2}{Aggregate satellite industry returns and costs, 2006\2052040}{subsection.0.1}% 3
+\BOOKMARK [2][-]{subsection.0.2}{Models}{}% 4
+\BOOKMARK [3][-]{subsubsection.0.2.1}{Orbital mechanics with limited lifespans, missile tests, and certainty}{subsection.0.2}% 5
+\BOOKMARK [3][-]{subsubsection.0.2.2}{Open access orbit use with time-varying aggregate returns and costs}{subsection.0.2}% 6
+\BOOKMARK [3][-]{subsubsection.0.2.3}{Optimal orbit use with time-varying aggregate returns and costs}{subsection.0.2}% 7
+\BOOKMARK [2][-]{subsection.0.3}{Calibration and simulation}{}% 8
+\BOOKMARK [3][-]{subsubsection.0.3.1}{Physical parameters: deorbit, decay, collisions, and fragments}{subsection.0.3}% 9
+\BOOKMARK [3][-]{subsubsection.0.3.2}{Economic parameters: returns, costs, and discounting}{subsection.0.3}% 10
+\BOOKMARK [3][-]{subsubsection.0.3.3}{Algorithms for open access and optimal policy functions}{subsection.0.3}% 11
+\BOOKMARK [3][-]{subsubsection.0.3.4}{Projected time paths}{subsection.0.3}% 12
+\BOOKMARK [3][-]{subsubsection.0.3.5}{Accounting for launch availability constraints}{subsection.0.3}% 13
+\BOOKMARK [2][-]{subsection.0.4}{Sensitivity analyses of physical equation calibration}{}% 14
+\BOOKMARK [2][-]{subsection.0.5}{Projecting the optimal OUF path}{}% 15
+\BOOKMARK [2][-]{subsection.0.6}{Projecting the effects of active debris removal under open access}{}% 16
+\BOOKMARK [1][-]{section.1}{Supplementary Equations}{}% 17
+\BOOKMARK [2][-]{subsection.1.1}{Derivation of the optimal launch rate}{section.1}% 18
+\BOOKMARK [1][-]{section.2}{Supplementary Discussion}{}% 19
+\BOOKMARK [2][-]{subsection.2.1}{Interpreting the optimal OUF and long-run industry value paths}{section.2}% 20
+\BOOKMARK [2][-]{subsection.2.2}{Open access and active debris removal}{section.2}% 21
+\BOOKMARK [2][-]{subsection.2.3}{Unmodeled physical and economic factors}{section.2}% 22
+\BOOKMARK [2][-]{subsection.2.4}{Consequences of measurement error and misspecification}{section.2}% 23
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Measurement error in satellite and debris counts}{subsection.2.4}% 24
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Collision probability model misspecification}{subsection.2.4}% 25
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Measurement error in returns and costs}{subsection.2.4}% 26

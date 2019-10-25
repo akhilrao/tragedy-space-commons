@@ -107,7 +107,7 @@ m_bs_small_long_bootstrap_hist_plot <- ggplot(data=coihist_df) +
 
 middle_90 <- intersect(which(coihist_df$NPV.PoA<=quantile(coihist_df$NPV.PoA,probs=0.95)[[1]]),which(coihist_df$NPV.PoA>=quantile(coihist_df$NPV.PoA,probs=0.05)[[1]]))
 coihist_df_mid <- coihist_df[middle_90,]
-ggplot(data=coihist_df_mid) + 
+m_bs_small_long_bootstrap_hist_plot_mid90 <- ggplot(data=coihist_df_mid) + 
 						geom_histogram(aes(x=NPV.PoA),fill="gray",bins=30) +
 						geom_vline(xintercept=coihist_df$NPV.PoA[coihist_df$bootstrap_draw==0]) +
 						theme_bw() + ggtitle("Distribution of NPV gains from beginning optimal mgmt in 2020") + 
@@ -254,3 +254,8 @@ dev.off()
 png(width=400,height=300,filename="../images/extended_data_figure_10.png")
 m_bs_small_long_bootstrap_opttax_plot
 dev.off()
+
+png(width=400,height=300,filename="../images/250_draws_middle_90.png")
+m_bs_small_long_bootstrap_hist_plot_mid90
+dev.off()
+
