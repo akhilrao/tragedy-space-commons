@@ -108,44 +108,44 @@ OA_OPT_launch_hist <- OA_OPT_base_hist +
 	geom_line(aes(y=launch_successes),size=data_size) +				
 	ylab("Yearly launch rate") + theme_bw() +
 	ggtitle("Simulated historical series\nLaunches")	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=25),
+					axis.text.x=element_text(family="Helvetica",size=25),
+					axis.text.y=element_text(family="Helvetica",size=25),
+					plot.title=element_text(family="Helvetica",size=25),
+					legend.text=element_text(family="Helvetica",size=25) )
 OA_OPT_sat_hist <- OA_OPT_base_hist + 
 	geom_line(aes(y=satellites.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=payloads_in_orbit),size=data_size) +
 	ylab("LEO satellite stock") + theme_bw() +
 	ggtitle(" \n Satellites")	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=25),
+					axis.text.x=element_text(family="Helvetica",size=25),
+					axis.text.y=element_text(family="Helvetica",size=25),
+					plot.title=element_text(family="Helvetica",size=25),
+					legend.text=element_text(family="Helvetica",size=25) )
 OA_OPT_deb_hist <- OA_OPT_base_hist + 
 	geom_line(aes(y=debris.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=debris.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=debris),size=data_size) +
 	ggtitle("Debris") +
 	ylab("LEO debris stock") + xlab("year") + theme_bw()	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=25),
+					axis.text.x=element_text(family="Helvetica",size=25),
+					axis.text.y=element_text(family="Helvetica",size=25),
+					plot.title=element_text(family="Helvetica",size=25),
+					legend.text=element_text(family="Helvetica",size=25) )
 OA_OPT_risk_hist <- OA_OPT_base_hist + 
 	geom_line(aes(y=collision_rate.opt/satellites.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=collision_rate.oa/satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=risk.x/payloads_in_orbit),size=data_size) +
 	ggtitle("Collision probability") +
 	ylab("LEO collision risk") + xlab("year") + theme_bw()	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=25),
+					axis.text.x=element_text(family="Helvetica",size=25),
+					axis.text.y=element_text(family="Helvetica",size=25),
+					plot.title=element_text(family="Helvetica",size=25),
+					legend.text=element_text(family="Helvetica",size=25) )
 
 # Projection figures: starting in 2006 only
 OA_OPT_base_proj <- ggplot(data=OA_OPT[which(OA_OPT$start_time.opt==0),],aes(x=year))
@@ -154,25 +154,25 @@ OA_OPT_launch_proj <- OA_OPT_base_proj +
 	geom_line(aes(y=launches.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=launch_successes),size=data_size) +					
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
-	ylab("Satellites launched") + xlab("Year") + theme_bw() +
+	ylab("Satellites launched") + xlab("") + theme_bw() +
 	ggtitle("Launches")	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=20),
+					axis.text.x=element_text(family="Helvetica",size=20),
+					axis.text.y=element_text(family="Helvetica",size=20),
+					plot.title=element_text(family="Helvetica",size=20),
+					legend.text=element_text(family="Helvetica",size=20) )
 OA_OPT_sat_proj <- OA_OPT_base_proj + 
 	geom_line(aes(y=satellites.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
 	geom_line(aes(y=payloads_in_orbit),size=data_size) +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Satellites") +
-	ylab("LEO satellite stock") + xlab("Year") + theme_bw() +
-	theme(text=element_text(family="Helvetica",size=15),
-		axis.text.x=element_text(family="Helvetica",size=15),
-		axis.text.y=element_text(family="Helvetica",size=15),
-		plot.title=element_text(family="Helvetica",size=15),
-		legend.text=element_text(family="Helvetica",size=15) ) + 
+	ylab("LEO satellite stock") + xlab("") + theme_bw() +
+	theme(text=element_text(family="Helvetica",size=20),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) + 
 	ylim(limits = c(0, max(OA_OPT$satellites.oa,OA_OPT$payloads_in_orbit)))
 OA_OPT_deb_proj <- OA_OPT_base_proj + 
 	geom_line(aes(y=debris.opt),linetype="dashed",color=OPT_fit_color,size=OA_OPT_fit_size) +
@@ -181,11 +181,11 @@ OA_OPT_deb_proj <- OA_OPT_base_proj +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Debris") +
 	ylab("LEO debris stock") + xlab("Year") + theme_bw()	+
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=20),
+					axis.text.x=element_text(family="Helvetica",size=20),
+					axis.text.y=element_text(family="Helvetica",size=20),
+					plot.title=element_text(family="Helvetica",size=20),
+					legend.text=element_text(family="Helvetica",size=20) )
 OA_OPT_risk_proj <- OA_OPT_base_proj + 
 	geom_line(aes(y=collision_rate.opt/satellites.opt),linetype="dashed",color=OPT_fit_color, size=OA_OPT_fit_size) +
 	geom_line(aes(y=collision_rate.oa/satellites.oa),linetype="dashed",color=OA_fit_color,size=OA_OPT_fit_size) +
@@ -193,11 +193,11 @@ OA_OPT_risk_proj <- OA_OPT_base_proj +
 	geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Collision probability") +
 	ylab("LEO collision risk") + xlab("Year") + theme_bw()	+
-	theme(text=element_text(family="Helvetica",size=15),
-		axis.text.x=element_text(family="Helvetica",size=15),
-		axis.text.y=element_text(family="Helvetica",size=15),
-		plot.title=element_text(family="Helvetica",size=15),
-		legend.text=element_text(family="Helvetica",size=15) ) + 
+	theme(text=element_text(family="Helvetica",size=20),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) + 
 	ylim(limits = c(0, max(OA_OPT$collision_rate.oa/OA_OPT$satellites.oa)))
 
 # Projection figures: starting in multiple years
@@ -353,7 +353,7 @@ coi_plot_cols <- c("2020" = paste0(viridis(7)[4]), "2025" = paste0(viridis(7)[5]
 
 coi_plot <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss)) +
 			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
-			labs(fill="Optimal mgmt\nstart year") +
+			labs(fill="Optimal\nmgmt\nstart year") +
 			ggtitle("Permanent orbit use value loss in 2040") +
 			ylab("Forgone fleet NPV\n(nominal $1t)") +
 			xlab("Year") +
@@ -363,7 +363,8 @@ coi_plot <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2
 					axis.text.x=element_text(family="Helvetica",size=20),
 					axis.text.y=element_text(family="Helvetica",size=20),
 					plot.title=element_text(family="Helvetica",size=20),
-					legend.text=element_text(family="Helvetica",size=20) )
+					legend.text=element_text(family="Helvetica",size=20) ) +
+				guides(fill=FALSE)
 
 coi_base_dfrm <- ddply(coi_base_dfrm, .(year), transform, npv_welfare_loss_pc=(npv_welfare_loss/npv_welfare_gain[which(start_year==2020)])*100 )
 coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss_pc)) +
@@ -404,11 +405,11 @@ npvwelfpaths_long <- npvwelfpaths_long[!duplicated(npvwelfpaths_long[,c("year","
 npvwelfpaths_long$start_time.opt[which(npvwelfpaths_long$variable=="npv_oa_welfare")] <- Inf
 npvwelfpaths_long <- npvwelfpaths_long[which(npvwelfpaths_long$start_time.opt>=14),] # removes paths where optimal management begins before 2020
 npv_welf_paths_plotbase <- ggplot(data=npvwelfpaths_long[npvwelfpaths_long$year>=2015,],aes(x=year)) # base for the plot
-npvwelfpath_labs <- c(paste(c(opt_start_year[opt_start_year>=2020],"BAU (never)"),sep=",")) # label names
+npvwelfpath_labs <- c(paste(c(opt_start_year[opt_start_year>=2020],"BAU\n(never)"),sep=",")) # label names
 npvwelfpath_cols <- c("14" = paste0(viridis(7)[4]), "19" = paste0(viridis(7)[5]), "24" = paste0(viridis(7)[6]), "29" = paste0(viridis(7)[7]), "Inf" = "black") # label colors
 npv_welf_paths <- npv_welf_paths_plotbase + 
 	geom_line(aes(y=value/1000,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
-	labs(color="Optimal mgmt\nstart year") +
+	labs(color="Optimal\nmgmt\nstart year") +
 	theme(plot.margin = unit(c(0, 0, 0.5, 0), "cm")) +
 	ylab("Fleet NPV (nominal $1t)") + xlab("Year") + theme_bw() +
 	ggtitle("NPV under optimal management and BAU open access") +
@@ -488,12 +489,12 @@ opt_dev_tax_path_comp_all <- risk_proj_20xx +
 	ylim(limits = c(0, max(OA_OPT$opt_tax_path)))
 
 #############################################################################
-# 3.  Main text and Extended Data figures
+# 3.  Main text figures
 #############################################################################
 
 # Main text figure 2 no longer made here, as it uses a bootstrap figure. produced in main_model_bootstrap.r instead.
 
-# Extended data figure 4
-png(width=800,height=600,filename=paste0("../images/extended_data_figure_4.png"))
-plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2),label_size=15)
+# Main text figure 3
+png(width=900,height=600,filename=paste0("../images/main_text_figure_3.png"))
+plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2),label_size=25)
 dev.off()

@@ -87,7 +87,7 @@ bs_coihist_df <- bs_coihist_df[bs_coihist_df$start_time.opt==14,]
 ## combine them for use later
 coihist_df <- rbind(m_coihist_df,bs_coihist_df)
 
-message("The middle 95% of model-predicted welfare gains in 2040 to optimal OUF implementation in 2020 fall in between ",round(quantile(coihist_df$NPV.PoA,probs=c(0.025,0.975)),2)[[1]], " and ",round(quantile(coihist_df$NPV.PoA,probs=c(0.025,0.975)),2)[[2]], " times the BAU NPV.")
+message("The middle 90% of model-predicted welfare gains in 2040 to optimal OUF implementation in 2020 fall in between ",round(quantile(coihist_df$NPV.PoA,probs=c(0.05,0.95)),2)[[1]], " and ",round(quantile(coihist_df$NPV.PoA,probs=c(0.05,0.95)),2)[[2]], " times the BAU NPV.")
 
 ##### Generate figures
 
@@ -234,7 +234,7 @@ m_bs_small_long_bootstrap_optvalue_plot <- ggplot(data=m_bs_small_long[which(m_b
 # MT figure 2
 png(width=1250,height=650,filename=paste0("../images/main_text_figure_2.png"))
 upper_row <- plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3/5,2/5),label_size=20)
-lower_row <- plot_grid(opt_tax_path,m_bs_small_long_bootstrap_hist_plot,labels=c("c","d"),align="h",axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=20)
+lower_row <- plot_grid(opt_tax_path,m_bs_small_long_bootstrap_hist_plot_mid90,labels=c("c","d"),align="h",axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=20)
 plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
 dev.off()
 

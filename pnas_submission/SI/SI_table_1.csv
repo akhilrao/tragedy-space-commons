@@ -1,0 +1,16 @@
+Variable,Sample period,Mean,St. Dev.,Min,Max
+Active satellite count,1957–2014,1057.9,720.3,4,2271
+Launch successes,1957–2014,89.9,47.1,5,334
+Launch failures,1957–2014,13.8,9.8,1,42
+Payloads decayed,1957–2014,50.8,24.1,3,90
+Anti-satellite missile tests,1957–2014,0.2,0.5,0,3
+Active debris count,1957–2014,3375.6,2681.3,0,9662
+Expected collision rate,1957–2014,2.6,1.8,0,6
+"Historical satellite industry revenues 
+(billion nominal USD)",2006–2014,101.7,20.4,70.4,126.6
+"Historical satellite industry costs 
+(billion nominal USD)",2006–2014,185.4,40.1,136.2,254.4
+"Projected satellite industry revenues 
+(billion nominal USD)",2015–2040,217.9,76.5,120.8,366.6
+"Projected satellite industry costs 
+(billion nominal USD)",2015–2040,362.2,87,210.7,525.1

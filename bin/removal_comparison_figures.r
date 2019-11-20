@@ -107,8 +107,14 @@ OA_OPT_launch_proj_all <- OA_OPT_base_proj_all +
 	geom_vline(xintercept=R_start_year,size=0.5,linetype="dashed") +
 	scale_colour_hue(guide=FALSE) +
 	labs(fill="Optimal mgmt\nstart year") +
-	ylab("Satellites launched") + theme_bw() +
-	ggtitle("Launches")
+	theme_bw() +
+	theme(text=element_text(family="Helvetica",size=20),
+	axis.text.x=element_text(family="Helvetica",size=20),
+	axis.text.y=element_text(family="Helvetica",size=20),
+	plot.title=element_text(family="Helvetica",size=20),
+	legend.text=element_text(family="Helvetica",size=20) ) +
+	ylab("Satellites launched") +
+	ggtitle("Launches") + xlab("")
 
 OA_OPT_sat_proj_all <- OA_OPT_base_proj_all + 
 	geom_line(aes(y=satellites.opt.rem), color="blue",linetype="dashed",size=OA_OPT_fit_size) +
@@ -120,7 +126,13 @@ OA_OPT_sat_proj_all <- OA_OPT_base_proj_all +
 	scale_colour_hue(guide=FALSE) +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle("Satellites") +
-	ylab("LEO satellite stock") + theme_bw()
+	theme_bw() +
+	theme(text=element_text(family="Helvetica",size=20),
+	axis.text.x=element_text(family="Helvetica",size=20),
+	axis.text.y=element_text(family="Helvetica",size=20),
+	plot.title=element_text(family="Helvetica",size=20),
+	legend.text=element_text(family="Helvetica",size=20) ) +
+	ylab("LEO satellite stock") + xlab("")
 
 OA_OPT_deb_proj_all <- OA_OPT_base_proj_all + 
 	geom_line(aes(y=debris.opt.rem, group=as.factor(start_year)), color="blue",linetype="dashed",size=OA_OPT_fit_size) +
@@ -132,7 +144,13 @@ OA_OPT_deb_proj_all <- OA_OPT_base_proj_all +
 	scale_colour_hue(guide=FALSE) +
 	labs(fill="Optimal mgmt\nstart year") +
 	ggtitle("Debris") +
-	ylab("LEO debris stock") + xlab("year") + theme_bw()
+	theme_bw() +
+	theme(text=element_text(family="Helvetica",size=20),
+	axis.text.x=element_text(family="Helvetica",size=20),
+	axis.text.y=element_text(family="Helvetica",size=20),
+	plot.title=element_text(family="Helvetica",size=20),
+	legend.text=element_text(family="Helvetica",size=20) ) +
+	ylab("LEO debris stock") + xlab("Year")
 
 OA_OPT_risk_proj_all <- OA_OPT_base_proj_all + 
 	geom_line(aes(y=collision_rate.opt.rem/satellites.opt.rem), color="blue",linetype="dashed",size=OA_OPT_fit_size) +
@@ -143,10 +161,14 @@ OA_OPT_risk_proj_all <- OA_OPT_base_proj_all +
 	geom_vline(xintercept=R_start_year,size=0.5,linetype="dashed") +
 	scale_colour_hue(guide=FALSE) +
 	labs(fill="Optimal mgmt\nstart year") +
-	ggtitle("Collision probability")+
-	theme(axis.text.x=element_text(family="Helvetica",size=20),
-		axis.text.y=element_text(family="Helvetica",size=20)) +
-	ylab("LEO collision risk") + xlab("year") + theme_bw()
+	ggtitle("Collision probability") + 
+	theme_bw() +
+	theme(text=element_text(family="Helvetica",size=20),
+	axis.text.x=element_text(family="Helvetica",size=20),
+	axis.text.y=element_text(family="Helvetica",size=20),
+	plot.title=element_text(family="Helvetica",size=20),
+	legend.text=element_text(family="Helvetica",size=20) ) +
+	ylab("LEO collision risk") + xlab("Year")
 
 # cost-of-inaction (coi) figures
 coi_plot.norem <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),npv_welfare_loss.norem)) +
@@ -184,16 +206,16 @@ coi_plot_cols <- c("2025"=viridis(3)[1],"2030"=viridis(3)[2],"2035"=viridis(3)[3
 coi_plot_pc <- ggplot(data=coi_base_dfrm[intersect(which(coi_base_dfrm$start_year>2020),which(coi_base_dfrm$year==2040)),],aes(as.factor(year),coi_effect_of_removal_pc)) +
 			geom_bar(aes(fill=as.factor(start_year)), position="dodge", stat="identity" ) +
 			labs(fill="Mgmt\nstart year") +
-			ggtitle("Change in\nopen-access welfare loss \nin 2040") +
+			ggtitle("Change in\nopen-access\nwelfare loss\nin 2040") +
 			ylab("Percentage of 2020 optimal mgmt NPV in 2040") +
 			xlab("Year") +
 			theme_bw() +
 			scale_discrete_manual(values=coi_plot_cols, aesthetics = c("fill")) +
-				theme(text=element_text(family="Helvetica",size=15),
-					axis.text.x=element_text(family="Helvetica",size=15),
-					axis.text.y=element_text(family="Helvetica",size=15),
-					plot.title=element_text(family="Helvetica",size=15),
-					legend.text=element_text(family="Helvetica",size=15) )
+				theme(text=element_text(family="Helvetica",size=20),
+					axis.text.x=element_text(family="Helvetica",size=20),
+					axis.text.y=element_text(family="Helvetica",size=20),
+					plot.title=element_text(family="Helvetica",size=20),
+					legend.text=element_text(family="Helvetica",size=20) )
 
 npv_poa_oa_remvnorem_path <- risk_proj + 
 	geom_line(aes(y=NPVPoA.oaremvnorem,group=as.factor(start_year),color=as.factor(start_year)),size=data_size) +
@@ -222,18 +244,22 @@ npv_poa_oaremvoptnorem_path <- risk_proj +
 # 3.  Generate figure panels
 #############################################################################
 
-##### Nature submission figures
 
-# Extended Data figure 5: removal projection fit panel, with benefits at the side
+# Main text figure 4: removal projection fit panel, with benefits at the side
 
 coi_total_summary <- read.csv(file="../data/pc_effect_of_removal_summary.csv")[,-1]
-colnames(coi_total_summary) <- c("Largest percentage decrease\nin open-access welfare loss","Average percentage change\nin open-access welfare loss","Largest percentage increase\nin open-access welfare loss")
+#colnames(coi_total_summary) <- c("Largest percentage decrease\nin open-access welfare loss","Average percentage change\nin open-access welfare loss","Largest percentage increase\nin open-access welfare loss")
 coi_total_summary <- round(coi_total_summary,2)#,"%")
 
-removal_summary_table <- ggtexttable(coi_total_summary, rows = NULL, 
-                        theme = ttheme("mOrange"))
-png(width=800,height=500,filename=paste0("../images/extended_data_figure_5.png"))
-ed5_left_column <- plot_grid(OA_OPT_launch_proj_all,OA_OPT_sat_proj_all,OA_OPT_risk_proj_all,OA_OPT_deb_proj_all,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5))
-ed5_top_row <- plot_grid(ed5_left_column, coi_plot_pc, align="h",labels=c("","e"),axis="1",nrow=1,ncol=2,rel_widths=c(0.75,0.25))
-plot_grid(ed5_top_row, removal_summary_table, align="h",labels=c("","f"),axis="1",nrow=2,ncol=1,rel_heights=c(0.85,0.15))
+removal_summary_table <- ggtexttable(coi_total_summary, rows = NULL, cols = c("Largest percentage decrease\nin open-access welfare loss","Average percentage change\nin open-access welfare loss","Largest percentage increase\nin open-access welfare loss"), 
+                        theme = ttheme(colnames.style=colnames_style(size=18)))
+
+removal_summary_table <- table_cell_font(removal_summary_table,row=2,column=1, size=18)
+removal_summary_table <- table_cell_font(removal_summary_table,row=2,column=2, size=18)
+removal_summary_table <- table_cell_font(removal_summary_table,row=2,column=3, size=18)
+
+png(width=800,height=600,filename=paste0("../images/main_text_figure_4.png"))
+ed5_left_column <- plot_grid(OA_OPT_launch_proj_all,OA_OPT_sat_proj_all,OA_OPT_risk_proj_all,OA_OPT_deb_proj_all,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=25)
+ed5_top_row <- plot_grid(ed5_left_column, coi_plot_pc, align="v",labels=c("","e"),axis="1",nrow=1,ncol=2,rel_widths=c(0.75,0.25),label_size=25)
+plot_grid(ed5_top_row, removal_summary_table, align="h",labels=c("","f"),axis="1",nrow=2,ncol=1,rel_heights=c(0.85,0.15),label_size=25)
 dev.off()
