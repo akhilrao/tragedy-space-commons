@@ -28,9 +28,6 @@ sink("log.solve.txt", append=FALSE)
 opt_dvs_output <- suppressWarnings(opt_pvfn_path_solver(opt_dvs_output,gridpanel,S_gridsize_opt,D_gridsize_opt,opt_gridlist,asats,T,p,F,ncores=ncores))
 sink()
 
-# bind the list of solved policies into a long dataframe
-opt_pvfn_path <- rbindlist(opt_dvs_output)
-
 #############################################################################
 # 1b. Open access policies and values
 #############################################################################
