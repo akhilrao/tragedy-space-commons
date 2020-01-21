@@ -8,6 +8,10 @@
 # 1. Generate open access and optimal time paths
 #############################################################################
 
+path_compute_time <- proc.time()[3]
+
+sink("log.project.txt",append=TRUE)
+
 ### open access paths
 oa_grid_lookup <- data.frame(sats=oa_pvfn_path$satellites,debs=oa_pvfn_path$debris,F=oa_pvfn_path$F)
 message("\nGenerating open access path...")
@@ -39,6 +43,12 @@ opt_SS_path$start_time <- -1
 
 opt_path <- rbind(opt_path,opt_SS_path)
 
+sink()
+
+path_compute_time <- round(proc.time()[3]-path_compute_time,3)
+message("Time to generate paths: ",path_compute_time," seconds")
+
+
 #############################################################################
 # 2. Write output
 #############################################################################
@@ -51,6 +61,14 @@ OA_OPT_full <- merge(OA_OPT_full,econ_series,by=c("year"),all=TRUE)
 selected_years <- intersect(which(OA_OPT_full$year>=start_year),which(OA_OPT_full$year<=end_year))
 OA_OPT <- OA_OPT_full[selected_years,]
 
-write.csv(OA_OPT, file=paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))
+if(counterfactual=="none") {
+	write.csv(OA_OPT, file=paste0("../data/",opt_start_year[1],"_",length(opt_start_year),"_starts_remfrac_",R_frac,"_remstart_",R_start_year,"_main_simulation.csv"))
+}
+if(counterfactual=="avoidance") {
+	write.csv(OA_OPT, file=paste0("../data/counterfactuals/collision_avoidance/",opt_start_year[1],"_cf_avoidance_aSS_",round(log(aSS),1),"_aSD_",round(log(aSD),1),"_simulation.csv"))
+} 
+if(counterfactual=="discount") {
+	write.csv(OA_OPT, file=paste0("../data/counterfactuals/discount_rate/",opt_start_year[1],"_cf_discount_r_",discount_rate,"_simulation.csv"))
+} 
 
 setwd("../bin")
