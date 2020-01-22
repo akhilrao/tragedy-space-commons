@@ -50,6 +50,7 @@ MS_proj_total<- rbind(MS_proj_total,total_projection)
 selected_years <- which(observed_time_series$year>=start_year)
 S0 <- observed_time_series$payloads_in_orbit[which(observed_time_series$year==start_year)]
 D0 <- observed_time_series$debris[which(observed_time_series$year==start_year)]
+if(mil_accounting==1) {S0 <- max(S0 - mil_S,0)}
 
 # estimated parameterization
 satlom_cal_names <- as.character(satlom_cal[,1])

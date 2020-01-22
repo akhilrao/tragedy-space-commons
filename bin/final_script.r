@@ -102,6 +102,9 @@ opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
 opt_start_year_bs <- c(2006,2020,2035) # optimal management start years for bootstrap draws. WARNING: each entry here will add a lot (n_path_sim_bootstrap_draws*(time to compute a single optimal model)) to runtime! expand list with caution! (or with abundant cheap compute.) default is 2020 and 2035, to generate histogram of npv_welfare_gains comparable to the headline numbers.
 source("calibrate_parameters.r", print.eval=TRUE) # reads in all calibrated parameter values, estimates the launch constraint, constructs the necessary data series, and generates main text figure 1.
 
+mil_accounting <- 1 # should the simulation include a number of military satellites which are outside open access/the planner's control?
+mil_S <- 450
+
 #############################################################################
 # 2. Compute sequences of open access and optimal policies
 #############################################################################

@@ -16,6 +16,14 @@ MS_proj_total <- read.csv("../data/avg_econ_total.csv")
 
 # restrict risk_cal parameters to values where SD > 0 (both collision risk couplings active). using all values creates a bimodal distribution of paths, with the second mode (where SD = 0) not matching the main model.
 accepted_risk_cal_set <- risk_cal_set[which(risk_cal_set$SD>0),]
+accepted_deblom_cal_set <- deblom_cal_set[which(risk_cal_set$SD>0),]
+
+# Calculate standard errors of calibration parameter sets
+sd_risk_cals <- sapply(accepted_risk_cal_set[,-1], sd, na.rm=TRUE)
+sd_deblom_cals <- sapply(accepted_deblom_cal_set[,-1], sd, na.rm=TRUE)
+
+message("Standard errors for collision risk equation: S2 = ", sd_risk_cals[[1]], ", SD = ", sd_risk_cals[[2]])
+message("Standard errors for debris law of motion: debris = ", sd_deblom_cals[[1]], ", launch_successes = ", sd_deblom_cals[[2]], ", ASAT destructions = ", sd_deblom_cals[[3]], ", SSfrags = ", sd_deblom_cals[[4]], ", SDfrags = ", sd_deblom_cals[[5]])
 
 # the physical parameters are draws from the bootstrap world's conditional distribution, parameters(risk) and parameters(debris|risk)
 set.seed(501)
