@@ -42,7 +42,7 @@ library(ggpubr)
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
 #############################################################################
 
-ncores <- 3 # number of cores to use for parallel computations
+ncores <- 32 # number of cores to use for parallel computations
 find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time; default is set to 0 and starts from prior solve results.
 physics_bootstrap <- 0 # 1: run the physical calibration sensitivity analysis again. only necessary if parameter sets are to be regenerated from scratch. takes some time; default is set to 0 and starts from prior solve results.
 n_physical_bootstrap_draws <- 20000 # number of draws for physical calibration sensitivity analysis. default is 1000.
@@ -68,11 +68,13 @@ quiet <- function(x) {
   quiet(force(x)) 
 } 
 
+source("main_model_tax_path_calc.r")
+
 #############################################################################
 # 1b. Set computation hyperparameters
 #############################################################################
 
-ncores <- 3 # number of cores to use for parallel computations
+ncores <- 32 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
 oa_gridsize <- 28 # 35 is a nice size for machines with 16GB of RAM, 28 is reasonable with 8GB RAM. memory cost scales roughly as the square of the gridsize.
 S_gridsize_opt <- 28 #35
@@ -82,11 +84,17 @@ S_grid_upper_opt <- 3000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 10000
 
-bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
+bootstrap <- 0 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
 force_bootstrap_recalculation <- 1 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
 n_path_sim_bootstrap_draws <- 250 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
 
 removal_comparison <- 0 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
+
+##### counterfactuals where parameter values are changed and solution needs to be recomputed. can take three values: "none", "avoidance" (reduce collision rate parameters), and "discount" (to vary discount rate)
+
+#counterfactual <- "none"
+#counterfactual <- "avoidance"
+counterfactual <- "discount"
 
 total_time <- proc.time()[3]
 
@@ -105,6 +113,15 @@ source("calibrate_parameters.r", print.eval=TRUE) # reads in all calibrated para
 mil_accounting <- 1 # should the simulation include a number of military satellites which are outside open access/the planner's control?
 mil_S <- 450
 
+if(counterfactual=="avoidance") {
+	aSS <- 0
+	aSD <- 0.5*aSD
+}
+
+if(counterfactual=="discount"){
+	discount_rate_vary <- seq(0.01,0.2,0.01)
+}
+
 #############################################################################
 # 2. Compute sequences of open access and optimal policies
 #############################################################################
@@ -115,19 +132,35 @@ R_frac <- 0 # fraction of debris removed every period once removal is online in 
 D_removal_start_year <- 2029 # pick a year within the projection time frame.
 R_start_year <- D_removal_start_year # same deal as R_frac: this is the copy that gets updated in the removal_comparison inner loops.
 R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year) # this gets the correct integer label for the chosen R_start_year, which is used in the projection algorithm 
-source("main_model_estimation.r")
+
+if(counterfactual!="discount"){
+	source("main_model_estimation.r")
+}
+
+if(counterfactual=="discount"){
+	for(r in 1:length(discount_rate_vary)){
+		discount_rate <- discount_rate_vary[r]
+		discount_fac <- 1/(1+discount_rate)
+		source("main_model_estimation.r")
+		source("main_model_projection.r")
+	}
+}
 
 #############################################################################
 # 3. Generate open access and optimal time paths
 #############################################################################
 
-source("main_model_projection.r")
+if(counterfactual!="discount"){
+	source("main_model_projection.r")
+}
 
 #############################################################################
 # 4. Draw plots, write output
 #############################################################################
 
-source("main_model_figures.r", print.eval=TRUE)
+if(counterfactual=="none") {
+	source("main_model_figures.r", print.eval=TRUE)
+}
 
 message(paste0("\n Done. Total wall time for main model: ",round((proc.time()[3] - total_time)/60,3)," minutes"))
 
@@ -178,4 +211,13 @@ message(paste0("\n Done. Total wall time for removal models: ",round((proc.time(
 if(bootstrap == 1){
 	R_frac <- 0 # 0 disables debris removal for the bootstrapped models
 	source("main_model_bootstrap.r", print.eval=TRUE)
+}
+
+#############################################################################
+# 6. Generate counterfactual plots
+#############################################################################
+
+if(counterfactual=="discount") {
+	source("discount_cf_figures.r", print.eval=TRUE)
+
 }
