@@ -5,7 +5,7 @@
 setwd("../data/")
 set.seed(501) # for bootstrap samples
 
-dfrm <- read.csv("ST_stock_series.csv")
+dfrm <- read.csv("stock_series.csv")
 # limit to years after 1990
 #dfrm <- dfrm[which(dfrm$year>=1990),]
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]

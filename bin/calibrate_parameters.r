@@ -16,7 +16,10 @@ econ_coefs <- read.csv("../data/econ_series_coefs.csv")
 implied_econ_series <- read.csv("../data/implied_costs.csv")
 satlom_cal <- read.csv("../data/calibrated_satellite_lom_coefs.csv")
 econ_series <- read.csv("../data/econ_series.csv")
-observed_time_series <- read.csv("../data/ST_ESA_series.csv")
+observed_time_series <- read.csv("../data/stock_series_lagged_launches.csv") # This series is identical to the main one, except that the first and last observations have been truncated and the launches (successes and failures) have been lagged one period (i.e., observed 1957 launches are recorded as 1958 launches). We do this so that there is no information leakage when we estimate the launch constraint. Our reasoning is as follows:
+# In 1957, there were 6 launches (5 successes, 1 failure -- see stock_series.csv). In 1958, there were 28 launches (8 successes, 20 failures). We construct the launch constraint in the historical period by taking the cumulative max of launches observed UNTIL that period and then fitting a linear trend for the future projection.
+# On Jan 1 1958, if you were to estimate the maximum number of launches possible over the course of 1958 from 1957 using this rule, you would say the maximum was 6. If you said 28 were possible on Jan 1 1958, you would either be (a) guessing with uncanny precision; (b) privy to more contemporaneous records than we currently have; or (c) seeing into the future. 
+#  We use this rule+trend because it is amenable to the data we have and yields a reasonable fit. The next generation of orbit-use models ought to model the launch constraint in more detail using more contemporaneous data.
 MS_proj_rev <- read.csv("../data/avg_econ_return.csv")
 MS_proj_total <- read.csv("../data/avg_econ_total.csv")
 commercial_sector_growth <- read.csv("../data/commercial_sector_growth.csv")
@@ -50,7 +53,6 @@ MS_proj_total<- rbind(MS_proj_total,total_projection)
 selected_years <- which(observed_time_series$year>=start_year)
 S0 <- observed_time_series$payloads_in_orbit[which(observed_time_series$year==start_year)]
 D0 <- observed_time_series$debris[which(observed_time_series$year==start_year)]
-if(mil_accounting==1) {S0 <- max(S0 - mil_S,0)}
 
 # estimated parameterization
 satlom_cal_names <- as.character(satlom_cal[,1])

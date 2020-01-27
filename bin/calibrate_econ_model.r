@@ -31,7 +31,7 @@ colnames(LEO_share)[1] <- c("year")
 aggrc <- merge(LEO_share,aggrc,by=c("year"))
 aggrc$r_s <- aggrc$r_s_raw
 
-dfrm <- read.csv("../data/ST_stock_series.csv")
+dfrm <- read.csv("../data/stock_series.csv")
 dfrm <- dfrm[-c(nrow(dfrm)-1,nrow(dfrm)),]
 risk <- subset(dfrm,select=c(year, risk))
 risk$risk <- risk$risk/dfrm$payloads_in_orbit
