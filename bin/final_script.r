@@ -42,10 +42,10 @@ library(ggpubr)
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
 #############################################################################
 
-ncores <- 3 # number of cores to use for parallel computations
+ncores <- 32 # number of cores to use for parallel computations
 find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time; default is set to 0 and starts from prior solve results.
 physics_bootstrap <- 0 # 1: run the physical calibration sensitivity analysis again. only necessary if parameter sets are to be regenerated from scratch. takes some time; default is set to 0 and starts from prior solve results.
-n_physical_bootstrap_draws <- 20000 # number of draws for physical calibration sensitivity analysis. default is 1000.
+n_physical_bootstrap_draws <- 20000 # number of draws for physical calibration sensitivity analysis.
 
 source("plotting_functions.r")
 system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
@@ -74,7 +74,7 @@ source("main_model_tax_path_calc.r")
 # 1b. Set computation hyperparameters
 #############################################################################
 
-ncores <- 3 # number of cores to use for parallel computations
+ncores <- 32 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
 oa_gridsize <- 28 # 35 is a nice size for machines with 16GB of RAM, 28 is reasonable with 8GB RAM. memory cost scales roughly as the square of the gridsize.
 S_gridsize_opt <- 28 #35
@@ -84,18 +84,18 @@ S_grid_upper_opt <- 3000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 10000
 
-bootstrap <- 0 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
+bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
 force_bootstrap_recalculation <- 1 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
 n_path_sim_bootstrap_draws <- 250 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
 
-removal_comparison <- 0 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
+removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
 
 ##### counterfactuals where parameter values are changed and solution needs to be recomputed. can take three values: "none", "avoidance" (reduce collision rate parameters), and "discount" (to vary discount rate)
 
-#counterfactual <- "none"
+counterfactual <- "none"
 #counterfactual <- "avoidance"
 #counterfactual <- "discount"
-counterfactual <- "military"
+#counterfactual <- "military"
 mil_S  <- 0
 
 total_time <- proc.time()[3]
@@ -113,12 +113,12 @@ opt_start_year_bs <- c(2006,2020,2035) # optimal management start years for boot
 source("calibrate_parameters.r", print.eval=TRUE) # reads in all calibrated parameter values, estimates the launch constraint, constructs the necessary data series, and generates main text figure 1.
 
 if(counterfactual=="avoidance") {
-	aSS <- 0
+	aSS <- 0.5*aSS
 	aSD <- 0.5*aSD
 }
 
 if(counterfactual=="discount"){
-	discount_rate_vary <- seq(0.01,0.2,0.01)
+	discount_rate_vary <- seq(0.03,0.07,0.0025)
 }
 
 if(counterfactual=="military"){
@@ -129,10 +129,10 @@ if(counterfactual=="military"){
 # 2. Compute sequences of open access and optimal policies
 #############################################################################
 
-D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. default is 0.5, for use inside removal_comparison loop. to have no removal, set to 0. this variable is the "master copy" which stays constant inside the removal_comparison loop. if removal_comparison==0, this is irrelevant.
+D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. default is 0.5, for use inside removal_comparison loop. to have no removal, set to 0. this variable is the "master copy" which stays constant inside the removal_comparison loop. if removal_comparison==0, this is irrelevant. 0.5 is the value used in the paper.
 R_frac <- 0 # fraction of debris removed every period once removal is online in the main model. default is 0, so that main_model_projection generates no-removal projection bootstraps. this variable gets updated with removal_comparison inner loops, and reset to the value of D_fraction_to_remove. NOTE: set this to >0 if you want main model projections/bootstraps with removal.
 
-D_removal_start_year <- 2029 # pick a year within the projection time frame.
+D_removal_start_year <- 2029 # pick a year within the projection time frame. 2029 is the year used in the paper.
 R_start_year <- D_removal_start_year # same deal as R_frac: this is the copy that gets updated in the removal_comparison inner loops.
 R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year) # this gets the correct integer label for the chosen R_start_year, which is used in the projection algorithm 
 

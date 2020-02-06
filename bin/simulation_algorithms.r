@@ -307,33 +307,31 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		# plot_pfn_vfn(panel$V,panel$X,S_base_grid,D_base_grid,c("Value function","Policy function"))
 
 		## create spline interpolation model
-		vspline.tm <- proc.time()
-		cat(paste0("\nEstimating spline interpolant of value function..."))
-		tps_x <- as.matrix(cbind(panel$S,panel$D))
-		tps_y <- as.matrix(panel$V)
-		## TODO: test with lambda free. 071519: doesn't seem to matter.
-		tps_model <- fastTps(x=tps_x, Y=tps_y, m=NULL, lambda=0, theta=ceiling(0.5*sqrt(n_grid_points)))
-		#tps_model <- suppressWarnings(Tps(x=tps_x,Y=tps_y, lambda=0))
-		vspline.time <- (proc.time() - vspline.tm)[3]
-		## out
-		cat(paste0("\n Done. Time to estimate interpolant: ",round(proc.time()[3] - vspline.time,3)," seconds"))
+		# vspline.tm <- proc.time()
+		# cat(paste0("\nEstimating spline interpolant of value function..."))
+		# tps_x <- as.matrix(cbind(panel$S,panel$D))
+		# tps_y <- as.matrix(panel$V)
+		# tps_model <- fastTps(x=tps_x, Y=tps_y, m=NULL, lambda=0, theta=ceiling(0.5*sqrt(n_grid_points)))
+		# vspline.time <- (proc.time() - vspline.tm)[3]
+		# ## out
+		# cat(paste0("\n Done. Time to estimate interpolant: ",round(proc.time()[3] - vspline.time,3)," seconds"))
 
-		#spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
-		spline_vfn_int <- as.vector(predict(tps_model))
-		## replace solved value function with smoother(?) interpolation
-		# panel$V <- spline_vfn_int
-		spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
-		policy_mat <- matrix(panel$X,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
-		loss_vec <- L(S_(panel$X,panel$S,panel$D),D_(panel$X,panel$S,panel$D,asats[t]))
-		loss_mat <- matrix(loss_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		# #spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
+		# spline_vfn_int <- as.vector(predict(tps_model))
+		# ## replace solved value function with smoother(?) interpolation
+		# # panel$V <- spline_vfn_int
+		# spline_vfn_int_mat <- matrix(spline_vfn_int,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		# policy_mat <- matrix(panel$X,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		# loss_vec <- L(S_(panel$X,panel$S,panel$D),D_(panel$X,panel$S,panel$D,asats[t]))
+		# loss_mat <- matrix(loss_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
 
-		# plot S_t+1 and D_t+1 given X_t
-		S_next_vec <- S_(panel$X,panel$S,panel$D)
-		S_next_mat <- matrix(S_next_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
-		D_next_vec <- D_(panel$X,panel$S,panel$D,asats[t])
-		D_next_mat <- matrix(D_next_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
-		# image2D(z=S_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period satellite stock"))
-		# image2D(z=D_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period debris stock"))
+		# # plot S_t+1 and D_t+1 given X_t
+		# S_next_vec <- S_(panel$X,panel$S,panel$D)
+		# S_next_mat <- matrix(S_next_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		# D_next_vec <- D_(panel$X,panel$S,panel$D,asats[t])
+		# D_next_mat <- matrix(D_next_vec,nrow=length(S_base_grid),ncol=length(D_base_grid),byrow=TRUE)
+		# # image2D(z=S_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period satellite stock"))
+		# # image2D(z=D_next_mat,x=D_base_grid,y=S_base_grid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=c("Next-period debris stock"))
 
 		t.tm <- proc.time()
 		## maximization step

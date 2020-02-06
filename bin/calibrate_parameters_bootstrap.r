@@ -10,7 +10,7 @@ econ_coefs <- read.csv("../data/econ_series_coefs.csv")
 implied_econ_series <- read.csv("../data/implied_costs.csv")
 satlom_cal <- read.csv("../data/calibrated_satellite_lom_coefs.csv")
 econ_series <- read.csv("../data/econ_series.csv")
-observed_time_series <- read.csv("../data/ST_ESA_series.csv")
+observed_time_series <- read.csv("../data/stock_series_lagged_launches.csv")
 MS_proj_rev <- read.csv("../data/avg_econ_return.csv")
 MS_proj_total <- read.csv("../data/avg_econ_total.csv")
 
@@ -31,7 +31,7 @@ set.seed(501)
 # bs_draw_select_idx <- start_loc:(start_loc+n_path_sim_bootstrap_draws) # this selects a contiguous sequence of n_path_sim_bootstrap_draws-many parameters from a random starting location
 bs_draw_select_idx <- sample(1:nrow(accepted_risk_cal_set),size=n_path_sim_bootstrap_draws) # this selects a random sequence of n_path_sim_bootstrap_draws-many parameters
 risk_cal_set_B <- accepted_risk_cal_set[bs_draw_select_idx,-1]
-deblom_cal_set_B <- deblom_cal_set[bs_draw_select_idx,-1]
+deblom_cal_set_B <- accepted_deblom_cal_set[bs_draw_select_idx,-1]
 
 bootstrap_grid <- cbind(risk_cal_set_B,deblom_cal_set_B)
 bootstrap_grid <- data.frame(bootstrap_grid)

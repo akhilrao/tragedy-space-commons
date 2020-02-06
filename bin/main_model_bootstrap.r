@@ -87,7 +87,7 @@ bs_coihist_df <- bs_coihist_df[bs_coihist_df$start_time.opt==14,]
 ## combine them for use later
 coihist_df <- rbind(m_coihist_df,bs_coihist_df)
 
-message("The middle 90% of model-predicted welfare gains in 2040 to optimal OUF implementation in 2020 fall in between ",round(quantile(coihist_df$NPV.PoA,probs=c(0.05,0.95)),2)[[1]], " and ",round(quantile(coihist_df$NPV.PoA,probs=c(0.05,0.95)),2)[[2]], " times the BAU NPV.")
+message("The middle 95% of model-predicted welfare gains in 2040 to optimal OUF implementation in 2020 fall in between ",round(quantile(coihist_df$NPV.PoA,probs=c(0.025,0.975)),2)[[1]], " and ",round(quantile(coihist_df$NPV.PoA,probs=c(0.025,0.975)),2)[[2]], " times the BAU NPV.")
 
 ##### Generate figures
 
@@ -105,7 +105,7 @@ m_bs_small_long_bootstrap_hist_plot <- ggplot(data=coihist_df) +
 					plot.title=element_text(family="Helvetica",size=20),
 					legend.text=element_text(family="Helvetica",size=20) )
 
-middle_90 <- intersect(which(coihist_df$NPV.PoA<=quantile(coihist_df$NPV.PoA,probs=0.95)[[1]]),which(coihist_df$NPV.PoA>=quantile(coihist_df$NPV.PoA,probs=0.05)[[1]]))
+middle_90 <- intersect(which(coihist_df$NPV.PoA<=quantile(coihist_df$NPV.PoA,probs=1)[[1]]),which(coihist_df$NPV.PoA>=quantile(coihist_df$NPV.PoA,probs=0)[[1]]))
 coihist_df_mid <- coihist_df[middle_90,]
 m_bs_small_long_bootstrap_hist_plot_mid90 <- ggplot(data=coihist_df_mid) + 
 						geom_histogram(aes(x=NPV.PoA),fill="gray",bins=30) +

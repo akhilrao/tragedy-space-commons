@@ -12,6 +12,15 @@
 
 # BEGIN BOOTSTRAP LOOP
 path_sim_bootstrap_times <- data.frame(times=rep(-1,length=n_path_sim_bootstrap_draws),opt_props=rep(-1,length=n_path_sim_bootstrap_draws))
+
+# if((file.exists(paste0("../data/bootstrapped_simulation.csv"))==FALSE)||(force_bootstrap_recalculation==1)) {
+# 	original_bs_sims <- read.csv("../data/bootstrapped_simulation.csv")
+# 	negative_runs <- which(original_bs_sims$NPVPoA<1)
+# 	negative_runs_idx <- unique(original_bs_sims$bootstrap_draw[negative_runs])
+# }
+
+# for(b in negative_runs_idx[c(1,5,7)]) {
+
 for(b in 1:n_path_sim_bootstrap_draws) {
 
 total_time <- proc.time()[3]
