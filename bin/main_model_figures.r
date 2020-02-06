@@ -226,8 +226,8 @@ npv_welf_loss <- risk_proj +
 					legend.text=element_text(family="Helvetica",size=10) )
 
 # An OUF implemented in t+1 alters launch decisions in t. So to change behavior in 2020, the regulator announces an OUF in 2021. We plot the OUF from the year it begins changing behavior, i.e. we show the fee paid in 2021 as the 2020 value. "shifted_tax" in "OA_OPT_tax_shift" accomplishes this.
-OA_OPT_tax_shift <- OA_OPT_full[which(OA_OPT_full$start_time.opt==14),]
-shifted_tax <- OA_OPT_full[which(OA_OPT_full$start_time.opt==14),]$opt_tax_path[-1]
+OA_OPT_tax_shift <- OA_OPT[which(OA_OPT$start_time.opt==14),]
+shifted_tax <- OA_OPT[which(OA_OPT$start_time.opt==14),]$opt_tax_path[-1]
 OA_OPT_tax_shift <- OA_OPT_tax_shift[-nrow(OA_OPT_tax_shift),]
 OA_OPT_tax_shift$shifted_tax <- shifted_tax
 
