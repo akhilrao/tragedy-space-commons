@@ -77,10 +77,10 @@ source("main_model_tax_path_calc.r")
 ncores <- 32 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
 oa_gridsize <- 40 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
-S_gridsize_opt <- 64 #28
-D_gridsize_opt <- 64 #28
+S_gridsize_opt <- 50 #28
+D_gridsize_opt <- 50 #28
 S_grid_upper_oa <- 8000 
-S_grid_upper_opt <- 2500 #3000
+S_grid_upper_opt <- 2300 #3000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 10000
 
