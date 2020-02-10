@@ -70,6 +70,7 @@ ridge_debris_bootstrap_dv <- ridge_debris_model_output%*%matrix(1,ncol=B,nrow=1)
 
 ridge_debris_bootstrap_coefs <- matrix(-1,nrow=B,ncol=ncol(m2xvars))
 
+# create a cluster of workers estimating the debris model parameters on bootstrap-resampled data series
 registerDoParallel(cores=ncores)
 ridge_debris_bootstrap_coefs <- foreach(b=1:B, .export=ls(), .inorder=TRUE, .combine=rbind) %dopar% {
 	bootstrap_dfrm <- dfrm #dfrm is the design matrix of physical variables from calibrate_physical_model.r
@@ -259,9 +260,9 @@ ridge_debris_bootstrap_plot <- ridge_debris_bootstrap_plot_base + geom_line(aes(
 						geom_line(aes(y=truth), size=1) +
 						theme_minimal() + ggtitle("Debris law of motion calibration")
 
-# Extended Data Figure 7
+# SI Figure 7
 
-png(width=800,height=400,filename="../images/extended_data_figure_7.png")
+png(width=800,height=400,filename="../images/SI_figure_7.png")
 plot_grid(nls_risk_bootstrap_plot,ridge_debris_bootstrap_plot,
 		align="h",
 		labels=c("a","b"),

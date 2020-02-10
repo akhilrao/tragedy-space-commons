@@ -74,7 +74,7 @@ if(counterfactual=="discount") {
 	write.csv(OA_OPT, file=paste0("../data/counterfactuals/discount_rate/",opt_start_year[1],"_cf_discount_r_",discount_rate,"_simulation.csv"))
 } 
 if(counterfactual=="military") {
-	write.csv(OA_OPT, file=paste0("../data/counterfactuals/military/",opt_start_year[1],"_cf_mil_S0_",mil_S0,"_simulation.csv"))
+	write.csv(OA_OPT, file=paste0("../data/counterfactuals/military/",opt_start_year[1],"_cf_mil_S_",mil_S,"_simulation.csv"))
 } 
 
 setwd("../bin")

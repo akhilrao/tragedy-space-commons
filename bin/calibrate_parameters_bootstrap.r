@@ -25,10 +25,8 @@ sd_deblom_cals <- sapply(accepted_deblom_cal_set[,-1], sd, na.rm=TRUE)
 message("Standard errors for collision risk equation: S2 = ", sd_risk_cals[[1]], ", SD = ", sd_risk_cals[[2]])
 message("Standard errors for debris law of motion: debris = ", sd_deblom_cals[[1]], ", launch_successes = ", sd_deblom_cals[[2]], ", ASAT destructions = ", sd_deblom_cals[[3]], ", SSfrags = ", sd_deblom_cals[[4]], ", SDfrags = ", sd_deblom_cals[[5]])
 
-# the physical parameters are draws from the bootstrap world's conditional distribution, parameters(risk) and parameters(debris|risk)
+# the physical parameters are draws from the bootstrap world's distributions of parameters(risk) and parameters(debris|parameters(risk))
 set.seed(501)
-#start_loc <- sample(c(1:(nrow(accepted_risk_cal_set)-n_path_sim_bootstrap_draws)),size=1) # generate a random starting location which is at least n_path_sim_bootstrap_draws-many observations away from the tail
-# bs_draw_select_idx <- start_loc:(start_loc+n_path_sim_bootstrap_draws) # this selects a contiguous sequence of n_path_sim_bootstrap_draws-many parameters from a random starting location
 bs_draw_select_idx <- sample(1:nrow(accepted_risk_cal_set),size=n_path_sim_bootstrap_draws) # this selects a random sequence of n_path_sim_bootstrap_draws-many parameters
 risk_cal_set_B <- accepted_risk_cal_set[bs_draw_select_idx,-1]
 deblom_cal_set_B <- accepted_deblom_cal_set[bs_draw_select_idx,-1]
@@ -40,7 +38,6 @@ colnames(bootstrap_grid) <- c(colnames(risk_cal_set_B),colnames(deblom_cal_set_B
 # select bootstrap parameters
 risk_cal <- bootstrap_grid[b,1:2]
 deblom_cal <- bootstrap_grid[b,3:7]
-#econ_coefs <- econ_coefs_set_B[b,] #is this bootstrap portion necessary?
 
 # Extend Morgan Stanley revenue and total value projections an additional 10 years, to avoid any end-of-horizon effects for a forecast out to 2040 (e.g. numerical distortions in steady-state value functions). The idea is to "project" out to 2050 using the mean annual growth rate of the Morgan Stanley projections, then truncate back to 2040 to avoid any end-of-horizon effects.
 projection_start <- MS_proj_rev$Year[nrow(MS_proj_rev)]+1
@@ -66,7 +63,7 @@ satlom_cal_names <- as.character(satlom_cal[,1])
 satlom_cal <- data.frame(parameters=t(c(satlom_cal[,2])))
 colnames(satlom_cal) <- satlom_cal_names
 avg_sat_decay <- satlom_cal$payloads_in_orbit # corresponds to just over 30 years on orbit: on average 5 year mission time + 25 year post-mission disposal compliance. Value estimated from statistical model for satellite law of motion. 
-# decay coefficient is currently represented as survival rate rather than decay rate.
+# at this point the decay coefficient is represented as survival rate (1-\delta) rather than decay rate (\delta).
 
 aSS <- risk_cal$S2
 aSD <- risk_cal$SD
@@ -74,7 +71,7 @@ aSD <- risk_cal$SD
 aDDbDD <- 0 #0: debris-debris collisions are disabled
 bSS <- deblom_cal$SSfrags
 bSD <- deblom_cal$SDfrags
-d <- 1-deblom_cal$debris
+d <- 1-deblom_cal$debris # converts the decay coefficient from 1-\delta to \delta
 m <- deblom_cal$launch_successes
 asat_coef <- deblom_cal$num_destr_asat
 

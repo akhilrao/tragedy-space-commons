@@ -231,31 +231,41 @@ m_bs_small_long_bootstrap_optvalue_plot <- ggplot(data=m_bs_small_long[which(m_b
 
 ##### Main Text Figure
 
-# MT figure 2
-png(width=1250,height=650,filename=paste0("../images/main_text_figure_2.png"))
-upper_row <- plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3/5,2/5),label_size=20)
-lower_row <- plot_grid(opt_tax_path,m_bs_small_long_bootstrap_hist_plot_mid90,labels=c("c","d"),align="h",axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=20)
-plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
-dev.off()
+if(counterfactual=="none") {
+	# MT figure 2
+	png(width=1250,height=650,filename=paste0("../images/main_text_figure_2.png"))
+	upper_row <- plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3/5,2/5),label_size=20)
+	lower_row <- plot_grid(opt_tax_path,m_bs_small_long_bootstrap_hist_plot_mid90,labels=c("c","d"),align="h",axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=20)
+	plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
+	dev.off()
 
-##### Extended Data Figures
+	##### SI Figures
 
-# ED figure 8
-png(width=800,height=500,filename="../images/extended_data_figure_8.png")
-plot_grid(m_bs_small_long_bootstrap_oalaunch_plot, m_bs_small_long_bootstrap_oasats_plot, m_bs_small_long_bootstrap_oadebs_plot, m_bs_small_long_bootstrap_oacoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=15)
-dev.off()
+	# SI figure 8
+	png(width=800,height=500,filename="../images/SI_figure_8.png")
+	plot_grid(m_bs_small_long_bootstrap_oalaunch_plot, m_bs_small_long_bootstrap_oasats_plot, m_bs_small_long_bootstrap_oadebs_plot, m_bs_small_long_bootstrap_oacoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=15)
+	dev.off()
 
-# ED figure 9
-png(width=800,height=500,filename="../images/extended_data_figure_9.png")
-plot_grid(m_bs_small_long_bootstrap_optlaunch_plot, m_bs_small_long_bootstrap_optsats_plot, m_bs_small_long_bootstrap_optdebs_plot, m_bs_small_long_bootstrap_optcoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=15)
-dev.off()
+	# SI figure 9
+	png(width=800,height=500,filename="../images/SI_figure_9.png")
+	plot_grid(m_bs_small_long_bootstrap_optlaunch_plot, m_bs_small_long_bootstrap_optsats_plot, m_bs_small_long_bootstrap_optdebs_plot, m_bs_small_long_bootstrap_optcoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=15)
+	dev.off()
 
-# ED figure 10
-png(width=400,height=300,filename="../images/extended_data_figure_10.png")
-m_bs_small_long_bootstrap_opttax_plot
-dev.off()
+	# SI figure 10
+	png(width=400,height=300,filename="../images/SI_figure_10.png")
+	m_bs_small_long_bootstrap_opttax_plot
+	dev.off()
 
-png(width=400,height=300,filename="../images/250_draws_middle_90.png")
-m_bs_small_long_bootstrap_hist_plot_mid90
-dev.off()
+	png(width=400,height=300,filename="../images/250_draws_middle_90.png")
+	m_bs_small_long_bootstrap_hist_plot_mid90
+	dev.off()
+}
 
+if(counterfactual=="military") {
+	# MT figure 2
+	png(width=1250,height=650,filename=paste0("../images/main_text_figure_2_military_cf.png"))
+	upper_row <- plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3/5,2/5),label_size=20)
+	lower_row <- plot_grid(opt_tax_path,m_bs_small_long_bootstrap_hist_plot_mid90,labels=c("c","d"),align="h",axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=20)
+	plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
+	dev.off()
+}
