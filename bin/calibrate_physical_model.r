@@ -127,7 +127,7 @@ write.csv(m2coefs,file="calibrated_debris_lom_coefs.csv")
 setwd("../bin/") # set working directory back to bin for the next stage of the main analysis
 
 if(physics_bootstrap==1){
-	source("physics_bootstrap.r") # this regenerates Extended Data figure 7
+	source("physics_bootstrap.r") # this regenerates SI figure 7
 }
 
 

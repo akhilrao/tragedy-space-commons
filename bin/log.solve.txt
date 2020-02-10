@@ -1,2158 +1,2158 @@
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.577 seconds 
+
+ Finished period 44 iteration 1, distance is 10678.2897456142
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 13.968 seconds 
+
+ Finished period 44 iteration 2, distance is 9803.44574289858
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.418 seconds 
+
+ Finished period 44 iteration 3, distance is 9000.84217200495
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.416 seconds 
+
+ Finished period 44 iteration 4, distance is 8264.52741311118
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.07 seconds.
+Total grid time: 55.201 seconds 
+
+ Finished period 44 iteration 5, distance is 7589.02650881984
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.19 seconds 
+
+ Finished period 44 iteration 6, distance is 6969.30087175431
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.22 seconds 
+
+ Finished period 44 iteration 7, distance is 6400.71437965137
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 13.806 seconds 
+
+ Finished period 44 iteration 8, distance is 5879.00964059216
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.016 seconds.
-Total grid time: 41.075 seconds 
+Total grid time: 12.259 seconds 
 
- Finished period 44 iteration 1, distance is 10678.2894032802
+ Finished period 44 iteration 9, distance is 5400.28019233093
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.017 seconds.
-Total grid time: 41.253 seconds 
+Total grid time: 13.022 seconds 
 
- Finished period 44 iteration 2, distance is 9803.44957786405
+ Finished period 44 iteration 10, distance is 4960.94402257948
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.618 seconds 
+
+ Finished period 44 iteration 11, distance is 4558.08178966142
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 13.732 seconds 
+
+ Finished period 44 iteration 12, distance is 4190.20311346176
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.47 seconds 
+
+ Finished period 44 iteration 13, distance is 3857.06461853493
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.193 seconds 
+
+ Finished period 44 iteration 14, distance is 3558.4045576933
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.542 seconds 
+
+ Finished period 44 iteration 15, distance is 3293.03730399445
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 15.041 seconds 
+
+ Finished period 44 iteration 16, distance is 3058.5635498988
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.912 seconds 
+
+ Finished period 44 iteration 17, distance is 2851.63429791653
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.204 seconds 
+
+ Finished period 44 iteration 18, distance is 2668.47366406825
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 15.168 seconds 
+
+ Finished period 44 iteration 19, distance is 2505.36314282721
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.085 seconds 
+
+ Finished period 44 iteration 20, distance is 2358.95212602912
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.422 seconds 
+
+ Finished period 44 iteration 21, distance is 2226.39429179353
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.927 seconds 
+
+ Finished period 44 iteration 22, distance is 2105.36322810341
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.209 seconds 
+
+ Finished period 44 iteration 23, distance is 1994.0325689762
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.612 seconds 
+
+ Finished period 44 iteration 24, distance is 1890.92682941305
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.537 seconds 
+
+ Finished period 44 iteration 25, distance is 1794.8563734761
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.526 seconds 
+
+ Finished period 44 iteration 26, distance is 1704.933305275
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.011 seconds 
+
+ Finished period 44 iteration 27, distance is 1620.45540592974
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.559 seconds 
+
+ Finished period 44 iteration 28, distance is 1540.86017085638
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.023 seconds.
+Total grid time: 17.876 seconds 
+
+ Finished period 44 iteration 29, distance is 1465.69083137187
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.129 seconds 
+
+ Finished period 44 iteration 30, distance is 1394.57081507481
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 15.185 seconds 
+
+ Finished period 44 iteration 31, distance is 1327.18468883474
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.014 seconds 
+
+ Finished period 44 iteration 32, distance is 1263.26397663698
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.045 seconds 
+
+ Finished period 44 iteration 33, distance is 1202.57660120752
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 15.109 seconds 
+
+ Finished period 44 iteration 34, distance is 1144.9190053693
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.023 seconds.
+Total grid time: 18.023 seconds 
+
+ Finished period 44 iteration 35, distance is 1090.11025243893
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.525 seconds 
+
+ Finished period 44 iteration 36, distance is 1037.98758955975
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.641 seconds 
+
+ Finished period 44 iteration 37, distance is 988.403094650799
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.217 seconds 
+
+ Finished period 44 iteration 38, distance is 941.22112793554
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 19.177 seconds 
+
+ Finished period 44 iteration 39, distance is 896.316382311576
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 16.013 seconds 
+
+ Finished period 44 iteration 40, distance is 853.572380450321
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.839 seconds 
+
+ Finished period 44 iteration 41, distance is 812.880305897765
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 15.211 seconds 
+
+ Finished period 44 iteration 42, distance is 774.138084464998
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.601 seconds 
+
+ Finished period 44 iteration 43, distance is 737.249653662118
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.023 seconds.
+Total grid time: 17.997 seconds 
+
+ Finished period 44 iteration 44, distance is 702.124373848696
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.984 seconds 
+
+ Finished period 44 iteration 45, distance is 668.676546601317
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.334 seconds 
+
+ Finished period 44 iteration 46, distance is 636.825014593604
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.271 seconds 
+
+ Finished period 44 iteration 47, distance is 606.4928238336
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.562 seconds 
+
+ Finished period 44 iteration 48, distance is 577.606933966104
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.116 seconds 
+
+ Finished period 44 iteration 49, distance is 550.097965974623
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.936 seconds 
+
+ Finished period 44 iteration 50, distance is 523.899979301874
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.983 seconds 
+
+ Finished period 44 iteration 51, distance is 498.950272410497
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.522 seconds 
+
+ Finished period 44 iteration 52, distance is 475.189202288311
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.626 seconds 
+
+ Finished period 44 iteration 53, distance is 452.560019500699
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.023 seconds.
+Total grid time: 17.658 seconds 
+
+ Finished period 44 iteration 54, distance is 431.008716215467
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.376 seconds 
+
+ Finished period 44 iteration 55, distance is 410.483885225025
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.063 seconds 
+
+ Finished period 44 iteration 56, distance is 390.93658845016
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.537 seconds 
+
+ Finished period 44 iteration 57, distance is 372.320233737089
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.786 seconds 
+
+ Finished period 44 iteration 58, distance is 354.590459015773
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.536 seconds 
+
+ Finished period 44 iteration 59, distance is 337.705023072485
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.662 seconds 
+
+ Finished period 44 iteration 60, distance is 321.623702328798
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.028 seconds.
+Total grid time: 22.125 seconds 
+
+ Finished period 44 iteration 61, distance is 306.308193128702
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.987 seconds 
+
+ Finished period 44 iteration 62, distance is 291.722019113338
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 19.17 seconds 
+
+ Finished period 44 iteration 63, distance is 277.83044332554
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.792 seconds 
+
+ Finished period 44 iteration 64, distance is 264.600384733872
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.262 seconds 
+
+ Finished period 44 iteration 65, distance is 252.000338904443
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.491 seconds 
+
+ Finished period 44 iteration 66, distance is 240.00030257646
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.577 seconds 
+
+ Finished period 44 iteration 67, distance is 228.571701921668
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.531 seconds 
+
+ Finished period 44 iteration 68, distance is 217.687324288156
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.378 seconds 
+
+ Finished period 44 iteration 69, distance is 207.321253245027
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.793 seconds 
+
+ Finished period 44 iteration 70, distance is 197.448806756234
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.581 seconds 
+
+ Finished period 44 iteration 71, distance is 188.046478325559
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.072 seconds.
+Total grid time: 56.554 seconds 
+
+ Finished period 44 iteration 72, distance is 179.091880964115
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.335 seconds 
+
+ Finished period 44 iteration 73, distance is 170.563693840348
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.28 seconds 
+
+ Finished period 44 iteration 74, distance is 162.441611481598
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.016 seconds.
-Total grid time: 40.247 seconds 
+Total grid time: 12.572 seconds 
 
- Finished period 44 iteration 3, distance is 9000.84702438876
+ Finished period 44 iteration 75, distance is 154.706295401702
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.016 seconds.
+Total grid time: 12.67 seconds 
+
+ Finished period 44 iteration 76, distance is 147.339328038361
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.015 seconds.
+Total grid time: 12.128 seconds 
+
+ Finished period 44 iteration 77, distance is 140.323168888484
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 45.985 seconds 
+Total grid time: 14.415 seconds 
 
- Finished period 44 iteration 4, distance is 8264.53608223678
+ Finished period 44 iteration 78, distance is 133.641112733923
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 43.913 seconds 
+Total grid time: 14.092 seconds 
 
- Finished period 44 iteration 5, distance is 7589.04374503352
+ Finished period 44 iteration 79, distance is 127.27724986081
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 44.351 seconds 
+Total grid time: 14.319 seconds 
 
- Finished period 44 iteration 6, distance is 6969.32930892808
+ Finished period 44 iteration 80, distance is 121.216428173269
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 45.218 seconds 
+Total grid time: 13.812 seconds 
 
- Finished period 44 iteration 7, distance is 6400.7590068323
+ Finished period 44 iteration 81, distance is 115.444217112876
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.004 seconds 
+
+ Finished period 44 iteration 82, distance is 109.946873297711
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 45.561 seconds 
+Total grid time: 13.847 seconds 
 
- Finished period 44 iteration 8, distance is 5879.07662106001
+ Finished period 44 iteration 83, distance is 104.711307797581
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.838 seconds 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.527 seconds 
 
- Finished period 44 iteration 9, distance is 5400.37565550349
+ Finished period 44 iteration 84, distance is 99.7250549682649
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.594 seconds 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.212 seconds 
 
- Finished period 44 iteration 10, distance is 4961.07352699818
+ Finished period 44 iteration 85, distance is 94.9762427702954
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.262 seconds 
-
- Finished period 44 iteration 11, distance is 4557.88642442074
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.477 seconds 
-
- Finished period 44 iteration 12, distance is 4187.80893734492
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 53.158 seconds 
+Total grid time: 16.516 seconds 
 
- Finished period 44 iteration 13, distance is 3848.35092362965
+ Finished period 44 iteration 86, distance is 90.4535645017168
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.573 seconds 
+
+ Finished period 44 iteration 87, distance is 86.146251875849
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 48.726 seconds 
+Total grid time: 15.107 seconds 
 
- Finished period 44 iteration 14, distance is 3539.12057249452
+ Finished period 44 iteration 88, distance is 82.0440493832575
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.036 seconds.
-Total grid time: 90.498 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.763 seconds 
 
- Finished period 44 iteration 15, distance is 3262.86665145378
+ Finished period 44 iteration 89, distance is 78.1371898724174
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 42.354 seconds 
-
- Finished period 44 iteration 16, distance is 3021.5975042824
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 42.778 seconds 
-
- Finished period 44 iteration 17, distance is 2812.73810549031
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.297 seconds 
-
- Finished period 44 iteration 18, distance is 2631.02230416459
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 44.442 seconds 
+Total grid time: 14.353 seconds 
 
- Finished period 44 iteration 19, distance is 2471.07428974003
+ Finished period 44 iteration 90, distance is 74.416371295054
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.131 seconds 
-
- Finished period 44 iteration 20, distance is 2328.67633386924
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.613 seconds 
-
- Finished period 44 iteration 21, distance is 2200.18801496655
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.078 seconds 
-
- Finished period 44 iteration 22, distance is 2082.92145517087
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.929 seconds 
-
- Finished period 44 iteration 23, distance is 1975.20839863295
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.307 seconds 
-
- Finished period 44 iteration 24, distance is 1875.65700728074
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.999 seconds 
-
- Finished period 44 iteration 25, distance is 1783.08196095687
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.874 seconds 
-
- Finished period 44 iteration 26, distance is 1698.1675500636
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.367 seconds 
-
- Finished period 44 iteration 27, distance is 1617.29862040364
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.234 seconds 
-
- Finished period 44 iteration 28, distance is 1540.28187647446
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.745 seconds 
-
- Finished period 44 iteration 29, distance is 1466.93344772616
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.032 seconds 
-
- Finished period 44 iteration 30, distance is 1397.078365423
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 44.774 seconds 
+Total grid time: 14.205 seconds 
 
- Finished period 44 iteration 31, distance is 1330.55008948459
+ Finished period 44 iteration 91, distance is 70.8727345578081
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 44.356 seconds 
+Total grid time: 13.916 seconds 
 
- Finished period 44 iteration 32, distance is 1267.19007447174
+ Finished period 44 iteration 92, distance is 67.4978424295259
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 45.857 seconds 
+Total grid time: 13.747 seconds 
 
- Finished period 44 iteration 33, distance is 1206.84736725134
+ Finished period 44 iteration 93, distance is 64.2836594519613
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.838 seconds 
+
+ Finished period 44 iteration 94, distance is 61.2225328079076
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.53 seconds 
+
+ Finished period 44 iteration 95, distance is 58.3071741001622
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.092 seconds 
+
+ Finished period 44 iteration 96, distance is 55.5306419983099
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.528 seconds 
+
+ Finished period 44 iteration 97, distance is 52.8863257112971
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 46.29 seconds 
+Total grid time: 14.615 seconds 
 
- Finished period 44 iteration 34, distance is 1149.37823111688
+ Finished period 44 iteration 98, distance is 50.3679292478482
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 47.258 seconds 
+Total grid time: 14.668 seconds 
 
- Finished period 44 iteration 35, distance is 1094.64579264478
+ Finished period 44 iteration 99, distance is 47.9694564257807
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 47.806 seconds 
+Total grid time: 14.992 seconds 
 
- Finished period 44 iteration 36, distance is 1042.51970857226
+ Finished period 44 iteration 100, distance is 45.6851965954702
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.85 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.546 seconds 
 
- Finished period 44 iteration 37, distance is 992.87585066272
+ Finished period 44 iteration 101, distance is 43.5097110428906
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.187 seconds 
+ Average cell time: 0.023 seconds.
+Total grid time: 18.203 seconds 
 
- Finished period 44 iteration 38, distance is 945.596006985157
+ Finished period 44 iteration 102, distance is 41.4378200405336
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.191 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.58 seconds 
 
- Finished period 44 iteration 39, distance is 900.567598351641
+ Finished period 44 iteration 103, distance is 39.4645905145735
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.286 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.902 seconds 
 
- Finished period 44 iteration 40, distance is 857.683408876299
+ Finished period 44 iteration 104, distance is 37.5853242994635
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.565 seconds 
-
- Finished period 44 iteration 41, distance is 816.841329774412
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.036 seconds.
-Total grid time: 89.406 seconds 
-
- Finished period 44 iteration 42, distance is 777.94411563332
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.464 seconds 
-
- Finished period 44 iteration 43, distance is 740.899152469618
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 46.102 seconds 
-
- Finished period 44 iteration 44, distance is 705.618236950337
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.482 seconds 
-
- Finished period 44 iteration 45, distance is 672.017366206535
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.035 seconds 
-
- Finished period 44 iteration 46, distance is 640.016537708303
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 46.101 seconds 
-
- Finished period 44 iteration 47, distance is 609.539558704229
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.919 seconds 
-
- Finished period 44 iteration 48, distance is 580.51386475793
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.679 seconds 
-
- Finished period 44 iteration 49, distance is 552.870346941359
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.535 seconds 
-
- Finished period 44 iteration 50, distance is 526.543187266856
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.858 seconds 
-
- Finished period 44 iteration 51, distance is 501.469701962473
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.649 seconds 
-
- Finished period 44 iteration 52, distance is 477.590192215095
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 53.451 seconds 
+Total grid time: 16.348 seconds 
 
- Finished period 44 iteration 53, distance is 454.847802023345
+ Finished period 44 iteration 105, distance is 35.795546951791
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 51.15 seconds 
+ Average cell time: 0.023 seconds.
+Total grid time: 18.041 seconds 
 
- Finished period 44 iteration 54, distance is 433.18838282222
+ Finished period 44 iteration 106, distance is 34.0909970968205
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.037 seconds.
-Total grid time: 92.073 seconds 
-
- Finished period 44 iteration 55, distance is 412.560364554651
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.561 seconds 
-
- Finished period 44 iteration 56, distance is 392.914632884102
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.388 seconds 
-
- Finished period 44 iteration 57, distance is 374.204412253923
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.069 seconds 
-
- Finished period 44 iteration 58, distance is 356.385154516523
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.293 seconds 
-
- Finished period 44 iteration 59, distance is 339.414432865553
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 48.217 seconds 
+Total grid time: 14.981 seconds 
 
- Finished period 44 iteration 60, distance is 323.251840819503
+ Finished period 44 iteration 107, distance is 32.4676162826363
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.766 seconds 
+
+ Finished period 44 iteration 108, distance is 30.9215393167397
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.023 seconds.
+Total grid time: 18.062 seconds 
+
+ Finished period 44 iteration 109, distance is 29.449085063563
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 19.16 seconds 
+
+ Finished period 44 iteration 110, distance is 28.0467476795602
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.32 seconds 
+
+ Finished period 44 iteration 111, distance is 26.7111882662284
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.552 seconds 
+
+ Finished period 44 iteration 112, distance is 25.4392269201926
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.463 seconds 
+
+ Finished period 44 iteration 113, distance is 24.2278351620771
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.969 seconds 
+
+ Finished period 44 iteration 114, distance is 23.0741287257988
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 46.916 seconds 
+Total grid time: 15.057 seconds 
 
- Finished period 44 iteration 61, distance is 307.858896015387
+ Finished period 44 iteration 115, distance is 21.9753606912564
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.414 seconds 
-
- Finished period 44 iteration 62, distance is 293.198948583929
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 48.313 seconds 
+Total grid time: 14.55 seconds 
 
- Finished period 44 iteration 63, distance is 279.237093888063
+ Finished period 44 iteration 116, distance is 20.9289149440592
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.303 seconds 
-
- Finished period 44 iteration 64, distance is 265.940089416239
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.379 seconds 
-
- Finished period 44 iteration 65, distance is 253.276275633936
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.954 seconds 
-
- Finished period 44 iteration 66, distance is 241.215500603299
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 52.584 seconds 
+Total grid time: 16.693 seconds 
 
- Finished period 44 iteration 67, distance is 229.72904819336
+ Finished period 44 iteration 117, distance is 19.9322999467258
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.764 seconds 
+
+ Finished period 44 iteration 118, distance is 18.9831428063917
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.885 seconds 
+
+ Finished period 44 iteration 119, distance is 18.0791836251447
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.714 seconds 
+
+ Finished period 44 iteration 120, distance is 17.2182701191923
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.023 seconds.
+Total grid time: 17.659 seconds 
+
+ Finished period 44 iteration 121, distance is 16.3983524944633
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.252 seconds 
+
+ Finished period 44 iteration 122, distance is 15.6174785661569
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.325 seconds 
+
+ Finished period 44 iteration 123, distance is 14.8737891106284
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.02 seconds.
-Total grid time: 49.991 seconds 
+Total grid time: 15.596 seconds 
 
- Finished period 44 iteration 68, distance is 218.789569707777
+ Finished period 44 iteration 124, distance is 14.1655134386965
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.288 seconds 
-
- Finished period 44 iteration 69, distance is 208.37101876919
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 44.296 seconds 
+Total grid time: 14.338 seconds 
 
- Finished period 44 iteration 70, distance is 198.448589303924
+ Finished period 44 iteration 125, distance is 13.4909651796916
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.055 seconds 
+ Average cell time: 0.024 seconds.
+Total grid time: 19.077 seconds 
 
- Finished period 44 iteration 71, distance is 188.998656479875
+ Finished period 44 iteration 126, distance is 12.8485382663785
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.632 seconds 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.912 seconds 
 
- Finished period 44 iteration 72, distance is 179.998720456992
+ Finished period 44 iteration 127, distance is 12.2367031108588
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.104 seconds 
+ Average cell time: 0.029 seconds.
+Total grid time: 22.375 seconds 
 
- Finished period 44 iteration 73, distance is 171.427352816172
+ Finished period 44 iteration 128, distance is 11.6540029627213
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.992 seconds 
+ Average cell time: 0.024 seconds.
+Total grid time: 19.001 seconds 
 
- Finished period 44 iteration 74, distance is 163.2641455392
+ Finished period 44 iteration 129, distance is 11.09905044068
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.477 seconds 
+ Average cell time: 0.023 seconds.
+Total grid time: 18.203 seconds 
 
- Finished period 44 iteration 75, distance is 155.489662418258
+ Finished period 44 iteration 130, distance is 10.5705242292315
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.304 seconds 
+ Average cell time: 0.023 seconds.
+Total grid time: 18.29 seconds 
 
- Finished period 44 iteration 76, distance is 148.085392779292
+ Finished period 44 iteration 131, distance is 10.0671659326181
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.364 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.911 seconds 
 
- Finished period 44 iteration 77, distance is 141.03370740886
+ Finished period 44 iteration 132, distance is 9.58777707867557
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.116 seconds 
-
- Finished period 44 iteration 78, distance is 134.317816579874
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.555 seconds 
-
- Finished period 44 iteration 79, distance is 127.921730076065
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.111 seconds 
-
- Finished period 44 iteration 80, distance is 121.830219120049
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 51.721 seconds 
+Total grid time: 16.291 seconds 
 
- Finished period 44 iteration 81, distance is 116.028780114357
+ Finished period 44 iteration 133, distance is 9.13121626537759
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.036 seconds.
-Total grid time: 89.065 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.949 seconds 
 
- Finished period 44 iteration 82, distance is 110.503600108903
+ Finished period 44 iteration 134, distance is 8.69639644326526
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.633 seconds 
+
+ Finished period 44 iteration 135, distance is 8.28228232692345
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.262 seconds 
+
+ Finished period 44 iteration 136, distance is 7.88788793038111
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.939 seconds 
+
+ Finished period 44 iteration 137, distance is 7.51227421942167
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.625 seconds 
+
+ Finished period 44 iteration 138, distance is 7.15454687565216
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.073 seconds.
+Total grid time: 56.939 seconds 
+
+ Finished period 44 iteration 139, distance is 6.81385416729609
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.541 seconds 
+
+ Finished period 44 iteration 140, distance is 6.48938492123852
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.017 seconds.
-Total grid time: 42.624 seconds 
+Total grid time: 13.581 seconds 
 
- Finished period 44 iteration 83, distance is 105.241523913253
+ Finished period 44 iteration 141, distance is 6.18036659163772
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.191 seconds 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.383 seconds 
 
- Finished period 44 iteration 84, distance is 100.230022774529
+ Finished period 44 iteration 142, distance is 5.88606342062121
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 43.832 seconds 
+ Average cell time: 0.015 seconds.
+Total grid time: 11.984 seconds 
 
- Finished period 44 iteration 85, distance is 95.4571645471879
+ Finished period 44 iteration 143, distance is 5.60577468632255
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 43.893 seconds 
-
- Finished period 44 iteration 86, distance is 90.9115852830291
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 46.519 seconds 
+Total grid time: 15.269 seconds 
 
- Finished period 44 iteration 87, distance is 86.5824621743232
+ Finished period 44 iteration 144, distance is 5.33883303459152
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 47.252 seconds 
+Total grid time: 14.968 seconds 
 
- Finished period 44 iteration 88, distance is 82.4594877850614
+ Finished period 44 iteration 145, distance is 5.08460289009963
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.522 seconds 
-
- Finished period 44 iteration 89, distance is 78.5328455095878
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 48.141 seconds 
+Total grid time: 14.865 seconds 
 
- Finished period 44 iteration 90, distance is 74.7931861996185
+ Finished period 44 iteration 146, distance is 4.84247894297005
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.634 seconds 
+ Average cell time: 0.018 seconds.
+Total grid time: 13.985 seconds 
 
- Finished period 44 iteration 91, distance is 71.2316059043806
+ Finished period 44 iteration 147, distance is 4.61188470758498
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.759 seconds 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.298 seconds 
 
- Finished period 44 iteration 92, distance is 67.839624670858
+ Finished period 44 iteration 148, distance is 4.39227115007816
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.016 seconds.
+Total grid time: 12.899 seconds 
+
+ Finished period 44 iteration 149, distance is 4.18311538104899
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.016 seconds.
+Total grid time: 12.845 seconds 
+
+ Finished period 44 iteration 150, distance is 3.98391941050068
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.705 seconds 
+
+ Finished period 44 iteration 151, distance is 3.79420896238298
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 52.845 seconds 
+Total grid time: 16.361 seconds 
 
- Finished period 44 iteration 93, distance is 64.6091663531988
+ Finished period 44 iteration 152, distance is 3.61353234513081
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.387 seconds 
-
- Finished period 44 iteration 94, distance is 61.5325393840176
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.036 seconds.
-Total grid time: 90.305 seconds 
-
- Finished period 44 iteration 95, distance is 58.602418460956
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.438 seconds 
-
- Finished period 44 iteration 96, distance is 55.8118271056737
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 43.957 seconds 
-
- Finished period 44 iteration 97, distance is 53.1541210530268
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.635 seconds 
-
- Finished period 44 iteration 98, distance is 50.6229724314471
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.975 seconds 
-
- Finished period 44 iteration 99, distance is 48.2123546966468
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.276 seconds 
-
- Finished period 44 iteration 100, distance is 45.9165282825415
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.747 seconds 
-
- Finished period 44 iteration 101, distance is 43.7300269357511
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 51.601 seconds 
+Total grid time: 16.235 seconds 
 
- Finished period 44 iteration 102, distance is 41.6476447007153
+ Finished period 44 iteration 153, distance is 3.44145937630674
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 48.431 seconds 
+Total grid time: 15.144 seconds 
 
- Finished period 44 iteration 103, distance is 39.6644235245185
+ Finished period 44 iteration 154, distance is 3.27758035840816
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.907 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.799 seconds 
 
- Finished period 44 iteration 104, distance is 37.7756414519099
+ Finished period 44 iteration 155, distance is 3.12150510324864
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.63 seconds 
-
- Finished period 44 iteration 105, distance is 35.9768013827852
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.248 seconds 
-
- Finished period 44 iteration 106, distance is 34.263620364567
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 51.001 seconds 
-
- Finished period 44 iteration 107, distance is 32.6320193948341
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.789 seconds 
-
- Finished period 44 iteration 108, distance is 31.0781137093436
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.017 seconds.
-Total grid time: 43.302 seconds 
+Total grid time: 13.325 seconds 
 
- Finished period 44 iteration 109, distance is 29.5982035327179
+ Finished period 44 iteration 156, distance is 2.97286200310919
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.73 seconds 
-
- Finished period 44 iteration 110, distance is 28.1887652692385
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 45.194 seconds 
+Total grid time: 14.002 seconds 
 
- Finished period 44 iteration 111, distance is 26.8464431135799
+ Finished period 44 iteration 157, distance is 2.83129714583629
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.736 seconds 
-
- Finished period 44 iteration 112, distance is 25.5680410605855
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 46.647 seconds 
+Total grid time: 15.248 seconds 
 
- Finished period 44 iteration 113, distance is 24.3505152957805
+ Finished period 44 iteration 158, distance is 2.6964734721696
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.264 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.896 seconds 
 
- Finished period 44 iteration 114, distance is 23.1909669483721
+ Finished period 44 iteration 159, distance is 2.56806997352396
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.547 seconds 
-
- Finished period 44 iteration 115, distance is 22.0866351889563
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.728 seconds 
-
- Finished period 44 iteration 116, distance is 21.0348906561558
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.993 seconds 
-
- Finished period 44 iteration 117, distance is 20.0332291963568
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.02 seconds.
-Total grid time: 48.946 seconds 
+Total grid time: 15.948 seconds 
 
- Finished period 44 iteration 118, distance is 19.0792659012659
+ Finished period 44 iteration 160, distance is 2.44578092716984
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.673 seconds 
-
- Finished period 44 iteration 119, distance is 18.1707294297812
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.221 seconds 
-
- Finished period 44 iteration 120, distance is 17.3054565997736
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.363 seconds 
-
- Finished period 44 iteration 121, distance is 16.4813872379309
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.035 seconds.
-Total grid time: 87.969 seconds 
-
- Finished period 44 iteration 122, distance is 15.6965592741908
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.187 seconds 
-
- Finished period 44 iteration 123, distance is 14.9491040706635
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.428 seconds 
-
- Finished period 44 iteration 124, distance is 14.2372419720632
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 43.877 seconds 
-
- Finished period 44 iteration 125, distance is 13.5592780686566
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.582 seconds 
-
- Finished period 44 iteration 126, distance is 12.9135981606378
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.664 seconds 
-
- Finished period 44 iteration 127, distance is 12.2986649148806
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.283 seconds 
-
- Finished period 44 iteration 128, distance is 11.7130142046371
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.213 seconds 
-
- Finished period 44 iteration 129, distance is 11.1552516234806
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.247 seconds 
-
- Finished period 44 iteration 130, distance is 10.6240491652279
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.212 seconds 
-
- Finished period 44 iteration 131, distance is 10.1181420620997
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.767 seconds 
-
- Finished period 44 iteration 132, distance is 9.63632577343378
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 52.082 seconds 
+Total grid time: 16.412 seconds 
 
- Finished period 44 iteration 133, distance is 9.17745311756153
+ Finished period 44 iteration 161, distance is 2.32931516875396
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.945 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.389 seconds 
 
- Finished period 44 iteration 134, distance is 8.74043154055835
+ Finished period 44 iteration 162, distance is 2.2183953988133
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.036 seconds.
-Total grid time: 90.843 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.743 seconds 
 
- Finished period 44 iteration 135, distance is 8.32422051482718
+ Finished period 44 iteration 163, distance is 2.11275752270012
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.432 seconds 
-
- Finished period 44 iteration 136, distance is 7.92782906172215
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.565 seconds 
-
- Finished period 44 iteration 137, distance is 7.55031339213019
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 44.338 seconds 
+Total grid time: 14.137 seconds 
 
- Finished period 44 iteration 138, distance is 7.19077465918963
+ Finished period 44 iteration 164, distance is 2.01215002159006
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 44.03 seconds 
+Total grid time: 14.238 seconds 
 
- Finished period 44 iteration 139, distance is 6.84835681828554
+ Finished period 44 iteration 165, distance is 1.91633335390361
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.709 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.548 seconds 
 
- Finished period 44 iteration 140, distance is 6.5222445888212
+ Finished period 44 iteration 166, distance is 1.82507938469644
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.455 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.36 seconds 
 
- Finished period 44 iteration 141, distance is 6.2116615131963
+ Finished period 44 iteration 167, distance is 1.73817084255279
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.839 seconds 
-
- Finished period 44 iteration 142, distance is 5.91586810781155
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.835 seconds 
-
- Finished period 44 iteration 143, distance is 5.63416010266519
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.02 seconds.
-Total grid time: 49.467 seconds 
+Total grid time: 16.022 seconds 
 
- Finished period 44 iteration 144, distance is 5.36586676444858
+ Finished period 44 iteration 168, distance is 1.65540080243954
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 51.029 seconds 
-
- Finished period 44 iteration 145, distance is 5.11034929947346
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.046 seconds 
-
- Finished period 44 iteration 146, distance is 4.86699933285126
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.671 seconds 
-
- Finished period 44 iteration 147, distance is 4.63523745985003
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 51.086 seconds 
-
- Finished period 44 iteration 148, distance is 4.4145118665474
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.717 seconds 
-
- Finished period 44 iteration 149, distance is 4.20429701576359
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.674 seconds 
-
- Finished period 44 iteration 150, distance is 4.00409239594592
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.002 seconds 
-
- Finished period 44 iteration 151, distance is 3.81342132951249
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.695 seconds 
-
- Finished period 44 iteration 152, distance is 3.63182983762817
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.895 seconds 
-
- Finished period 44 iteration 153, distance is 3.45888555963757
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.209 seconds 
-
- Finished period 44 iteration 154, distance is 3.29417672348791
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.294 seconds 
-
- Finished period 44 iteration 155, distance is 3.13731116522104
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.195 seconds 
-
- Finished period 44 iteration 156, distance is 2.98791539546801
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.872 seconds 
-
- Finished period 44 iteration 157, distance is 2.84563370994874
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.812 seconds 
-
- Finished period 44 iteration 158, distance is 2.71012734281248
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.557 seconds 
-
- Finished period 44 iteration 159, distance is 2.58107365979231
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.217 seconds 
-
- Finished period 44 iteration 160, distance is 2.45816539030056
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.994 seconds 
-
- Finished period 44 iteration 161, distance is 2.34110989552573
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.036 seconds.
-Total grid time: 90.073 seconds 
-
- Finished period 44 iteration 162, distance is 2.22962847194867
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 42.802 seconds 
-
- Finished period 44 iteration 163, distance is 2.12345568760065
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.697 seconds 
-
- Finished period 44 iteration 164, distance is 2.02233875007369
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.651 seconds 
-
- Finished period 44 iteration 165, distance is 1.92603690485703
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.758 seconds 
-
- Finished period 44 iteration 166, distance is 1.8343208617589
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.278 seconds 
-
- Finished period 44 iteration 167, distance is 1.74697224929696
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.93 seconds 
-
- Finished period 44 iteration 168, distance is 1.66378309458378
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.544 seconds 
-
- Finished period 44 iteration 169, distance is 1.58455532815424
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.521 seconds 
-
- Finished period 44 iteration 170, distance is 1.5091003125417
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.976 seconds 
-
- Finished period 44 iteration 171, distance is 1.43723839291488
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.304 seconds 
-
- Finished period 44 iteration 172, distance is 1.36879846942611
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 53.054 seconds 
+Total grid time: 16.456 seconds 
 
- Finished period 44 iteration 173, distance is 1.3036175899324
+ Finished period 44 iteration 169, distance is 1.57657219283283
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.02 seconds.
-Total grid time: 50.852 seconds 
+Total grid time: 15.556 seconds 
 
- Finished period 44 iteration 174, distance is 1.24154056186671
+ Finished period 44 iteration 170, distance is 1.50149732647697
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.037 seconds.
-Total grid time: 91.971 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.492 seconds 
 
- Finished period 44 iteration 175, distance is 1.18241958270664
+ Finished period 44 iteration 171, distance is 1.4299974537862
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.445 seconds 
-
- Finished period 44 iteration 176, distance is 1.12611388831283
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.192 seconds 
-
- Finished period 44 iteration 177, distance is 1.07248941744911
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 44.428 seconds 
+Total grid time: 14.452 seconds 
 
- Finished period 44 iteration 178, distance is 1.02141849283362
+ Finished period 44 iteration 172, distance is 1.36190233693924
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.502 seconds 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.609 seconds 
 
- Finished period 44 iteration 179, distance is 0.972779516974697
+ Finished period 44 iteration 173, distance is 1.29704984472482
  Stopping criteria: distance < 1
 
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.197 seconds 
+ Average cell time: 0.023 seconds.
+Total grid time: 17.726 seconds 
 
- Finished period 43 iteration 1, distance is 276.83260577621
+ Finished period 44 iteration 174, distance is 1.23528556642123
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.893 seconds 
+
+ Finished period 44 iteration 175, distance is 1.17646244421485
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.294 seconds 
+
+ Finished period 44 iteration 176, distance is 1.12044042305206
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.972 seconds 
+
+ Finished period 44 iteration 177, distance is 1.0670861171966
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.765 seconds 
+
+ Finished period 44 iteration 178, distance is 1.01627249256126
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.832 seconds 
+
+ Finished period 44 iteration 179, distance is 0.967878564377315
+ Stopping criteria: distance < 1
+
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 47.665 seconds 
+Total grid time: 14.858 seconds 
+
+ Finished period 43 iteration 1, distance is 28.6237986519447
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.155 seconds 
 
  Finished period 43 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.297 seconds 
-
- Finished period 42 iteration 1, distance is 0.00572853518741567
- Stopping criteria: distance < 1
-
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 47.481 seconds 
+Total grid time: 14.75 seconds 
 
- Finished period 41 iteration 1, distance is 0.00575458048922428
+ Finished period 42 iteration 1, distance is 0.00572853518684724
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.854 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.183 seconds 
+
+ Finished period 41 iteration 1, distance is 0.00575458048939481
+ Stopping criteria: distance < 1
+
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.32 seconds 
 
  Finished period 40 iteration 1, distance is 0.00578076875575562
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.49 seconds 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.582 seconds 
 
- Finished period 39 iteration 1, distance is 0.00580710066293477
+ Finished period 39 iteration 1, distance is 0.00580710066276424
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.024 seconds.
+Total grid time: 19.198 seconds 
+
+ Finished period 38 iteration 1, distance is 0.0058335769880955
+ Stopping criteria: distance < 1
+
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.021 seconds.
-Total grid time: 52.182 seconds 
+Total grid time: 16.847 seconds 
 
- Finished period 38 iteration 1, distance is 0.00583357698803866
+ Finished period 37 iteration 1, distance is 0.0058601989482554
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.003 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.21 seconds 
 
- Finished period 37 iteration 1, distance is 0.00586019894836909
+ Finished period 36 iteration 1, distance is 4.87266455886686
  Stopping criteria: distance < 1
 
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.116 seconds 
-
- Finished period 36 iteration 1, distance is 271.389306797826
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.362 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.756 seconds 
 
  Finished period 36 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.278 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.475 seconds 
 
- Finished period 35 iteration 1, distance is 273.728313131008
+ Finished period 35 iteration 1, distance is 14.158455447381
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.441 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.901 seconds 
 
  Finished period 35 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.801 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.883 seconds 
 
- Finished period 34 iteration 1, distance is 273.728313131008
+ Finished period 34 iteration 1, distance is 23.8212570845624
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.49 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.969 seconds 
 
  Finished period 34 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.704 seconds 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.525 seconds 
 
- Finished period 33 iteration 1, distance is 13.4581356544261
+ Finished period 33 iteration 1, distance is 13.4581356544263
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.863 seconds 
+ Average cell time: 0.027 seconds.
+Total grid time: 21.188 seconds 
 
  Finished period 33 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.83 seconds 
+ Average cell time: 0.026 seconds.
+Total grid time: 20.157 seconds 
 
- Finished period 32 iteration 1, distance is 273.728188669466
+ Finished period 32 iteration 1, distance is 40.1523237634951
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.608 seconds 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.276 seconds 
 
  Finished period 32 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.021 seconds.
-Total grid time: 52.664 seconds 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.738 seconds 
 
- Finished period 31 iteration 1, distance is 273.728188669466
+ Finished period 31 iteration 1, distance is 26.1502997502971
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.738 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.356 seconds 
 
  Finished period 31 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 42.786 seconds 
-
- Finished period 30 iteration 1, distance is 0.181111348510626
- Stopping criteria: distance < 1
-
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 43.876 seconds 
-
- Finished period 29 iteration 1, distance is 273.72813686927
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.02 seconds.
-Total grid time: 49.444 seconds 
+Total grid time: 15.981 seconds 
+
+ Finished period 30 iteration 1, distance is 0.181111348510399
+ Stopping criteria: distance < 1
+
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.647 seconds 
+
+ Finished period 29 iteration 1, distance is 15.6968694537645
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.442 seconds 
 
  Finished period 29 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.323 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.312 seconds 
 
- Finished period 28 iteration 1, distance is 273.72813686927
+ Finished period 28 iteration 1, distance is 5.81119239502783
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.957 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.622 seconds 
 
  Finished period 28 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.574 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.806 seconds 
 
- Finished period 27 iteration 1, distance is 271.38927257731
+ Finished period 27 iteration 1, distance is 16.2090765040698
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.004 seconds 
+ Average cell time: 0.072 seconds.
+Total grid time: 56.401 seconds 
 
  Finished period 27 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.545 seconds 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.192 seconds 
 
- Finished period 26 iteration 1, distance is 271.389131834465
+ Finished period 26 iteration 1, distance is 16.0664645469556
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.494 seconds 
+ Average cell time: 0.018 seconds.
+Total grid time: 13.927 seconds 
 
  Finished period 26 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.113 seconds 
+ Average cell time: 0.015 seconds.
+Total grid time: 12.143 seconds 
 
- Finished period 25 iteration 1, distance is 276.832468076276
+ Finished period 25 iteration 1, distance is 30.9999096563602
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.635 seconds 
+ Average cell time: 0.016 seconds.
+Total grid time: 12.323 seconds 
 
  Finished period 25 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.037 seconds.
-Total grid time: 93.199 seconds 
+ Average cell time: 0.016 seconds.
+Total grid time: 12.775 seconds 
 
- Finished period 24 iteration 1, distance is 276.832468076276
+ Finished period 24 iteration 1, distance is 62.2162751438416
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.745 seconds 
+ Average cell time: 0.015 seconds.
+Total grid time: 11.901 seconds 
 
  Finished period 24 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.655 seconds 
+ Average cell time: 0.016 seconds.
+Total grid time: 12.713 seconds 
 
- Finished period 23 iteration 1, distance is 15.9310450226831
+ Finished period 23 iteration 1, distance is 15.9310450226833
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.61 seconds 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.167 seconds 
 
  Finished period 23 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 48.274 seconds 
+ Average cell time: 0.017 seconds.
+Total grid time: 13.412 seconds 
 
- Finished period 22 iteration 1, distance is 8.97552153129914
+ Finished period 22 iteration 1, distance is 8.97552153129897
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.976 seconds 
+ Average cell time: 0.018 seconds.
+Total grid time: 13.791 seconds 
 
  Finished period 22 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.205 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.961 seconds 
 
- Finished period 21 iteration 1, distance is 9.29262972422123
+ Finished period 21 iteration 1, distance is 9.29262972422134
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.078 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 15.035 seconds 
 
  Finished period 21 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 48.492 seconds 
+Total grid time: 14.684 seconds 
 
- Finished period 20 iteration 1, distance is 20.1475582733015
+ Finished period 20 iteration 1, distance is 20.1475582733013
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.036 seconds.
-Total grid time: 90.542 seconds 
+ Average cell time: 0.018 seconds.
+Total grid time: 14.486 seconds 
 
  Finished period 20 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.068 seconds 
+ Average cell time: 0.018 seconds.
+Total grid time: 13.859 seconds 
 
- Finished period 19 iteration 1, distance is 276.832603441092
+ Finished period 19 iteration 1, distance is 58.7392377914647
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 42.505 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 16.026 seconds 
 
  Finished period 19 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 44.81 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.407 seconds 
 
- Finished period 18 iteration 1, distance is 7.35015134982388
+ Finished period 18 iteration 1, distance is 7.35015134982422
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.078 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.956 seconds 
 
  Finished period 18 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.328 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.956 seconds 
 
- Finished period 17 iteration 1, distance is 276.832469785244
+ Finished period 17 iteration 1, distance is 54.5325418842406
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.823 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.347 seconds 
 
  Finished period 17 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 46.879 seconds 
+Total grid time: 14.669 seconds 
 
- Finished period 16 iteration 1, distance is 276.832462049507
+ Finished period 16 iteration 1, distance is 47.0305263016859
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 48.151 seconds 
+Total grid time: 15.234 seconds 
 
  Finished period 16 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.02 seconds.
-Total grid time: 49.461 seconds 
+Total grid time: 15.508 seconds 
 
- Finished period 15 iteration 1, distance is 276.832462049507
+ Finished period 15 iteration 1, distance is 48.2518845926023
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 49.053 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.863 seconds 
 
  Finished period 15 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
-.Finished. 
- Average cell time: 0.021 seconds.
-Total grid time: 53.106 seconds 
-
- Finished period 14 iteration 1, distance is 24.3850523387464
- Stopping criteria: distance < 1
-
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.02 seconds.
-Total grid time: 51.05 seconds 
+Total grid time: 15.63 seconds 
+
+ Finished period 14 iteration 1, distance is 24.3850523387465
+ Stopping criteria: distance < 1
+
+ Starting maximization step, grid size = 784: 
+.Finished. 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.446 seconds 
 
  Finished period 14 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.037 seconds.
-Total grid time: 91.264 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.647 seconds 
 
- Finished period 13 iteration 1, distance is 38.0040786088637
+ Finished period 13 iteration 1, distance is 38.004078608864
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.384 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.285 seconds 
 
  Finished period 13 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 43.942 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.909 seconds 
 
- Finished period 12 iteration 1, distance is 23.6053685894819
+ Finished period 12 iteration 1, distance is 23.605368589482
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.019 seconds.
-Total grid time: 47.834 seconds 
+Total grid time: 15.243 seconds 
 
  Finished period 12 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.018 seconds.
-Total grid time: 45.217 seconds 
+Total grid time: 14.068 seconds 
 
- Finished period 11 iteration 1, distance is 276.832601264553
+ Finished period 11 iteration 1, distance is 43.3561214501385
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 46.227 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 15.284 seconds 
 
  Finished period 11 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.845 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.521 seconds 
 
- Finished period 10 iteration 1, distance is 30.011726560573
+ Finished period 10 iteration 1, distance is 29.9469702149936
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.658 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.521 seconds 
 
  Finished period 10 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.555 seconds 
+ Average cell time: 0.023 seconds.
+Total grid time: 18.187 seconds 
 
- Finished period 9 iteration 1, distance is 276.83260922631
+ Finished period 9 iteration 1, distance is 112.351475532073
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 47.748 seconds 
+ Average cell time: 0.023 seconds.
+Total grid time: 18.046 seconds 
 
  Finished period 9 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 48.977 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 16.96 seconds 
 
- Finished period 8 iteration 1, distance is 284.996345406122
+ Finished period 8 iteration 1, distance is 261.273235574546
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.102 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.009 seconds 
 
  Finished period 8 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.954 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.347 seconds 
 
- Finished period 7 iteration 1, distance is 284.364635013798
+ Finished period 7 iteration 1, distance is 261.273370159842
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.02 seconds.
-Total grid time: 50.337 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 15.009 seconds 
 
  Finished period 7 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.021 seconds.
-Total grid time: 52.815 seconds 
+ Average cell time: 0.02 seconds.
+Total grid time: 15.827 seconds 
 
- Finished period 6 iteration 1, distance is 280.689761292259
+ Finished period 6 iteration 1, distance is 269.437248546571
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.054 seconds 
+ Average cell time: 0.021 seconds.
+Total grid time: 16.233 seconds 
 
  Finished period 6 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 43.288 seconds 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.702 seconds 
 
  Finished period 5 iteration 1, distance is 297.969211675285
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.534 seconds 
+ Average cell time: 0.024 seconds.
+Total grid time: 18.642 seconds 
 
  Finished period 5 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.341 seconds 
+ Average cell time: 0.026 seconds.
+Total grid time: 20.612 seconds 
 
- Finished period 4 iteration 1, distance is 907.827655042249
+ Finished period 4 iteration 1, distance is 873.633394584787
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.019 seconds.
-Total grid time: 46.719 seconds 
+ Average cell time: 0.025 seconds.
+Total grid time: 19.519 seconds 
 
  Finished period 4 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.97 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.3 seconds 
 
- Finished period 3 iteration 1, distance is 907.827655042249
+ Finished period 3 iteration 1, distance is 873.633394584787
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.534 seconds 
+ Average cell time: 0.022 seconds.
+Total grid time: 17.083 seconds 
 
  Finished period 3 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.018 seconds.
-Total grid time: 45.557 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.737 seconds 
 
- Finished period 2 iteration 1, distance is 1477.76085241691
+ Finished period 2 iteration 1, distance is 1196.34273252219
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.017 seconds.
-Total grid time: 41.645 seconds 
+ Average cell time: 0.019 seconds.
+Total grid time: 14.783 seconds 
 
  Finished period 2 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
  Average cell time: 0.009 seconds.
-Total grid time: 23.582 seconds 
+Total grid time: 6.749 seconds 
 
- Finished period 1 iteration 1, distance is 1477.76085241691
+ Finished period 1 iteration 1, distance is 1196.34273252219
  Stopping criteria: distance < 1
 
- Starting maximization step, grid size = 2500: 
+ Starting maximization step, grid size = 784: 
 .Finished. 
- Average cell time: 0.01 seconds.
-Total grid time: 24.094 seconds 
+ Average cell time: 0.012 seconds.
+Total grid time: 9.365 seconds 
 
  Finished period 1 iteration 2, distance is 0
  Stopping criteria: distance < 1
 
- Done. Total grid compute time taken: 675.534 seconds
-Total time taken for backwards induction: 6.091 minutes.
- Average time per period: 0.004 minutes.
+ Done. Total grid compute time taken: 288.956 seconds
+Total time taken for backwards induction: 2.382 minutes.
+ Average time per period: 0.003 minutes.
 
- Done. Total grid compute time taken: 451.308 seconds
+ Done. Total grid compute time taken: 185.456 seconds

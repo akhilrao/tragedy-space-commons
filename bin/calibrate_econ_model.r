@@ -54,8 +54,6 @@ summary(riskmodel)
 
 riskparms <- coef(riskmodel)
 riskxvars <- matrix(c(rep(1,length=dim(dfrm)[1]), dfrm$r_s, dfrm$Ft_Ft), ncol=3, byrow=FALSE )
-# fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision rate as a function of returns and costs","collision rate")
-# dev.off()
 
 write.csv(riskparms,file="../data/econ_series_coefs.csv")
 
@@ -69,7 +67,7 @@ printed_table_of_costs_and_returns <- data.frame(year=seq(from=aggrc$year[1],len
 
 write.csv(round(printed_table_of_costs_and_returns,digits=2),file="implied_costs.csv")
 
-##### plot objects of interest
+##### plots
 
 png(width=500,height=400,filename="../images/risk_return_plot.png")
 fitplot(riskxvars,riskparms,dfrm$year,dfrm$risk,title="Collision probability as a function of returns and costs","collision probability")

@@ -76,9 +76,9 @@ source("main_model_tax_path_calc.r")
 
 ncores <- 32 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
-oa_gridsize <- 40 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
-S_gridsize_opt <- 50 #28
-D_gridsize_opt <- 50 #28
+oa_gridsize <- 28 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
+S_gridsize_opt <- 28 #28
+D_gridsize_opt <- 28 #28
 S_grid_upper_oa <- 8000 
 S_grid_upper_opt <- 2300 #3000
 D_grid_upper_oa <- 250000
@@ -122,11 +122,11 @@ if(counterfactual=="discount"){
 }
 
 if(counterfactual=="military"){
-	mil_S_vary <- seq(450,S0)
+	mil_S_vary <- c(450,1350)
 }
 
 #############################################################################
-# 2. Compute sequences of open access and optimal policies
+# 2. Compute sequences of open access and optimal policies; generate time paths
 #############################################################################
 
 D_fraction_to_remove <- 0.5 # fraction of debris removed every period once removal is online. default is 0.5, for use inside removal_comparison loop. to have no removal, set to 0. this variable is the "master copy" which stays constant inside the removal_comparison loop. if removal_comparison==0, this is irrelevant. 0.5 is the value used in the paper.
@@ -138,6 +138,7 @@ R_start <- which(seq(from=start_year,by=1,length.out=T)==R_start_year) # this ge
 
 if(counterfactual!="discount"){
 	source("main_model_estimation.r")
+	source("main_model_projection.r")
 }
 
 if(counterfactual=="discount"){
@@ -152,23 +153,16 @@ if(counterfactual=="discount"){
 
 if(counterfactual=="military"){
 	for(r in 1:length(mil_S_vary)){
-		mil_S <- 0
-		source("main_model_estimation.r")
+		#mil_S <- 0
 		mil_S <- mil_S_vary[r]
+		message("Military satellite population is now ",mil_S,".")
+		source("main_model_estimation.r")
 		source("main_model_projection.r")
 	}
 }
 
 #############################################################################
-# 3. Generate open access and optimal time paths
-#############################################################################
-
-if(counterfactual!="discount"){
-	source("main_model_projection.r")
-}
-
-#############################################################################
-# 4. Draw plots, write output
+# 3. Draw plots, write output
 #############################################################################
 
 if(counterfactual=="none") {
@@ -218,12 +212,12 @@ if(removal_comparison==1){
 message(paste0("\n Done. Total wall time for removal models: ",round((proc.time()[3] - total_time)/60,3)," minutes"))
 
 #############################################################################
-# 5. Load bootstrapped data and generate projection uncertainty plot
+# 5. Load bootstrapped data and generate projection uncertainty plots
 #############################################################################
 
-if(bootstrap == 1){
+if(bootstrap==1&&counterfactual=="none"){
 	R_frac <- 0 # 0 disables debris removal for the bootstrapped models
-	source("main_model_bootstrap.r", print.eval=TRUE)
+	source("main_model_bootstrap.r", print.eval=TRUE) # this file generates main text figure 2 & SI figures 8-10
 }
 
 #############################################################################
@@ -238,4 +232,9 @@ if(counterfactual=="discount") {
 if(counterfactual=="avoidance") {
 	dev.off()
 	source("avoidance_cf_figures.r", print.eval=TRUE)
+}
+
+if(counterfactual=="military") {
+	dev.off()
+	source("military_cf_figures.r", print.eval=TRUE)
 }

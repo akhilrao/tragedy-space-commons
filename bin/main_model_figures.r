@@ -15,6 +15,9 @@ if(counterfactual=="none"){
 if(counterfactual=="avoidance"){
 	OA_OPT <- read.csv(paste0("../data/counterfactuals/collision_avoidance/",opt_start_year[1],"_cf_avoidance_aSS_",round(log(aSS),1),"_aSD_",round(log(aSD),1),"_simulation.csv"))
 }
+if(counterfactual=="military"){
+	OA_OPT <- read.csv(paste0("../data/counterfactuals/military/",opt_start_year[1],"_cf_mil_S_",mil_S,"_simulation.csv"))
+}
 
 OA_OPT <- calc_tax_path(OA_OPT)
 
@@ -424,6 +427,13 @@ opt_dev_tax_path_comp_all <- risk_proj_20xx +
 # Main text figure 3
 if(counterfactual=="none"){
 	png(width=900,height=600,filename=paste0("../images/main_text_figure_3.png"))
+	plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2),label_size=25)
+	dev.off()
+}
+
+# Main text figure 3 - military cf
+if(counterfactual=="military"){
+	png(width=900,height=600,filename=paste0("../images/main_text_figure_3_military_cf.png"))
 	plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2),label_size=25)
 	dev.off()
 }
