@@ -8,12 +8,12 @@
 # 1a. Optimal policies and values
 #############################################################################
 
-opt_gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_opt, Dgridmax=D_grid_upper_opt, Sgridlength=S_gridsize_opt, Dgridlength=D_gridsize_opt, cheby=1) # gridmax=25000 seems to work well for the data
+opt_gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_opt, Dgridmax=D_grid_upper_opt, Sgridlength=S_gridsize_opt, Dgridlength=D_gridsize_opt, cheby=1)
 
 # generate value and policy guesses - use terminal period. keep this separate from the open access guesses to allow for different gridsizes.
 S_T_1 <- opt_gridlist$igrid$sats
 D_T_1 <- opt_gridlist$igrid$debs
-S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay #guess for BW parameterization
+S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay
 V_T <- p[T]*S_T
 vguess <- matrix(V_T,nrow=S_gridsize_opt,ncol=D_gridsize_opt)
 lpguess <- matrix(0,nrow=S_gridsize_opt,ncol=D_gridsize_opt)
@@ -45,7 +45,7 @@ oa_gridlist <- build_grid(gridmin=0, Sgridmax=S_grid_upper_oa, Dgridmax=D_grid_u
 # generate value and policy guesses - use final period
 S_T_1 <- oa_gridlist$igrid$sats
 D_T_1 <- oa_gridlist$igrid$debs
-S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay #guess for BW parameterization
+S_T <- (S_T_1 - L(S_T_1,D_T_1))*avg_sat_decay 
 V_T <- p[T]*S_T
 vguess <- matrix(V_T,nrow=gridsize,ncol=gridsize)
 lpguess <- matrix(0,nrow=gridsize,ncol=gridsize)

@@ -24,7 +24,7 @@ OA_OPT_full <- rbindlist(container)
 # 2.  Generate individual figures
 #############################################################################
 
-selection <- which(OA_OPT_full$start_time.opt==14&OA_OPT_full$discount_rate<=0.15)
+selection <- which(OA_OPT_full$start_time.opt==14)
 OA_OPT_tax_shift <- OA_OPT_full[selection,]
 shifted_tax <- OA_OPT_full[selection,]$opt_tax_path[-1]
 OA_OPT_tax_shift <- OA_OPT_tax_shift[-nrow(OA_OPT_tax_shift),]
@@ -51,8 +51,6 @@ data_size <- 1
 
 boa_fin_dfrm.discount_cf <- OA_OPT_tax_shift[which(OA_OPT_tax_shift$year==2040),c("NPVPoA","discount_rate","year")]
 row.names(boa_fin_dfrm.discount_cf) <- NULL
-
-aes(fill=as.factor(NPVPoA)),
 
 (boa_plot_pc.discount_cf <- ggplot(data=boa_fin_dfrm.discount_cf,aes(discount_rate,NPVPoA)) +
 				geom_bar(position="dodge", stat="identity") +

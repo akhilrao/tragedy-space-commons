@@ -76,11 +76,11 @@ source("main_model_tax_path_calc.r")
 
 ncores <- 32 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
-oa_gridsize <- 28 # 35 is a nice size for machines with 16GB of RAM, 28 is reasonable with 8GB RAM. memory cost scales roughly as the square of the gridsize.
-S_gridsize_opt <- 28 #35
-D_gridsize_opt <- 28 #35
+oa_gridsize <- 40 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
+S_gridsize_opt <- 50 #28
+D_gridsize_opt <- 50 #28
 S_grid_upper_oa <- 8000 
-S_grid_upper_opt <- 3000
+S_grid_upper_opt <- 2300 #3000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 10000
 
@@ -88,7 +88,7 @@ bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 1 by defa
 force_bootstrap_recalculation <- 0 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
 n_path_sim_bootstrap_draws <- 250 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
 
-removal_comparison <- 1 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
+removal_comparison <- 0 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
 
 ##### counterfactuals where parameter values are changed and solution needs to be recomputed. can take three values: "none", "avoidance" (reduce collision rate parameters), and "discount" (to vary discount rate)
 
@@ -118,7 +118,7 @@ if(counterfactual=="avoidance") {
 }
 
 if(counterfactual=="discount"){
-	discount_rate_vary <- seq(0.03,0.07,0.0025)
+	discount_rate_vary <- seq(0.03,0.07,0.01)
 }
 
 if(counterfactual=="military"){
@@ -144,6 +144,7 @@ if(counterfactual=="discount"){
 	for(r in 1:length(discount_rate_vary)){
 		discount_rate <- discount_rate_vary[r]
 		discount_fac <- 1/(1+discount_rate)
+		message("Discount rate is now ",discount_rate,".")
 		source("main_model_estimation.r")
 		source("main_model_projection.r")
 	}
@@ -151,8 +152,9 @@ if(counterfactual=="discount"){
 
 if(counterfactual=="military"){
 	for(r in 1:length(mil_S_vary)){
-		mil_S <- mil_S_vary[r]
+		mil_S <- 0
 		source("main_model_estimation.r")
+		mil_S <- mil_S_vary[r]
 		source("main_model_projection.r")
 	}
 }
@@ -229,6 +231,11 @@ if(bootstrap == 1){
 #############################################################################
 
 if(counterfactual=="discount") {
+	dev.off()
 	source("discount_cf_figures.r", print.eval=TRUE)
+}
 
+if(counterfactual=="avoidance") {
+	dev.off()
+	source("avoidance_cf_figures.r", print.eval=TRUE)
 }
