@@ -76,17 +76,17 @@ source("main_model_tax_path_calc.r")
 
 ncores <- 32 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
-oa_gridsize <- 28 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
-S_gridsize_opt <- 28 #28
-D_gridsize_opt <- 28 #28
+oa_gridsize <- 8 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
+S_gridsize_opt <- 8 #28
+D_gridsize_opt <- 8 #28
 S_grid_upper_oa <- 8000 
 S_grid_upper_opt <- 2300 #3000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 10000
 
 bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
-force_bootstrap_recalculation <- 0 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
-n_path_sim_bootstrap_draws <- 250 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
+force_bootstrap_recalculation <- 1 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
+n_path_sim_bootstrap_draws <- 1000 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
 
 removal_comparison <- 0 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
 
