@@ -224,6 +224,6 @@ lc_coef_table <- round(lc_coef_table,2)
 lc_coef_table_plot <- ggtexttable(lc_coef_table, 
                         theme = ttheme("mOrange"))
 
-png(width=450,height=400,filename=paste0("../images/extended_data_figure_6.png"))
+png(width=450,height=400,filename=paste0("../images/SI_fig_2.png"))
 plot_grid(lc_path, lc_coef_table_plot, align="h",labels=c("a","b"),axis="1",nrow=2,ncol=1,rel_heights=c(0.75,0.25))
 dev.off()

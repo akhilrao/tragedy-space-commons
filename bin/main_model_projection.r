@@ -8,9 +8,6 @@
 # 1. Generate open access and optimal time paths
 #############################################################################
 
-
-if(counterfactual=="military") {S0 <- max(S0 - mil_S,0)}
-
 path_compute_time <- proc.time()[3]
 
 sink("log.project.txt",append=TRUE)
@@ -72,9 +69,6 @@ if(counterfactual=="avoidance") {
 } 
 if(counterfactual=="discount") {
 	write.csv(OA_OPT, file=paste0("../data/counterfactuals/discount_rate/",opt_start_year[1],"_cf_discount_r_",discount_rate,"_simulation.csv"))
-} 
-if(counterfactual=="military") {
-	write.csv(OA_OPT, file=paste0("../data/counterfactuals/military/",opt_start_year[1],"_cf_mil_S_",mil_S,"_simulation.csv"))
 } 
 
 setwd("../bin")

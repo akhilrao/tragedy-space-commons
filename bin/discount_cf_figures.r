@@ -69,6 +69,6 @@ row.names(boa_fin_dfrm.discount_cf) <- NULL
 					plot.title=element_text(family="Helvetica",size=15),
 					legend.text=element_text(family="Helvetica",size=15) ) )
 
-png(width=900,height=600,filename=paste0("../../../images/discount_rate_sensitivity.png"))
+png(width=900,height=600,filename=paste0("../../../images/SI_fig_8.png"))
 	plot_grid(boa_plot_pc.discount_cf,opt_tax_path,align="v",axis="1",labels=c("a","b"),nrow=1,rel_widths=c(1/2,1/2),label_size=25)
 dev.off()

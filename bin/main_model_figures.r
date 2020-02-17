@@ -430,10 +430,3 @@ if(counterfactual=="none"){
 	plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2),label_size=25)
 	dev.off()
 }
-
-# Main text figure 3 - military cf
-if(counterfactual=="military"){
-	png(width=900,height=600,filename=paste0("../images/main_text_figure_3_military_cf.png"))
-	plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,align="h",axis="1",labels=c("a","b","c","d"),nrow=2,rel_widths=c(1/2,1/2),label_size=25)
-	dev.off()
-}

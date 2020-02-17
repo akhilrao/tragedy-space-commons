@@ -24,6 +24,7 @@ setwd("../data/counterfactuals/collision_avoidance/")
 selection <- c("year","start_year","start_time.opt",
 				"launches.oa","satellites.oa","debris.oa","collision_rate.oa",
 				"launches.opt","satellites.opt","debris.opt","collision_rate.opt",
+				"npv_opt_welfare", "npv_oa_welfare",
 				"NPVPoA","opt_tax_path")
 OA_OPT_est.small <- OA_OPT_estimated[,selection]
 OA_OPT_avo.small <- OA_OPT_avoid[,selection]
@@ -126,10 +127,28 @@ OA_OPT_base_proj <- ggplot(data=OA_OPT[which(OA_OPT$start_time.opt==14),],aes(x=
 		plot.title=element_text(family="Helvetica",size=20),
 		legend.text=element_text(family="Helvetica",size=20) ) )
 
+
+(NPV_paths <- OA_OPT_base_proj + 
+	geom_line(aes(y=npv_oa_welfare.est),linetype="dashed",color=OA_fit_color,size=data_size) + theme_bw() +
+	geom_line(aes(y=npv_opt_welfare.est),linetype="dashed",color=OPT_fit_color,size=data_size) + theme_bw() +
+	geom_line(aes(y=npv_oa_welfare.avo),color=OA_fit_color,size=data_size) + theme_bw() +
+	geom_line(aes(y=npv_opt_welfare.avo),color=OPT_fit_color,size=data_size) + theme_bw() +
+	labs(color="") +
+	scale_y_continuous(name="Ratio of optimal NPV to BAU NPV", labels = scales::comma) +
+	xlab("Year") +
+	ggtitle("NPV paths with and without greater sat-sat collision avoidance") +
+	expand_limits(y=0) +
+	theme(text=element_text(family="Helvetica",size=20),
+		axis.text.x=element_text(family="Helvetica",size=20),
+		axis.text.y=element_text(family="Helvetica",size=20),
+		plot.title=element_text(family="Helvetica",size=20),
+		legend.text=element_text(family="Helvetica",size=20) ) )
+
+
 #############################################################################
 # 3.  Generate figure panel
 #############################################################################
 
-png(width=1000,height=700,filename=paste0("../../../images/collision_avoidance_counterfactual.png"))
-	plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,opt_tax_path,NPVPoA_path,align="v",axis="1",labels=c("a","b","c","d","e","f"),nrow=2,ncol=3,rel_widths=c(1/3,1/3,1/3),label_size=25)
+png(width=1400,height=800,filename=paste0("../../../images/SI_fig_7.png"))
+	plot_grid(OA_OPT_launch_proj,OA_OPT_sat_proj,OA_OPT_risk_proj,OA_OPT_deb_proj,NPVPoA_path,opt_tax_path,align="v",axis="1",labels=c("a","b","c","d","e","f"),nrow=2,ncol=3,rel_widths=c(1/3,1/3,1/3),label_size=25)
 dev.off()

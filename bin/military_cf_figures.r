@@ -31,7 +31,7 @@ OA_OPT_mil_cf <- rbindlist(container)
 OA_OPT_mil_cf.small <- OA_OPT_mil_cf[,c("year","start_year","start_time.opt",
 				"launches.oa","satellites.oa","debris.oa","collision_rate.oa",
 				"launches.opt","satellites.opt","debris.opt","collision_rate.opt",
-				"NPVPoA","opt_tax_path")]
+				"NPVPoA","opt_tax_path","mil_S")]
 
 OA_OPT_mil_cf.small <- ddply(OA_OPT_mil_cf.small, .(start_year), transform, shifted_tax=c(opt_tax_path[-1],0))
 OA_OPT_mil_cf.small <- OA_OPT_mil_cf.small[-which(OA_OPT_mil_cf.small$year==2041),]
@@ -39,7 +39,7 @@ OA_OPT_mil_cf.small <- OA_OPT_mil_cf.small[-which(OA_OPT_mil_cf.small$year==2041
 OA_OPT_fit_size <- 0.8
 data_size <- 1
 
-OA_OPT_base_proj <- ggplot(data=OA_OPT_mil_cf.small[which(OA_OPT_mil_cf.small$start_time.opt==14),],aes(x=year))
+OA_OPT_base_proj <- ggplot(data=OA_OPT_mil_cf.small[which(OA_OPT_mil_cf.small$start_time.opt==0),],aes(x=year))
 
 (OA_OPT_launch_proj <- OA_OPT_base_proj + 
 	geom_line(aes(y=launches.opt,group=as.factor(mil_S),color=as.factor(mil_S)),size=OA_OPT_fit_size) +
@@ -55,8 +55,8 @@ OA_OPT_base_proj <- ggplot(data=OA_OPT_mil_cf.small[which(OA_OPT_mil_cf.small$st
 	scale_color_viridis(discrete=TRUE,labels=c(paste(c(0,mil_S_vary),sep=","))))
 
 (OA_OPT_sat_proj <- OA_OPT_base_proj + 
-	geom_line(aes(y=satellites.opt),group=as.factor(mil_S),color=as.factor(mil_S),size=OA_OPT_fit_size) +
-	geom_line(aes(y=satellites.oa),linetype="dashed",group=as.factor(mil_S),color=as.factor(mil_S),size=OA_OPT_fit_size) +
+	geom_line(aes(y=satellites.opt,group=as.factor(mil_S),color=as.factor(mil_S)),size=OA_OPT_fit_size) +
+	geom_line(aes(y=satellites.oa,group=as.factor(mil_S),color=as.factor(mil_S)),linetype="dashed",size=OA_OPT_fit_size) +
 	#geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Satellites") +
 	ylab("LEO satellite stock") + xlab("") + theme_bw() +
@@ -64,11 +64,14 @@ OA_OPT_base_proj <- ggplot(data=OA_OPT_mil_cf.small[which(OA_OPT_mil_cf.small$st
 		axis.text.x=element_text(family="Helvetica",size=20),
 		axis.text.y=element_text(family="Helvetica",size=20),
 		plot.title=element_text(family="Helvetica",size=20),
-		legend.text=element_text(family="Helvetica",size=20) ))
+		legend.text=element_text(family="Helvetica",size=20) ) +
+	labs(color="Number of\nmilitary satellites") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(c(0,mil_S_vary),sep=","))))
+
 
 (OA_OPT_deb_proj <- OA_OPT_base_proj + 
-	geom_line(aes(y=debris.opt),group=as.factor(mil_S),color=as.factor(mil_S),size=OA_OPT_fit_size) +
-	geom_line(aes(y=debris.oa),linetype="dashed",group=as.factor(mil_S),color=as.factor(mil_S),size=OA_OPT_fit_size) +
+	geom_line(aes(y=debris.opt,group=as.factor(mil_S),color=as.factor(mil_S)),size=OA_OPT_fit_size) +
+	geom_line(aes(y=debris.oa,group=as.factor(mil_S),color=as.factor(mil_S)),linetype="dashed",size=OA_OPT_fit_size) +
 	#geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Debris") +
 	ylab("LEO debris stock") + xlab("Year") + theme_bw()	+
@@ -76,11 +79,13 @@ OA_OPT_base_proj <- ggplot(data=OA_OPT_mil_cf.small[which(OA_OPT_mil_cf.small$st
 					axis.text.x=element_text(family="Helvetica",size=20),
 					axis.text.y=element_text(family="Helvetica",size=20),
 					plot.title=element_text(family="Helvetica",size=20),
-					legend.text=element_text(family="Helvetica",size=20) ))
+					legend.text=element_text(family="Helvetica",size=20) ) +
+	labs(color="Number of\nmilitary satellites") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(c(0,mil_S_vary),sep=","))))
 
 (OA_OPT_risk_proj <- OA_OPT_base_proj + 
-	geom_line(aes(y=collision_rate.opt/satellites.opt),group=as.factor(mil_S),color=as.factor(mil_S), size=OA_OPT_fit_size) +
-	geom_line(aes(y=collision_rate.oa/satellites.oa),linetype="dashed",group=as.factor(mil_S),color=as.factor(mil_S),size=OA_OPT_fit_size) +
+	geom_line(aes(y=collision_rate.opt/satellites.opt,group=as.factor(mil_S),color=as.factor(mil_S)), size=OA_OPT_fit_size) +
+	geom_line(aes(y=collision_rate.oa/satellites.oa,group=as.factor(mil_S),color=as.factor(mil_S)),linetype="dashed",size=OA_OPT_fit_size) +
 	#geom_vline(xintercept=2015,size=1,linetype="dashed") +
 	ggtitle("Collision probability") +
 	ylab("LEO collision risk") + xlab("Year") + theme_bw()	+
@@ -88,11 +93,12 @@ OA_OPT_base_proj <- ggplot(data=OA_OPT_mil_cf.small[which(OA_OPT_mil_cf.small$st
 		axis.text.x=element_text(family="Helvetica",size=20),
 		axis.text.y=element_text(family="Helvetica",size=20),
 		plot.title=element_text(family="Helvetica",size=20),
-		legend.text=element_text(family="Helvetica",size=20) ) )
+		legend.text=element_text(family="Helvetica",size=20) )  +
+	labs(color="Number of\nmilitary satellites") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(c(0,mil_S_vary),sep=","))))
 
 (opt_tax_path <- OA_OPT_base_proj + 
-	geom_line(aes(y=shifted_tax),group=as.factor(mil_S),color=as.factor(mil_S),size=data_size) + theme_bw() +
-	labs(color="") +
+	geom_line(aes(y=shifted_tax,group=as.factor(mil_S),color=as.factor(mil_S)),size=data_size) + theme_bw() +
 	scale_y_continuous(name="Optimal OUF (nominal $/sat)", labels = scales::comma) +
 	xlab("Year") +
 	ggtitle("Optimal OUF path") +
@@ -101,10 +107,12 @@ OA_OPT_base_proj <- ggplot(data=OA_OPT_mil_cf.small[which(OA_OPT_mil_cf.small$st
 		axis.text.x=element_text(family="Helvetica",size=20),
 		axis.text.y=element_text(family="Helvetica",size=20),
 		plot.title=element_text(family="Helvetica",size=20),
-		legend.text=element_text(family="Helvetica",size=20) ) )
+		legend.text=element_text(family="Helvetica",size=20) )  +
+	labs(color="Number of\nmilitary satellites") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(c(0,mil_S_vary),sep=","))))
 
 (NPVPoA_path <- OA_OPT_base_proj + 
-	geom_line(aes(y=NPVPoA),linetype="dashed",group=as.factor(mil_S),color=as.factor(mil_S),size=data_size) + theme_bw() +
+	geom_line(aes(y=NPVPoA,group=as.factor(mil_S),color=as.factor(mil_S)),size=data_size) + theme_bw() +
 	labs(color="") +
 	scale_y_continuous(name="Ratio of optimal NPV to BAU NPV", labels = scales::comma) +
 	xlab("Year") +
@@ -114,7 +122,9 @@ OA_OPT_base_proj <- ggplot(data=OA_OPT_mil_cf.small[which(OA_OPT_mil_cf.small$st
 		axis.text.x=element_text(family="Helvetica",size=20),
 		axis.text.y=element_text(family="Helvetica",size=20),
 		plot.title=element_text(family="Helvetica",size=20),
-		legend.text=element_text(family="Helvetica",size=20) ) )
+		legend.text=element_text(family="Helvetica",size=20) )  +
+	labs(color="Number of\nmilitary satellites") +
+	scale_color_viridis(discrete=TRUE,labels=c(paste(c(0,mil_S_vary),sep=","))))
 
 #############################################################################
 # 3.  Generate figure panel

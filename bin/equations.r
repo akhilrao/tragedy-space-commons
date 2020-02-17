@@ -40,7 +40,7 @@ G_D <- function(S,D,t,...) {
 
 # Satellite law of motion 
 S_ <- function(X,S,D,...) {
-	(S - L(S,D))*avg_sat_decay + X + mil_S #treating L(S,D) as the number of satellites lost in collisions, rather than probability single satellite is lost. assume decay happens after collisions.
+	(S - L(S,D))*avg_sat_decay + X #treating L(S,D) as the number of satellites lost in collisions, rather than probability single satellite is lost. assume decay happens after collisions.
 }
 
 # Debris law of motion

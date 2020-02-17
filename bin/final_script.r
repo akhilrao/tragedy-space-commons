@@ -42,7 +42,7 @@ library(ggpubr)
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
 #############################################################################
 
-ncores <- 32 # number of cores to use for parallel computations
+ncores <- 4 # number of cores to use for parallel computations
 find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time; default is set to 0 and starts from prior solve results.
 physics_bootstrap <- 0 # 1: run the physical calibration sensitivity analysis again. only necessary if parameter sets are to be regenerated from scratch. takes some time; default is set to 0 and starts from prior solve results.
 n_physical_bootstrap_draws <- 20000 # number of draws for physical calibration sensitivity analysis.
@@ -74,7 +74,7 @@ source("main_model_tax_path_calc.r")
 # 1b. Set computation hyperparameters
 #############################################################################
 
-ncores <- 32 # number of cores to use for parallel computations
+ncores <- 4 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
 oa_gridsize <- 28 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
 S_gridsize_opt <- 28 #28
@@ -95,8 +95,6 @@ removal_comparison <- 0 # 1: compare baseline model to model with debris removal
 counterfactual <- "none"
 #counterfactual <- "avoidance"
 #counterfactual <- "discount"
-#counterfactual <- "military"
-mil_S  <- 0
 
 total_time <- proc.time()[3]
 
@@ -109,7 +107,7 @@ start_year <- 2006 # beginning of simulation
 end_year <- 2041 # final year for plots
 projection_end <- 2050 # final year for calculation. should be weakly greater than end_year.
 opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
-opt_start_year_bs <- c(2006,2020,2035) # optimal management start years for bootstrap draws. WARNING: each entry here will add a lot (n_path_sim_bootstrap_draws*(time to compute a single optimal model)) to runtime! expand list with caution! (or with abundant cheap compute.) default is 2020 and 2035, to generate histogram of npv_welfare_gains comparable to the headline numbers.
+opt_start_year_bs <- c(start_year,2020,2035) # optimal management start years for bootstrap draws. WARNING: each entry here will add a lot (n_path_sim_bootstrap_draws*(time to compute a single optimal model)) to runtime! expand list with caution! (or with abundant cheap compute.) default is 2020 and 2035, to generate histogram of npv_welfare_gains comparable to the headline numbers.
 source("calibrate_parameters.r", print.eval=TRUE) # reads in all calibrated parameter values, estimates the launch constraint, constructs the necessary data series, and generates main text figure 1.
 
 if(counterfactual=="avoidance") {
@@ -119,10 +117,6 @@ if(counterfactual=="avoidance") {
 
 if(counterfactual=="discount"){
 	discount_rate_vary <- seq(0.03,0.07,0.01)
-}
-
-if(counterfactual=="military"){
-	mil_S_vary <- c(450,1350)
 }
 
 #############################################################################
@@ -146,16 +140,6 @@ if(counterfactual=="discount"){
 		discount_rate <- discount_rate_vary[r]
 		discount_fac <- 1/(1+discount_rate)
 		message("Discount rate is now ",discount_rate,".")
-		source("main_model_estimation.r")
-		source("main_model_projection.r")
-	}
-}
-
-if(counterfactual=="military"){
-	for(r in 1:length(mil_S_vary)){
-		#mil_S <- 0
-		mil_S <- mil_S_vary[r]
-		message("Military satellite population is now ",mil_S,".")
 		source("main_model_estimation.r")
 		source("main_model_projection.r")
 	}
@@ -234,7 +218,3 @@ if(counterfactual=="avoidance") {
 	source("avoidance_cf_figures.r", print.eval=TRUE)
 }
 
-if(counterfactual=="military") {
-	dev.off()
-	source("military_cf_figures.r", print.eval=TRUE)
-}

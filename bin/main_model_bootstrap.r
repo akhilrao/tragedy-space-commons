@@ -239,26 +239,50 @@ if(counterfactual=="none") {
 	plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
 	dev.off()
 
+	# test <- data.frame(year=seq(2006,by=1,length.out=length(fe_eqm)),returns=fe_eqm)
+	# excess_returns_growth_plot <- ggplot(data=test[which(test$year>=2020),], aes(x=year,y=returns)) + geom_line(size=1) + theme_bw() + ylab("Excess returns") + xlab("Year") +
+	# 				theme(text=element_text(family="Helvetica",size=20),
+	# 				axis.text.x=element_text(family="Helvetica",size=20),
+	# 				axis.text.y=element_text(family="Helvetica",size=20),
+	# 				plot.title=element_text(family="Helvetica",size=20),
+	# 				legend.text=element_text(family="Helvetica",size=20) )
+
+	# png(width=1250,height=650,filename=paste0("../images/tax_and_returns.png"))
+	# plot_grid(opt_tax_path,excess_returns_growth_plot,labels=c("a","b"),align="v",axis="1",nrow=2,ncol=1,rel_widths=c(1,1),label_size=20)
+	# dev.off()
+
+	# excess_returns_growth_plot_2 <- ggplot(data=test, aes(x=year,y=returns)) + geom_line(size=1) + theme_bw() + ylab("Excess returns") + xlab("Year") +
+	# 				theme(text=element_text(family="Helvetica",size=20),
+	# 				axis.text.x=element_text(family="Helvetica",size=20),
+	# 				axis.text.y=element_text(family="Helvetica",size=20),
+	# 				plot.title=element_text(family="Helvetica",size=20),
+	# 				legend.text=element_text(family="Helvetica",size=20) )
+
+
+	# png(width=1250,height=650,filename=paste0("../images/full_excess_returns.png"))
+	# excess_returns_growth_plot_2
+	# dev.off()
+
 	##### SI Figures
 
-	# SI figure 8
-	png(width=800,height=500,filename="../images/SI_figure_8.png")
+	# SI figure 4
+	png(width=800,height=500,filename="../images/SI_fig_4.png")
 	plot_grid(m_bs_small_long_bootstrap_oalaunch_plot, m_bs_small_long_bootstrap_oasats_plot, m_bs_small_long_bootstrap_oadebs_plot, m_bs_small_long_bootstrap_oacoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=15)
 	dev.off()
 
-	# SI figure 9
-	png(width=800,height=500,filename="../images/SI_figure_9.png")
+	# SI figure 5
+	png(width=800,height=500,filename="../images/SI_fig_5.png")
 	plot_grid(m_bs_small_long_bootstrap_optlaunch_plot, m_bs_small_long_bootstrap_optsats_plot, m_bs_small_long_bootstrap_optdebs_plot, m_bs_small_long_bootstrap_optcoll_plot,align="h",labels=c("a","b","c","d"),axis="1",nrow=2,rel_widths=c(0.5,0.5),label_size=15)
 	dev.off()
 
-	# SI figure 10
-	png(width=400,height=300,filename="../images/SI_figure_10.png")
+	# SI figure 6
+	png(width=400,height=300,filename="../images/SI_fig_6.png")
 	m_bs_small_long_bootstrap_opttax_plot
 	dev.off()
 
-	png(width=400,height=300,filename="../images/250_draws_middle_90.png")
-	m_bs_small_long_bootstrap_hist_plot_mid90
-	dev.off()
+	# png(width=400,height=300,filename="../images/250_draws_middle_90.png")
+	# m_bs_small_long_bootstrap_hist_plot_mid90
+	# dev.off()
 }
 
 if(counterfactual=="military") {
