@@ -26,7 +26,8 @@ message("Standard errors for collision risk equation: S2 = ", sd_risk_cals[[1]],
 message("Standard errors for debris law of motion: debris = ", sd_deblom_cals[[1]], ", launch_successes = ", sd_deblom_cals[[2]], ", ASAT destructions = ", sd_deblom_cals[[3]], ", SSfrags = ", sd_deblom_cals[[4]], ", SDfrags = ", sd_deblom_cals[[5]])
 
 # the physical parameters are draws from the bootstrap world's distributions of parameters(risk) and parameters(debris|parameters(risk))
-set.seed(501)
+#set.seed(501)
+set.seed(105)
 bs_draw_select_idx <- sample(1:nrow(accepted_risk_cal_set),size=n_path_sim_bootstrap_draws) # this selects a random sequence of n_path_sim_bootstrap_draws-many parameters
 risk_cal_set_B <- accepted_risk_cal_set[bs_draw_select_idx,-1]
 deblom_cal_set_B <- accepted_deblom_cal_set[bs_draw_select_idx,-1]

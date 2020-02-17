@@ -56,7 +56,9 @@ plot_pfn_vfn <- function(vfn,launch_pfn,Sbasegrid,Dbasegrid,labels) {
 	fv_mat <- t(matrix(vfn,nrow=length(Sbasegrid),ncol=length(Dbasegrid)))
 	l_po_mat <- t(matrix(launch_pfn,nrow=length(Sbasegrid),ncol=length(Dbasegrid)))
 
+	dev.new()
 	image2D(z=fv_mat,x=Dbasegrid,y=Sbasegrid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100),contour=TRUE,main=labels[1])
+	dev.new()
 	image2D(z=l_po_mat,x=Dbasegrid,y=Sbasegrid,xlab=c("Debris"),ylab=c("Satellites"),col=plasma(n=100), main=labels[2])
 }
 

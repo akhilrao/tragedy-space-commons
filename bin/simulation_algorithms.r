@@ -290,7 +290,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 	result <- cbind(newX,newX,new)
 	# initialize epsilon-delta and count
 	#ifelse(t==T, epsilon <- max(n_grid_points*1e-5,1e-3), epsilon <- max(n_grid_points*2e-5,1e-3)) # tighter epsilon for value function convergence in final period, looser epsilon for policy function convergence in prior periods.
-	ifelse(t==T, epsilon <- 1, epsilon <- 1) # seems to be a reasonable convergence tolerance, given dollar value normalization from norm_const and grid values
+	ifelse(t==T, epsilon <- 0.01, epsilon <- 1) # seems to be a reasonable convergence tolerance, given dollar value normalization from norm_const and grid values
 	delta_old <- 0
 	delta <- epsilon + 10
 	delta2 <- 25
@@ -315,7 +315,7 @@ dynamic_vfi_solver <- function(panel,igrid,asats,t,T,p,F,...) {
 		# vspline.time <- (proc.time() - vspline.tm)[3]
 		# ## out
 		# cat(paste0("\n Done. Time to estimate interpolant: ",round(proc.time()[3] - vspline.time,3)," seconds"))
-
+		
 		# #spline_vfn_int <- as.vector(predict(tps_model,x=tps_x))
 		# spline_vfn_int <- as.vector(predict(tps_model))
 		# ## replace solved value function with smoother(?) interpolation
