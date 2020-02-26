@@ -364,59 +364,7 @@ opt_tax_path_solo <- risk_proj_nolt +
 		plot.title=element_text(family="Helvetica",size=20),
 		legend.text=element_text(family="Helvetica",size=20) ) 
 
-opt_dev_tax_path_solo <- risk_proj_nolt + 
-	geom_line(aes(y=opt_dev_tax_path),size=data_size) +
-	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_bw() +
-	ggtitle("Optimal satellite tax path") +
-	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
-	theme(text=element_text(family="Helvetica",size=15),
-		axis.text.x=element_text(family="Helvetica",size=20),
-		axis.text.y=element_text(family="Helvetica",size=20),
-		plot.title=element_text(family="Helvetica",size=20),
-		legend.text=element_text(family="Helvetica",size=20) ) + 
-	ylim(limits = c(min(OA_OPT$opt_dev_tax_path[which(OA_OPT$start_time.opt==14)]), max(OA_OPT$opt_dev_tax_path[which(OA_OPT$start_time.opt==14)])))
-
-opt_dev_tax_path_all <- risk_proj + 
-	geom_line(aes(y=opt_dev_tax_path,group=as.factor(start_time.opt),color=as.factor(start_time.opt)),size=data_size) +
-	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_bw() +
-	labs(color="Optimal mgmt\nstart year") +
-	ggtitle("Optimal satellite tax path") +
-	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
-	theme(text=element_text(family="Helvetica",size=15),
-		axis.text.x=element_text(family="Helvetica",size=20),
-		axis.text.y=element_text(family="Helvetica",size=20),
-		plot.title=element_text(family="Helvetica",size=20),
-		legend.text=element_text(family="Helvetica",size=20) ) + 
-	ylim(limits = c(min(OA_OPT$opt_dev_tax_path), max(OA_OPT$opt_dev_tax_path)))
-
 risk_proj_20xx <- ggplot(data=OA_OPT[which(OA_OPT$start_year==2010|OA_OPT$start_year==2020|OA_OPT$start_year==2035),],aes(x=year))
-
-opt_dev_tax_path_comp <- risk_proj_nolt + 
-	geom_line(aes(y=opt_tax_path, group=as.factor(start_year), linetype=as.factor(start_year)),size=data_size, color="dark gray") +
-	geom_line(aes(y=opt_dev_tax_path, group=as.factor(start_year), linetype=as.factor(start_year)),size=data_size) +
-	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_bw() +
-	ggtitle("Optimal satellite tax path comparison") +
-	guides(linetype=FALSE)	+
-	theme(text=element_text(family="Helvetica",size=15),
-		axis.text.x=element_text(family="Helvetica",size=20),
-		axis.text.y=element_text(family="Helvetica",size=20),
-		plot.title=element_text(family="Helvetica",size=20),
-		legend.text=element_text(family="Helvetica",size=20) )
-
-opt_dev_tax_path_comp_all <- risk_proj_20xx + 
-	geom_line(aes(y=opt_dev_tax_path,group=as.factor(start_year),linetype=as.factor(start_year)),size=data_size) +
-	geom_line(aes(y=opt_tax_path,group=as.factor(start_year),linetype=as.factor(start_year)),size=data_size, color="dark gray") +
-	guides(linetype=FALSE) +
-	ylab("Optimal satellite tax ($/sat)") + xlab("year") + theme_bw() +
-#	labs(color="Optimal mgmt\nstart year") +
-	ggtitle("Optimal satellite tax paths") +
-#	scale_color_viridis(discrete=TRUE,labels=c(paste(opt_start_year,sep=",")))	+
-	theme(text=element_text(family="Helvetica",size=15),
-		axis.text.x=element_text(family="Helvetica",size=20),
-		axis.text.y=element_text(family="Helvetica",size=20),
-		plot.title=element_text(family="Helvetica",size=20),
-		legend.text=element_text(family="Helvetica",size=20) ) + 
-	ylim(limits = c(0, max(OA_OPT$opt_tax_path)))
 
 #############################################################################
 # 3.  Main text figures

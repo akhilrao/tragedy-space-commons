@@ -147,42 +147,6 @@ opt_path <- rbindlist(opt_path_list)
 
 	F_over_horizon <- F[1:nrow(OA_OPT)]
 	OA_OPT$opt_tax_path <- (OA_OPT$collision_rate.oa/OA_OPT$satellites.oa - OA_OPT$collision_rate.opt/OA_OPT$satellites.opt)*F_over_horizon*norm_const*1e+9/OA_OPT$satellites.oa # 1e+9 scales to units of billion (nominal) dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience. We divide by the number of satellites to get the rate into a probability. The final division by the number of open access satellites converts the cost (F_over_horizon*norm_const*1e+9) from total dollars paid by industry into dollars per open-access satellite.
-	fe_eqm_next_ts <- data.frame(year=unique(OA_OPT$year),fe_eqm_next=fe_eqm[2:(length(unique(OA_OPT$year))+1)],launch_con=launch_constraint[2:(length(unique(OA_OPT$year))+1)])
-	OA_OPT <- merge(OA_OPT,fe_eqm_next_ts)
-	OA_OPT$num_destr_asat[is.na(OA_OPT$num_destr_asat)] <- 0
-
-	OA_OPT$one_period_launch_deviation <- rep(-1,length=nrow(OA_OPT))
-	for(i in 1:nrow(OA_OPT)){
-		OA_OPT$one_period_launch_deviation[i] <- oa_deviation(OA_OPT$satellites.opt[i], OA_OPT$debris.opt[i], OA_OPT$fe_eqm_next[i], OA_OPT$launch_con[i], OA_OPT$num_destr_asat[i])
-	}
-
-	OA_OPT$one_period_sat_deviation <- S_(OA_OPT$one_period_launch_deviation,OA_OPT$satellites.opt,OA_OPT$debris.opt)
-	OA_OPT$one_period_deb_deviation <- D_(OA_OPT$one_period_launch_deviation,OA_OPT$satellites.opt,OA_OPT$debris.opt,OA_OPT$num_destr_asat)
-
-	shift_up <- function(x,optx) {
-		output <- c(optx[1],x[1:(length(x)-1)])
-		return(output)
-	}
-
-	deviation_dfrm <- data.frame(year=OA_OPT$year, start_time.opt=OA_OPT$start_time.opt,
-						sats_dev=OA_OPT$one_period_sat_deviation, optS=OA_OPT$satellites.opt,
-						debs_dev=OA_OPT$one_period_deb_deviation, optD=OA_OPT$debris.opt, 
-						launch_dev=OA_OPT$one_period_launch_deviation, opt_launch=OA_OPT$launches.opt,
-						optL=OA_OPT$collision_rate.opt/OA_OPT$satellites.opt, 
-						F_over_horizon=OA_OPT$costs.opt)
-
-	deviation_dfrm <- ddply(deviation_dfrm, ~start_time.opt, transform, sats = shift_up(sats_dev,optS), debs = shift_up(debs_dev,optD))
-	deviation_dfrm <- ddply(deviation_dfrm, ~start_time.opt, transform, L_dev = L(sats_dev,debs_dev)/sats_dev)
-	deviation_dfrm <- ddply(deviation_dfrm, ~start_time.opt, transform, excess_L = L_dev-optL)
-
-	deviation_dfrm$excess_L[which(deviation_dfrm$excess_L<1e-16)] <- 0
-
-	deviation_dfrm$opt_dev_tax_path <- (deviation_dfrm$excess_L*deviation_dfrm$F_over_horizon*norm_const*1e+9)/deviation_dfrm$optS
-	# this is the tax that would deter a one-period open access deviation from a given path
-
-	# 1e+9 scales to units of dollars from units of billion dollars. "norm_const" is the normalization constant used during calibration to rescale the economic parameters for computational convenience. We divide by the number of satellites to get the rate into a probability. The final division by the number of open access satellites converts the cost (F_over_horizon*norm_const*1e+9) from total dollars paid by industry into dollars per open-access satellite.
-
-	OA_OPT <- merge(OA_OPT,deviation_dfrm[,c("year","start_time.opt","excess_L","opt_dev_tax_path")],by=c("year","start_time.opt"))
 
 	total_loop_wall_time <- round((proc.time()[3] - total_time)/60,3)
 	opt_models_time_taken <- round((opt_end_time - opt_start_time)/60,3)
@@ -201,6 +165,7 @@ opt_path <- rbindlist(opt_path_list)
 	if(b>1){
 		OA_OPT_bootstrap <- rbind(OA_OPT_bootstrap, OA_OPT)
 	}
+
+	write.csv(OA_OPT_bootstrap,file="../data/bootstrapped_simulation.csv",append=TRUE)
 }
 
-write.csv(OA_OPT_bootstrap,file="../data/bootstrapped_simulation.csv")

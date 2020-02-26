@@ -23,7 +23,6 @@ library(viridis)
 library(doParallel)
 library(progress)
 library(plot3D)
-library(reshape2)
 library(fields)
 library(compiler)
 library(stargazer)
@@ -36,19 +35,17 @@ library(reshape2)
 library(BB)
 library(ggpubr)
 
-#font_import(prompt=FALSE)
-
 #############################################################################
 # 1a. Run calibration scripts, enable JIT compilation, adjust affinity mask, load functions and algorithms
 #############################################################################
 
-ncores <- 4 # number of cores to use for parallel computations
+ncores <-1 # number of cores to use for parallel computations. set to 1 by default.
 find_best_nls_parms <- 0 # 1: grid search to find the best starting values for NLS. takes some time; default is set to 0 and starts from prior solve results.
 physics_bootstrap <- 0 # 1: run the physical calibration sensitivity analysis again. only necessary if parameter sets are to be regenerated from scratch. takes some time; default is set to 0 and starts from prior solve results.
 n_physical_bootstrap_draws <- 20000 # number of draws for physical calibration sensitivity analysis.
 
 source("plotting_functions.r")
-system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
+#system(sprintf("taskset -p ffffffffffffffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
 
 # these scripts estimate the parameters of the physical and economic models, and write the parameters out to csv files for calibration later on. they do not construct the data series' necessary for the value function iteration.
 source("calibrate_physical_model.r", print.eval=TRUE)
@@ -56,7 +53,7 @@ source("calibrate_econ_model.r")
 
 rm(list=ls()) # clear workspace again, now that the model parameters are estimated
 enableJIT(3) # turn on JIT compilation for all functions
-system(sprintf("taskset -p 0xffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
+#system(sprintf("taskset -p 0xffffffffffffffffffff %d", Sys.getpid())) # Adjusts the R session's affinity mask from 1 to f, allowing the R process to use all cores.
 
 source("simulation_functions.r")
 source("equations.r")
@@ -74,19 +71,19 @@ source("main_model_tax_path_calc.r")
 # 1b. Set computation hyperparameters
 #############################################################################
 
-ncores <- 4 # number of cores to use for parallel computations
+ncores <- 40 # number of cores to use for parallel computations
 upper <- 1e6 # upper limit for some rootfinders - only requirement is that it should never bind
-oa_gridsize <- 8 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
-S_gridsize_opt <- 8 #28
-D_gridsize_opt <- 8 #28
+oa_gridsize <- 30 # 35 is a nice gridsize (both OA and OPT) for machines with 16GB of RAM, 28 is reasonable with 8GB RAM.
+S_gridsize_opt <- 30 #28
+D_gridsize_opt <- 30 #28
 S_grid_upper_oa <- 8000 
 S_grid_upper_opt <- 2300 #3000
 D_grid_upper_oa <- 250000
 D_grid_upper_opt <- 10000
 
 bootstrap <- 1 # 1: run sensitivity analysis for model outputs. set to 1 by default to generate main text figure 2c.
-force_bootstrap_recalculation <- 1 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
-n_path_sim_bootstrap_draws <- 1000 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
+force_bootstrap_recalculation <- 0 # 1: recalculate all bootstrap models even if the file "bootstrap_simulations.csv" already exists. set to 0 by default since the calculations are costly. should be set to 1 when running for the first time, or when some parameters have been changed.
+n_path_sim_bootstrap_draws <- 375 # number of bootstrap draws to use for open access and optimal path sensitivity analysis. only matters when bootstrap <- 1.
 
 removal_comparison <- 0 # 1: compare baseline model to model with debris removal. will generate paths with R_frac <- 0 if necessary.
 
@@ -106,8 +103,10 @@ total_time <- proc.time()[3]
 start_year <- 2006 # beginning of simulation
 end_year <- 2041 # final year for plots
 projection_end <- 2050 # final year for calculation. should be weakly greater than end_year.
-opt_start_year <- c(start_year,2010,2015,2020,2025,2030,2035)
-opt_start_year_bs <- c(start_year,2020,2035) # optimal management start years for bootstrap draws. WARNING: each entry here will add a lot (n_path_sim_bootstrap_draws*(time to compute a single optimal model)) to runtime! expand list with caution! (or with abundant cheap compute.) default is 2020 and 2035, to generate histogram of npv_welfare_gains comparable to the headline numbers.
+opt_start_year <- c(start_year,2015,2020,2025,2030,2035)
+#opt_start_year_bs <- c(start_year,2020,2035) 
+opt_start_year_bs <- c(2020,2035) 
+# optimal management start years for bootstrap draws. WARNING: each entry here will add a lot (n_path_sim_bootstrap_draws*(time to compute a single optimal model)) to runtime! expand list with caution! (or with abundant cheap compute.) default is 2020 and 2035, to generate histogram of npv_welfare_gains comparable to the headline numbers.
 source("calibrate_parameters.r", print.eval=TRUE) # reads in all calibrated parameter values, estimates the launch constraint, constructs the necessary data series, and generates main text figure 1.
 
 if(counterfactual=="avoidance") {

@@ -37,11 +37,11 @@ opt_pvfn_path <- rbindlist(opt_dvs_output)
 
 # Diagnostics: view solved launch policy functions
 # function(vfn,launch_pfn,Sbasegrid,Dbasegrid,labels)
-kk <- 44
-year_being_examined <- 2006+kk
-vfn <- opt_dvs_output[[kk]]$opt_fleet_vfn
-pfn <- opt_dvs_output[[kk]]$opt_launch_pfn
-plot_pfn_vfn(vfn,pfn,opt_gridlist$S_base_piece,opt_gridlist$D_base_piece,labels=c(paste0("Value function in ",year_being_examined),paste0("Policy function in ",year_being_examined)))
+# kk <- 44
+# year_being_examined <- 2006+kk
+# vfn <- opt_dvs_output[[kk]]$opt_fleet_vfn
+# pfn <- opt_dvs_output[[kk]]$opt_launch_pfn
+# plot_pfn_vfn(vfn,pfn,opt_gridlist$S_base_piece,opt_gridlist$D_base_piece,labels=c(paste0("Value function in ",year_being_examined),paste0("Policy function in ",year_being_examined)))
 
 # # Diagnostics: view spline interpolation
 # current_sats <- opt_dvs_output[[kk]]$satellites

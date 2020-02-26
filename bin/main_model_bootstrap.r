@@ -239,30 +239,6 @@ if(counterfactual=="none") {
 	plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
 	dev.off()
 
-	# test <- data.frame(year=seq(2006,by=1,length.out=length(fe_eqm)),returns=fe_eqm)
-	# excess_returns_growth_plot <- ggplot(data=test[which(test$year>=2020),], aes(x=year,y=returns)) + geom_line(size=1) + theme_bw() + ylab("Excess returns") + xlab("Year") +
-	# 				theme(text=element_text(family="Helvetica",size=20),
-	# 				axis.text.x=element_text(family="Helvetica",size=20),
-	# 				axis.text.y=element_text(family="Helvetica",size=20),
-	# 				plot.title=element_text(family="Helvetica",size=20),
-	# 				legend.text=element_text(family="Helvetica",size=20) )
-
-	# png(width=1250,height=650,filename=paste0("../images/tax_and_returns.png"))
-	# plot_grid(opt_tax_path,excess_returns_growth_plot,labels=c("a","b"),align="v",axis="1",nrow=2,ncol=1,rel_widths=c(1,1),label_size=20)
-	# dev.off()
-
-	# excess_returns_growth_plot_2 <- ggplot(data=test, aes(x=year,y=returns)) + geom_line(size=1) + theme_bw() + ylab("Excess returns") + xlab("Year") +
-	# 				theme(text=element_text(family="Helvetica",size=20),
-	# 				axis.text.x=element_text(family="Helvetica",size=20),
-	# 				axis.text.y=element_text(family="Helvetica",size=20),
-	# 				plot.title=element_text(family="Helvetica",size=20),
-	# 				legend.text=element_text(family="Helvetica",size=20) )
-
-
-	# png(width=1250,height=650,filename=paste0("../images/full_excess_returns.png"))
-	# excess_returns_growth_plot_2
-	# dev.off()
-
 	##### SI Figures
 
 	# SI figure 4
@@ -280,16 +256,5 @@ if(counterfactual=="none") {
 	m_bs_small_long_bootstrap_opttax_plot
 	dev.off()
 
-	# png(width=400,height=300,filename="../images/250_draws_middle_90.png")
-	# m_bs_small_long_bootstrap_hist_plot_mid90
-	# dev.off()
 }
 
-if(counterfactual=="military") {
-	# MT figure 2
-	png(width=1250,height=650,filename=paste0("../images/main_text_figure_2_military_cf.png"))
-	upper_row <- plot_grid(npv_welf_paths,coi_plot,labels=c("a","b"),align="h",axis="1",nrow=1,rel_widths=c(3/5,2/5),label_size=20)
-	lower_row <- plot_grid(opt_tax_path,m_bs_small_long_bootstrap_hist_plot_mid90,labels=c("c","d"),align="h",axis="1",nrow=1,rel_widths=c(1/2,1/2),label_size=20)
-	plot_grid(upper_row,lower_row,labels=c("",""),align="h",axis="1",nrow=2)
-	dev.off()
-}
