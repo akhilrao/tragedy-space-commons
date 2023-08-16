@@ -2,6 +2,8 @@
 
 This repository contains data, code, and images for the paper "Orbital-use fees could more than quadruple the value of the space industry". The majority of the model output was generated in R 3.6.1, but "/data/bootstrap_sims.csv" with 250 bootstrapped paths was generated in R 3.4.4. Changes to the behavior of RNG in 3.6.0 mean that replicating the 250 draws will require adding "RNGkind(sample.kind="Rounding")" to the top of "/data/final_script.r".
 
+To cite the data/code used in the paper without referencing the analysis, you may use this DOI: https://doi.org/10.57968/Middlebury.21565140
+
 ### How is this repository organized?
 
 	* /bin contains all of the R code
